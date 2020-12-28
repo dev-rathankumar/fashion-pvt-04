@@ -1,0 +1,166 @@
+{% load static %}
+{% load mptt_tags %}
+<!--Header-->
+<header class="header animated d-flex align-items-center header-1">
+  <div class="container">
+        <div class="row">
+          <!--Mobile Icons-->
+          <div class="col-4 col-sm-4 col-md-4 d-block d-lg-none mobile-icons">
+                <!--Mobile Toggle-->
+                <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open">
+                    <i class="icon anm anm-times-l"></i>
+                    <i class="anm anm-bars-r"></i>
+                </button>
+                <!--End Mobile Toggle-->
+                <!--Search-->
+                <div class="site-search iconset">
+                    <i class="icon anm anm-search-l"></i>
+                </div>
+                <!--End Search-->
+            </div>
+            <!--Mobile Icons-->
+            <!--Desktop Logo-->
+            <div class="logo col-4 col-sm-4 col-md-4 col-lg-2 align-self-center">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'images/avon-logo.svg' %}" alt="Altocan" title="Altocan fashions" />
+                </a>
+            </div>
+            <!--End Desktop Logo-->
+
+            <div class="col-1 col-sm-1 col-md-1 col-lg-8 align-self-center d-menu-col">
+                <!--Desktop Menu-->
+                <nav class="grid__item" id="AccessibleNav">
+                    <ul id="siteNav" class="site-nav medium center hidearrow">
+                        <li class="lvl1 parent megamenu mdropdown"><a href="{% url 'home' %}">Home <i class="anm anm-angle-down-l"></i></a></li>
+                        <li class="lvl1 parent dropdown"><a href="#">Categories <i class="anm anm-angle-down-l"></i></a>
+                          <ul class="dropdown">
+                            <li class="site-nav"><a href="{% url 'shop' %}">All Products</a></li>
+                            {% recursetree category %}
+                              <li><a href="{% url 'shop' %}category/{{ node.slug }}" class="site-nav">{{ node.category_name }} {% if not node.is_leaf_node %}<i class="anm anm-angle-right-l"></i>{% endif %}</a>
+                                {% if not node.is_leaf_node %}
+                                <ul class="dropdown">
+                                      {{ children }}
+                                </ul>
+                                {% endif %}
+                              </li>
+                            {% endrecursetree %}
+                          </ul>
+                        </li>
+                    <li class="lvl1 parent megamenu"><a href="{% url 'shop' %}">Shop <i class="anm anm-angle-down-l"></i></a></li>
+                    <li class="lvl1 parent megamenu"><a href="{% url 'about' %}">About Us <i class="anm anm-angle-down-l"></i></a></li>
+                    <li class="lvl1 parent megamenu"><a href="{% url 'contact' %}">Contact Us <i class="anm anm-angle-down-l"></i></a></li>
+                  </ul>
+                </nav>
+                <!--End Desktop Menu-->
+            </div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-2 align-self-center icons-col text-right">
+              <!--Search-->
+                <div class="site-search iconset">
+                    <i class="icon anm anm-search-l"></i>
+                </div>
+                <div class="search-drawer">
+                  <div class="container">
+                        <span class="closeSearch anm anm-times-l"></span>
+                        <h3 class="title">What are you looking for?</h3>
+                        <div class="block block-search">
+                            <div class="block block-content">
+                                <form class="form minisearch" id="header-search" action="#" method="get">
+                                    <label for="search" class="label"><span>Search</span></label>
+                                    <div class="control">
+                                        <div class="searchField">
+                                            <div class="search-category">
+                                                    <select id="rgsearch-category">
+                                                        <option value="0">All Categories</option>
+                                                        <option value="4">Shop</option>
+                                                        <option value="6">- All</option>
+                                                        <option value="8">- Men</option>
+                                                        <option value="10">- Women</option>
+                                                        <option value="12">- Shoes</option>
+                                                        <option value="14">- Blouses</option>
+                                                        <option value="16">- Pullovers</option>
+                                                        <option value="18">- Bags</option>
+                                                        <option value="20">- Accessories</option>
+                                                    </select>
+                                                </div>
+                                            <div class="input-box">
+                                                <input id="search" type="text" name="q" value="" placeholder="Search for products, brands..." class="input-text">
+                                                <button type="submit" title="Search" class="action search" disabled=""><i class="icon anm anm-search-l"></i></button>
+                                            </div>
+                                        </div>
+                                  </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Search-->
+                <!--Setting Dropdown-->
+                {% if user.id is not None %}
+                <div class="setting-link iconset">
+                  <img src="{{ user.profile_picture.url }}" alt="" width="30" height="30" style="border-radius:50px;">
+                </div>
+
+                {% else %}
+                <div class="setting-link iconset">
+                  <i class="icon icon-user"></i>
+                </div>
+                {% endif %}
+                <div id="settingsBox">
+                {% if user.id is not None %}
+                <div class="customer-links">
+
+                    <p class="text-center">Welcome <strong>{{ user.name }}</strong></p>
+                    <p><a href="{% url 'userDashboard' %}" class="btn">Go To Dashboard</a></p>
+                    <p class="text-right"><span><a href="javascript:{document.getElementById('logout').submit()}" style="color:red;">Logout</a></span></p>
+                    <form action="{% url 'logout' %}" id="logout" method="POST">
+                      {% csrf_token %}
+                      <input type="hidden">
+                    </form>
+
+                  </div>
+                {% else %}
+                <div class="customer-links">
+                    <p><a href="{% url 'userLogin' %}" class="btn">Customer Login</a></p>
+                    <p><a href="{% url 'login' %}" class="btn">Business Login</a></p>
+                    <p><a href="{% url 'userLogin' %}" class="btn">Manager Login</a></p>
+                      <p class="text-center">New User? <a href="register.html" class="register">Create an Account</a></p>
+                      <p class="text-center">Default welcome msg!</p>
+                  </div>
+                {% endif %}
+
+
+                    <div class="currency-picker">
+                      <span class="ttl">Select Currency</span>
+                        <ul id="currencies" class="cnrLangList">
+                        <li class="selected"><a href="#;">INR</a></li><li><a href="#;">GBP</a></li><li><a href="#;">CAD</a></li><li><a href="#;">USD</a></li><li><a href="#;">AUD</a></li><li><a href="#;">EUR</a></li><li><a href="#;">JPY</a></li></ul>
+                    </div>
+                    <div class="language-picker">
+                      <span class="ttl">SELECT LANGUAGE</span>
+                        <ul id="language" class="cnrLangList">
+                            <li><a href="#">English</a></li><li><a href="#">French</a></li><li><a>German</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--End Setting Dropdown-->
+                <!--Wishlist-->
+                <div class="wishlist-link iconset">
+                  <a href="{% url 'wishlist' %}" class="site-header__cart btn-minicart">
+                    <i class="icon anm anm-heart" style="color:red;"></i>
+                    <span class="wishlist-count">{{wish_count}}</span>
+                  </a>
+                </div>
+                <!--End Wishlist-->
+                <!--Minicart Dropdown-->
+                <div class="header-cart iconset">
+                    <a href="{% url 'cart' %}" class="site-header__cart btn-minicart" data-toggle="modal" data-target="#minicart-drawer">
+                    <!-- <a href="{% url 'cart' %}" class="site-header__cart btn-minicart"> -->
+                        <i class="icon anm anm-bag-l"></i>
+                        <span class="site-cart-count">{{cart_count}}</span>
+                    </a>
+                </div>
+                <!--End Minicart Dropdown-->
+            </div>
+        </div>
+    </div>
+</header>
+<!--End Header-->

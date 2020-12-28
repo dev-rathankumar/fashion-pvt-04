@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Avone Multipurpose eCommerce Bootstrap 4 Html Template</title>
+<meta name="description" content="description">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Favicon -->
+<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" />
+<!-- Plugins CSS -->
+<link rel="stylesheet" href="{% static 'css/plugins.css' %}">
+<!-- Main Style CSS -->
+<link rel="stylesheet" href="{% static 'css/style.css'%}">
+<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+</head>
+<body class="template-index index-demo1">
+<!-- <div id="pre-loader">
+    <img src="{% static 'images/loader.gif' %}" alt="Loading..." />
+</div> -->
+<div class="page-wrapper">
+    <!--Promotion Bar-->
+	<div class="notification-bar mobilehide">
+    	<a href="https://www.altocan.com/" target="_blank" class="notification-bar__message">Visit <b>Altocan</b> Official Website</a>
+        <span class="close-announcement"><i class="anm anm-times-l" aria-hidden="true"></i></span>
+    </div>
+    <!--End Promotion Bar-->
+
+    {% include 'includes/_navbar.html' %}
+
+
+  {% block content %}
+
+
+  {% endblock %}
+
+  {% include 'includes/_footer.html' %}

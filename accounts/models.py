@@ -1,0 +1,219 @@
+from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from smart_selects.db_fields import ChainedForeignKey
+import random
+from django_dnf.fields import DomainNameField
+
+# Image manipulation
+from io import BytesIO
+from PIL import Image
+from django.core.files import File
+
+# Custom user model
+class MyAccountManager(BaseUserManager):
+    def create_user(self, first_name, last_name, username, email, password=None):
+        if not email:
+            raise ValueError('User must have an email address')
+
+        if not username:
+            raise ValueError('User must have an username')
+
+        user = self.model(
+            email = self.normalize_email(email),
+            username = username,
+            first_name = first_name,
+            last_name = last_name,
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, first_name, last_name, email, username, password):
+        user = self.create_user(
+            email = self.normalize_email(email),
+            username = username,
+            password = password,
+            first_name = first_name,
+            last_name = last_name,
+        )
+        user.is_admin = True
+        user.is_active = True
+        user.is_staff = True
+        user.is_superadmin = True
+        user.save(using=self._db)
+        return user
+
+
+# Image compression method
+def compress(image):
+    im = Image.open(image)
+    im_io = BytesIO()
+    im.save(im_io, 'JPEG', quality=60)
+    new_image = File(im_io, name=image.name)
+    return new_image
+
+GenderChoice = (
+    ('male', 'Male'),
+    ('female', 'Female'),
+    ('others', 'Others')
+)
+# User model
+class User(AbstractBaseUser):
+    is_customer     = models.BooleanField(default=False)
+    is_business     = models.BooleanField(default=False)
+    is_regional_manager     = models.BooleanField(default=False)
+
+    first_name      = models.CharField(max_length=50)
+    last_name       = models.CharField(max_length=50)
+    username        = models.CharField(max_length=50, unique=True)
+    email           = models.EmailField(max_length=100, unique=True)
+    phone_number    = models.CharField(max_length=50)
+    gender          = models.CharField(choices=GenderChoice, blank=True, max_length=50)
+    profile_picture = models.ImageField(upload_to='accounts/%Y/%m/%d', default='default/default-user.png', blank=True)
+
+    # required
+    date_joined     = models.DateTimeField(auto_now_add=True)
+    last_login      = models.DateTimeField(auto_now_add=True)
+    created_date    = models.DateTimeField(auto_now_add=True)
+    modified_date   = models.DateTimeField(auto_now=True)
+    is_admin        = models.BooleanField(default=False)
+    is_staff        = models.BooleanField(default=False)
+    is_active       = models.BooleanField(default=False)
+    is_superadmin   = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+
+    objects = MyAccountManager()
+
+    def __str__(self):
+        return self.first_name
+
+    def has_perm(self, perm, obj=None):
+        return self.is_admin
+
+    def has_module_perms(self, add_label):
+        return True
+
+    # Override save method
+    # def save(self, *args, **kwargs):
+    #     new_image = compress(self.profile_picture)
+    #     self.profile_picture = new_image
+    #     super(User, self).save(*args, **kwargs)
+    #     img = Image.open(self.profile_picture.path)
+    #     if img.height > 300 or img.width > 300:
+    #         output_size = (300,300)
+    #         img.thumbnail(output_size)
+    #         img.save(self.profile_picture.path)
+    #     super(User, self).save(*args, **kwargs)
+
+    # Concatenate first name and last name
+    @property
+    def name(self):
+        return f'{self.first_name} {self.last_name}'
+
+
+
+class Country(models.Model):
+    country_name = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = 'country'
+        verbose_name_plural = 'countries'
+
+    def __str__(self):
+        return self.country_name
+
+class State(models.Model):
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    state_name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.state_name
+
+# def upload_to(instance, filename):
+#     return 'managers/%s/images/%s' % (instance.user.username, filename)
+
+class RegionalManager(models.Model):
+    user            = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    regional_manager_id     = models.CharField(max_length=100, blank=True)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    state = ChainedForeignKey(
+            State,
+            chained_field="country",
+            chained_model_field="country",
+            show_all=False,
+            auto_choose=True,
+            sort=True
+        )
+    city = models.CharField(max_length=50)
+    pin_code = models.CharField(max_length=50)
+    address_line_1 = models.CharField(max_length=50)
+    address_line_2 = models.CharField(max_length=50, blank=True)
+    date_of_joining = models.DateField()
+
+    # Override save method
+    def save(self, *args, **kwargs):
+        super(RegionalManager, self).save(*args, **kwargs)
+        self.regional_manager_id = '1'+str(random.randint(10000,99999))+str(self.user.id)
+        super(RegionalManager, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.user.first_name
+
+# Custom image upoad path
+# def upload_to(instance, filename):
+#     return 'business/%s/images/%s' % (instance.user.username, filename)
+
+class Business(models.Model):
+    user         = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    business_id  = models.CharField(max_length=100, blank=True)
+    regional_manager = models.ForeignKey(RegionalManager, on_delete=models.CASCADE)
+    company_name = models.CharField(max_length=50)
+    domain_name = DomainNameField(unique=True)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    state = ChainedForeignKey(
+            State,
+            chained_field="country",
+            chained_model_field="country",
+            show_all=False,
+            auto_choose=True,
+            sort=True
+        )
+    city = models.CharField(max_length=50)
+    pin_code = models.CharField(max_length=50)
+    address_line_1 = models.CharField(max_length=50)
+    address_line_2 = models.CharField(max_length=50, blank=True)
+    account_activation_date = models.DateField()
+    account_expiry_date = models.DateField()
+
+    class Meta:
+        verbose_name = 'business'
+        verbose_name_plural = 'businesses'
+
+    # Override save method
+    def save(self, *args, **kwargs):
+        super(Business, self).save(*args, **kwargs)
+        self.business_id = '2'+str(random.randint(10000,99999))+str(self.user.id)
+        super(Business, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.company_name
+
+
+# def upload_to(instance, filename):
+#     return 'customers/%s/images/%s' % (instance.user.username, filename)
+
+class Customer(models.Model):
+    user            = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    customer_id     = models.CharField(max_length=100, blank=True)
+
+    # Override save method
+    def save(self, *args, **kwargs):
+        super(Customer, self).save(*args, **kwargs)
+        self.customer_id = '3'+str(random.randint(10000,99999))+str(self.user.id)
+        super(Customer, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.user.first_name
