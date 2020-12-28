@@ -190,3 +190,7 @@ def wishlist_delete(request, id):
     wishlist = Wishlist.objects.filter(id=id).delete()
     messages.success(request, "Product has been removed from your Wishlist.")
     return redirect('wishlist')
+
+
+def search(request):
+    return render(request, 'shop/search.html')

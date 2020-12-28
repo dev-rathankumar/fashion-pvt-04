@@ -25,7 +25,7 @@ urlpatterns = [
     path('forgotPassword/', AccountViews.forgotPassword, name='forgotPassword'),
     path('resetpassword_validate/<uidb64>/<token>/', AccountViews.resetpassword_validate, name='resetpassword_validate'),
     path('resetPassword/', AccountViews.resetPassword, name='resetPassword'),
-    
+
     # Smart select field
     path('chaining/', include('smart_selects.urls')),
 
@@ -41,10 +41,14 @@ urlpatterns = [
 
     # Newsletters
     path('subscribe/', NewsletterViews.email_list_subscribe, name='subscribe'),
-    
+
     # Wishlist
     path('my-wishlist/', ProductViews.wishlist, name='wishlist'),
     path('add_to_wishlist/<int:product_id>', ProductViews.add_to_wishlist, name='add_to_wishlist'),
     path('wishlist_addtoshopcart/<int:product_id>/', ProductViews.wishlist_addtoshopcart, name='wishlist_addtoshopcart'),
     path('wishlist_delete/<int:id>/', ProductViews.wishlist_delete, name='wishlist_delete'),
+
+    # Search
+    path('search/', ProductViews.search, name='search'),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
