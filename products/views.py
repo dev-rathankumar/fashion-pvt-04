@@ -1,17 +1,46 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Category
-from .models import Product, ProductGallery, Variants, Wishlist, WishlistForm
+from .models import Category, Variants, Color
+from .models import Product, ProductGallery, Wishlist, WishlistForm, Size
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from carts.models import ShopCart, ShopCartForm
+from django.db.models import Q
+from django.db.models import Max
 
 from django.http import HttpResponse, HttpResponseRedirect
+
 
 # Create your views here.
 def shop(request, slug=None):
     categories = None
     products = None
+    popular_products = None
+
+    sizes = Size.objects.values_list('name', flat=True).distinct()
+    colors = Color.objects.all()
+    if 'keyword' in request.GET:
+        keyword = request.GET['keyword']
+        if keyword:
+            products = Product.objects.order_by('-created_date').filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword))
+
+    if 'min-price' in request.GET:
+        min_price = request.GET['min-price']
+        max_price = request.GET['max-price']
+        if max_price:
+            products = Product.objects.filter(price__gte=min_price, price__lte=max_price)
+
+    if 'size' in request.GET:
+        size = request.GET.getlist('size') # ['M', 'XL']
+        size_id = Size.objects.filter(name__in=size).values_list('id', flat=True)  # [2, 3, 4]
+        product = Variants.objects.filter(size__in=size_id).values_list('product', flat=True)  # [ 1, 2 ]
+        products = Product.objects.filter(id__in=product)
+
+    if 'color' in request.GET:
+        color = request.GET.getlist('color')
+        color_id = Color.objects.filter(name__in=color).values_list('id', flat=True)  # [2, 3, 4]
+        product = Variants.objects.filter(color__in=color_id).values_list('product', flat=True)  # [ 1, 2 ]
+        products = Product.objects.filter(id__in=product)
 
     if slug != None:
         categories = get_object_or_404(Category, slug=slug)
@@ -20,16 +49,21 @@ def shop(request, slug=None):
         page = request.GET.get('page')
         paged_products = paginator.get_page(page)
         product_count = products.count()
+        popular_products = Product.objects.all().filter(is_available=True, is_active=True, is_popular=True).order_by('id')
     else:
         products = Product.objects.all().filter(is_available=True, is_active=True).order_by('id')
         paginator = Paginator(products, 10)
         page = request.GET.get('page')
         paged_products = paginator.get_page(page)
         product_count = products.count()
+        popular_products = Product.objects.all().filter(is_available=True, is_active=True, is_popular=True).order_by('id')
 
     context = {
         'products': paged_products,
         'product_count': product_count,
+        'popular_products': popular_products,
+        'sizes': sizes,
+        'colors': colors,
     }
     return render(request, 'shop/shop.html', context)
 
@@ -103,7 +137,6 @@ def add_to_wishlist(request,product_id):
         else:
             control = 0 # The product is not in the cart"""
 
-
     if request.method == 'POST':  # if there is a post
         form = WishlistForm(request.POST)
 
@@ -128,7 +161,7 @@ def wishlist_addtoshopcart(request, product_id):
     id = product_id
     url = request.META.get('HTTP_REFERER')  # get last url
     current_user = request.user  # Access User Session information
-    product= Product.objects.get(pk=id)
+    product = Product.objects.get(pk=id)
     if product.variant != 'None':
         variantid = request.POST.get('variantid')  # from variant add to cart
         checkinvariant = ShopCart.objects.filter(variant_id=variantid, user_id=current_user.id)  # Check product in shopcart
@@ -193,4 +226,47 @@ def wishlist_delete(request, id):
 
 
 def search(request):
-    return render(request, 'shop/search.html')
+    products = None
+    product_count = 0
+
+    sizes = Size.objects.values_list('name', flat=True).distinct()
+    colors = Color.objects.all()
+    if 'keyword' in request.GET:
+        keyword = request.GET['keyword']
+        if keyword:
+            products = Product.objects.order_by('-created_date').filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword))
+            product_count = products.count()
+
+    if 'min-price' in request.GET:
+        min_price = request.GET['min-price']
+        max_price = request.GET['max-price']
+        if max_price:
+            products = Product.objects.filter(price__gte=min_price, price__lte=max_price)
+            product_count = products.count()
+
+    if 'size' in request.GET:
+        size = request.GET.getlist('size') # ['M', 'XL']
+        size_id = Size.objects.filter(name__in=size).values_list('id', flat=True)  # [2, 3, 4]
+        product = Variants.objects.filter(size__in=size_id).values_list('product', flat=True)  # [ 1, 2 ]
+        products = Product.objects.filter(id__in=product)
+        product_count = products.count()
+
+    if 'color' in request.GET:
+        color = request.GET.getlist('color')
+        color_id = Color.objects.filter(name__in=color).values_list('id', flat=True)  # [2, 3, 4]
+        product = Variants.objects.filter(color__in=color_id).values_list('product', flat=True)  # [ 1, 2 ]
+        products = Product.objects.filter(id__in=product)
+        product_count = products.count()
+
+
+
+
+    context = {
+        'products': products,
+        'product_count': product_count,
+        'sizes': sizes,
+        'colors': colors,
+        'values' : request.GET,
+    }
+
+    return render(request, 'shop/shop.html', context)

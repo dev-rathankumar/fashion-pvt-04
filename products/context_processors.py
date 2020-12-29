@@ -1,4 +1,5 @@
-from .models import Wishlist
+from .models import Wishlist, Product
+from django.db.models import Max, Min
 
 def wish_counter(request):
     current_user = request.user
@@ -14,3 +15,13 @@ def wish_counter(request):
             wish_count = 0
     return dict(wish_count=wish_count)
 
+
+
+def max_product_price(request):
+    get_max_price = Product.objects.aggregate(Max('price'))
+    for k,v in get_max_price.items():
+        max_price = int(v)
+    get_min_price = Product.objects.aggregate(Min('price'))
+    for k,v in get_min_price.items():
+        min_price = int(v)
+    return dict(min_price=min_price, max_price=max_price)

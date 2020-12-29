@@ -471,6 +471,25 @@
     }
     newsletter_popup();
 </script>
+
+<script type="text/javascript">
+  function price_slider(){
+    $("#slider-range").slider({
+      range: true,
+      min: {{ min_price }},
+      max: {{ max_price }},
+      values: [0, {{ max_price }}],
+      slide: function(event, ui) {
+        $("#min-price").val(ui.values[0]);
+        $("#max-price").val(ui.values[1]);
+      }
+    });
+    $("#min-price").val($("#slider-range").slider("values", 0));
+    $("#max-price").val($("#slider-range").slider("values", 1));
+  }
+  price_slider();
+</script>
+
  <!--End Newsletter Popup Cookies-->
 </body>
 </html>

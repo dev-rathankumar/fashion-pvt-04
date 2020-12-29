@@ -12,6 +12,7 @@ from django.core.files import File
 
 from django.utils.safestring import mark_safe
 
+
 # Image compression method
 def compress(image):
     im = Image.open(image)
@@ -19,6 +20,7 @@ def compress(image):
     im.save(im_io, 'JPEG', quality=60)
     new_image = File(im_io, name=image.name)
     return new_image
+
 
 class Product(models.Model):
     VARIANTS = (
@@ -44,7 +46,6 @@ class Product(models.Model):
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now=True)
 
-
     # Override save method
     def save(self, *args, **kwargs):
         # new_image = compress(self.image)
@@ -64,7 +65,6 @@ class Product(models.Model):
         return reverse('product_detail', args=[self.category.slug, self.slug])
 
 
-
 class ProductGallery(models.Model):
     product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE)
     image  = models.ImageField(upload_to='store/products/%Y/%m/%d', max_length=5000)
@@ -77,12 +77,13 @@ class ProductGallery(models.Model):
         verbose_name_plural = 'product gallery'
 
 
-
 class Color(models.Model):
-    name = models.CharField(max_length=20)
-    code = models.CharField(max_length=10, blank=True,null=True)
+    name = models.CharField(max_length=20, unique=True)
+    code = models.CharField(max_length=10, blank=True, null=True)
+
     def __str__(self):
         return self.name
+
     def color_tag(self):
         if self.code is not None:
             return mark_safe('<p style="background-color:{}">Color </p>'.format(self.code))
@@ -91,7 +92,8 @@ class Color(models.Model):
 
 
 class Size(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, unique=True)
+
     def __str__(self):
         return self.name
 
@@ -112,7 +114,7 @@ class Variants(models.Model):
     def image(self):
         img = ProductGallery.objects.get(id=self.image_id)
         if img.id is not None:
-             varimage=img.image.url
+            varimage=img.image.url
         else:
             varimage=""
         return varimage

@@ -77,6 +77,7 @@ TEMPLATES = [
                 'category.context_processors.category_names',
                 'carts.context_processors.counter',
                 'products.context_processors.wish_counter',
+                'products.context_processors.max_product_price',
             ],
         },
     },

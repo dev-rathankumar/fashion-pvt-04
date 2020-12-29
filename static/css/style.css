@@ -2084,7 +2084,7 @@ ol#compare-items li .btn-remove1 { position:absolute; right:5px; top:5px; }
 .brand-filter li { margin-bottom:4px; }
 
 .sidebar .sidebar_widget.categories .sub-level { position:relative; }
-.sidebar .sidebar_widget.categories .sub-level > a:after { content:'\ebe0'; font-family:'annimex-icons'; display:inline-block; position:absolute; right:0; top:3px; }
+.sidebar .sidebar_widget.categories .sub-level > a:after { content:'\ebe0'; pointer-events: none; font-family:'annimex-icons'; display:inline-block; position:absolute; right:0; top:3px; }
 .sidebar .sidebar_widget.categories .sub-level > a.active:after { content:'\ebd1'; font-family:'annimex-icons'; display:inline-block; }
 .sidebar .sidebar_widget.categories .sub-level ul { margin-left:15px; margin-bottom:0; display:none; }
 .sidebar .sidebar_widget.categories li a { color:#111; font-size:14px; display:block; }
@@ -2796,7 +2796,7 @@ ul.color-option{
 	outline: 2px solid #000;
 }
 label.var_color{
-	margin-left: 20px;
+	margin-left: 10px;
 	cursor: pointer;
 }
 .dashboard-list a.active{
@@ -2840,10 +2840,25 @@ label.var_color{
 	font-weight: 500;
 	font-size: 12px;
  }
- 
+
  #strengthMessage{
    position: relative;
  }
  .wishlist-table .product-thumbnail a img{
 	max-width: 60px !important;
+}
+[type=checkbox]:checked + .filter_color{
+        box-shadow: 2px 2px 2px 2px black;
+        border-radius: 50px !important;
+}
+.var_color input.filter_color_input{
+    display:none;
+}
+
+[type=checkbox]:checked + .filter_size{
+        box-shadow: 2px 2px 2px 2px black;
+        border-radius: 50px !important;
+}
+.var_color input.filter_color_input{
+    display:none;
 }
