@@ -44,11 +44,14 @@ urlpatterns = [
 
     # Wishlist
     path('my-wishlist/', ProductViews.wishlist, name='wishlist'),
-    path('add_to_wishlist/<int:product_id>', ProductViews.add_to_wishlist, name='add_to_wishlist'),
+    path('add_to_wishlist/<int:product_id>/', ProductViews.add_to_wishlist, name='add_to_wishlist'),
     path('wishlist_addtoshopcart/<int:product_id>/', ProductViews.wishlist_addtoshopcart, name='wishlist_addtoshopcart'),
     path('wishlist_delete/<int:id>/', ProductViews.wishlist_delete, name='wishlist_delete'),
 
     # Search
     path('search/', ProductViews.search, name='search'),
+
+    # Review
+    path('submit_review/<int:product_id>/', ProductViews.submit_review, name='submit_review')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

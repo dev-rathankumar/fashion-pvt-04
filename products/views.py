@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Category, Variants, Color
 from .models import Product, ProductGallery, Wishlist, WishlistForm, Size
+from .models import Category, Variants, Color
+from .models import ReviewRating, ReviewForm
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -86,6 +87,8 @@ def product_detail(request, category_slug, product_slug):
     query = request.GET.get('q')
     get_id = Product.objects.get(slug=product_slug)
     id = get_id.id
+    # Get reviews and ratings
+    reviews = ReviewRating.objects.filter(product_id=id, status=True)
     if product.variant !="None":
         if request.method == 'POST': # if the color is selected
             variant_id = request.POST.get('variantid')
@@ -99,7 +102,7 @@ def product_detail(request, category_slug, product_slug):
             sizes = Variants.objects.raw('SELECT DISTINCT ON (size_id) * FROM products_variants WHERE product_id=%s ORDER BY size_id',[id])
             variant =Variants.objects.get(id=variants[0].id)
         context.update({'sizes': sizes, 'colors': colors,
-                        'variant': variant,'query': query
+                        'variant': variant,'query': query, 'reviews': reviews
                         })
     return render(request, 'shop/product_detail.html', context)
 
@@ -258,15 +261,39 @@ def search(request):
         products = Product.objects.filter(id__in=product)
         product_count = products.count()
 
-
-
-
     context = {
         'products': products,
         'product_count': product_count,
         'sizes': sizes,
         'colors': colors,
-        'values' : request.GET,
+        # 'values' : request.GET,
     }
 
     return render(request, 'shop/shop.html', context)
+
+
+def submit_review(request, product_id):
+    url = request.META.get('HTTP_REFERER')
+    if request.method == 'POST':
+        try:
+            review = ReviewRating.objects.get(user__id=request.user.id, product__id=product_id)
+            form = ReviewForm(request.POST, instance = review) # Update existing record
+            form.save()
+            messages.success(request, "Thank you! Your review has been updated.")
+            return HttpResponseRedirect(url)
+
+        except ReviewRating.DoesNotExist:
+                form = ReviewForm(request.POST) # Save new record
+                if form.is_valid():
+                    data = ReviewRating()
+                    data.subject = form.cleaned_data['subject']
+                    data.review = form.cleaned_data['review']
+                    data.rating = form.cleaned_data['rating']
+                    data.ip = request.META.get('REMOTE_ADDR')
+                    data.product_id=product_id
+                    data.user_id = request.user.id
+                    data.save()
+                    messages.success(request, "Thank you! Your review has been submitted.")
+                    return HttpResponseRedirect(url)
+
+    return HttpResponseRedirect(url)

@@ -4,6 +4,7 @@ from business.models import Business
 from accounts.models import User
 from django.urls import reverse
 from django.forms import ModelForm
+from django.db.models import Avg, Count
 
 # Image manipulation
 from io import BytesIO
@@ -63,6 +64,21 @@ class Product(models.Model):
 
     def get_url(self):
         return reverse('product_detail', args=[self.category.slug, self.slug])
+
+    def avaregereview(self):
+        reviews = ReviewRating.objects.filter(product=self, status=True).aggregate(avarage=Avg('rating'))
+        avg=0
+        if reviews["avarage"] is not None:
+            avg=float(reviews["avarage"])
+        return avg
+
+    def countreview(self):
+        reviews = ReviewRating.objects.filter(product=self, status=True).aggregate(count=Count('id'))
+        cnt=0
+        if reviews["count"] is not None:
+            cnt = int(reviews["count"])
+        return cnt
+
 
 
 class ProductGallery(models.Model):
@@ -161,3 +177,29 @@ class WishlistForm(ModelForm):
     class Meta:
         model = Wishlist
         fields = ['quantity']
+
+
+# Review and Rating model
+class ReviewRating(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=50, blank=True)
+    review = models.TextField(max_length=500,blank=True)
+    rating = models.DecimalField(max_digits=4, decimal_places=2)
+    ip = models.CharField(max_length=20, blank=True)
+    status = models.BooleanField(max_length=10, default=True)
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.subject
+
+    @property
+    def business(self):
+        return self.product.business
+
+
+class ReviewForm(ModelForm):
+    class Meta:
+        model = ReviewRating
+        fields = ['subject', 'review', 'rating']

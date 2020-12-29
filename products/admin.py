@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, ProductGallery, Color, Size, Variants, Wishlist
+from .models import Product, ProductGallery, Color, Size, Variants, Wishlist, ReviewRating
 from django.utils.html import format_html
 import admin_thumbnails
 
@@ -61,8 +61,14 @@ class WishlistAdmin(admin.ModelAdmin):
     list_filter = ['user']
 
 
+class ReviewRatingAdmin(admin.ModelAdmin):
+    list_display = ['product', 'business', 'user', 'subject', 'status', 'create_at', 'update_at']
+    readonly_fields = ('product','business','user','subject','review','ip')
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Color,ColorAdmin)
 admin.site.register(Size,SizeAdmin)
 admin.site.register(Variants,VariantsAdmin)
 admin.site.register(Wishlist, WishlistAdmin)
+admin.site.register(ReviewRating, ReviewRatingAdmin)
