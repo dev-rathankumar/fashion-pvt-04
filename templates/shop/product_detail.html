@@ -416,6 +416,9 @@
                   {{ single_product.avaregereview}}/{{ single_product.countreview}}
                 </span>)</h3>
 
+                {% if not reviews %}
+                  <h6 style="margin-top:30px;">Be the first to review this product.</h6>
+                {% else %}
 
                 <div class="review-inner">
                   {% for review in reviews %}
@@ -441,6 +444,7 @@
                   </div>
                   {% endfor %}
                 </div>
+                {% endif %}
               </div>
             </div>
           </div>
