@@ -10,7 +10,7 @@
   <!--Breadcrumbs-->
   <div class="breadcrumbs-wrapper">
     <div class="container">
-      <div class="breadcrumbs"><a href="index.html" title="Back to the home page">Home</a> <span aria-hidden="true">|</span> <span>{{single_product.product_name}}</span></div>
+      <div class="breadcrumbs"><a href="{% url 'home' %}" title="Back to the home page">Home</a> <span aria-hidden="true">|</span> <span>{{single_product.product_name}}</span></div>
     </div>
   </div>
   <div class="container">
@@ -229,10 +229,26 @@
 
             <p class="infolinks">
               <a class="wishlist add-to-wishlist" href="javascript:{document.getElementById('add-wishlist').submit()}" title="Add to Wishlist"><i class="icon anm anm-heart" aria-hidden="true" style="color:red;"></i> <span>Add to Wishlist</span></a>
-              <a class="wishlist add-to-wishlist" href="compare-style1.html" title="Add to Compare"><i class="icon anm anm-sync-ar" aria-hidden="true"></i> <span>Add to Compare</span></a>
-              <a href="#ShippingInfo" class="mfp btn shippingInfo"><i class="anm anm-paper-l-plane"></i> Delivery &amp; Returns</a>
+
+              {% if is_added_to_compare %}
+                <a class="wishlist add-to-wishlist" href="{% url 'compare_products' %}" title="Show Comparison"><i class="fa fa-eye" aria-hidden="true"></i> <u><span>Show Comparison</span></u></a>
+              {% else %}
+                <a class="wishlist add-to-wishlist" href="javascript:{document.getElementById('add-compare').submit()}" title="Add to Compare"><i class="icon anm anm-sync-ar" aria-hidden="true"></i> <span>Add to Compare</span></a>
+              {% endif %}
+
             </p>
+            <!-- add to wishlist hidden form -->
             <form action="{% url 'add_to_wishlist' single_product.id %}" method="POST" id="add-wishlist">
+              {% csrf_token %}
+              <input type="hidden" name="productid" id="productid" value="{{ single_product.id }}">
+              <input type="hidden" name="variantid" id="variantid" value="{{ variant.id }}">
+              <input class="input" name="size" type="hidden" value="{{ variant.size }}">
+              <input class="input" name="color" type="hidden" value="{{ variant.color }}">
+              <input class="input" name="quantity" type="hidden" value="1">
+            </form>
+
+            <!-- add to compare hidden form -->
+            <form action="{% url 'add_to_compare' single_product.id %}" method="POST" id="add-compare">
               {% csrf_token %}
               <input type="hidden" name="productid" id="productid" value="{{ single_product.id }}">
               <input type="hidden" name="variantid" id="variantid" value="{{ variant.id }}">
@@ -363,16 +379,16 @@
                       <label class="spr-form-label">How do you rate this product?<span class="required">*</span></label>
                       <!-- Rating -->
                       <div class="rate">
-                        <input type="radio" id="rating10" name="rating" value="5" /><label for="rating10" title="5"></label>
-                        <input type="radio" id="rating9" name="rating" value="4.5" /><label class="half" for="rating9" title="4.5"></label>
-                        <input type="radio" id="rating8" name="rating" value="4" /><label for="rating8" title="4"></label>
-                        <input type="radio" id="rating7" name="rating" value="3.5" /><label class="half" for="rating7" title="3.5"></label>
-                        <input type="radio" id="rating6" name="rating" value="3" /><label for="rating6" title="3"></label>
-                        <input type="radio" id="rating5" name="rating" value="2.5" /><label class="half" for="rating5" title="2.5"></label>
-                        <input type="radio" id="rating4" name="rating" value="2" /><label for="rating4" title="2"></label>
-                        <input type="radio" id="rating3" name="rating" value="1.5" /><label class="half" for="rating3" title="1.5"></label>
-                        <input type="radio" id="rating2" name="rating" value="1" /><label for="rating2" title="1"></label>
-                        <input type="radio" id="rating1" name="rating" value="0.5" /><label class="half" for="rating1" title="0.5"></label>
+                        <input type="radio" id="rating10" name="rating" value="5" required /><label for="rating10" title="5"></label>
+                        <input type="radio" id="rating9" name="rating" value="4.5" required /><label class="half" for="rating9" title="4.5"></label>
+                        <input type="radio" id="rating8" name="rating" value="4" required /><label for="rating8" title="4"></label>
+                        <input type="radio" id="rating7" name="rating" value="3.5" required /><label class="half" for="rating7" title="3.5"></label>
+                        <input type="radio" id="rating6" name="rating" value="3" required /><label for="rating6" title="3"></label>
+                        <input type="radio" id="rating5" name="rating" value="2.5" required /><label class="half" for="rating5" title="2.5"></label>
+                        <input type="radio" id="rating4" name="rating" value="2" required /><label for="rating4" title="2"></label>
+                        <input type="radio" id="rating3" name="rating" value="1.5" required /><label class="half" for="rating3" title="1.5"></label>
+                        <input type="radio" id="rating2" name="rating" value="1" required /><label for="rating2" title="1"></label>
+                        <input type="radio" id="rating1" name="rating" value="0.5" required /><label class="half" for="rating1" title="0.5"></label>
                     </div>
 
 
@@ -405,7 +421,7 @@
 
             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
               <div class="spr-reviews">
-                <h3 class="spr-form-title">Customer Reviews (<span class="product-review spr-starratings spr-review-header-starratings">
+                <h3 class="spr-form-title">Customer Reviews ( <span class="product-review spr-starratings spr-review-header-starratings">
                   <span class="reviewLink">
                       <i class="font-13 fa fa-star{% if single_product.avaregereview < 0.5 %}-o{% elif single_product.avaregereview >= 0.5 and single_product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
                       <i class="font-13 fa fa-star{% if single_product.avaregereview < 1.5 %}-o{% elif single_product.avaregereview >= 1.5 and single_product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
@@ -414,7 +430,7 @@
                       <i class="font-13 fa fa-star{% if single_product.avaregereview < 4.5 %}-o{% elif single_product.avaregereview >= 4.5 and single_product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
                   </span>
                   {{ single_product.avaregereview}}/{{ single_product.countreview}}
-                </span>)</h3>
+                </span> <span style="font-size:14px; text-transform:lowercase;">reviews</span> )</h3>
 
                 {% if not reviews %}
                   <h6 style="margin-top:30px;">Be the first to review this product.</h6>

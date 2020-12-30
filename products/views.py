@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, ProductGallery, Wishlist, WishlistForm, Size
-from .models import Category, Variants, Color
+from .models import Category, Variants, Color, Compare, CompareItem
 from .models import ReviewRating, ReviewForm
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.auth.decorators import login_required
@@ -79,16 +79,24 @@ def product_detail(request, category_slug, product_slug):
     except Exception as e:
         raise e
 
+    get_id = Product.objects.get(slug=product_slug)
+    id = get_id.id
+
+    # Get reviews and ratings
+    reviews = ReviewRating.objects.filter(product_id=id, status=True)
+
+    # Check if this product is added to comparision
+    compare = Compare.objects.get(compare_id=_compare_id(request))
+    is_added_to_compare = CompareItem.objects.filter(product=product, compare=compare)
+
     context = {
         'single_product': single_product,
         'gallery': gallery,
-        # 'in_cart'       : in_cart,
+        'reviews': reviews,
+        'is_added_to_compare': is_added_to_compare,
     }
+
     query = request.GET.get('q')
-    get_id = Product.objects.get(slug=product_slug)
-    id = get_id.id
-    # Get reviews and ratings
-    reviews = ReviewRating.objects.filter(product_id=id, status=True)
     if product.variant !="None":
         if request.method == 'POST': # if the color is selected
             variant_id = request.POST.get('variantid')
@@ -101,8 +109,9 @@ def product_detail(request, category_slug, product_slug):
             colors = Variants.objects.filter(product_id=id,size_id=variants[0].size_id )
             sizes = Variants.objects.raw('SELECT DISTINCT ON (size_id) * FROM products_variants WHERE product_id=%s ORDER BY size_id',[id])
             variant =Variants.objects.get(id=variants[0].id)
+
         context.update({'sizes': sizes, 'colors': colors,
-                        'variant': variant,'query': query, 'reviews': reviews
+                        'variant': variant,'query': query,
                         })
     return render(request, 'shop/product_detail.html', context)
 
@@ -296,4 +305,73 @@ def submit_review(request, product_id):
                     messages.success(request, "Thank you! Your review has been submitted.")
                     return HttpResponseRedirect(url)
 
+    return HttpResponseRedirect(url)
+
+
+# Get the session_id
+def _compare_id(request):
+    compare = request.session.session_key
+    if not compare:
+        compare = request.session.create()
+    return compare
+
+
+# Product comparison
+def compare_products(request):
+    compare_product_1 = None
+    compare_product_2 = None
+    compare = Compare.objects.get(compare_id=_compare_id(request))
+    compare_products = CompareItem.objects.filter(compare=compare)
+    compare_count = compare_products.count()
+    if compare_count == 1:
+        compare_product_1 = compare_products[0]
+    elif compare_count == 2:
+        compare_product_1 = compare_products[0]
+        compare_product_2 = compare_products[1]
+
+    context = {
+        'compare_product_1': compare_product_1,
+        'compare_product_2': compare_product_2,
+        'compare_count' : compare_count,
+    }
+    return render(request, 'shop/compare_products.html', context)
+
+
+def add_to_compare(request, product_id):
+    url = request.META.get('HTTP_REFERER')
+    product = Product.objects.get(id=product_id) # get the product
+    try:
+        compare = Compare.objects.get(compare_id=_compare_id(request)) # get the compare object using the session_id present in the session
+    except Compare.DoesNotExist:
+        compare = Compare.objects.create(
+            compare_id = _compare_id(request)
+        )
+    compare.save()
+
+    compare_count = CompareItem.objects.filter(compare=compare).count()
+    if compare_count >= 2:
+        messages.warning(request, 'You cannot add more than 2 products to compare.')
+        return HttpResponseRedirect(url)
+    else:
+        try:
+            compare_item = CompareItem.objects.get(product=product, compare=compare)
+            if compare_item:
+                messages.warning(request, 'This product is already exists. Please add different product.')
+                return HttpResponseRedirect(url)
+        except CompareItem.DoesNotExist:
+            compare_item = CompareItem.objects.create(
+                product = product,
+                compare = compare,
+            )
+            compare_item.save()
+            messages.success(request, 'Product has been added to compare')
+    return HttpResponseRedirect(url)
+
+
+def remove_from_compare(request, product_id):
+    url = request.META.get('HTTP_REFERER')
+    compare = Compare.objects.get(compare_id=_compare_id(request))
+    product = get_object_or_404(Product, id=product_id)
+    compare_item = CompareItem.objects.get(product=product, compare=compare)
+    compare_item.delete()
     return HttpResponseRedirect(url)

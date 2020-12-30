@@ -52,6 +52,11 @@ urlpatterns = [
     path('search/', ProductViews.search, name='search'),
 
     # Review
-    path('submit_review/<int:product_id>/', ProductViews.submit_review, name='submit_review')
+    path('submit_review/<int:product_id>/', ProductViews.submit_review, name='submit_review'),
+
+    # Comparision
+    path('compare-products/', ProductViews.compare_products, name='compare_products'),
+    path('add_to_compare/<int:product_id>/', ProductViews.add_to_compare, name='add_to_compare'),
+    path('remove_from_compare/<int:product_id>/', ProductViews.remove_from_compare, name='remove_from_compare'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

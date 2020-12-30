@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, ProductGallery, Color, Size, Variants, Wishlist, ReviewRating
+from .models import Product, ProductGallery, Color, Size, Variants, Wishlist, ReviewRating, Compare, CompareItem
 from django.utils.html import format_html
 import admin_thumbnails
 
@@ -65,6 +65,12 @@ class ReviewRatingAdmin(admin.ModelAdmin):
     list_display = ['product', 'business', 'user', 'subject', 'status', 'create_at', 'update_at']
     readonly_fields = ('product','business','user','subject','review','ip')
 
+class CompareAdmin(admin.ModelAdmin):
+    list_display = ['compare_id', 'date_added']
+
+class CompareItemAdmin(admin.ModelAdmin):
+    list_display = ['product', 'compare', 'is_active']
+
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Color,ColorAdmin)
@@ -72,3 +78,5 @@ admin.site.register(Size,SizeAdmin)
 admin.site.register(Variants,VariantsAdmin)
 admin.site.register(Wishlist, WishlistAdmin)
 admin.site.register(ReviewRating, ReviewRatingAdmin)
+admin.site.register(Compare, CompareAdmin)
+admin.site.register(CompareItem, CompareItemAdmin)
