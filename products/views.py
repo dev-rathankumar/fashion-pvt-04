@@ -86,8 +86,12 @@ def product_detail(request, category_slug, product_slug):
     reviews = ReviewRating.objects.filter(product_id=id, status=True)
 
     # Check if this product is added to comparision
-    compare = Compare.objects.get(compare_id=_compare_id(request))
-    is_added_to_compare = CompareItem.objects.filter(product=product, compare=compare)
+    is_added_to_compare = None
+    try:
+        compare = Compare.objects.get(compare_id=_compare_id(request))
+        is_added_to_compare = CompareItem.objects.filter(product=product, compare=compare)
+    except Compare.DoesNotExist:
+        pass
 
     context = {
         'single_product': single_product,
@@ -320,14 +324,18 @@ def _compare_id(request):
 def compare_products(request):
     compare_product_1 = None
     compare_product_2 = None
-    compare = Compare.objects.get(compare_id=_compare_id(request))
-    compare_products = CompareItem.objects.filter(compare=compare)
-    compare_count = compare_products.count()
-    if compare_count == 1:
-        compare_product_1 = compare_products[0]
-    elif compare_count == 2:
-        compare_product_1 = compare_products[0]
-        compare_product_2 = compare_products[1]
+    compare_count = 0
+    try:
+        compare = Compare.objects.get(compare_id=_compare_id(request))
+        compare_products = CompareItem.objects.filter(compare=compare)
+        compare_count = compare_products.count()
+        if compare_count == 1:
+            compare_product_1 = compare_products[0]
+        elif compare_count == 2:
+            compare_product_1 = compare_products[0]
+            compare_product_2 = compare_products[1]
+    except Compare.DoesNotExist:
+        pass
 
     context = {
         'compare_product_1': compare_product_1,
