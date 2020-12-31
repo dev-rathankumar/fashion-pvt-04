@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django_dnf',
     'newsletters',
+    'contacts',
 ]
 
 MIDDLEWARE = [

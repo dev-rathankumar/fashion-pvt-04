@@ -1025,7 +1025,7 @@ body.pet-store, html .pet-store, .pet-store button, .pet-store input, .pet-store
 
 
 /* 9.12 Home Blog Post */
-.home-blog-post { background-color:#fafafa; padding:50px 0; }
+.home-blog-post { background-color:#ffffff; padding:50px 0; }
 .home-blog-post-style1 { background-color:#fff; }
 .blogpost-item { width:auto !important; margin:0 10px 10px; }
 .blogpost-item .post-thumb { display:block; margin-bottom:20px; position:relative; overflow:hidden; }
@@ -2924,4 +2924,8 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
   width: 80%;
   overflow: hidden;
   color: #f80;
+}
+
+.grid-products .item .product-image img{
+	height: 340px !important;
 }

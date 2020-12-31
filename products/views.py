@@ -2,12 +2,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, ProductGallery, Wishlist, WishlistForm, Size
 from .models import Category, Variants, Color, Compare, CompareItem
 from .models import ReviewRating, ReviewForm
+from accounts.models import Business
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from carts.models import ShopCart, ShopCartForm
 from django.db.models import Q
 from django.db.models import Max
+from urllib.parse import urlparse
 
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -78,9 +80,13 @@ def product_detail(request, category_slug, product_slug):
         gallery = ProductGallery.objects.filter(product=product)
     except Exception as e:
         raise e
+    # get business info
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    business = Business.objects.get(domain_name=domain)
 
-    get_id = Product.objects.get(slug=product_slug)
-    id = get_id.id
+    get_product_id = Product.objects.get(slug=product_slug)
+    id = get_product_id.id
 
     # Get reviews and ratings
     reviews = ReviewRating.objects.filter(product_id=id, status=True)
@@ -98,6 +104,7 @@ def product_detail(request, category_slug, product_slug):
         'gallery': gallery,
         'reviews': reviews,
         'is_added_to_compare': is_added_to_compare,
+        'business': business,
     }
 
     query = request.GET.get('q')

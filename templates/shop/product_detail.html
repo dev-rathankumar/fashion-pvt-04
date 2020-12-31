@@ -54,10 +54,10 @@
 
               <div class="social-sharing">
                 <span class="label">Share:</span>
-                <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-facebook" title="Share on Facebook">
-                  <i class="anm anm-facebook-f" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">Share</span>
+                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" class="btn btn--small btn--secondary btn--share share-facebook" title="Share on Facebook">
+                  <i class="anm anm-facebook-f" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">Facebook</span>
                 </a>
-                <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-twitter" title="Tweet on Twitter">
+                <a target="_blank" href="https://www.linkedin.com/cws/share?url={{ request.build_absolute_uri }}" class="btn btn--small btn--secondary btn--share share-twitter" title="Tweet on Twitter">
                   <i class="fa fa-twitter" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">Tweet</span>
                 </a>
                 <a href="#" title="Share on google+" class="btn btn--small btn--secondary btn--share">
@@ -79,11 +79,11 @@
               <div class="prInfoRow">
                 <div class="product-review">
                   <span class="reviewLink">
-                      <i class="font-13 fa fa-star{% if single_product.avaregereview < 0.5 %}-o{% elif single_product.avaregereview >= 0.5 and single_product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
-                      <i class="font-13 fa fa-star{% if single_product.avaregereview < 1.5 %}-o{% elif single_product.avaregereview >= 1.5 and single_product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
-                      <i class="font-13 fa fa-star{% if single_product.avaregereview < 2.5 %}-o{% elif single_product.avaregereview >= 2.5 and single_product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
-                      <i class="font-13 fa fa-star{% if single_product.avaregereview < 3.5 %}-o{% elif single_product.avaregereview >= 3.5 and single_product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
-                      <i class="font-13 fa fa-star{% if single_product.avaregereview < 4.5 %}-o{% elif single_product.avaregereview >= 4.5 and single_product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                    <i class="font-13 fa fa-star{% if single_product.avaregereview < 0.5 %}-o{% elif single_product.avaregereview >= 0.5 and single_product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                    <i class="font-13 fa fa-star{% if single_product.avaregereview < 1.5 %}-o{% elif single_product.avaregereview >= 1.5 and single_product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                    <i class="font-13 fa fa-star{% if single_product.avaregereview < 2.5 %}-o{% elif single_product.avaregereview >= 2.5 and single_product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                    <i class="font-13 fa fa-star{% if single_product.avaregereview < 3.5 %}-o{% elif single_product.avaregereview >= 3.5 and single_product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                    <i class="font-13 fa fa-star{% if single_product.avaregereview < 4.5 %}-o{% elif single_product.avaregereview >= 4.5 and single_product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
                     <span>{{ single_product.countreview}} reviews </span>
                   </span>
                 </div>
@@ -109,7 +109,7 @@
             </div>
 
             <div class="product-single__description rte">
-              {{single_product.description}}
+              {{single_product.description | safe}}
             </div>
 
 
@@ -231,9 +231,9 @@
               <a class="wishlist add-to-wishlist" href="javascript:{document.getElementById('add-wishlist').submit()}" title="Add to Wishlist"><i class="icon anm anm-heart" aria-hidden="true" style="color:red;"></i> <span>Add to Wishlist</span></a>
 
               {% if is_added_to_compare %}
-                <a class="wishlist add-to-wishlist" href="{% url 'compare_products' %}" title="Show Comparison"><i class="fa fa-eye" aria-hidden="true"></i> <u><span>Show Comparison</span></u></a>
+              <a class="wishlist add-to-wishlist" href="{% url 'compare_products' %}" title="Show Comparison"><i class="fa fa-eye" aria-hidden="true"></i> <u><span>Show Comparison</span></u></a>
               {% else %}
-                <a class="wishlist add-to-wishlist" href="javascript:{document.getElementById('add-compare').submit()}" title="Add to Compare"><i class="icon anm anm-sync-ar" aria-hidden="true"></i> <span>Add to Compare</span></a>
+              <a class="wishlist add-to-wishlist" href="javascript:{document.getElementById('add-compare').submit()}" title="Add to Compare"><i class="icon anm anm-sync-ar" aria-hidden="true"></i> <span>Add to Compare</span></a>
               {% endif %}
 
             </p>
@@ -326,6 +326,71 @@
               From <b>FREE SHIPPING!</b></p>
             <p class="shippingMsg"><i class="fa fa-clock-o" aria-hidden="true"></i> Estimated Delivery Between <b id="fromDate">Wed. May 1</b> and <b id="toDate">Tue. May 7</b>.</p>
 
+            <!-- Inquiry modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="width:100%;">
+              Send an Inquiry
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">SEND AN INQUIRY</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form method="POST" id="inquiry-modal">
+                      {% csrf_token %}
+                    <input type="hidden" name="business_id" id="business_id" value="{{business.business_id}}">
+                      {% if user.is_authenticated %}
+                      <input type="hidden" name="user_id" id="user_id" value="{{user.id}}">
+                      {% else %}
+                      <input type="hidden" name="user_id" id="user_id" value="0">
+                      {% endif %}
+
+                      <input type="hidden" name="product_id" id="product_id" value="{{single_product.id}}">
+                      <h5>Please fill below form to inquire about this product.</h5>
+                      <div class="form-group">
+                        <input type="text" name="product_name" id="product_name" class="form-control" value="{{ single_product.product_name }}" readonly>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col">
+                            <input type="text" name="first_name" id="first_name" class="form-control" placeholder="First Name" {% if user.is_authenticated %} value="{{user.first_name}}" {% endif %} required>
+                          </div>
+                          <div class="col">
+                            <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last Name" {% if user.is_authenticated %} value="{{user.last_name}}" {% endif %} required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col">
+                            <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" {% if user.is_authenticated %} value="{{user.email}}" {% endif %} required>
+                          </div>
+                          <div class="col">
+                            <input type="number" name="phone" id="phone" placeholder="Phone Number (optional)" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <textarea name="message" id="inq_message" class="form-control" placeholder="Enter your message here" required></textarea>
+                      </div>
+                      <hr>
+                      <input type="submit" name="submit" id="submit" value="Send Inquiry" class="btn btn-block btn-danger">
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <p id="inquiry_success"></p>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -343,25 +408,7 @@
         <h3 class="tabs-ac-style active" rel="tab1">Product Details</h3>
         <div id="tab1" class="tab-content">
           <div class="product-description rte">
-            <h3>Specification</h3>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
-              specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-            <ul>
-              <li>High-neck style</li>
-              <li>Drop shoulders</li>
-              <li>Flared cuffs</li>
-              <li>Asymmetrical hem</li>
-            </ul>
-            <h3>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</h3>
-            <p>You can change the position of any sections such as slider, banner, products, collection and so on by just dragging and dropping.&nbsp;</p>
-            <p><img data-src="assets/images/detail-img.jpg" src="assets/images/detail-img1.jpg" alt=""></p>
-            <h3>Lorem Ipsum is not simply random text.</h3>
-            <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the
-              master-builder of human happiness.</p>
-            <p>Change colors, fonts, banners, megamenus and more. Preview changes are live before saving them.</p>
-            <h3>1914 translation by H. Rackham</h3>
-            <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the
-              master-builder of human happiness.</p>
+            {{single_product.full_specification | safe}}
           </div>
         </div>
 
@@ -389,7 +436,7 @@
                         <input type="radio" id="rating3" name="rating" value="1.5" required /><label class="half" for="rating3" title="1.5"></label>
                         <input type="radio" id="rating2" name="rating" value="1" required /><label for="rating2" title="1"></label>
                         <input type="radio" id="rating1" name="rating" value="0.5" required /><label class="half" for="rating1" title="0.5"></label>
-                    </div>
+                      </div>
 
 
                     </div>
@@ -412,7 +459,7 @@
                     <input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Submit Review">
                   </div>
                   {% else %}
-                    <p>You must be logged in to post a review. <span><a href="{% url 'userLogin' %}"><u>Login now</u></a></span></p>
+                  <p>You must be logged in to post a review. <span><a href="{% url 'userLogin' %}"><u>Login now</u></a></span></p>
 
                   {% endif %}
                 </form>
@@ -422,18 +469,18 @@
             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
               <div class="spr-reviews">
                 <h3 class="spr-form-title">Customer Reviews ( <span class="product-review spr-starratings spr-review-header-starratings">
-                  <span class="reviewLink">
+                    <span class="reviewLink">
                       <i class="font-13 fa fa-star{% if single_product.avaregereview < 0.5 %}-o{% elif single_product.avaregereview >= 0.5 and single_product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
                       <i class="font-13 fa fa-star{% if single_product.avaregereview < 1.5 %}-o{% elif single_product.avaregereview >= 1.5 and single_product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
                       <i class="font-13 fa fa-star{% if single_product.avaregereview < 2.5 %}-o{% elif single_product.avaregereview >= 2.5 and single_product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
                       <i class="font-13 fa fa-star{% if single_product.avaregereview < 3.5 %}-o{% elif single_product.avaregereview >= 3.5 and single_product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
                       <i class="font-13 fa fa-star{% if single_product.avaregereview < 4.5 %}-o{% elif single_product.avaregereview >= 4.5 and single_product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
-                  </span>
-                  {{ single_product.avaregereview}}/{{ single_product.countreview}}
-                </span> <span style="font-size:14px; text-transform:lowercase;">reviews</span> )</h3>
+                    </span>
+                    {{ single_product.avaregereview}}/{{ single_product.countreview}}
+                  </span> <span style="font-size:14px; text-transform:lowercase;">reviews</span> )</h3>
 
                 {% if not reviews %}
-                  <h6 style="margin-top:30px;">Be the first to review this product.</h6>
+                <h6 style="margin-top:30px;">Be the first to review this product.</h6>
                 {% else %}
 
                 <div class="review-inner">
@@ -443,11 +490,11 @@
 
                       <span class="product-review spr-starratings spr-review-header-starratings">
                         <span class="reviewLink">
-                            <i class="font-13 fa fa-star{% if review.rating == 0.5 %}-half-o{% elif review.rating < 1 %}-o empty{% endif %}"></i>
-                            <i class="font-13 fa fa-star{% if review.rating == 1.5 %}-half-o{% elif review.rating < 2 %}-o empty{% endif %}"></i>
-                            <i class="font-13 fa fa-star{% if review.rating == 2.5 %}-half-o{% elif review.rating < 3 %}-o empty{% endif %}"></i>
-                            <i class="font-13 fa fa-star{% if review.rating == 3.5 %}-half-o{% elif review.rating < 4 %}-o empty{% endif %}"></i>
-                            <i class="font-13 fa fa-star{% if review.rating == 4.5 %}-half-o{% elif review.rating < 5 %}-o empty{% endif %}"></i>
+                          <i class="font-13 fa fa-star{% if review.rating == 0.5 %}-half-o{% elif review.rating < 1 %}-o empty{% endif %}"></i>
+                          <i class="font-13 fa fa-star{% if review.rating == 1.5 %}-half-o{% elif review.rating < 2 %}-o empty{% endif %}"></i>
+                          <i class="font-13 fa fa-star{% if review.rating == 2.5 %}-half-o{% elif review.rating < 3 %}-o empty{% endif %}"></i>
+                          <i class="font-13 fa fa-star{% if review.rating == 3.5 %}-half-o{% elif review.rating < 4 %}-o empty{% endif %}"></i>
+                          <i class="font-13 fa fa-star{% if review.rating == 4.5 %}-half-o{% elif review.rating < 5 %}-o empty{% endif %}"></i>
                         </span>
                       </span>
 

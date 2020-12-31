@@ -4,6 +4,7 @@ from business.models import Business
 from accounts.models import User
 from django.urls import reverse
 from django.forms import ModelForm
+from ckeditor.fields import RichTextField
 from django.db.models import Avg, Count
 
 # Image manipulation
@@ -34,9 +35,11 @@ class Product(models.Model):
     business        = models.ForeignKey(Business, on_delete=models.CASCADE)
     product_name    = models.CharField(max_length=200, unique=True)
     slug            = models.SlugField(max_length=200, unique=True)
-    description     = models.TextField(max_length=500, blank=True)
+    description     = RichTextField()
+    full_specification = RichTextField(blank=True, default='Test desc')
     price           = models.DecimalField(max_digits=10, decimal_places=2)
     image           = models.ImageField(upload_to='store/products/%Y/%m/%d')
+    image_2         = models.ImageField(upload_to='store/products/%Y/%m/%d', blank=True, default='default/default-user.png')
     stock           = models.IntegerField()
     is_available    = models.BooleanField(default=True)
     category        = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -54,7 +57,7 @@ class Product(models.Model):
         super(Product, self).save(*args, **kwargs)
         img = Image.open(self.image.path)
         if img.height > 300 or img.width > 300:
-            output_size = (300,300)
+            output_size = (250,300)
             img.thumbnail(output_size)
             img.save(self.image.path)
         super(Product, self).save(*args, **kwargs)

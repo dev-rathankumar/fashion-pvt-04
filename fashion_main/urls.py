@@ -7,6 +7,7 @@ from carts import views as CartViews
 from accounts import views as AccountViews
 from newsletters import views as NewsletterViews
 from products import views as ProductViews
+from contacts import views as ContactViews
 
 
 urlpatterns = [
@@ -58,5 +59,8 @@ urlpatterns = [
     path('compare-products/', ProductViews.compare_products, name='compare_products'),
     path('add_to_compare/<int:product_id>/', ProductViews.add_to_compare, name='add_to_compare'),
     path('remove_from_compare/<int:product_id>/', ProductViews.remove_from_compare, name='remove_from_compare'),
+
+    # Inquiry
+    path('inquiry/', ContactViews.inquiry, name="inquiry"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
