@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Team, About, Contact
+from .models import Team, About
 from django.utils.html import format_html
 
 
@@ -26,18 +26,8 @@ class AboutAdmin(admin.ModelAdmin):
     get_business_id.short_description = 'Business ID'
     get_business_id.admin_order_field = 'business__business_id'
 
-# Contact Admin
-class ContactAdmin(admin.ModelAdmin):
-    list_display = ('get_business_id', 'business', 'name', 'email', 'phone', 'contacted_date')
-    list_display_links = ('get_business_id', 'business', 'name', 'email', 'phone')
-    search_fields = ('id', 'business__business_id', 'business', 'name', 'email', 'phone')
 
-    def get_business_id(self, obj):
-        return obj.business.business_id
-    get_business_id.short_description = 'Business ID'
-    get_business_id.admin_order_field = 'business__business_id'
 
 # Register your models.
 admin.site.register(Team, TeamAdmin)
 admin.site.register(About, AboutAdmin)
-admin.site.register(Contact, ContactAdmin)

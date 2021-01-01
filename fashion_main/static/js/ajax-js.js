@@ -89,7 +89,6 @@ $(document).on('submit', '#inquiry-modal', function(e) {
   var phone = $('#phone').val();
   var inq_message = $('#inq_message').val();
   var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
-  var submit = $('#submit').val();
 
   $.ajax({
     type: 'POST',
@@ -117,12 +116,56 @@ $(document).on('submit', '#inquiry-modal', function(e) {
         $('#inquiry_success').addClass('alert alert-success alert-dismissible fade show');
         $("#inquiry_success").html(data);
         $("#submit").val('Sent');
+        $('#inquiry_success').delay(4000).fadeOut('slow');
       }
     },
     error: function(data) {
       $('#inquiry_success').addClass('alert alert-danger alert-dismissible fade show');
       $("#inquiry_success").html("Something went wrong, please try again.");
 
+    }
+  });
+  this.reset();
+});
+
+
+// Contact Form
+$(document).on('submit', '#contact_form', function(e) {
+  e.preventDefault();
+  $("#submit").val('Please wait...');
+  var business_id = $('#business_id').val();
+  var user_id = $('#user_id').val();
+  var name = $('#name').val();
+  var email = $('#email').val();
+  var phone = $('#phone').val();
+  var subject = $('#subject').val();
+  var contact_message = $('#contact_message').val();
+  var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
+
+
+  $.ajax({
+    type: 'POST',
+    url: '/contact/',
+    data: {
+      business_id: business_id,
+      user_id: user_id,
+      name: name,
+      email: email,
+      phone: phone,
+      subject: subject,
+      contact_message: contact_message,
+      csrfmiddlewaretoken: csrfmiddlewaretoken,
+    },
+
+    success: function(data) {
+      $('#contactMessage').addClass('alert alert-success');
+      $("#contactMessage").html(data);
+      $("#submit").val('Message Sent');
+      $('#contactMessage').delay(4000).fadeOut('slow');
+    },
+    error: function(data) {
+      $('#contactMessage').addClass('alert alert-danger');
+      $("#contactMessage").html("Something went wrong, please try again.");
     }
   });
   this.reset();

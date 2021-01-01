@@ -43,20 +43,3 @@ class About(models.Model):
 
     def __str__(self):
         return self.business.company_name
-
-
-class Contact(models.Model):
-    business    = models.ForeignKey(Business, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
-    phone = models.CharField(max_length=100)
-    subject = models.CharField(max_length=255)
-    message = RichTextField(blank=True)
-    contacted_date = models.DateTimeField(blank=True, default=datetime.now)
-
-    class Meta:
-        verbose_name = 'contact'
-        verbose_name_plural = 'contact'
-
-    def __str__(self):
-        return self.email

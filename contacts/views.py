@@ -3,6 +3,8 @@ from accounts.models import Business
 from .models import Inquiry
 from django.core.mail import send_mail
 
+from .models import SiteContact
+
 from django.http import HttpResponse
 
 def inquiry(request):
@@ -41,3 +43,32 @@ def inquiry(request):
 
         inquiry.save()
         return HttpResponse('Your inquiry has been submitted. Our representative will get in touch with you soon.')
+
+
+def contact(request):
+    if request.method == 'POST':
+        business_id = request.POST['business_id']
+        user_id = request.POST['user_id']
+        name = request.POST['name']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        subject = request.POST['subject']
+        contact_message = request.POST['contact_message']
+
+        business = Business.objects.get(business_id=business_id)
+
+        contact = SiteContact(business=business, user_id=user_id, name=name, email=email,
+        phone=phone, subject=subject, contact_message=contact_message)
+
+        business_email = business.user.email
+        send_mail(
+                'You have a new message from Website contact form',
+                'Name:' + name + '.' + 'Email:' + email + '.' + 'Phone:' + phone + '.' + 'Subject:' + subject + '.' + 'Message:' + contact_message + '.',
+                'rathan.kumar049@gmail.com',
+                [business_email],
+                fail_silently=False,
+            )
+        contact.save()
+        return HttpResponse('Thank you for your message. Our representative will get in touch with you soon.')
+    else:
+        return render(request, 'pages/contact.html')

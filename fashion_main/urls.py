@@ -62,5 +62,6 @@ urlpatterns = [
 
     # Inquiry
     path('inquiry/', ContactViews.inquiry, name="inquiry"),
+    path('contact/', ContactViews.contact, name="contact"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
