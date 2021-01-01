@@ -4,7 +4,7 @@ from .models import Inquiry
 from django.core.mail import send_mail
 
 from .models import SiteContact
-
+import random
 from django.http import HttpResponse
 
 def inquiry(request):
@@ -57,18 +57,48 @@ def contact(request):
 
         business = Business.objects.get(business_id=business_id)
 
+        otp = str(random.randint(100000,999999))
         contact = SiteContact(business=business, user_id=user_id, name=name, email=email,
-        phone=phone, subject=subject, contact_message=contact_message)
+        phone=phone, subject=subject, contact_message=contact_message, otp = otp)
+        contact.save()
 
-        business_email = business.user.email
+        business_name = str(business) # because we cannot pass Business directly.
+        email_body = 'Hi ' + name + ', ' + 'Your One Time Password for contacting ' + business_name + ' is ' + otp + '.'
+
         send_mail(
-                'You have a new message from Website contact form',
-                'Name:' + name + '.' + 'Email:' + email + '.' + 'Phone:' + phone + '.' + 'Subject:' + subject + '.' + 'Message:' + contact_message + '.',
+                'Your One Time Password is here',
+                email_body,
                 'rathan.kumar049@gmail.com',
-                [business_email],
+                [email],
                 fail_silently=False,
             )
+        contact.is_otp_sent = True
         contact.save()
-        return HttpResponse('Thank you for your message. Our representative will get in touch with you soon.')
+        request.session['email'] = email
+        request.session['id'] = contact.id
+        request.session['business_email'] = business.user.email
+        return HttpResponse('otp sent')
     else:
         return render(request, 'pages/contact.html')
+
+
+def verify_otp(request):
+    email = request.session['email']
+    id = request.session['id']
+    business_email = request.session['business_email']
+    if request.method == 'POST':
+        otp = request.POST.get('otp')
+        contact = SiteContact.objects.get(email=email, id=id)
+        if contact.otp == otp:
+            send_mail(
+                    'You have a new message from Website contact form',
+                    'Name:' + contact.name + '.' + 'Email:' + contact.email + '.' + 'Phone:' + contact.phone + '.' + 'Subject:' + contact.subject + '.' + 'Message:' + contact.contact_message + '.',
+                    'rathan.kumar049@gmail.com',
+                    [business_email],
+                    fail_silently=False,
+                )
+            contact.is_otp_verified = True
+            contact.save()
+            return HttpResponse('verified')
+        else:
+            return HttpResponse('wrong-otp')

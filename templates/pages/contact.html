@@ -24,11 +24,11 @@
           <form method="post" id="contact_form" class="contact-form">
             {% csrf_token %}
             <input type="hidden" name="business_id" id="business_id" value="{{business.business_id}}">
-              {% if user.is_authenticated %}
-              <input type="hidden" name="user_id" id="user_id" value="{{user.id}}">
-              {% else %}
-              <input type="hidden" name="user_id" id="user_id" value="0">
-              {% endif %}
+            {% if user.is_authenticated %}
+            <input type="hidden" name="user_id" id="user_id" value="{{user.id}}">
+            {% else %}
+            <input type="hidden" name="user_id" id="user_id" value="0">
+            {% endif %}
             <div class="row">
               <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="form-group">
@@ -72,7 +72,46 @@
             </div>
           </form>
         </div>
+
+      <!-- OTP VERIFICATION -->
+        <div class="otp_form" id="contactOTP">
+          <form method="POST" id="contact_otp_form">
+            {% csrf_token %}
+            <h4>Please enter your OTP here.</h4>
+            <div class="row">
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="form-group">
+                  <input required type="text" id="otp" name="otp" pattern="[0-9\-]*" placeholder="Enter OTP">
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                      <input type="submit" value="Verify" class="btn" id="otpsubmit" style="width:100%;">
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                      <input type="submit" value="Resend OTP" id="resendotp" class="btn" style="width:100%;background-color:#e95144;">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <p id="OTPsuccess"></p>
+                <p id="OTPfailed"></p>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- OTP VERIFICATION END -->
+
       </div>
+
       <div class="col-12 col-sm-12 col-md-4 col-lg-4">
         <div class="contact-details">
           <ul class="addressFooter">

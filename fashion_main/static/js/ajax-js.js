@@ -111,8 +111,7 @@ $(document).on('submit', '#inquiry-modal', function(e) {
         $('#inquiry_success').addClass('alert alert-warning alert-dismissible fade show');
         $("#inquiry_success").html('You have already made an inquiry about this car. Please wait until we get back to you.');
         $("#submit").val('Send Inquiry');
-      }
-      else{
+      } else {
         $('#inquiry_success').addClass('alert alert-success alert-dismissible fade show');
         $("#inquiry_success").html(data);
         $("#submit").val('Sent');
@@ -158,14 +157,57 @@ $(document).on('submit', '#contact_form', function(e) {
     },
 
     success: function(data) {
-      $('#contactMessage').addClass('alert alert-success');
-      $("#contactMessage").html(data);
-      $("#submit").val('Message Sent');
-      $('#contactMessage').delay(4000).fadeOut('slow');
+      if (data == 'otp sent') {
+        $('.otp_form').slideDown();
+        $('#contactMessage').addClass('alert alert-success');
+        $("#contactMessage").html('OTP has been sent to your email address. Please verify it.');
+        $("#submit").val('Verification Required');
+        $('#contactMessage').delay(4000).fadeOut('slow');
+      }
     },
     error: function(data) {
       $('#contactMessage').addClass('alert alert-danger');
       $("#contactMessage").html("Something went wrong, please try again.");
+    }
+  });
+  this.reset();
+});
+
+
+
+// Contact OTP Form
+$(document).on('submit', '#contact_otp_form', function(e) {
+  e.preventDefault();
+  $("#otpsubmit").val('Verifying...');
+  var otp = $('#otp').val();
+  var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
+
+  $.ajax({
+    type: 'POST',
+    url: '/verify_otp/',
+    data: {
+      otp: otp,
+      csrfmiddlewaretoken: csrfmiddlewaretoken,
+    },
+
+    success: function(data) {
+      if (data == 'verified') {
+        $('#OTPsuccess').addClass('alert alert-success');
+        $("#OTPsuccess").html('OTP Verified. Your message has been submitted successfully.');
+        $("#otpsubmit").val('OTP Verified');
+        $("#otpsubmit").prop('disabled', true);
+        $("#resendotp").prop('disabled', true);
+        $('#OTPsuccess').delay(7000).fadeOut('slow');
+      } else if (data == 'wrong-otp') {
+        $('#OTPfailed').addClass('alert alert-danger');
+        $("#OTPfailed").html('Wrong OTP');
+        $("#otpsubmit").val('Verify');
+        $('#OTPfailed').delay(5000).fadeOut('slow');
+      }
+    },
+    error: function(data) {
+      $('#OTPmessage').addClass('alert alert-danger');
+      $("#OTPmessage").html("Something went wrong, please try again.");
     }
   });
   this.reset();
