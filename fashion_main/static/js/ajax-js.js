@@ -163,6 +163,7 @@ $(document).on('submit', '#contact_form', function(e) {
         $("#contactMessage").html('OTP has been sent to your email address. Please verify it.');
         $("#submit").val('Verification Required');
         $('#contactMessage').delay(4000).fadeOut('slow');
+        return count_down_otp();
       }
     },
     error: function(data) {
@@ -195,14 +196,19 @@ $(document).on('submit', '#contact_otp_form', function(e) {
         $('#OTPsuccess').addClass('alert alert-success');
         $("#OTPsuccess").html('OTP Verified. Your message has been submitted successfully.');
         $("#otpsubmit").val('OTP Verified');
+        $("#otpsubmit").css("backgroundColor", "green");
         $("#otpsubmit").prop('disabled', true);
-        $("#resendotp").prop('disabled', true);
+        $("#resendotp").css("display", "none");
         $('#OTPsuccess').delay(7000).fadeOut('slow');
       } else if (data == 'wrong-otp') {
         $('#OTPfailed').addClass('alert alert-danger');
-        $("#OTPfailed").html('Wrong OTP');
+        $("#OTPfailed").html('Invalid OTP');
         $("#otpsubmit").val('Verify');
         $('#OTPfailed').delay(5000).fadeOut('slow');
+      }
+      else{
+        alert(data);
+        $("#otpsubmit").val('Verify');
       }
     },
     error: function(data) {
@@ -212,3 +218,50 @@ $(document).on('submit', '#contact_otp_form', function(e) {
   });
   this.reset();
 });
+
+
+function resendOTP(){
+  $("#countdown").css("display", "none");
+  document.getElementById("resendotp").innerHTML = "Please wait...";
+  $.ajax({
+    type: 'GET',
+    url: '/resend_otp/',
+    data: {
+      // otp: 'resend-otp',
+    },
+
+    success: function(data) {
+      if (data == 'otp sent') {
+        document.getElementById("resendotp").innerHTML = "Resend OTP";
+        $('#contactMessage').addClass('alert alert-success');
+        alert('OTP has been sent to your email address. Please verify it.');
+        $("#submit").val('Verification Required');
+      }
+      else{
+        document.getElementById("resendotp").innerHTML = "Resend OTP";
+        alert(data);
+      }
+    },
+    error: function(data) {
+      document.getElementById("resendotp").innerHTML = "Resend OTP";
+      $('#OTPmessage').addClass('alert alert-danger');
+      $("#OTPmessage").html("Something went wrong, please try again.");
+    }
+  });
+
+}
+
+
+function count_down_otp(){
+  var timeleft = 90;
+  var downloadTimer = setInterval(function(){
+    if(timeleft <= 0){
+      clearInterval(downloadTimer);
+      document.getElementById("countdown").innerHTML = "Your OTP has been expired.";
+      $("#countdown").css("color", "red");
+    } else {
+      document.getElementById("countdown").innerHTML =  "Your OTP will be expired in <b>" + timeleft + "</b> seconds.";
+    }
+    timeleft -= 1;
+  }, 1000);
+}

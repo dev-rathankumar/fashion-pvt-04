@@ -77,7 +77,7 @@
         <div class="otp_form" id="contactOTP">
           <form method="POST" id="contact_otp_form">
             {% csrf_token %}
-            <h4>Please enter your OTP here.</h4>
+            <h4>Please enter your OTP here.</h4><p id="countdown"></p>
             <div class="row">
               <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="form-group">
@@ -93,17 +93,18 @@
                   </div>
                   <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                     <div class="form-group">
-                      <input type="submit" value="Resend OTP" id="resendotp" class="btn" style="width:100%;background-color:#e95144;">
+                      <a onclick="resendOTP()" value="Resend OTP" id="resendotp" class="btn" style="width:100%;background-color:#e95144;color:#ffffff">Resend OTP</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
+
             <div class="row">
               <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                <p id="OTPsuccess"></p>
-                <p id="OTPfailed"></p>
+                <p id="OTPsuccess" style="margin-top:10px;"></p>
+                <p id="OTPfailed" style="margin-top:10px;"></p>
               </div>
             </div>
           </form>
