@@ -50,7 +50,10 @@ INSTALLED_APPS = [
     'django_dnf',
     'newsletters',
     'contacts',
+    'django.contrib.sites',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

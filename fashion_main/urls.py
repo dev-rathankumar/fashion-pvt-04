@@ -27,6 +27,8 @@ urlpatterns = [
     path('resetpassword_validate/<uidb64>/<token>/', AccountViews.resetpassword_validate, name='resetpassword_validate'),
     path('resetPassword/', AccountViews.resetPassword, name='resetPassword'),
 
+    path('accounts/', include('accounts.urls')),
+
     # Smart select field
     path('chaining/', include('smart_selects.urls')),
 

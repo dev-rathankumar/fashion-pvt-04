@@ -4,6 +4,16 @@ from smart_selects.db_fields import ChainedForeignKey
 import random
 from django_dnf.fields import DomainNameField
 
+from django.contrib import messages
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+
+from django.contrib.sites.models import Site
+
 # Image manipulation
 from io import BytesIO
 from PIL import Image
@@ -152,11 +162,29 @@ class RegionalManager(models.Model):
     address_line_1 = models.CharField(max_length=50)
     address_line_2 = models.CharField(max_length=50, blank=True)
     date_of_joining = models.DateField()
+    is_verification_email_sent = models.BooleanField(default=False)
+    is_account_verified = models.BooleanField(default=False)
 
     # Override save method
     def save(self, *args, **kwargs):
-        super(RegionalManager, self).save(*args, **kwargs)
-        self.regional_manager_id = '1'+str(random.randint(10000,99999))+str(self.user.id)
+        if self.is_verification_email_sent == False:
+            # Send password reset and activation email
+            current_site = Site.objects.get_current()
+            mail_subject = 'Reset your password and activate your account.'
+            message = render_to_string('accounts/rm_reset_password_email.html', {
+                'user': self.user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(self.user.pk)),
+                'token': default_token_generator.make_token(self.user),
+            })
+            to_email = self.user.email
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.send()
+            self.regional_manager_id = '1'+str(random.randint(10000,99999))+str(self.pk)
+            self.is_verification_email_sent = True
+
         super(RegionalManager, self).save(*args, **kwargs)
 
     def __str__(self):
