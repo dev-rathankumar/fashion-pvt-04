@@ -14,8 +14,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),
 
-    # Business
-    path('business/', include('business.urls')),
 
     # Users
     path('userLogin/', AccountViews.userLogin, name='userLogin'),
@@ -27,7 +25,14 @@ urlpatterns = [
     path('resetpassword_validate/<uidb64>/<token>/', AccountViews.resetpassword_validate, name='resetpassword_validate'),
     path('resetPassword/', AccountViews.resetPassword, name='resetPassword'),
 
+    # Accounts
     path('accounts/', include('accounts.urls')),
+
+    # Regional Managers
+    path('regional_managers/', include('regional_managers.urls')),
+
+    # Business
+    path('business/', include('business.urls')),
 
     # Smart select field
     path('chaining/', include('smart_selects.urls')),

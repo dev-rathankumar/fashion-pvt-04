@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'newsletters',
     'contacts',
     'django.contrib.sites',
+    'regional_managers',
 ]
 
 SITE_ID = 1

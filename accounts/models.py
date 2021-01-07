@@ -11,7 +11,7 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-
+from datetime import datetime
 from django.contrib.sites.models import Site
 
 # Image manipulation
@@ -106,18 +106,6 @@ class User(AbstractBaseUser):
     def has_module_perms(self, add_label):
         return True
 
-    # Override save method
-    # def save(self, *args, **kwargs):
-    #     new_image = compress(self.profile_picture)
-    #     self.profile_picture = new_image
-    #     super(User, self).save(*args, **kwargs)
-    #     img = Image.open(self.profile_picture.path)
-    #     if img.height > 300 or img.width > 300:
-    #         output_size = (300,300)
-    #         img.thumbnail(output_size)
-    #         img.save(self.profile_picture.path)
-    #     super(User, self).save(*args, **kwargs)
-
     # Concatenate first name and last name
     @property
     def name(self):
@@ -162,6 +150,7 @@ class RegionalManager(models.Model):
     address_line_1 = models.CharField(max_length=50)
     address_line_2 = models.CharField(max_length=50, blank=True)
     date_of_joining = models.DateField()
+    account_expiry_date = models.DateField()
     is_verification_email_sent = models.BooleanField(default=False)
     is_account_verified = models.BooleanField(default=False)
 

@@ -207,7 +207,7 @@ def rm_password_reset(request):
             user.save()
             regional_manager.save()
             messages.success(request, 'Congratulations! Your account has been activated.')
-            return redirect('home')
+            return redirect('rm_login')
         else:
             messages.error(request, 'Passwords do not match!')
             return redirect('rm_password_reset')
