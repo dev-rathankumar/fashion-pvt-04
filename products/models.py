@@ -1,6 +1,6 @@
 from django.db import models
 from category.models import Category
-from business.models import Business
+from accounts.models import Business
 from accounts.models import User
 from django.urls import reverse
 from django.forms import ModelForm

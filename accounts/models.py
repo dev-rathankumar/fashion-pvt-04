@@ -204,6 +204,10 @@ class Business(models.Model):
     address_line_2 = models.CharField(max_length=50, blank=True)
     account_activation_date = models.DateField()
     account_expiry_date = models.DateField()
+    is_verification_email_sent = models.BooleanField(default=False)
+    is_account_verified = models.BooleanField(default=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'business'
@@ -211,8 +215,24 @@ class Business(models.Model):
 
     # Override save method
     def save(self, *args, **kwargs):
-        super(Business, self).save(*args, **kwargs)
-        self.business_id = '2'+str(random.randint(10000,99999))+str(self.user.id)
+        if self.is_verification_email_sent == False:
+            # Send password reset and activation email
+            current_site = Site.objects.get_current()
+            mail_subject = 'Reset your password and activate your account.'
+            message = render_to_string('accounts/biz_reset_password_email.html', {
+                'user': self.user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(self.user.pk)),
+                'token': default_token_generator.make_token(self.user),
+            })
+            to_email = self.user.email
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.send()
+            self.business_id = '2'+str(random.randint(10000,99999))+str(self.pk)
+            self.is_verification_email_sent = True
+
         super(Business, self).save(*args, **kwargs)
 
     def __str__(self):

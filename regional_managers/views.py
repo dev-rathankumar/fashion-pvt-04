@@ -10,6 +10,8 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from datetime import date, datetime
+import time
 
 
 
@@ -27,21 +29,25 @@ def login(request):
             messages.error(request, "Invalid login credentials")
             return redirect('rm_login')
 
-        if user is None:
-            User = get_user_model()
-            user_queryset = User.objects.all().filter(email__iexact=username)
-            if user_queryset:
-                username = user_queryset[0].username
-                user = auth.authenticate(username=username, password=password)
-
         if user is not None:
-            auth.login(request, user)
-            messages.success(request, 'You are now logged in.')
-            return redirect('rm_dashboard')
+            # Check for the expiry date
+            rm = RegionalManager.objects.get(user__id=user.id)
+            get_exp_date = rm.account_expiry_date
+            exp_date = datetime.strptime(str(get_exp_date), '%Y-%m-%d')
+            get_today = date.today()
+            today = datetime.strptime(str(get_today), '%Y-%m-%d')
+            if today > exp_date:
+                messages.error(request, "Your account is expired.")
+                return redirect('rm_login')
+            else:
+                auth.login(request, user)
+                messages.success(request, 'You are now logged in.')
+                return redirect('rm_dashboard')
         else:
             messages.error(request, 'Invalid login credentials')
             return redirect('rm_login')
     return render(request, 'regional_managers/login.html')
+
 
 @login_required(login_url = 'rm_login')
 def dashboard(request):

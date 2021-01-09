@@ -1,0 +1,137 @@
+{% extends 'business/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-size-18">Profile</h4>
+
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-xl-8" style="margin:auto;">
+                    <div class="card overflow-hidden">
+                        <div class="bg-soft-primary">
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="text-primary p-3">
+                                      <h5 class="text-primary">Hi, {{ user.name }}</h5>
+                                      <p>Welcome back!</p>
+                                    </div>
+                                </div>
+                                <div class="col-5 align-self-end">
+                                    <img src="{% static 'business/images/profile-img.png' %}" alt="" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="avatar-md profile-user-wid mb-4">
+                                        <img src="{{ user.profile_picture.url }}" alt="" class="img-thumbnail rounded-circle">
+                                    </div>
+                                    <h5 class="font-size-15 text-truncate">{{ user.name }}</h5>
+                                    <p class="text-muted mb-0 text-truncate">Business Account</p>
+                                </div>
+
+                                <div class="col-sm-8">
+                                    <div class="pt-4">
+
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <h5 class="font-size-15">125</h5>
+                                                <p class="text-muted mb-0">Projects</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <h5 class="font-size-15">$1245</h5>
+                                                <p class="text-muted mb-0">Revenue</p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4">
+                                            <a href="{% url 'biz_dashboard' %}" class="btn btn-primary waves-effect waves-light btn-sm"><i class="mdi mdi-arrow-left ml-1"></i> Go to dashboard</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-4">Personal Information</h4>
+
+                            <div class="table-responsive">
+                                <table class="table table-nowrap mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Full Name :</th>
+                                            <td>{{ user.name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Mobile :</th>
+                                            <td>{{ user.phone_number }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">E-mail :</th>
+                                            <td>{{ user.email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Location :</th>
+                                            <td>{{ biz.address_line_1 }}, {{ biz.address_line_2 }} {{ biz.city }} <br>
+                                            {{ biz.state }}, {{ biz.country }} - {{ biz.pin_code }}</td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Date of Join :</th>
+                                            <td>{{ user.date_joined }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Account Expiry Date :</th>
+                                            <td>{{ biz.account_expiry_date }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div>
+
+                <div class="col-xl-8">
+
+
+                    <!-- <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-4">Revenue</h4>
+                            <div id="revenue-chart" class="apex-charts"></div>
+                        </div>
+                    </div> -->
+
+
+                </div>
+            </div>
+            <!-- end row -->
+
+        </div> <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+{% endblock %}

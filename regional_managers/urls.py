@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.dashboard, name='rm_dashboard'),
     path('login/', views.login, name='rm_login'),
     path('logout/', views.logout, name='rm_logout'),
+    
     path('forgotPassword/', views.forgotPassword, name='rm_forgotPassword'),
     path('resetpassword_validate/<uidb64>/<token>/', views.resetpassword_validate, name='rm_resetForgotPassword_validate'),
     path('resetPassword/', views.rm_resetPassword, name='rm_resetForgotPassword'),

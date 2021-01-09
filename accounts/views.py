@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages, auth
-from .models import User, RegionalManager
+from .models import User, RegionalManager, Business
 
 # Send account verification email
 from django.contrib.auth.tokens import default_token_generator
@@ -174,6 +174,7 @@ def resetPassword(request):
         return render(request, 'accounts/resetPassword.html')
 
 
+# Regional Manager Activation Validation
 def rm_password_reset_validate(request, uidb64, token):
     """Regional Manager Resetting password request validation"""
     try:
@@ -189,7 +190,7 @@ def rm_password_reset_validate(request, uidb64, token):
         messages.error(request, 'This link has been expired')
         return redirect('home')
 
-
+# Regional Manager Activation
 def rm_password_reset(request):
     """Reset password"""
     if request.method == 'POST':
@@ -206,10 +207,66 @@ def rm_password_reset(request):
             regional_manager.is_account_verified = True
             user.save()
             regional_manager.save()
-            messages.success(request, 'Congratulations! Your account has been activated.')
+            mail_subject = 'Your Account is Activated'
+            message = 'Congratulations! Your account has been activated.'
+            to_email = user.email
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.send()
+            messages.success(request, 'Congratulations! Your business account has been activated.')
             return redirect('rm_login')
         else:
             messages.error(request, 'Passwords do not match!')
             return redirect('rm_password_reset')
     else:
         return render(request, 'accounts/rm_password_reset.html')
+
+
+# Business Activation Validation
+def biz_password_reset_validate(request, uidb64, token):
+    """Business Resetting password request validation"""
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User._default_manager.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and default_token_generator.check_token(user, token):
+        request.session['uid'] = uid
+        messages.success(request, 'Please reset your password')
+        return redirect('biz_password_reset')
+    else:
+        messages.error(request, 'This link has been expired')
+        return redirect('biz_login')
+
+# Business Activation
+def biz_password_reset(request):
+    """Reset password"""
+    if request.method == 'POST':
+        biz_id = request.session['uid']
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+
+        if password == confirm_password:
+            user = User.objects.get(pk=biz_id)
+            business = Business.objects.get(user=user)
+            user.set_password(password)
+            user.is_business = True
+            user.is_active = True
+            business.is_account_verified = True
+            user.save()
+            business.save()
+            mail_subject = 'Your Business Account is Activated'
+            message = 'Congratulations! Your business account has been activated.'
+            to_email = user.email
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.send()
+            messages.success(request, 'Congratulations! Your account has been activated.')
+            return redirect('biz_login')
+        else:
+            messages.error(request, 'Passwords do not match!')
+            return redirect('biz_password_reset')
+    else:
+        return render(request, 'accounts/biz_password_reset.html')
