@@ -41,11 +41,11 @@
               <tr>
                 <td class="product-remove text-center" valign="middle">Product Description</td>
                 <td class="product-thumbnail text-center">
-                  {{ compare_product_1.product.description }}
+                  {{ compare_product_1.product.description | safe }}
                 </td>
                 <td class="product-thumbnail text-center">
                   {% if not compare_product_2 %} <span>-</span> {% else %}
-                    {{ compare_product_2.product.description }} {% endif %}
+                    {{ compare_product_2.product.description | safe }} {% endif %}
                 </td>
               </tr>
               <tr>

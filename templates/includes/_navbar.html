@@ -27,7 +27,7 @@
             </div>
             <!--End Desktop Logo-->
 
-            <div class="col-1 col-sm-1 col-md-1 col-lg-8 align-self-center d-menu-col">
+            <div class="col-1 col-sm-1 col-md-1 col-lg-6 align-self-center d-menu-col">
                 <!--Desktop Menu-->
                 <nav class="grid__item" id="AccessibleNav">
                     <ul id="siteNav" class="site-nav medium center hidearrow">
@@ -53,7 +53,7 @@
                 </nav>
                 <!--End Desktop Menu-->
             </div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-2 align-self-center icons-col text-right">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 align-self-center icons-col text-right">
               <!--Search-->
                 <div class="site-search iconset">
                     <i class="icon anm anm-search-l"></i>
@@ -129,15 +129,23 @@
                 </div>
                 <!--End Setting Dropdown-->
                 <!--Wishlist-->
-                <div class="wishlist-link iconset">
+                <div class="wishlist-link iconset" title="Wishlist">
                   <a href="{% url 'wishlist' %}" class="site-header__cart btn-minicart">
                     <i class="icon anm anm-heart" style="color:red;"></i>
                     <span class="wishlist-count">{{wish_count}}</span>
                   </a>
                 </div>
                 <!--End Wishlist-->
+                <!--Compare-->
+                <div class="wishlist-link iconset" title="Compare">
+                  <a href="{% url 'compare_products' %}" class="site-header__cart btn-minicart">
+                    <i class="icon anm anm-sync-ar" aria-hidden="true"></i>
+                    <span class="wishlist-count">{{compare_count2}}</span>
+                  </a>
+                </div>
+                <!--End Compare-->
                 <!--Minicart Dropdown-->
-                <div class="header-cart iconset">
+                <div class="header-cart iconset" title="Cart">
                     <a href="{% url 'cart' %}" class="site-header__cart btn-minicart" data-toggle="modal" data-target="#minicart-drawer">
                     <!-- <a href="{% url 'cart' %}" class="site-header__cart btn-minicart"> -->
                         <i class="icon anm anm-bag-l"></i>

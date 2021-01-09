@@ -1,5 +1,7 @@
 from .models import Wishlist, Product
 from django.db.models import Max, Min
+from products.models import Compare, CompareItem
+from carts.views import _cart_id
 
 def wish_counter(request):
     current_user = request.user
@@ -15,7 +17,18 @@ def wish_counter(request):
             wish_count = 0
     return dict(wish_count=wish_count)
 
-
+def compare_counter_header(request):
+    compare_count2 = 0
+    if 'admin' in request.path:
+        return {}
+    else:
+        try:
+            compare = Compare.objects.filter(compare_id=_cart_id(request))
+            compare_items = CompareItem.objects.all().filter(compare=compare[:1])
+            compare_count2 = compare_items.count()
+        except Compare.DoesNotExist:
+            compare_count2 = 0
+    return dict(compare_count2=compare_count2)
 
 def max_product_price(request):
     get_max_price = Product.objects.aggregate(Max('price'))

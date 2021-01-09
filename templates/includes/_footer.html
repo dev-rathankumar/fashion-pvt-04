@@ -139,7 +139,7 @@
                         <span class="product-price">${{total | intcomma}}</span>
                     </div>
                     <div class="subtotal list">
-                        <span>Tax:</span>
+                        <span>Tax ({{tax_percent}}%):</span>
                         <span class="product-price">${{tax | intcomma}}</span>
                     </div>
                     <div class="subtotal">
@@ -147,7 +147,7 @@
                         <span class="product-price">${{grand_total | intcomma}}</span>
                     </div>
                     <button type="button" class="btn proceed-to-checkout">Proceed to Checkout</button>
-                    <a href="{% url 'shopcart' %}" class="btn btn-secondary cart-btn">View Cart</a>
+                    <a href="{% url 'shopcart' %}" class="btn btn-secondary cart-btn">View/Edit Cart</a>
                 </div>
             </div>
     </div>
