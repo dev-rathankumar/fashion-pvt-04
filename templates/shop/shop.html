@@ -26,30 +26,7 @@
       <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar filterbar">
         <div class="closeFilter d-block d-md-none d-lg-none"><i class="icon icon anm anm-times-l"></i></div>
         <div class="sidebar_tags">
-          <!--Categories-->
-          <div class="sidebar_widget categories filter-widget">
-            <div class="widget-title">
-              <h2>Categories</h2>
-            </div>
-            <div class="widget-content" style="">
-              <ul class="sidebar_categories">
-                {% recursetree category %}
-                <li class="level1 sub-level"><a {% if not node.is_leaf_node %} href="#" {% else %} href="{% url 'shop' %}category/{{ node.slug }}" {% endif %} class="site-nav">{{ node.category_name }} </a>
-                  {% if not node.is_leaf_node %}
-                  <ul class="sublinks" style="display: none;">
-                    {{ children }}
-                  </ul>
-                  {% endif %}
-                </li>
-                {% endrecursetree %}
-              </ul>
-            </div>
-          </div>
-          <!--Categories-->
           <!--Price Filter-->
-
-
-
           <form action="{% url 'search' %}" method="GET">
             {% csrf_token %}
             <div class="sidebar_widget filterBox filter-widget">
@@ -233,7 +210,7 @@
               <div class="col-4 col-md-4 col-lg-4 text-center filters-toolbar__item filters-toolbar__item--count d-flex justify-content-center align-items-center">
                 <span class="filters-toolbar__product-count">Showing: {{ product_count }} Results</span>
               </div>
-              
+
             </div>
           </div>
         </div>

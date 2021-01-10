@@ -286,7 +286,7 @@ def search(request):
         'product_count': product_count,
         'sizes': sizes,
         'colors': colors,
-        # 'values' : request.GET,
+        'values' : request.GET,
     }
 
     return render(request, 'shop/shop.html', context)

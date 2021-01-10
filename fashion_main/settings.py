@@ -86,6 +86,7 @@ TEMPLATES = [
                 'products.context_processors.max_product_price',
                 'accounts.context_processors.get_business',
                 'carts.context_processors.shopcart_context',
+                'products.context_processors.search_products',
             ],
         },
     },

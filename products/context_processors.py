@@ -1,7 +1,8 @@
-from .models import Wishlist, Product
+from .models import Wishlist, Product, Size, Color, Variants
 from django.db.models import Max, Min
 from products.models import Compare, CompareItem
 from carts.views import _cart_id
+from django.db.models import Q
 
 def wish_counter(request):
     current_user = request.user
@@ -38,3 +39,48 @@ def max_product_price(request):
     for k,v in get_min_price.items():
         min_price = int(v)
     return dict(min_price=min_price, max_price=max_price)
+
+
+def search_products(request):
+    products = None
+    product_count = 0
+
+    sizes = Size.objects.values_list('name', flat=True).distinct()
+    colors = Color.objects.all()
+    if 'keyword' in request.GET:
+        keyword = request.GET['keyword']
+        if keyword:
+            products = Product.objects.order_by('-created_date').filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword))
+            product_count = products.count()
+
+    if 'min-price' in request.GET:
+        min_price = request.GET['min-price']
+        max_price = request.GET['max-price']
+        if max_price:
+            products = Product.objects.filter(price__gte=min_price, price__lte=max_price)
+            product_count = products.count()
+
+    if 'size' in request.GET:
+        size = request.GET.getlist('size') # ['M', 'XL']
+        size_id = Size.objects.filter(name__in=size).values_list('id', flat=True)  # [2, 3, 4]
+        product = Variants.objects.filter(size__in=size_id).values_list('product', flat=True)  # [ 1, 2 ]
+        products = Product.objects.filter(id__in=product)
+        product_count = products.count()
+
+    if 'color' in request.GET:
+        color = request.GET.getlist('color')
+        color_id = Color.objects.filter(name__in=color).values_list('id', flat=True)  # [2, 3, 4]
+        product = Variants.objects.filter(color__in=color_id).values_list('product', flat=True)  # [ 1, 2 ]
+        products = Product.objects.filter(id__in=product)
+        product_count = products.count()
+
+    # context = {
+    #     'products': products,
+    #     'product_count': product_count,
+    #     'sizes': sizes,
+    #     'colors': colors,
+    #     'values' : request.GET,
+    # }
+
+    return dict(products=products, product_count=product_count, sizes=sizes, colors=colors, values=request.GET)
+    # return render(request, 'shop/shop.html', context)
