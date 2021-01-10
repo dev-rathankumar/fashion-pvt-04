@@ -87,7 +87,7 @@
                   <!-- start product image -->
                   <div class="product-image">
                     <!-- start product image -->
-                    <a href="product-layout1.html" class="product-img">
+                    <a href="{{ product.get_url }}" class="product-img">
                       <!-- image -->
                       <img class="primary blur-up lazyload" data-src="{{ product.image.url }}" src="{{ product.image.url }}" alt="" title="">
                       <!-- End image -->
@@ -152,16 +152,16 @@
                     <!-- End product name -->
                     <!-- product price -->
                     <div class="product-price">
-                      <span class="price">$399.01</span>
+                      <span class="price">$ {{product.price}}</span>
                     </div>
                     <!-- End product price -->
                     <!--Product Review-->
                     <div class="product-review">
-                      <i class="font-13 fa fa-star"></i>
-                      <i class="font-13 fa fa-star"></i>
-                      <i class="font-13 fa fa-star"></i>
-                      <i class="font-13 fa fa-star"></i>
-                      <i class="font-13 fa fa-star-o"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
                     </div>
                     <!--End Product Review-->
                   </div>
