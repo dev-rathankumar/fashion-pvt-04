@@ -16,9 +16,9 @@ class Cart(models.Model):
 
 
 class ShopCart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    variant = models.ForeignKey(Variants, on_delete=models.SET_NULL,blank=True, null=True) # relation with varinat
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    variant = models.ForeignKey(Variants, on_delete=models.CASCADE,blank=True, null=True) # relation with varinat
     quantity = models.IntegerField()
 
     def __str__(self):
