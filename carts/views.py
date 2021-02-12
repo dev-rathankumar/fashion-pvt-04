@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product
 from category.models import Category
-from .models import Cart, CartItem, Tax, ShopCart, ShopCartForm
+from .models import Tax, ShopCart, ShopCartForm
 from accounts.models import Business
 from django.core.exceptions import ObjectDoesNotExist
 from urllib.parse import urlparse

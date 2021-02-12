@@ -1,4 +1,4 @@
-from .models import Cart, CartItem, ShopCart, Tax
+from .models import ShopCart, Tax
 from .views import _cart_id, shopcart
 from category.models import Category
 from accounts.models import Business

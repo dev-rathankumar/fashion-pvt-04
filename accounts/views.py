@@ -88,9 +88,25 @@ def userLogin(request):
         user = auth.authenticate(email=email, password=password)
 
         if user is not None:
-            auth.login(request, user)
-            messages.success(request, 'You are now logged in.')
-            return redirect('userDashboard')
+            try:
+                if user.is_business:
+                    auth.login(request, user)
+                    messages.success(request, "You are now logged in!")
+                    return redirect('biz_dashboard')
+                elif user.is_regional_manager:
+                    auth.login(request, user)
+                    messages.success(request, "You are now logged in!")
+                    return redirect('rm_dashboard')
+                elif user.is_superadmin:
+                    auth.login(request, user)
+                    messages.success(request, "You are now logged in!")
+                    return redirect('/admin')
+                else:
+                    auth.login(request, user)
+                    messages.success(request, 'You are now logged in.')
+                    return redirect('userDashboard')
+            except:
+                pass
         else:
             messages.error(request, 'Invalid login credentials')
             return redirect('userLogin')

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Cart, CartItem, Tax, ShopCart
+from .models import Tax, ShopCart
 
 class TaxAdmin(admin.ModelAdmin):
     def tax_percent(self, object):
@@ -13,7 +13,5 @@ class ShopCartAdmin(admin.ModelAdmin):
     list_filter = ['user']
 
 
-admin.site.register(Cart)
-admin.site.register(CartItem)
 admin.site.register(ShopCart, ShopCartAdmin)
 admin.site.register(Tax, TaxAdmin)
