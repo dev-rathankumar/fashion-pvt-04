@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div id="page-content">
+  <!--Body Container-->
+  <!--Breadcrumbs-->
+  <div class="breadcrumbs-wrapper">
+    <div class="container">
+      <div class="breadcrumbs"><a href="index.html" title="Back to the home page">Home</a> <span aria-hidden="true">|</span> <span>My Account</span></div>
+    </div>
+  </div>
+  <!--End Breadcrumbs-->
+  {% include 'includes/_alerts.html' %}
+  <div class="container">
+    {% include 'accounts/includes/_navbar.html' %}
+    <div class="row mb-5">
+      {% include 'accounts/includes/_sidebar.html' %}
+
+      <div class="col-xs-10 col-lg-10 col-md-12">
+        <!-- Tab panes -->
+        <div class="tab-content dashboard-content padding-30px-all md-padding-15px-all" style="">
+
+          <!-- Account Details -->
+          <div id="account-details" class="tab-pane fade">
+            <h3>Your Inquiries </h3>
+            <div id="downloads" class="product-order tab-pane fade">
+              <div class="table-responsive">
+                {% if inquiries %}
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Your Message</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for inquiry in inquiries %}
+                    <tr>
+                      <td>{{inquiry.product_name}}</td>
+                      <td>{{inquiry.inq_message}}</td>
+                      <td>{{inquiry.create_date | date:"M d, Y"}}</td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+                {% else %}
+                <div class="text-center">
+                  <h4>You have not made any inquiries</h4>
+                  <a href="/shop/" class="btn btn-primary"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Go to shop</a>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+
+          </div>
+          <!-- End Account Details -->
+
+        </div>
+        <!-- End Tab panes -->
+      </div>
+    </div>
+  </div>
+  <!--End Body Container-->
+</div>
+<!--End Page Wrapper-->
+
+{% endblock %}

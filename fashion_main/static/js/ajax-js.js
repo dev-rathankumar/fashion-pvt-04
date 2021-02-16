@@ -109,7 +109,7 @@ $(document).on('submit', '#inquiry-modal', function(e) {
     success: function(data) {
       if (data == 'already-inquired') {
         $('#inquiry_success').addClass('alert alert-warning alert-dismissible fade show');
-        $("#inquiry_success").html('You have already made an inquiry about this car. Please wait until we get back to you.');
+        $("#inquiry_success").html('You have already made an inquiry about this product. Please wait until we get back to you.');
         $("#submit").val('Send Inquiry');
       } else {
         $('#inquiry_success').addClass('alert alert-success alert-dismissible fade show');

@@ -3,3 +3,7 @@
 setTimeout(function(){
   $('#site_settings').fadeOut('slow');
 }, 5000)
+
+setTimeout(function(){
+  $('#message').fadeOut('slow');
+}, 5000)

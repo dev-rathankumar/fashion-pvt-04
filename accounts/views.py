@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages, auth
 from .models import User, RegionalManager, Business
+from contacts.models import Inquiry
+from products.models import Product
 
 # Send account verification email
 from django.contrib.auth.tokens import default_token_generator
@@ -11,7 +13,10 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
+from .forms import UserForm
+
 from django.http import HttpResponse
+from urllib.parse import urlparse
 
 # Create your views here.
 def userRegister(request):
@@ -100,7 +105,7 @@ def userLogin(request):
                 elif user.is_superadmin:
                     auth.login(request, user)
                     messages.success(request, "You are now logged in!")
-                    return redirect('/admin')
+                    return redirect('userDashboard')
                 else:
                     auth.login(request, user)
                     messages.success(request, 'You are now logged in.')
@@ -117,6 +122,22 @@ def userLogin(request):
 def userDashboard(request):
     return render(request, 'accounts/userDashboard.html')
 
+@login_required(login_url='/userLogin')
+def editUser(request, pk=None):
+    user = get_object_or_404(User, pk=pk)
+    if request.method == 'POST':
+        form = UserForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully saved.')
+            return redirect('/userDashboard/user/edit/'+str(pk))
+    else:
+        form = UserForm(instance=user)
+    context = {
+        'form': form,
+        'user': user,
+    }
+    return render(request, 'accounts/editUser.html', context)
 
 def logout(request):
     if request.method == 'POST':
@@ -286,3 +307,13 @@ def biz_password_reset(request):
             return redirect('biz_password_reset')
     else:
         return render(request, 'accounts/biz_password_reset.html')
+
+
+@login_required(login_url='/userLogin')
+def userInquiry(request):
+    user_inquiry = Inquiry.objects.order_by('-create_date').filter(user_id=request.user.id)
+    
+    context = {
+            'inquiries': user_inquiry,
+        }
+    return render(request, 'accounts/inquiries.html', context)
