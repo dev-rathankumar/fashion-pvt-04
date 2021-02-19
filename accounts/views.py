@@ -120,7 +120,12 @@ def userLogin(request):
 
 @login_required(login_url='/userLogin')
 def userDashboard(request):
-    return render(request, 'accounts/userDashboard.html')
+    user_inquiry = Inquiry.objects.order_by('-create_date').filter(user_id=request.user.id)
+    inquiry_count = user_inquiry.count()
+    context = {
+        'inquiry_count' : inquiry_count,
+    }
+    return render(request, 'accounts/userDashboard.html', context)
 
 @login_required(login_url='/userLogin')
 def editUser(request, pk=None):
@@ -312,8 +317,32 @@ def biz_password_reset(request):
 @login_required(login_url='/userLogin')
 def userInquiry(request):
     user_inquiry = Inquiry.objects.order_by('-create_date').filter(user_id=request.user.id)
-    
+
     context = {
             'inquiries': user_inquiry,
         }
     return render(request, 'accounts/inquiries.html', context)
+
+@login_required(login_url='/userLogin')
+def changeuserPassword(request):
+    if request.method == 'POST':
+        current_password = request.POST['current_password']
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+
+        user = User.objects.get(username__exact=request.user.username)
+
+        if password == confirm_password:
+            success = user.check_password(request.POST['current_password'])
+            if success:
+                user.set_password(password)
+                user.save()
+                auth.logout(request)
+                messages.success(request, 'Password updated successfully. Please login again.')
+                return redirect('changeuserPassword')
+            else:
+                messages.error(request, 'Please enter valid current password')
+                return redirect('changeuserPassword')
+        else:
+            messages.error(request, 'Passwords do not match!')
+    return render(request, 'accounts/changeuserPassword.html')

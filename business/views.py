@@ -97,7 +97,7 @@ def biz_changePassword(request):
             else:
                 return HttpResponse('Please enter valid current password')
         else:
-            return HttpResponse('Password do not match!')
+            return HttpResponse('Passwords do not match!')
     return render(request, 'business/changePassword.html')
 
 

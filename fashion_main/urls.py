@@ -20,6 +20,7 @@ urlpatterns = [
     path('userDashboard/', AccountViews.userDashboard, name='userDashboard'),
     path('userDashboard/user/edit/<int:pk>/', AccountViews.editUser, name='editUser'),
     path('userInquiry/', AccountViews.userInquiry, name='userInquiry'),
+    path('changeuserPassword/', AccountViews.changeuserPassword, name='changeuserPassword'),
     path('userRegister/', AccountViews.userRegister, name='userRegister'),
     path('logout/', AccountViews.logout, name='logout'),
     path('activate/<uidb64>/<token>/', AccountViews.activate, name='activate'),
