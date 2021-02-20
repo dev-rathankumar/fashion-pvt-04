@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+{% load humanize %}
+
+<div id="page-content">
+  <!--Body Container-->
+  <!--Breadcrumbs-->
+  <div class="breadcrumbs-wrapper">
+    <div class="container">
+      <div class="breadcrumbs"><a href="{% url 'shop' %}" title="Go back to shop page"><i class="fa fa-chevron-left" style="font-size:11px;"></i> Back to Shop</a></div>
+    </div>
+  </div>
+  <!--End Breadcrumbs-->
+  <!--Page Title with Image-->
+
+  <!--End Page Title with Image-->
+  <div class="container">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr>
+        <td align="center" style="background-color: #ffffff;" bgcolor="#ffffff">
+          <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+            <tr>
+              <td align="center" valign="top" style="font-size:0; padding: 35px;" bgcolor="#000">
+                <div style="max-width:100%; min-width:100px;width:100%;">
+                  <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:80%;margin:0;">
+                    <tr>
+                      <td align="center" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 36px; font-weight: 800; line-height: 48px;" class="mobile-center">
+                        <h1 style="font-size: 24px; font-weight: 700; margin: 0; color: #ffffff;">ORDER CONFIRMATION</h1>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding: 0px 35px 20px 35px; background-color: #ececec;" bgcolor="#ececec">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;margin-bottom:0;">
+                  <tr>
+                    <td align="center" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 25px;"> <img
+                        src="https://img.icons8.com/carbon-copy/100/000000/checked-checkbox.png" width="125" height="120" style="display: block; border: 0px;" /><br>
+                      <h2 style="font-size: 24px; font-weight: 800; line-height: 36px; color: #333333; margin: 0;"> Thank You For Your Order! </h2>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 24px; padding-top: 10px;">
+                      <p style="font-size: 12px; font-weight: 400; line-height: 18px; color: #777777;"><span style="font-size:12px;font-weight:800;">Hello {{user.first_name}},</span><br> Thank you for shopping with us. We'll send a confirmation email once your item has shipped.
+                       Your Order details are indicated below. The payment details of your transaction can be found on the order invoice.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="padding-top: 20px;">
+                      <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                          <td width="75%" align="left" bgcolor="#ffffff" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> Order Confirmation # </td>
+                          <td width="0%" align="left" bgcolor="#ffffff" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"></td>
+                          <td width="25%" align="left" bgcolor="#ffffff" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> {{order_number}} </td>
+                        </tr>
+
+                        <tr>
+                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><b>Purchased Items</b></td>
+                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><b>Qty</b></td>
+                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><b>Price</b></td>
+                        </tr>
+                        {% for item in ordered_products %}
+                        <tr>
+                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> {{ item.variant.title }} </td>
+                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><span class="cart__meta-text" style="font-size:10px !important;">( ${{ item.variant.price }} ) </span> x {{ item.quantity }} </td>
+                          <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> ${{ item.amount }} </td>
+                        </tr>
+                        {% endfor %}
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="padding-top:0;">
+                      <table cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:0";>
+                        <tr>
+                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size:12px; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> Subtotal </td>
+                          <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size:12px; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> ${{subtotal}} </td>
+                        </tr>
+                        <tr>
+                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> Tax </td>
+                          <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> ${{order.tax}} </td>
+                        </tr>
+                        <tr>
+                          <td width="75%" align="left"
+                            style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 20px; padding: 0px 10px 0px 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;"> TOTAL </td>
+                          <td width="25%" align="left"
+                            style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 20px; padding: 0px 10px 0px 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;"> ${{order.total}} </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" height="100%" valign="top" width="100%" style="padding: 20px 35px 0 35px; background-color: #ececec;" bgcolor="#ececec">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:660px;">
+                  <tr>
+                    <td align="center" valign="top" style="font-size:0;">
+                      <div style="display:inline-block; max-width:100%; min-width:240px; vertical-align:top; width:100%;">
+                        <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:300px;">
+                          <tr>
+                            <td align="left" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 20px;">
+                              <p style="font-weight: 800;margin-bottom:0; font-size:15px;">DELIVERY ADDRESS</p>
+                              <p>{{order.name}}<br>{{order.address}}<br>{{order.city}} - {{order.pin_code}}<br>{{order.state}}, {{order.country}}<br>{{order.phone}}<br>{{order.email}}</p>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style=" padding: 20px; background-color: #000;" bgcolor="#000">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;margin-bottom:0;">
+                  <tr>
+                    <td align="center" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
+                      <a href="{% url 'shop' %}"><h4 style="font-size: 24px; font-weight: 700; line-height: 24px; color: #ffffff; margin: 0;"> Shop Again </h4></a>
+                    </td>
+                  </tr>
+
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding: 20px; background-color: #ececec;" bgcolor="#ececec">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;margin-bottom:0;">
+                  <tr>
+                    <td align="center"> <img src="{% static 'images/avon-logo.svg' %}" width="90" style="display: block; border: 0px;" /> </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 24px; padding: 5px 0 0 0;">
+                      <p style="font-size: 12px; font-weight: 400; line-height: 18px; color: #333333;"> 675 Parko Avenue LA, CA 02232 </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <!--End Main Content-->
+  </div>
+  <!--End Body Container-->
+
+</div>
+<!--End Page Wrapper-->
+<!--End Page Wrapper-->
+
+{% endblock %}

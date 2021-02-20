@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'contacts',
     'django.contrib.sites',
     'regional_managers',
+    'orders',
 ]
 
 SITE_ID = 1

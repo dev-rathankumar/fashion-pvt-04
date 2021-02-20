@@ -125,7 +125,14 @@
       </div>
 
 
+
       <div class="col-12 col-sm-12 col-md-4 col-lg-4 cart__footer">
+        <form action="{% url 'checkout' %}" method="POST">
+          {% csrf_token %}
+
+          <!-- <input type="hidden" name="subtotal" value="{{total}}">
+          <input type="hidden" name="tax" value="{{tax}}">
+          <input type="hidden" name="grand_total" value="{{grand_total}}"> -->
         <div class="solid-border">
           <div class="row">
             <span class="col-12 col-sm-6 cart__subtotal-title">Subtotal</span>
@@ -141,16 +148,16 @@
             <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Grand Total</strong></span>
             <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money">${{grand_total | intcomma}}</span></span>
           </div>
-          <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
+          <!-- <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div> -->
           <p class="cart_tearm">
             <label>
-              <input type="checkbox" name="tearm" id="cartTearm" class="checkbox" value="tearm" required>
+              <input type="checkbox" name="termsCheckbox" class="checkbox" required>
               I agree with the terms and conditions</label>
           </p>
           <input type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" value="Proceed To Checkout">
           <div class="paymnet-img"><img src="{% static 'images/payment-img.jpg' %}" alt="Payment"></div>
         </div>
-
+      </form>
       </div>
       <!--End Main Content-->
     </div>

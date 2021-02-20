@@ -45,5 +45,4 @@ def shopcart_context(request):
     except Tax.DoesNotExist:
         tax = 0
     grand_total = round(total + tax, 2)
-    test_context = 'This is test'
-    return dict(shopcart=shopcart, category=category, total=total, tax_percent=tax_percent, tax=tax, grand_total=grand_total, test_context=test_context)
+    return dict(shopcart=shopcart, category=category, total=total, tax_percent=tax_percent, tax=tax, grand_total=grand_total)

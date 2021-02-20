@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product
 from category.models import Category
 from .models import Tax, ShopCart, ShopCartForm
-from accounts.models import Business
+from accounts.models import Business, Country
 from django.core.exceptions import ObjectDoesNotExist
 from urllib.parse import urlparse
 from django.contrib import messages
@@ -244,6 +244,7 @@ def shopcart(request):
     except Tax.DoesNotExist:
         tax = 0
     grand_total = round(total + tax, 2)
+
     context={'shopcart': shopcart,
              'category':category,
              'total': total,
@@ -258,3 +259,13 @@ def deletefromcart(request,id):
     ShopCart.objects.filter(id=id).delete()
     messages.success(request, "Item has been removed form the Cart.")
     return HttpResponseRedirect("/shopcart")
+
+
+def checkout(request):
+    current_user = request.user
+    shopcart = ShopCart.objects.filter(user_id=current_user.id)
+    cart_count = shopcart.count()
+    if cart_count <= 0:
+        return redirect('shop')
+    else:
+        return render(request, 'shop/checkout.html')

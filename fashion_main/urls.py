@@ -47,6 +47,9 @@ urlpatterns = [
     path('cart/', include('carts.urls')),
     path('shopcart/', CartViews.shopcart, name='shopcart'),
 
+    # Checkout
+    path('checkout/', CartViews.checkout, name='checkout'),
+
     # Ajax color
     path('ajaxcolor/', views.ajaxcolor, name='ajaxcolor'),
 
@@ -75,5 +78,8 @@ urlpatterns = [
     path('contact/', ContactViews.contact, name="contact"),
     path('verify_otp/', ContactViews.verify_otp, name='verify_otp'),
     path('resend_otp/', ContactViews.resend_otp, name='resend_otp'),
+
+    # Orders
+    path('order/', include('orders.urls'))
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

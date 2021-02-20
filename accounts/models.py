@@ -245,6 +245,21 @@ class Business(models.Model):
 class Customer(models.Model):
     user            = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     customer_id     = models.CharField(max_length=100, blank=True)
+    address_line_1 = models.CharField(max_length=50)
+    address_line_2 = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=50)
+    pin_code = models.CharField(max_length=50)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    state = ChainedForeignKey(
+            State,
+            chained_field="country",
+            chained_model_field="country",
+            show_all=False,
+            auto_choose=True,
+            sort=True,
+        )
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     # Override save method
     def save(self, *args, **kwargs):
