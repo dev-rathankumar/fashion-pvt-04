@@ -146,7 +146,7 @@
                         <span>Grand Total:</span>
                         <span class="product-price">${{grand_total | intcomma}}</span>
                     </div>
-                    <button type="button" class="btn proceed-to-checkout">Proceed to Checkout</button>
+                    <a href="{% url 'checkout' %}" class="btn proceed-to-checkout">Proceed to Checkout</a>
                     <a href="{% url 'shopcart' %}" class="btn btn-secondary cart-btn">View/Edit Cart</a>
                 </div>
             </div>
@@ -489,6 +489,8 @@
   }
   price_slider();
 </script>
+
+
 
  <!--End Newsletter Popup Cookies-->
 </body>

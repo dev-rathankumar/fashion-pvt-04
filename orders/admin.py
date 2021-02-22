@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, OrderProduct
+from .models import Order, OrderProduct, Payment
 
 
 
@@ -9,21 +9,33 @@ class OrderProductInline(admin.TabularInline):
     can_delete = False
     extra = 0
 
+class OrderInline(admin.TabularInline):
+    model = Order
+    fields = ['order_number', 'name', 'phone', 'email', 'total', 'tax', 'status', 'ordered', 'created_at']
+    readonly_fields = ['order_number', 'name', 'phone', 'email', 'city', 'total', 'tax', 'status', 'ordered', 'created_at']
+    can_delete = False
+    extra = 0
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['order_number', 'name', 'phone', 'email', 'city', 'total', 'tax', 'status', 'created_at']
-    list_filter = ['status']
+    list_display = ['order_number', 'name', 'phone', 'email', 'city', 'total', 'tax', 'status', 'ordered', 'created_at']
+    list_filter = ['status', 'ordered']
     search_fields = ['order_number', 'first_name', 'last_name', 'phone', 'email']
-    readonly_fields = ('user', 'order_number', 'address_line_1', 'address_line_2', 'ip', 'note')
+    readonly_fields = ('payment','user', 'order_number', 'total', 'tax', 'ip', 'note')
+    list_per_page = 25
     can_delete = False
     inlines = [OrderProductInline]
 
 
 class OrderProductAdmin(admin.ModelAdmin):
-    list_display = ['user', 'product', 'variant', 'color', 'size', 'price', 'quantity', 'amount']
+    list_display = ['user', 'product', 'variant', 'color', 'size', 'price', 'quantity', 'amount', 'ordered']
     list_filter = ['user']
 
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ['user', 'payment_method', 'payment_id', 'amount', 'status', 'created_at']
+    readonly_fields = ('user', 'payment_method', 'payment_id', 'amount', 'status', 'created_at')
+    inlines = [OrderInline]
 
 
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderProduct,OrderProductAdmin)
+admin.site.register(Payment, PaymentAdmin)

@@ -3,6 +3,19 @@ from accounts.models import User
 from products.models import Product, Variants
 from django.forms import ModelForm
 
+
+
+class Payment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    payment_id = models.CharField(max_length=100)
+    payment_method = models.CharField(max_length=100)
+    amount = models.CharField(max_length=100)
+    status = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.first_name
+
 class Order(models.Model):
     STATUS = (
         ('New', 'New'),
@@ -12,6 +25,7 @@ class Order(models.Model):
     )
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, blank=True, null=True)
     order_number = models.CharField(max_length=20)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -22,11 +36,13 @@ class Order(models.Model):
     country = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
+    pin_code = models.CharField(max_length=10)
     total = models.FloatField()
     tax = models.FloatField()
     status = models.CharField(max_length=10, choices=STATUS, default='New')
     ip = models.CharField(blank=True, max_length=20)
-    note = models.CharField(max_length=100)
+    note = models.CharField(max_length=100, blank=True)
+    ordered = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -46,7 +62,7 @@ class Order(models.Model):
 class OrderForm(ModelForm):
     class Meta:
         model = Order
-        fields = ['first_name', 'last_name', 'phone', 'email', 'address_line_1', 'address_line_2', 'country', 'state', 'city']
+        fields = ['first_name', 'last_name', 'phone', 'email', 'address_line_1', 'address_line_2', 'country', 'state', 'city', 'pin_code', 'note']
 
 
 class OrderProduct(models.Model):
@@ -57,6 +73,7 @@ class OrderProduct(models.Model):
     )
 
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     variant = models.ForeignKey(Variants, on_delete=models.CASCADE, default=2)
@@ -66,6 +83,7 @@ class OrderProduct(models.Model):
     price = models.FloatField()
     amount = models.FloatField()
     status = models.CharField(max_length=10, choices=STATUS, default='New')
+    ordered = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

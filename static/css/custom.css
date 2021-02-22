@@ -213,6 +213,3 @@ input:checked ~ label, label:hover, label:hover ~ label{
   font-size: 14px;
   width: 100%
 }
-#payment-processing-message{
-  display: none;
-}
