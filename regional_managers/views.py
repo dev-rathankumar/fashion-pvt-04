@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from accounts.models import User, RegionalManager
 from django.http import HttpResponse
 import json
@@ -12,6 +12,9 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from datetime import date, datetime
 import time
+from .forms import UserForm, RegionalManagerForm
+from django import forms
+
 
 
 
@@ -164,3 +167,40 @@ def rm_changePassword(request):
         else:
             return HttpResponse('Password do not match!')
     return render(request, 'regional_managers/changePassword.html')
+
+
+def editProfile(request, pk=None):
+    user = get_object_or_404(User, pk=pk)
+    regionalmanager = get_object_or_404(RegionalManager, pk=pk)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, request.FILES, instance=user, prefix="user")
+        regionalmanager_form = RegionalManagerForm(request.POST, prefix="regionalmanager")
+        if user_form.is_valid() and regionalmanager_form.is_valid():
+            user = user_form.save()
+            regionalmanager_form.cleaned_data["user"] = user
+            current_user = request.user
+            rm = RegionalManager.objects.get(user=current_user)
+            regionalmanager = regionalmanager_form.save(commit=False)
+            regionalmanager.user = request.user
+            regionalmanager.is_editing = True
+            regionalmanager.is_verification_email_sent = True
+            regionalmanager.is_account_verified = True
+            regionalmanager.regional_manager_id = rm.regional_manager_id
+            regionalmanager.date_of_joining = rm.date_of_joining
+            regionalmanager.account_expiry_date = rm.account_expiry_date
+            regionalmanager_form.save()
+            messages.success(request, 'Successfully saved.')
+            return redirect('/regional_managers/editProfile/'+str(pk))
+        else:
+            print('user form', user_form.errors)
+            print('rm form', regionalmanager_form.errors)
+    else:
+        user_form = UserForm(instance=user, prefix="user")
+        regionalmanager_form = RegionalManagerForm(instance=regionalmanager, prefix="regionalmanager")
+    context = {
+        'user_form': user_form,
+        'regionalmanager_form': regionalmanager_form,
+        'user': user,
+        'regionalmanager': regionalmanager,
+    }
+    return render(request, 'regional_managers/editProfile.html', context)

@@ -70,9 +70,9 @@ GenderChoice = (
 )
 # User model
 class User(AbstractBaseUser):
-    is_customer     = models.BooleanField(default=False)
-    is_business     = models.BooleanField(default=False)
-    is_regional_manager     = models.BooleanField(default=False)
+    is_customer     = models.BooleanField(default=False, editable=False)
+    is_business     = models.BooleanField(default=False, editable=False)
+    is_regional_manager     = models.BooleanField(default=False, editable=False)
 
     first_name      = models.CharField(max_length=50)
     last_name       = models.CharField(max_length=50)
@@ -151,14 +151,16 @@ class RegionalManager(models.Model):
     address_line_2 = models.CharField(max_length=50, blank=True)
     date_of_joining = models.DateField()
     account_expiry_date = models.DateField()
-    is_verification_email_sent = models.BooleanField(default=False)
-    is_account_verified = models.BooleanField(default=False)
+    is_editing = models.BooleanField(default=False, blank=True, editable=False)
+    is_verification_email_sent = models.BooleanField(default=False, editable=False)
+    is_account_verified = models.BooleanField(default=False, editable=False)
 
     # Override save method
     def save(self, *args, **kwargs):
-        if self.is_verification_email_sent == False:
+        if self.is_editing == False and self.is_verification_email_sent == False:
             # Send password reset and activation email
             current_site = Site.objects.get_current()
+            print('failed')
             mail_subject = 'Reset your password and activate your account.'
             message = render_to_string('accounts/rm_reset_password_email.html', {
                 'user': self.user,
@@ -174,7 +176,8 @@ class RegionalManager(models.Model):
             self.regional_manager_id = '1'+str(random.randint(10000,99999))+str(self.pk)
             self.is_verification_email_sent = True
 
-        super(RegionalManager, self).save(*args, **kwargs)
+        print('saving point')
+        return super(RegionalManager, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.user.first_name
