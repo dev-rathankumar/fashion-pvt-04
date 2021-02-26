@@ -13,4 +13,8 @@ urlpatterns = [
     path('profile/', views.biz_profile, name='biz_profile'),
     path('changePassword/', views.biz_changePassword, name='biz_changePassword'),
 
+    # Edit profile
+    path('editProfile/<int:pk>/', views.editProfile, name='editProfile'),
+
+    path('paymentSettings/<int:pk>/', views.paymentSettings, name='paymentSettings'),
 ]

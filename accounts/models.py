@@ -208,6 +208,7 @@ class Business(models.Model):
     account_activation_date = models.DateField()
     account_expiry_date = models.DateField()
     is_verification_email_sent = models.BooleanField(default=False)
+    is_editing = models.BooleanField(default=False, blank=True, editable=False)
     is_account_verified = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
@@ -218,7 +219,7 @@ class Business(models.Model):
 
     # Override save method
     def save(self, *args, **kwargs):
-        if self.is_verification_email_sent == False:
+        if self.is_editing == False and self.is_verification_email_sent == False:
             # Send password reset and activation email
             current_site = Site.objects.get_current()
             mail_subject = 'Reset your password and activate your account.'
@@ -236,6 +237,7 @@ class Business(models.Model):
             self.business_id = '2'+str(random.randint(10000,99999))+str(self.pk)
             self.is_verification_email_sent = True
 
+        print('saving point')
         super(Business, self).save(*args, **kwargs)
 
     def __str__(self):

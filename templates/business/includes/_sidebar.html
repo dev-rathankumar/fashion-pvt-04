@@ -28,7 +28,7 @@
 
                 <li>
                     <a href="/business/profile"
-                    {% if '/business/profile/' == request.path %}
+                    {% if 'profile' in request.path or 'editProfile' in request.path %}
                       class="waves-effect active"
                     {% else %}
                       class="waves-effect"
@@ -36,6 +36,19 @@
                     >
                         <i class="bx bxs-user-detail"></i>
                         <span>Profile</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'paymentSettings' user.id %}"
+                    {% if 'paymentSettings' in request.path %}
+                      class="waves-effect active"
+                    {% else %}
+                      class="waves-effect"
+                    {% endif %}
+                    >
+                        <i class="bx bxs-credit-card"></i>
+                        <span>Payment Settings</span>
                     </a>
                 </li>
 

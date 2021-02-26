@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from accounts.models import User
 from accounts.models import Business
 from django.http import HttpResponse
+from .forms import PaymentSettingForm
+from .models import PaymentSetting
 
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import default_token_generator
@@ -18,6 +20,8 @@ import time
 
 import json
 from django.contrib import messages
+
+from .forms import UserForm, BusinessForm
 
 
 # Create your views here.
@@ -166,3 +170,61 @@ def biz_resetPassword(request):
             return redirect('biz_resetForgotPassword')
     else:
         return render(request, 'business/resetPassword.html')
+
+
+def editProfile(request, pk=None):
+    user = get_object_or_404(User, pk=pk)
+    business = get_object_or_404(Business, pk=pk)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, request.FILES, instance=user, prefix="user")
+        business_form = BusinessForm(request.POST, prefix="business")
+        if user_form.is_valid() and business_form.is_valid():
+            user = user_form.save()
+            business_form.cleaned_data["user"] = user
+            current_user = request.user
+            biz = Business.objects.get(user=current_user)
+            business = business_form.save(commit=False)
+            business.user = request.user
+            business.is_editing = True
+            business.is_verification_email_sent = True
+            business.is_account_verified = True
+            business.business_id = biz.business_id
+            business.domain_name = biz.domain_name
+            business.account_activation_date = biz.account_activation_date
+            business.account_expiry_date = biz.account_expiry_date
+            business.regional_manager = biz.regional_manager
+            business.created_date = biz.created_date
+            business_form.save()
+            messages.success(request, 'Your profile has been updated successfully.')
+            return redirect('/business/editProfile/'+str(pk))
+        else:
+            print('user form', user_form.errors)
+            print('rm form', business_form.errors)
+    else:
+        user_form = UserForm(instance=user, prefix="user")
+        business_form = BusinessForm(instance=business, prefix="business")
+    context = {
+        'user_form': user_form,
+        'business_form': business_form,
+        'user': user,
+        'business': business,
+    }
+    return render(request, 'business/editProfile.html', context)
+
+
+def paymentSettings(request, pk=None):
+    user = get_object_or_404(User, pk=pk)
+    pay_setting = get_object_or_404(PaymentSetting, user=user)
+    if request.method == 'POST':
+        form = PaymentSettingForm(request.POST, instance=pay_setting)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your payment settings are saved successfully.')
+            return redirect('/business/paymentSettings/'+str(pk))
+    else:
+        form = PaymentSettingForm(instance=pay_setting)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/paymentSettings.html', context)
