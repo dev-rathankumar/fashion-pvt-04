@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'regional_managers',
     'orders',
+    'jquery',
+    'djangoformsetjs',
 ]
 
 SITE_ID = 1

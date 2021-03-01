@@ -42,3 +42,42 @@ a.waves-effect.active{
 #strengthMessage{
   position: relative;
 }
+#cke_id_description, #cke_id_full_specification{
+  width: 100% !important;
+}
+.django-ckeditor-widget{
+  display: block !important;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.var_image input#imageid{
+  display: none;
+}
+[type=radio]:checked + li img{
+  outline: 2px solid #000;
+}
+ul.var_image_list{
+  list-style-type: none;
+}
+/* label.var_image{
+  cursor: pointer;
+} */
+
+/* .varImagContainer{
+     display:none;
+     margin-top:30px;
+} */
+
+/* *:focus{
+    outline:none !important;
+} */

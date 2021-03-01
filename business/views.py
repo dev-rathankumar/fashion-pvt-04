@@ -21,7 +21,12 @@ import time
 import json
 from django.contrib import messages
 
-from .forms import UserForm, BusinessForm
+from .forms import UserForm, BusinessForm, ProductForm, ProductGalleryForm, ProductVariantForm
+
+from products.models import Product, ProductGallery, Variants
+from django.forms import inlineformset_factory
+from django import forms
+from django.template.defaultfilters import slugify
 
 
 # Create your views here.
@@ -228,3 +233,106 @@ def paymentSettings(request, pk=None):
         'form': form,
     }
     return render(request, 'business/paymentSettings.html', context)
+
+
+def allProducts(request):
+    business = get_object_or_404(Business, pk=request.user.id)
+    products = Product.objects.filter(business=business)
+
+    context = {
+        'products': products,
+    }
+    return render(request, 'business/allProducts.html', context)
+
+
+def editProduct(request, pk=None):
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == 'POST':
+        basicInfo_form = ProductForm(request.POST, request.FILES, instance=product)
+        if basicInfo_form.is_valid():
+            basicInfo_form.save()
+            return redirect('/business/products/editProduct/'+str(pk)+'/editGallery/')
+        else:
+            print(basicInfo_form.errors)
+
+    else:
+        basicInfo_form = ProductForm(instance=product)
+    context = {
+        'basicInfo_form': basicInfo_form,
+        'product': product,
+    }
+    return render(request, 'business/editProduct.html', context)
+
+
+def editGallery(request, pk=None):
+    product = get_object_or_404(Product, pk=pk)
+    ProductGalleryFormSet = inlineformset_factory(Product, ProductGallery, form=ProductGalleryForm, extra=1)
+
+    if request.method == 'POST':
+        add_another = request.POST['add_another']
+        formset = ProductGalleryFormSet(request.POST, request.FILES, instance=product)
+        if formset.is_valid():
+            formset.save()
+            if add_another == 'true':
+                return redirect('/business/products/editProduct/'+str(pk)+'/editGallery/')
+            else:
+                return redirect('/business/products/editProduct/'+str(pk)+'/editVariants/')
+        else:
+            return HttpResponse(formset.errors)
+    else:
+        formset = ProductGalleryFormSet(instance=product)
+    context = {
+        'product' : product,
+        'formset': formset,
+    }
+    return render(request, 'business/editGallery.html', context)
+
+
+def editVariants(request, pk=None):
+    product = get_object_or_404(Product, pk=pk)
+    ProductVariantFormSet = inlineformset_factory(Product, Variants, form=ProductVariantForm, extra=1)
+
+    if request.method == 'POST':
+        add_another = request.POST['add_another']
+        formset = ProductVariantFormSet(request.POST, instance=product)
+        if formset.is_valid():
+            formset.save()
+            if add_another == 'true':
+                return redirect('/business/products/editProduct/'+str(pk)+'/editVariants/')
+            else:
+                messages.success(request, 'Product has been uploaded successfully.')
+                return redirect('allProducts')
+        else:
+            return HttpResponse(formset.errors)
+    else:
+        formset = ProductVariantFormSet(instance=product)
+        gallery = ProductGallery.objects.filter(product=product)
+
+    context = {
+        'product' : product,
+        'formset': formset,
+        'gallery': gallery,
+    }
+    return render(request, 'business/editVariants.html', context)
+
+def addProduct(request):
+    if request.method == 'POST':
+        basicInfo_form = ProductForm(request.POST, request.FILES)
+        if basicInfo_form.is_valid():
+            current_user = request.user
+            business_name = Business.objects.get(user=current_user)
+            product_name = basicInfo_form.cleaned_data['product_name']
+            product = basicInfo_form.save(commit=False)
+            product.business = business_name
+            product.slug = slugify(product_name)
+            basicInfo_form.save()
+            return redirect('addProduct')
+        else:
+            print(basicInfo_form.errors)
+    else:
+        basicInfo_form = ProductForm()
+    context = {
+        'basicInfo_form': basicInfo_form,
+    }
+
+    return render(request, 'business/addProduct.html', context)

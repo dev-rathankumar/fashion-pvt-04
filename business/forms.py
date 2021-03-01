@@ -1,6 +1,9 @@
 from django import forms
 from accounts.models import User, Business
 from .models import PaymentSetting
+from products.models import Product, ProductGallery, Variants
+from ckeditor.widgets import CKEditorWidget
+from django.forms import inlineformset_factory
 
 
 class UserForm(forms.ModelForm):
@@ -54,3 +57,48 @@ class PaymentSettingForm(forms.ModelForm):
         self.fields['payment_method'].widget.attrs['onchange'] = 'showDiv(this)'
         for myField in self.fields:
           self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class ProductForm(forms.ModelForm):
+    description = forms.CharField(widget=CKEditorWidget())
+    image = forms.ImageField(label=('Product Image 01'),required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput)
+    image_2 = forms.ImageField(label=('Product Image 02'),required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput)
+    class Meta:
+        model = Product
+        fields = ['product_name', 'description', 'full_specification', 'price', 'image', 'image_2', 'stock', 'category', 'is_popular']
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(ProductForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            if myField == 'is_popular':
+                self.fields['is_popular'].widget.attrs['class'] = 'custom-chckbox-is_popular'
+            else:
+                self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+
+
+class ProductGalleryForm(forms.ModelForm):
+    image = forms.ImageField(label=('Product Gallery Image'),required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput)
+    class Meta:
+        model = ProductGallery
+        fields = ('image',)
+        exclude = ()
+
+
+class ProductVariantForm(forms.ModelForm):
+    class Meta:
+        model = Variants
+        fields = ('title', 'color', 'size', 'image_id', 'quantity', 'price')
+        exclude = ()
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(ProductVariantForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            if myField == 'image_id':
+                self.fields[myField].widget.attrs['class'] = 'form-control image_id'
+                # self.fields[myField].widget.attrs['onfocus'] = 'image_idFocus(this)'
+            else:
+                self.fields[myField].widget.attrs['class'] = 'form-control'

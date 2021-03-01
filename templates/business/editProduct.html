@@ -1,0 +1,136 @@
+{% extends 'business/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+  <div class="page-content">
+    <div class="container-fluid">
+
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">Add Product</h4>
+
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">{{product.product_name}}</a></li>
+                <li class="breadcrumb-item active">Edit Product</li>
+              </ol>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card container">
+            <div class="card-body">
+              <h4 class="card-title">Product Information</h4>
+              <p class="card-title-desc">Fill all information below</p>
+              {% include 'includes/_alerts.html' %}
+
+              <form method="POST" action="{% url 'editProduct' product.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+
+
+                <div class="row">
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group">
+                      <label for="productname">Product Name</label>
+                      {{ basicInfo_form.product_name }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group">
+                      <label for="productname">Category</label>
+                      {{ basicInfo_form.category }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group">
+                      <label for="productname">Product Description</label>
+                      {{ basicInfo_form.description }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group">
+                      <label for="productname">Full Specification</label>
+                      {{ basicInfo_form.full_specification }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="form-group">
+                      <label for="productname">Price</label>
+                      {{ basicInfo_form.price }}
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="form-group">
+                      <label for="productname">Stock</label>
+                      {{ basicInfo_form.stock }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="form-group">
+                      <img src="{{ product.image.url }}" alt="" width="50">
+                      <label for="productname">Primary Product Image</label>
+                      <br><span>Change</span>
+                      {{ basicInfo_form.image }}
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="form-group">
+                      <img src="{{ product.image_2.url }}" alt="" width="50">
+                      <label for="productname">Secondary Product Image</label>
+                      <br><span>Change</span>
+                      {{ basicInfo_form.image_2 }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group">
+
+                      <div>{{ basicInfo_form.is_popular }}<span for="is popular" style="margin-left:10px;">Set this product as Popular Product?</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;">SAVE & CONTINUE <i class="fas fa-arrow-right"></i></button>
+              </form>
+
+
+            </div>
+          </div>
+
+
+
+
+        </div>
+      </div>
+      <!-- end row -->
+
+    </div> <!-- container-fluid -->
+  </div>
+  <!-- End Page-content -->
+
+  {% endblock %}

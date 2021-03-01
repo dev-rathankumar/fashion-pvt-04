@@ -83,12 +83,13 @@
 
 
 <script src="{% static 'business/js/app.js' %}"></script>
+<script src="{% static 'business/libs/dropzone/min/dropzone.min.js' %}"></script>
 
 {% if 'site-settings' in request.path %}
   <script src="{% static 'business/js/pages/form-validation.init.js' %}"></script>
   <script src="{% static 'business/js/pages/form-editor.init.js' %}"></script>
   <script src="{% static 'business/libs/tinymce/tinymce.min.js' %}"></script>
-  <script src="{% static 'business/libs/dropzone/min/dropzone.min.js' %}"></script>
+
 
 {% else %}
 

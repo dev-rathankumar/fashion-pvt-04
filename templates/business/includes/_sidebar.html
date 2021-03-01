@@ -24,6 +24,23 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect
+                    {% if '/products/' == request.path or '/editProduct/' in request.path %} active {% else %} {% endif %}">
+                        <i class="bx bx-store"></i>
+                        <span key="t-ecommerce">Products</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{% url 'allProducts' %}" key="t-products"
+                          {% if '/products/' == request.path %}
+                            class="waves-effect active"
+                          {% else %}
+                            class="waves-effect"
+                          {% endif %}
+                          >All Products</a></li>
+                        <li><a href="#" key="t-product-detail" >Add Product</a></li>
+                    </ul>
+                </li>
 
 
                 <li>
@@ -58,6 +75,8 @@
                         <span key="t-logout">Logout</span>
                     </a>
                 </li>
+
+
                 <form action="{% url 'biz_logout' %}" id="biz_logout" method="POST">
                   {% csrf_token %}
                   <input type="hidden">
