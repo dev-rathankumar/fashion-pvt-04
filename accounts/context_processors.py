@@ -14,5 +14,9 @@ def get_sitesettings(request):
     url = request.build_absolute_uri()
     domain = urlparse(url).netloc
     business = Business.objects.get(domain_name=domain)
-    header = Header.objects.get(business=business)
+    header = None
+    try:
+        header = Header.objects.get(business=business)
+    except Header.DoesNotExist:
+        pass
     return dict(header=header)
