@@ -5,12 +5,12 @@
     <head>
 
         <meta charset="utf-8" />
-        <title>Dashboard | Altocan Business Dashboard</title>
+        <title>Dashboard | {{header.site_title}}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{% static 'business/images/favicon.ico' %}">
+        <link rel="shortcut icon" href="{{header.favicon.url}}">
 
         <!-- Bootstrap Css -->
         <link rel="stylesheet" href="{% static 'business/css/bootstrap.min.css' %}" id="bootstrap-style" />
@@ -34,6 +34,13 @@
 
         <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+<!-- File Input Plugin -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
+
+
     </head>
 
 

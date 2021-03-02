@@ -237,7 +237,7 @@ def paymentSettings(request, pk=None):
 
 def allProducts(request):
     business = get_object_or_404(Business, pk=request.user.id)
-    products = Product.objects.filter(business=business)
+    products = Product.objects.filter(business=business).order_by('-created_date')
 
     context = {
         'products': products,
@@ -326,7 +326,8 @@ def addProduct(request):
             product.business = business_name
             product.slug = slugify(product_name)
             basicInfo_form.save()
-            return redirect('addProduct')
+            pk = product.id
+            return redirect('/business/products/editProduct/'+str(pk)+'/editGallery/')
         else:
             print(basicInfo_form.errors)
     else:

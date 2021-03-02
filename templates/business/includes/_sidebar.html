@@ -38,7 +38,13 @@
                             class="waves-effect"
                           {% endif %}
                           >All Products</a></li>
-                        <li><a href="#" key="t-product-detail" >Add Product</a></li>
+                        <li><a href="{% url 'addProduct' %}" key="t-product-detail"
+                          {% if '/addProduct/' == request.path %}
+                            class="waves-effect active"
+                          {% else %}
+                            class="waves-effect"
+                          {% endif %}
+                          >Add Product</a></li>
                     </ul>
                 </li>
 
@@ -67,6 +73,24 @@
                         <i class="bx bxs-credit-card"></i>
                         <span>Payment Settings</span>
                     </a>
+                </li>
+
+                <li {% if '/site_settings/header/' in request.path or '/site_settings/banner/' in request.path %} class="mm-active" {% endif %}>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect
+                    {% if '/site_settings/' in request.path %} active {% else %} {% endif %}">
+                        <i class="bx bx-cog"></i>
+                        <span key="t-ecommerce">Site Settings</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{% url 'header' %}" key="t-products"
+                          {% if '/site_settings/header/' in request.path %}
+                            class="waves-effect active"
+                          {% else %}
+                            class="waves-effect"
+                          {% endif %}
+                          >Header</a></li>
+                        
+                    </ul>
                 </li>
 
                 <li>

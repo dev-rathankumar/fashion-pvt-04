@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'orders',
     'jquery',
     'djangoformsetjs',
+    'sitesettings',
 ]
 
 SITE_ID = 1
@@ -90,6 +91,7 @@ TEMPLATES = [
                 'accounts.context_processors.get_business',
                 'carts.context_processors.shopcart_context',
                 'products.context_processors.search_products',
+                'accounts.context_processors.get_sitesettings',
             ],
         },
     },

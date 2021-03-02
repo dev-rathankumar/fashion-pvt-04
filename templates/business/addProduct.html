@@ -81,11 +81,19 @@
                   </div>
                 </div>
                 <div class="row">
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group">
+                      <label for="productname">Product Variation</label>
+                      {{ basicInfo_form.variant }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
                       <img src="{{ product.image.url }}" alt="" width="50">
                       <label for="productname">Primary Product Image</label>
-                      <br><span>Change</span>
+
                       {{ basicInfo_form.image }}
                     </div>
                   </div>
@@ -93,7 +101,7 @@
                     <div class="form-group">
                       <img src="{{ product.image_2.url }}" alt="" width="50">
                       <label for="productname">Secondary Product Image</label>
-                      <br><span>Change</span>
+                    
                       {{ basicInfo_form.image_2 }}
                     </div>
                   </div>

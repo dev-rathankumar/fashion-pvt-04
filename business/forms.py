@@ -61,18 +61,28 @@ class PaymentSettingForm(forms.ModelForm):
 
 class ProductForm(forms.ModelForm):
     description = forms.CharField(widget=CKEditorWidget())
-    image = forms.ImageField(label=('Product Image 01'),required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput)
-    image_2 = forms.ImageField(label=('Product Image 02'),required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput)
+    image = forms.ImageField(label=('Product Image 01'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+        "type": "file",
+        # "data-browse-on-zone-click": "true",
+        "data-show-preview": "false"
+    }))
+    image_2 = forms.ImageField(label=('Product Image 02'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+        "type": "file",
+        # "data-browse-on-zone-click": "true",
+        "data-show-preview": "false"
+    }))
     class Meta:
         model = Product
-        fields = ['product_name', 'description', 'full_specification', 'price', 'image', 'image_2', 'stock', 'category', 'is_popular']
+        fields = ['product_name', 'description', 'full_specification', 'price', 'variant', 'image', 'image_2', 'stock', 'category', 'is_popular']
 
     # Give same CSS class to all the fields
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
             if myField == 'is_popular':
-                self.fields['is_popular'].widget.attrs['class'] = 'custom-chckbox-is_popular'
+                self.fields[myField].widget.attrs['class'] = 'custom-chckbox-is_popular'
+            elif myField == 'image' or myField == 'image_2':
+                self.fields[myField].widget.attrs['class'] = 'form-control file'
             else:
                 self.fields[myField].widget.attrs['class'] = 'form-control'
 
@@ -80,7 +90,12 @@ class ProductForm(forms.ModelForm):
 
 
 class ProductGalleryForm(forms.ModelForm):
-    image = forms.ImageField(label=('Product Gallery Image'),required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput)
+    image = forms.ImageField(label=('Product Gallery Image'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+        "type": "file",
+        "class": "file",
+        # "data-browse-on-zone-click": "true",
+        "data-show-preview": "false"
+    }))
     class Meta:
         model = ProductGallery
         fields = ('image',)

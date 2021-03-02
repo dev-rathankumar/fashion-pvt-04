@@ -81,3 +81,7 @@ ul.var_image_list{
 /* *:focus{
     outline:none !important;
 } */
+
+.editGallery .file-caption-main{
+  width: 300px;
+}

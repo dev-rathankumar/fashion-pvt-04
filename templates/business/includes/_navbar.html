@@ -4,7 +4,7 @@
     <div class="d-flex">
       <!-- LOGO -->
       <div class="navbar-brand-box">
-        <a href="index.html" class="logo logo-dark">
+        <a href="{% url 'biz_dashboard' %}" class="logo logo-dark">
           <span class="logo-sm">
             <img src="{% static 'business/images/logo.svg' %}" alt="" height="22">
           </span>
@@ -13,12 +13,21 @@
           </span>
         </a>
 
-        <a href="index.html" class="logo logo-light">
+        <a href="{% url 'biz_dashboard' %}" class="logo logo-light">
           <span class="logo-sm">
-            <img src="{% static 'business/images/logo-light.svg' %}" alt="" height="22">
+            {% if header.site_logo %}
+            <img src="{{header.site_logo.url}}" height="40">
+            {% else %}
+            <img src="{% static 'business/images/default-logo.png' %}" alt="" height="60">
+            {% endif %}
           </span>
           <span class="logo-lg">
-            <img src="{% static 'business/images/logo-light.png' %}" alt="" height="19">
+            {% if header.site_logo %}
+            <img src="{{header.site_logo.url}}" height="40">
+            {% else %}
+            <img src="{% static 'business/images/default-logo.png' %}" alt="" height="60">
+            {% endif %}
+
           </span>
         </a>
       </div>

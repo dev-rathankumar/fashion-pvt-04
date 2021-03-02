@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -25,4 +25,10 @@ urlpatterns = [
     path('products/editProduct/<int:pk>/editGallery/', views.editGallery, name='editGallery'),
     path('products/editProduct/<int:pk>/editVariants/', views.editVariants, name='editVariants'),
     path('products/addProduct/', views.addProduct, name='addProduct'),
+
+    # Site settings
+    path('site_settings/', include('sitesettings.urls')),
+
+    
+
 ]
