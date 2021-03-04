@@ -15,7 +15,7 @@ def counter(request):
             cart_items = ShopCart.objects.all().filter(user_id=current_user.id)
             for cart_item in cart_items:
                 cart_count += cart_item.quantity
-        except Cart.DoesNotExist:
+        except ShopCart.DoesNotExist:
             cart_count = 0
     return dict(cart_count=cart_count)
 
@@ -36,13 +36,17 @@ def shopcart_context(request):
 
     url = request.build_absolute_uri()
     domain = urlparse(url).netloc
-    biz_id = Business.objects.get(domain_name=domain)
-
     try:
-        get_tax = Tax.objects.get(business__business_id=biz_id.business_id)
-        tax_percent = get_tax.tax_percentage
-        tax = round((tax_percent * total)/100, 2)
-    except Tax.DoesNotExist:
-        tax = 0
+        biz_id = Business.objects.get(domain_name=domain)
+    except:
+        biz_id = None
+
+    if biz_id is not None:
+        try:
+            get_tax = Tax.objects.get(business__business_id=biz_id.business_id)
+            tax_percent = get_tax.tax_percentage
+            tax = round((tax_percent * total)/100, 2)
+        except Tax.DoesNotExist:
+            tax = 0
     grand_total = round(total + tax, 2)
     return dict(shopcart=shopcart, category=category, total=total, tax_percent=tax_percent, tax=tax, grand_total=grand_total)

@@ -33,11 +33,15 @@ def compare_counter_header(request):
 
 def max_product_price(request):
     get_max_price = Product.objects.aggregate(Max('price'))
-    for k,v in get_max_price.items():
-        max_price = int(v)
-    get_min_price = Product.objects.aggregate(Min('price'))
-    for k,v in get_min_price.items():
-        min_price = int(v)
+    try:
+        for k,v in get_max_price.items():
+            max_price = int(v)
+        get_min_price = Product.objects.aggregate(Min('price'))
+        for k,v in get_min_price.items():
+            min_price = int(v)
+    except:
+        min_price = 0
+        max_price = 0
     return dict(min_price=min_price, max_price=max_price)
 
 

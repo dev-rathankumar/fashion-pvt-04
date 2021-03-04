@@ -6,14 +6,20 @@ from sitesettings.models import Header
 def get_business(request):
     url = request.build_absolute_uri()
     domain = urlparse(url).netloc
-    business = Business.objects.get(domain_name=domain)
+    try:
+        business = Business.objects.get(domain_name=domain)
+    except:
+        business = None
     return dict(business=business)
 
 
 def get_sitesettings(request):
     url = request.build_absolute_uri()
     domain = urlparse(url).netloc
-    business = Business.objects.get(domain_name=domain)
+    try:
+        business = Business.objects.get(domain_name=domain)
+    except:
+        business = None
     header = None
     try:
         header = Header.objects.get(business=business)
