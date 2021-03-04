@@ -14,5 +14,7 @@ urlpatterns = [
     path('changePassword/', views.rm_changePassword, name='rm_changePassword'),
 
     # Edit profile
-    path('editProfile/<int:pk>/', views.editProfile, name='editProfile'),
+    path('editProfile/<int:pk>/', views.editProfile, name='rm_editProfile'),
+
+    path('supplier/', views.supplier, name='supplier'),
 ]

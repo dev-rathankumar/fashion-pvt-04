@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from accounts.models import User
 from accounts.models import Business
 from django.http import HttpResponse
@@ -29,7 +29,13 @@ from django import forms
 from django.template.defaultfilters import slugify
 
 
-# Create your views here.
+
+
+# Custom decorator to check whether the user is business or not
+def business_required(login_url=None):
+    return user_passes_test(lambda u: u.is_business, login_url=login_url)
+
+
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -40,10 +46,10 @@ def login(request):
         try:
             if not user.is_business:
                 messages.error(request, "This is not a business account")
-                return redirect('biz_login')
+                return redirect('userLogin')
         except AttributeError:
             messages.error(request, "Invalid login credentials")
-            return redirect('biz_login')
+            return redirect('userLogin')
 
         if user is not None:
             # Check for the expiry date
@@ -54,29 +60,34 @@ def login(request):
             today = datetime.strptime(str(get_today), '%Y-%m-%d')
             if today > exp_date:
                 messages.error(request, "Your account is expired.")
-                return redirect('biz_login')
+                return redirect('userLogin')
             else:
                 auth.login(request, user)
                 messages.success(request, 'You are now logged in.')
                 return redirect('biz_dashboard')
         else:
             messages.error(request, 'Invalid login credentials')
-            return redirect('biz_login')
+            return redirect('userLogin')
     return render(request, 'business/login.html')
 
 
-@login_required(login_url = 'biz_login')
+@login_required(login_url = 'userLogin')
 def logout(request):
     if request.method == 'POST':
         auth.logout(request)
-        return redirect('biz_login')
-    return redirect('biz_login')
+        return redirect('userLogin')
+    return redirect('userLogin')
 
-@login_required(login_url = 'biz_login')
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
 def dashboard(request):
     return render(request, 'business/dashboard.html')
 
-@login_required(login_url = 'biz_login')
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
 def biz_profile(request):
     current_user = request.user
     biz = Business.objects.get(user__id=current_user.id)
@@ -86,7 +97,8 @@ def biz_profile(request):
     }
     return render(request, 'business/profile.html', context)
 
-@login_required(login_url = 'biz_login')
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
 def biz_changePassword(request):
     if request.method == 'POST':
         current_password = request.POST['current_password']
@@ -132,7 +144,7 @@ def forgotPassword(request):
                 )
                 email.send()
                 messages.warning(request, 'Password reset link has been sent to your email address.')
-                return redirect('biz_login')
+                return redirect('userLogin')
             else:
                 messages.warning(request, "This is not a Business account")
                 return redirect('biz_forgotPassword')
@@ -169,7 +181,7 @@ def biz_resetPassword(request):
             user.set_password(password)
             user.save()
             messages.success(request, 'Password reset successful')
-            return redirect('biz_login')
+            return redirect('userLogin')
         else:
             messages.error(request, 'Passwords do not match')
             return redirect('biz_resetForgotPassword')
@@ -177,6 +189,8 @@ def biz_resetPassword(request):
         return render(request, 'business/resetPassword.html')
 
 
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
 def editProfile(request, pk=None):
     user = get_object_or_404(User, pk=pk)
     business = get_object_or_404(Business, pk=pk)
@@ -217,6 +231,8 @@ def editProfile(request, pk=None):
     return render(request, 'business/editProfile.html', context)
 
 
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
 def paymentSettings(request, pk=None):
     user = get_object_or_404(User, pk=pk)
     pay_setting = get_object_or_404(PaymentSetting, user=user)
@@ -235,6 +251,8 @@ def paymentSettings(request, pk=None):
     return render(request, 'business/paymentSettings.html', context)
 
 
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
 def allProducts(request):
     business = get_object_or_404(Business, pk=request.user.id)
     products = Product.objects.filter(business=business).order_by('-created_date')
@@ -245,6 +263,8 @@ def allProducts(request):
     return render(request, 'business/allProducts.html', context)
 
 
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
 def editProduct(request, pk=None):
     product = get_object_or_404(Product, pk=pk)
     if request.method == 'POST':
@@ -264,6 +284,8 @@ def editProduct(request, pk=None):
     return render(request, 'business/editProduct.html', context)
 
 
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
 def editGallery(request, pk=None):
     product = get_object_or_404(Product, pk=pk)
     ProductGalleryFormSet = inlineformset_factory(Product, ProductGallery, form=ProductGalleryForm, extra=1)
@@ -288,6 +310,8 @@ def editGallery(request, pk=None):
     return render(request, 'business/editGallery.html', context)
 
 
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
 def editVariants(request, pk=None):
     product = get_object_or_404(Product, pk=pk)
     ProductVariantFormSet = inlineformset_factory(Product, Variants, form=ProductVariantForm, extra=1)
@@ -297,6 +321,8 @@ def editVariants(request, pk=None):
         formset = ProductVariantFormSet(request.POST, instance=product)
         if formset.is_valid():
             formset.save()
+            product.is_active = True
+            product.save()
             if add_another == 'true':
                 return redirect('/business/products/editProduct/'+str(pk)+'/editVariants/')
             else:
@@ -315,6 +341,9 @@ def editVariants(request, pk=None):
     }
     return render(request, 'business/editVariants.html', context)
 
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
 def addProduct(request):
     if request.method == 'POST':
         basicInfo_form = ProductForm(request.POST, request.FILES)
@@ -337,3 +366,12 @@ def addProduct(request):
     }
 
     return render(request, 'business/addProduct.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def deleteProduct(request, pk=None):
+    product = get_object_or_404(Product, pk=pk)
+    product.delete()
+    messages.success(request, 'Product has been deleted successfully.')
+    return redirect('allProducts')

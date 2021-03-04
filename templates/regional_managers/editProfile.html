@@ -80,7 +80,7 @@
               <h4 class="card-title mb-4">Edit Your Profile</h4>
 
               <div class="table-responsive" style="overflow-x: hidden;">
-                <form action="{% url 'editProfile' user.pk %}" method="POST" enctype="multipart/form-data">
+                <form action="{% url 'rm_editProfile' user.pk %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
 
                   <div class="row">
@@ -145,7 +145,7 @@
                   </div>
 
 
-                  <button type="submit" class="btn margin-15px-top btn-primary">Save</button>
+                  <button type="submit" class="btn margin-15px-top btn-primary" style="width:110px;"><i class="fas fa-save"></i> Save</button>
                 </form>
               </div>
 

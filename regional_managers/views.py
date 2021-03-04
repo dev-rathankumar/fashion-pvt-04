@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from accounts.models import User, RegionalManager
+from accounts.models import User, RegionalManager, Business
 from django.http import HttpResponse
 import json
 from django.contrib import messages, auth
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
@@ -14,8 +14,13 @@ from datetime import date, datetime
 import time
 from .forms import UserForm, RegionalManagerForm
 from django import forms
+from urllib.parse import urlparse
 
 
+
+# Custom decorator to check whether the user is regional_manager or not
+def regional_manager_required(login_url=None):
+    return user_passes_test(lambda u: u.is_regional_manager, login_url=login_url)
 
 
 def login(request):
@@ -27,10 +32,10 @@ def login(request):
         try:
             if not user.is_regional_manager:
                 messages.error(request, "This is not a regional manager's account")
-                return redirect('rm_login')
+                return redirect('userLogin')
         except AttributeError:
             messages.error(request, "Invalid login credentials")
-            return redirect('rm_login')
+            return redirect('userLogin')
 
         if user is not None:
             # Check for the expiry date
@@ -41,28 +46,29 @@ def login(request):
             today = datetime.strptime(str(get_today), '%Y-%m-%d')
             if today > exp_date:
                 messages.error(request, "Your account is expired.")
-                return redirect('rm_login')
+                return redirect('userLogin')
             else:
                 auth.login(request, user)
                 messages.success(request, 'You are now logged in.')
                 return redirect('rm_dashboard')
         else:
             messages.error(request, 'Invalid login credentials')
-            return redirect('rm_login')
+            return redirect('userLogin')
     return render(request, 'regional_managers/login.html')
 
 
-@login_required(login_url = 'rm_login')
+@login_required(login_url = 'userLogin')
+@regional_manager_required(login_url="userLogin")
 def dashboard(request):
     return render(request, 'regional_managers/dashboard.html')
 
-@login_required(login_url = 'rm_login')
+@login_required(login_url = 'userLogin')
 def logout(request):
     if request.method == 'POST':
         auth.logout(request)
         messages.warning(request, 'You are now logged out')
-        return redirect('rm_login')
-    return redirect('rm_login')
+        return redirect('userLogin')
+    return redirect('userLogin')
 
 
 def forgotPassword(request):
@@ -87,7 +93,7 @@ def forgotPassword(request):
                 )
                 email.send()
                 messages.warning(request, 'Password reset link has been sent to your email address.')
-                return redirect('rm_login')
+                return redirect('userLogin')
             else:
                 messages.warning(request, "This is not a Regional Manager's account")
                 return redirect('rm_forgotPassword')
@@ -126,7 +132,7 @@ def rm_resetPassword(request):
             user.set_password(password)
             user.save()
             messages.success(request, 'Password reset successful')
-            return redirect('rm_login')
+            return redirect('userLogin')
         else:
             messages.error(request, 'Passwords do not match')
             return redirect('rm_resetForgotPassword')
@@ -134,7 +140,8 @@ def rm_resetPassword(request):
         return render(request, 'regional_managers/resetPassword.html')
 
 
-@login_required(login_url = 'rm_login')
+@login_required(login_url = 'userLogin')
+@regional_manager_required(login_url="userLogin")
 def rm_profile(request):
     current_user = request.user
     rm = RegionalManager.objects.get(user__id=current_user.id)
@@ -145,7 +152,8 @@ def rm_profile(request):
     return render(request, 'regional_managers/profile.html', context)
 
 
-@login_required(login_url = 'rm_login')
+@login_required(login_url = 'userLogin')
+@regional_manager_required(login_url="userLogin")
 def rm_changePassword(request):
     if request.method == 'POST':
         current_password = request.POST['current_password']
@@ -169,6 +177,8 @@ def rm_changePassword(request):
     return render(request, 'regional_managers/changePassword.html')
 
 
+@login_required(login_url = 'userLogin')
+@regional_manager_required(login_url="userLogin")
 def editProfile(request, pk=None):
     user = get_object_or_404(User, pk=pk)
     regionalmanager = get_object_or_404(RegionalManager, pk=pk)
@@ -204,3 +214,22 @@ def editProfile(request, pk=None):
         'regionalmanager': regionalmanager,
     }
     return render(request, 'regional_managers/editProfile.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@regional_manager_required(login_url="userLogin")
+def supplier(request):
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    business = Business.objects.get(domain_name=domain)
+    regional_manager = RegionalManager.objects.get(user=request.user)
+
+    try:
+        supplier = Business.objects.get(regional_manager=regional_manager, business_id=business.business_id)
+    except:
+        supplier = None
+
+    context = {
+        'supplier': supplier,
+    }
+    return render(request, 'regional_managers/supplier.html', context)

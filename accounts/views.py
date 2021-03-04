@@ -4,6 +4,7 @@ from django.contrib import messages, auth
 from .models import User, RegionalManager, Business
 from contacts.models import Inquiry
 from products.models import Product
+from orders.models import Order, OrderProduct
 
 # Send account verification email
 from django.contrib.auth.tokens import default_token_generator
@@ -346,3 +347,38 @@ def changeuserPassword(request):
         else:
             messages.error(request, 'Passwords do not match!')
     return render(request, 'accounts/changeuserPassword.html')
+
+
+@login_required(login_url='/userLogin')
+def myOrders(request):
+    orders = Order.objects.filter(user=request.user, ordered=True).order_by('-created_at')
+    context = {
+            'orders': orders,
+        }
+    return render(request, 'accounts/myorders.html', context)
+
+
+def orderDetail(request, pk=None):
+    order_detail = OrderProduct.objects.filter(order__order_number=pk)
+    order = Order.objects.get(order_number=pk)
+    context = {
+        'order_detail': order_detail,
+        'order': order,
+    }
+    return render(request, 'accounts/orderDetail.html', context)
+
+# def supplier(request):
+#     url = request.build_absolute_uri()
+#     domain = urlparse(url).netloc
+#     business = Business.objects.get(domain_name=domain)
+#     regional_manager = RegionalManager.objects.get(user=request.user)
+#
+#     try:
+#         supplier = Business.objects.get(regional_manager=regional_manager, business_id=business.business_id)
+#     except:
+#         supplier = None
+#
+#     context = {
+#         'supplier': supplier,
+#     }
+#     return render(request, 'regional_managers/supplier.html', context)

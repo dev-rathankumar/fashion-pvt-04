@@ -33,7 +33,7 @@ class Product(models.Model):
 
     )
     business        = models.ForeignKey(Business, on_delete=models.CASCADE)
-    product_name    = models.CharField(max_length=200, unique=True)
+    product_name    = models.CharField(max_length=200)
     slug            = models.SlugField(max_length=200, unique=True)
     description     = RichTextField()
     full_specification = RichTextField(blank=True, default='Test desc')
@@ -46,7 +46,7 @@ class Product(models.Model):
     variant         = models.CharField(max_length=10,choices=VARIANTS, default='None')
     is_new_arrival  = models.BooleanField(default=False, blank=True)
     is_popular      = models.BooleanField(default=False, blank=True)
-    is_active       = models.BooleanField(default=True)
+    is_active       = models.BooleanField(default=False)
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now=True)
 

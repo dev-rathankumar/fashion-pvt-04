@@ -2,8 +2,7 @@
   <!-- Nav tabs -->
   <ul class="nav flex-column dashboard-list" role="tablist">
     <li><a {% if request.path == '/userDashboard/' %} class="nav-link active" {% else %} class="nav-link" {% endif %} href="{% url 'userDashboard' %}">Dashboard</a></li>
-    <li><a class="nav-link" data-toggle="tab" href="#">Orders</a></li>
-    <li><a class="nav-link" data-toggle="tab" href="#">Addresses</a></li>
+    <li><a {% if 'myOrders' in request.path or 'orderDetail' in request.path %} class="nav-link active" {% else %} class="nav-link" {% endif %} href="{% url 'myOrders' %}">My Orders</a></li>
     <li><a {% if 'userInquiry' in request.path %} class="nav-link active" {% else %} class="nav-link" {% endif %} href="{% url 'userInquiry' %}">Inquiries</a></li>
     <li><a {% if 'edit' in request.path %} class="nav-link active" {% else %} class="nav-link" {% endif %} href="{% url 'editUser' user.id %}">Edit profile</a></li>
     <li><a {% if 'changeuserPassword' in request.path %} class="nav-link active" {% else %} class="nav-link" {% endif %} href="{% url 'changeuserPassword' %}">Change Password</a></li>

@@ -25,10 +25,11 @@ urlpatterns = [
     path('products/editProduct/<int:pk>/editGallery/', views.editGallery, name='editGallery'),
     path('products/editProduct/<int:pk>/editVariants/', views.editVariants, name='editVariants'),
     path('products/addProduct/', views.addProduct, name='addProduct'),
+    path('products/deleteProduct/<int:pk>/', views.deleteProduct, name='deleteProduct'),
 
     # Site settings
     path('site_settings/', include('sitesettings.urls')),
 
-    
+
 
 ]

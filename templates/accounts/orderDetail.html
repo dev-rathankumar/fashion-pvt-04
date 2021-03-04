@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+
+<div id="page-content">
+  <!--Body Container-->
+  <!--Breadcrumbs-->
+  <div class="breadcrumbs-wrapper">
+    <div class="container">
+      <div class="breadcrumbs"><a href="index.html" title="Back to the home page">Home</a> <span aria-hidden="true">|</span> <span>My Account</span></div>
+    </div>
+  </div>
+  <!--End Breadcrumbs-->
+  {% include 'includes/_alerts.html' %}
+  <div class="container">
+    {% include 'accounts/includes/_navbar.html' %}
+    <div class="row mb-5">
+      {% include 'accounts/includes/_sidebar.html' %}
+
+      <div class="col-xs-9 col-lg-9 col-md-12">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 sm-margin-30px-bottom">
+          <div class="create-ac-content bg-light-gray padding-20px-all">
+
+            <div class="your-order">
+              <h2 class="order-title mb-4">Thank you for your order, {{order.user.first_name}}</h2>
+
+              <p style="font-size:24px;text-align:right;">Order # <span style="font-size:48px;">{{order.order_number}}</span></p>
+              <div class="table-responsive-sm order-table">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-8">
+                        <h5 class="m-0">Shipping Address</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-12">
+                      <div class="card-body">
+                        <p class="card-text mb-0" style="font-weight:600;">{{order.name}}</p>
+                        <p class="card-text mb-0">{{order.address}}</p>
+                        <p class="card-text mb-0">{{order.city}} - {{order.pin_code}}</p>
+                        <p class="card-text mb-0">{{order.state}}, {{order.country}}</p>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-12">
+                      <div class="card-body">
+                        <p class="card-text mb-0">{{order.email}}</p>
+                        <p class="card-text mb-0">{{order.phone}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-8">
+                        <h5 class="m-0">Transaction Details</h5>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                      <div class="card-body">
+                        <p class="card-text mb-0">Transaction No.</p>
+                        <p style="font-weight:600;">{{ order.payment }}</p>
+                        <p class="card-text mb-0">Payment Method</p>
+                        <p style="font-weight:600;">{{ order.payment.payment_method | upper }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-8">
+                        <h5 class="m-0">Purchased Products</h5>
+                      </div>
+
+                    </div>
+                  </div>
+                  {% for i in order_detail %}
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="card-body">
+                        {% if i.variant.image_id  > 0 %}
+                        <img src="{{i.variant.image }}" alt="Product Variant Image" width="50">
+                        {% else %}
+                        <img src="{{i.product.image.url}}" alt="Product Image" width="50">
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="card-body">
+                        <a class="card-text mb-0" href="{{ i.product.get_url }}" style="font-weight:600;">{{ i.variant.title }}</a>
+                        <div class="cart__meta-text">
+                          Color: {{ i.variant.color }} | Size: {{ i.variant.size }}<br>
+                        </div>
+                        <div class="cart__meta-text">
+                          Qty: {{ i.quantity }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="card-body">
+                        <p class="card-text alert alert-{% if i.status == 'New' %}warning {% elif i.status == 'Accepted' %}primary {% elif i.status == 'Cancelled' %}danger {% elif i.status == 'Completed' %}success  {% endif %}" role="success"
+                          style="font-weight:600;padding:5px;text-align: center;width:100px;">{{ i.status }}</p>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="card-body">
+                        <p class="card-text mb-0" style="font-weight:600;">${{ i.amount | intcomma }}</p>
+                        <div class="cart__meta-text">
+                          (${{ i.variant.price | intcomma }} each)
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+
+                  <div class="container">
+                    <div class="row">
+                      <div class="col text-right">
+                        <img src="{% static 'business/images/paid.png' %}" alt="Paid" width="200">
+                      </div>
+
+                      <div class="col">
+                        <div class="col-md-12">
+                          <div class="solid-border">
+                            <div class="row">
+                              <span class="col-12 col-sm-6 cart__subtotal-title">Subtotal</span>
+                              <span class="col-12 col-sm-6 cart__subtotal-title text-right"><span class="money" style="font-size:20px;">${{order.total}}</span></span>
+                            </div>
+                            <!-- Tax -->
+                            <div class="row">
+                              <span class="col-12 col-sm-6 cart__subtotal-title">Tax ({{tax_percent}}%)</span>
+                              <span class="col-12 col-sm-6 cart__subtotal-title text-right"><span class="money" style="font-size:20px;">${{order.tax}}</span></span>
+                            </div>
+                            <!-- Grand Total -->
+                            <div class="row">
+                              <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Grand Total</strong></span>
+                              <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money" style="font-size:32px;">${{order.payment.amount}}</span></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Account Details -->
+
+
+        <!-- End Tab panes -->
+      </div>
+    </div>
+  </div>
+  <!--End Body Container-->
+</div>
+<!--End Page Wrapper-->
+
+{% endblock %}

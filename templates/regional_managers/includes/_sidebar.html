@@ -24,6 +24,19 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{% url 'supplier' %}"
+                    {% if '/supplier/' == request.path %}
+                      class="waves-effect active"
+                    {% else %}
+                      class="waves-effect"
+                    {% endif %}
+                    >
+                        <i class="mdi mdi-briefcase-account"></i>
+                        <span>Supplier</span>
+                    </a>
+                </li>
+
 
 
                 <li>

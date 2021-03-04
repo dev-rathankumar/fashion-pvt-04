@@ -23,7 +23,7 @@ class UserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
-          self.fields[myField].widget.attrs['class'] = 'form-control'
+          self.fields[myField].widget.attrs['class'] = 'form-control file'
 
 
 class BusinessForm(forms.ModelForm):
@@ -63,12 +63,10 @@ class ProductForm(forms.ModelForm):
     description = forms.CharField(widget=CKEditorWidget())
     image = forms.ImageField(label=('Product Image 01'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
         "type": "file",
-        # "data-browse-on-zone-click": "true",
         "data-show-preview": "false"
     }))
     image_2 = forms.ImageField(label=('Product Image 02'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
         "type": "file",
-        # "data-browse-on-zone-click": "true",
         "data-show-preview": "false"
     }))
     class Meta:
@@ -85,8 +83,6 @@ class ProductForm(forms.ModelForm):
                 self.fields[myField].widget.attrs['class'] = 'form-control file'
             else:
                 self.fields[myField].widget.attrs['class'] = 'form-control'
-
-
 
 
 class ProductGalleryForm(forms.ModelForm):

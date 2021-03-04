@@ -14,7 +14,7 @@ class Payment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.first_name
+        return self.payment_id
 
 class Order(models.Model):
     STATUS = (
@@ -70,6 +70,7 @@ class OrderProduct(models.Model):
         ('New', 'New'),
         ('Accepted', 'Accepted'),
         ('Cancelled', 'Cancelled'),
+        ('Completed', 'Completed'),
     )
 
     order = models.ForeignKey(Order, on_delete=models.CASCADE)

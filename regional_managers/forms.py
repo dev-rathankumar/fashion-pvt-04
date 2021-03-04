@@ -19,7 +19,7 @@ class UserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
-          self.fields[myField].widget.attrs['class'] = 'form-control'
+          self.fields[myField].widget.attrs['class'] = 'form-control file'
 
 
 class RegionalManagerForm(forms.ModelForm):
