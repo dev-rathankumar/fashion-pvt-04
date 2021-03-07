@@ -23,6 +23,7 @@ Django = "==3.1.4"
 requests = "*"
 pillow = "*"
 python-decouple = "*"
+django-formset-js = "*"
 
 [requires]
 python_version = "3.8"
