@@ -27,10 +27,12 @@
                             <div class="dashboard-upper-info">
                               <div class="row align-items-center no-gutters">
                                 <div class="col-xl-3 col-lg-3 col-md-12">
+                                    <a href="{% url 'myOrders' %}">
                                     <div class="d-single-info text-center">
                                         <h4>Your Orders</h4>
-                                        <h2>0</h2>
+                                        <h2>{{orders_count}}</h2>
                                     </div>
+                                </a>
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-12">
                                   <a href="{% url 'userInquiry' %}">

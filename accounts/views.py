@@ -123,8 +123,13 @@ def userLogin(request):
 def userDashboard(request):
     user_inquiry = Inquiry.objects.order_by('-create_date').filter(user_id=request.user.id)
     inquiry_count = user_inquiry.count()
+
+    orders = Order.objects.order_by('-created_at').filter(user_id=request.user.id, ordered=True)
+    orders_count = orders.count()
+
     context = {
         'inquiry_count' : inquiry_count,
+        'orders_count': orders_count,
     }
     return render(request, 'accounts/userDashboard.html', context)
 
