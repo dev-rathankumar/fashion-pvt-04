@@ -221,8 +221,11 @@ def editProfile(request, pk=None):
 def supplier(request):
     url = request.build_absolute_uri()
     domain = urlparse(url).netloc
-    business = Business.objects.get(domain_name=domain)
-    regional_manager = RegionalManager.objects.get(user=request.user)
+    try:
+        business = Business.objects.get(domain_name=domain)
+        regional_manager = RegionalManager.objects.get(user=request.user)
+    except:
+        pass
 
     try:
         supplier = Business.objects.get(regional_manager=regional_manager, business_id=business.business_id)
