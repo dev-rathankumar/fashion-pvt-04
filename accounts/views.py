@@ -263,7 +263,7 @@ def rm_password_reset(request):
             )
             email.send()
             messages.success(request, 'Congratulations! Your business account has been activated.')
-            return redirect('rm_login')
+            return redirect('userLogin')
         else:
             messages.error(request, 'Passwords do not match!')
             return redirect('rm_password_reset')
@@ -305,14 +305,20 @@ def biz_password_reset(request):
             user.save()
             business.save()
             mail_subject = 'Your Business Account is Activated'
-            message = 'Congratulations! Your business account has been activated.'
+            # message = 'Congratulations! Your business account has been activated.'
+            current_site = get_current_site(request)
+            message = render_to_string('accounts/biz_acc_activated_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+            })
             to_email = user.email
             email = EmailMessage(
                 mail_subject, message, to=[to_email]
             )
+            email.content_subtype = "html"
             email.send()
             messages.success(request, 'Congratulations! Your account has been activated.')
-            return redirect('biz_login')
+            return redirect('userLogin')
         else:
             messages.error(request, 'Passwords do not match!')
             return redirect('biz_password_reset')

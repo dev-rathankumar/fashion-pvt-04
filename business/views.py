@@ -22,11 +22,14 @@ import json
 from django.contrib import messages
 
 from .forms import UserForm, BusinessForm, ProductForm, ProductGalleryForm, ProductVariantForm
+from .forms import CategoryForm
 
 from products.models import Product, ProductGallery, Variants
 from django.forms import inlineformset_factory
 from django import forms
 from django.template.defaultfilters import slugify
+
+from category.models import Category
 
 
 
@@ -255,7 +258,7 @@ def paymentSettings(request, pk=None):
 @business_required(login_url="userLogin")
 def allProducts(request):
     business = get_object_or_404(Business, pk=request.user.id)
-    products = Product.objects.filter(business=business).order_by('-created_date')
+    products = Product.objects.filter(business=business, is_active=True).order_by('-created_date')
 
     context = {
         'products': products,
@@ -375,3 +378,39 @@ def deleteProduct(request, pk=None):
     product.delete()
     messages.success(request, 'Product has been deleted successfully.')
     return redirect('allProducts')
+
+
+
+# Manage Categories
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def allCategories(request):
+    # business = get_object_or_404(Business, pk=request.user.id)
+    categories = Category.objects.filter(is_active=True).order_by('-created_date')
+
+    context = {
+        'categories': categories,
+    }
+    return render(request, 'business/allCategories.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def addCategory(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, request.FILES)
+        if form.is_valid():
+            category_name = form.cleaned_data['category_name']
+            category = form.save(commit=False)
+            category.slug = slugify(category_name)
+            form.save()
+            messages.success(request, 'Category Added Successfully')
+            return redirect('addCategory')
+        else:
+            print(form.errors)
+
+    form = CategoryForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/addCategory.html', context)

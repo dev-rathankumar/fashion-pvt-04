@@ -29,10 +29,17 @@
         </div>
       </div>
       <!-- end page title -->
-{% include 'includes/_alerts.html' %}
+      {% include 'includes/_alerts.html' %}
       <div class="row">
         <div class="col-12">
           <div class="card">
+
+            {% if not products %}
+            <h2 class="text-center" style="padding:25px;">You do not have any products</h2>
+            <div class="text-sm-center" style="padding-bottom:25px;">
+              <a href="{% url 'addProduct' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Product</a>
+            </div>
+            {% else %}
             <div class="card-body">
               <div class="row mb-2">
                 <div class="col-sm-4">
@@ -51,6 +58,7 @@
               </div>
 
               <div class="table-responsive">
+
                 <table class="table table-centered table-nowrap">
                   <thead class="thead-light">
                     <tr>
@@ -73,14 +81,16 @@
                   </thead>
                   <tbody>
 
+
+
                     {% for product in products %}
                     <tr>
                       <!-- <td>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" id="customCheck2">
-                          <label class="custom-control-label" for="customCheck2">&nbsp;</label>
-                        </div>
-                      </td> -->
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="customCheck2">
+      <label class="custom-control-label" for="customCheck2">&nbsp;</label>
+    </div>
+  </td> -->
                       <td>
                         <img src="{{ product.image.url }}" alt="Product Image" width="30" style="border-radius:50px;">
                       </td>
@@ -123,10 +133,13 @@
                       </td>
                       <td>
                         <a href="{% url 'editProduct' product.id %}" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
-                        <a href="{% url 'deleteProduct' product.id %}" onclick="return confirm('Are you sure you want to delete this product?')" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="mdi mdi-close font-size-18"></i></a>
+                        <a href="{% url 'deleteProduct' product.id %}" onclick="return confirm('Are you sure you want to delete this product?')" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i
+                            class="mdi mdi-close font-size-18"></i></a>
                       </td>
                     </tr>
                     {% endfor %}
+
+
 
 
 
@@ -153,6 +166,7 @@
                 </li>
               </ul>
             </div>
+            {% endif %}
           </div>
         </div>
       </div>

@@ -30,7 +30,6 @@
           {% include 'includes/_alerts.html' %}
           <form action="{% url 'userLogin' %}" method="POST" action="" id="CustomerLoginForm" class="login-form">
             {% csrf_token %}
-            <h3>Registered Customers</h3>
             <p>If you have an account with us, please log in.</p>
             <div class="row">
               <div class="col-12 col-sm-12 col-md-12 col-lg-12">

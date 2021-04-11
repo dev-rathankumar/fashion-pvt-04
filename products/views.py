@@ -257,28 +257,28 @@ def search(request):
     if 'keyword' in request.GET:
         keyword = request.GET['keyword']
         if keyword:
-            products = Product.objects.order_by('-created_date').filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword))
+            products = Product.objects.filter(is_active=True).order_by('-created_date').filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword))
             product_count = products.count()
 
     if 'min-price' in request.GET:
         min_price = request.GET['min-price']
         max_price = request.GET['max-price']
         if max_price:
-            products = Product.objects.filter(price__gte=min_price, price__lte=max_price)
+            products = Product.objects.filter(price__gte=min_price, price__lte=max_price, is_active=True)
             product_count = products.count()
 
     if 'size' in request.GET:
         size = request.GET.getlist('size') # ['M', 'XL']
         size_id = Size.objects.filter(name__in=size).values_list('id', flat=True)  # [2, 3, 4]
         product = Variants.objects.filter(size__in=size_id).values_list('product', flat=True)  # [ 1, 2 ]
-        products = Product.objects.filter(id__in=product)
+        products = Product.objects.filter(id__in=product, is_active=True)
         product_count = products.count()
 
     if 'color' in request.GET:
         color = request.GET.getlist('color')
         color_id = Color.objects.filter(name__in=color).values_list('id', flat=True)  # [2, 3, 4]
         product = Variants.objects.filter(color__in=color_id).values_list('product', flat=True)  # [ 1, 2 ]
-        products = Product.objects.filter(id__in=product)
+        products = Product.objects.filter(id__in=product, is_active=True)
         product_count = products.count()
 
     context = {

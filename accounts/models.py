@@ -160,7 +160,6 @@ class RegionalManager(models.Model):
         if self.is_editing == False and self.is_verification_email_sent == False:
             # Send password reset and activation email
             current_site = Site.objects.get_current()
-            print('failed')
             mail_subject = 'Reset your password and activate your account.'
             message = render_to_string('accounts/rm_reset_password_email.html', {
                 'user': self.user,
@@ -176,7 +175,6 @@ class RegionalManager(models.Model):
             self.regional_manager_id = '1'+str(random.randint(10000,99999))+str(self.pk)
             self.is_verification_email_sent = True
 
-        print('saving point')
         return super(RegionalManager, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -228,11 +226,13 @@ class Business(models.Model):
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(self.user.pk)),
                 'token': default_token_generator.make_token(self.user),
+                'altocan_siteurl': current_site,
             })
             to_email = self.user.email
             email = EmailMessage(
                 mail_subject, message, to=[to_email]
             )
+            email.content_subtype = "html"
             email.send()
             self.business_id = '2'+str(random.randint(10000,99999))+str(self.pk)
             self.is_verification_email_sent = True

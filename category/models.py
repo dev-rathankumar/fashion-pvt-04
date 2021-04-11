@@ -45,16 +45,16 @@ class Category(MPTTModel):
         return ' / '.join(full_path[::-1])
 
     # Override save method
-    def save(self, *args, **kwargs):
-        new_image = compress(self.cat_image)
-        self.cat_image = new_image
-        super(Category, self).save(*args, **kwargs)
-        img = Image.open(self.cat_image.path)
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.cat_image.path)
-        super(Category, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     new_image = compress(self.cat_image)
+    #     self.cat_image = new_image
+    #     super(Category, self).save(*args, **kwargs)
+    #     img = Image.open(self.cat_image.path)
+    #     if img.height > 300 or img.width > 300:
+    #         output_size = (300,300)
+    #         img.thumbnail(output_size)
+    #         img.save(self.cat_image.path)
+    #     super(Category, self).save(*args, **kwargs)
 
     # def get_url(self):
     #         return reverse('products_by_category', args=[self.slug])

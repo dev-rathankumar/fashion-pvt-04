@@ -83,5 +83,6 @@ ul.var_image_list{
 } */
 
 .editGallery .file-caption-main{
-  width: 300px;
+  width: 80%;
+  max_width: 80%;
 }

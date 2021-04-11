@@ -11,6 +11,7 @@ import datetime
 from django.core.mail import send_mail
 import json
 from django.core import serializers
+from django.conf import settings
 
 
 def payments(request):
@@ -63,10 +64,11 @@ def payments(request):
 
     ShopCart.objects.filter(user_id=request.user.id).delete() # Clear & Delete shopcart
     request.session['cart_items'] = 0
+    email_host_user = settings.EMAIL_HOST_USER
     send_mail(
             'Thank you for your order!',
             'Your order has been recieved.',
-            'rathan.kumar049@gmail.com',
+            email_host_user,
             [order.email],
             fail_silently=False,
         )

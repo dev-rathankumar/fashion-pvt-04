@@ -19,6 +19,10 @@ urlpatterns = [
     # Payment settings
     path('paymentSettings/<int:pk>/', views.paymentSettings, name='paymentSettings'),
 
+    # Categories
+    path('categories/', views.allCategories, name='allCategories'),
+    path('categories/addCategory/', views.addCategory, name='addCategory'),
+
     # Products
     path('products/', views.allProducts, name='allProducts'),
     path('products/editProduct/<int:pk>/', views.editProduct, name='editProduct'),

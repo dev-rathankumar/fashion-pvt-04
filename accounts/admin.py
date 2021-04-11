@@ -10,12 +10,13 @@ class UserAdmin(UserAdmin):
         return format_html('<img src="{}" width="30" style="border-radius: 50px;" />'.format(object.profile_picture.url))
     thumbnail.short_description = 'Profile Picture'
 
-    list_display = ('thumbnail', 'email', 'name', 'username', 'is_customer', 'is_business', 'is_regional_manager', 'is_active')
+    list_display = ('thumbnail', 'email', 'name', 'username', 'is_customer', 'is_business', 'is_regional_manager', 'is_active', 'is_superadmin')
     list_display_links = ('email', 'name', 'username')
     list_editable = ('is_active',)
     search_fields = ('id', 'first_name', 'last_name', 'username')
-    readonly_fields = ('last_login', 'date_joined')
+    readonly_fields = ('last_login', 'date_joined', 'is_superadmin')
     ordering = ('-date_joined',)
+    exclude = ('is_admin', 'is_staff')
 
     filter_horizontal = ()
     list_filter = ('is_customer','is_business','is_regional_manager','is_active')

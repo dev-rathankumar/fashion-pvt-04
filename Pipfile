@@ -24,6 +24,7 @@ requests = "*"
 pillow = "*"
 python-decouple = "*"
 django-formset-js = "*"
+django-authtools = "*"
 
 [requires]
 python_version = "3.8"

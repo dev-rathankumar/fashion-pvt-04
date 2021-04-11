@@ -1,0 +1,76 @@
+{% extends 'business/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+  <div class="page-content">
+    <div class="container-fluid">
+
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">All Categories</h4>
+
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Categories</a></li>
+                <li class="breadcrumb-item active">All Categories</li>
+              </ol>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+      {% include 'includes/_alerts.html' %}
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body" style="padding: 1.25rem 3rem 1.25rem 3rem;">
+              <div class="row mb-2">
+                <div class="col-sm-4">
+                  <div class="search-box mr-2 mb-2 d-inline-block">
+                    <div class="position-relative">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-8">
+                  <div class="text-sm-right">
+                    <a href="{% url 'addCategory' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Category</a>
+                  </div>
+                </div><!-- end col-->
+              </div>
+              {% load mptt_tags %}
+              {% recursetree category %}
+              <p>
+                <a class="btn btn-{% if not node.is_leaf_node %}link{% else %}link{% endif %} w-100 ml-50 text-left" data-toggle="collapse" href="#collapseCategory-{{node.id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  <img src="{{ node.cat_image.url }}" alt="Category Image" width="30" style="border-radius:50px;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{ node.category_name }} {% if not node.is_leaf_node %}&nbsp&nbsp&nbsp<i class="fa fa-angle-right" aria-hidden="true"></i>{% endif %}
+                  <span class="float-right"><i class="fa fa-edit text-secondary"></i>&nbsp&nbsp&nbsp<i class="fa fa-trash text-danger"></i></span>
+                </a>
+              </p>
+              <div class="collapse" id="{% if not node.is_leaf_node %}collapseCategory-{{node.id}}{% else %}#{% endif %}">
+                <div style="padding: 1.25rem 0 1.25rem 3rem;">
+                  {% if not node.is_leaf_node %}
+                  {{ children }}
+                  {% endif %}
+                </div>
+              </div>
+              {% endrecursetree %}
+
+            </div>
+          </div>
+
+        </div>
+        <!-- end row -->
+      </div> <!-- container-fluid -->
+    </div>
+
+
+    {% endblock %}

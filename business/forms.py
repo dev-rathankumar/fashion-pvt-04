@@ -2,8 +2,10 @@ from django import forms
 from accounts.models import User, Business
 from .models import PaymentSetting
 from products.models import Product, ProductGallery, Variants
+from category.models import Category
 from ckeditor.widgets import CKEditorWidget
 from django.forms import inlineformset_factory
+from mptt.forms import TreeNodeChoiceField
 
 
 class UserForm(forms.ModelForm):
@@ -111,5 +113,27 @@ class ProductVariantForm(forms.ModelForm):
             if myField == 'image_id':
                 self.fields[myField].widget.attrs['class'] = 'form-control image_id'
                 # self.fields[myField].widget.attrs['onfocus'] = 'image_idFocus(this)'
+            else:
+                self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class CategoryForm(forms.ModelForm):
+    parent = TreeNodeChoiceField(queryset=Category.objects.all())
+
+    cat_image = forms.ImageField(label=('Category Image'), required=True, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+        "type": "file",
+        "data-show-preview": "false"
+    }))
+    class Meta:
+        model = Category
+        fields = ('category_name', 'parent', 'cat_image')
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(CategoryForm, self).__init__(*args, **kwargs)
+        self.fields['parent'].required = False
+        for myField in self.fields:
+            if myField == 'cat_image':
+                self.fields[myField].widget.attrs['class'] = 'form-control file'
             else:
                 self.fields[myField].widget.attrs['class'] = 'form-control'

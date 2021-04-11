@@ -33,12 +33,12 @@
               <div class="widget-title">
                 <h2>Price ($)</h2>
               </div>
-                <div id="slider-range"></div>
-                <div class="row">
-                  <div class="col-6">
-                    <p class="no-margin" style="display:inline-flex;"><input id="min-price" name="min-price" type="text"><input id="max-price" name="max-price" type="text"></p>
-                  </div>
+              <div id="slider-range"></div>
+              <div class="row">
+                <div class="col-6">
+                  <p class="no-margin" style="display:inline-flex;"><input id="min-price" name="min-price" type="text"><input id="max-price" name="max-price" type="text"></p>
                 </div>
+              </div>
             </div>
 
             <!--End Price Filter-->
@@ -216,6 +216,11 @@
         </div>
         <!--End Toolbar-->
         <!--Product Grid-->
+
+        {% if product_count <= 0 %}
+        <h2 class="text-center">No products found</h2>
+        {% else %}
+
         <div class="product-load-more">
           <div class="grid-products grid--view-items">
             <div class="row">
@@ -302,6 +307,9 @@
 
           <!-- Make the pagination here -->
         </div>
+
+        {% endif %}
+
       </div>
       <!--End Main Content-->
     </div>
