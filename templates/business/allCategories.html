@@ -49,10 +49,15 @@
               </div>
               {% load mptt_tags %}
               {% recursetree category %}
-              <p>
+              <p style="display: flex;justify-content:center;align-items:center;margin-right:15px;">
                 <a class="btn btn-{% if not node.is_leaf_node %}link{% else %}link{% endif %} w-100 ml-50 text-left" data-toggle="collapse" href="#collapseCategory-{{node.id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
                   <img src="{{ node.cat_image.url }}" alt="Category Image" width="30" style="border-radius:50px;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{ node.category_name }} {% if not node.is_leaf_node %}&nbsp&nbsp&nbsp<i class="fa fa-angle-right" aria-hidden="true"></i>{% endif %}
-                  <span class="float-right"><i class="fa fa-edit text-secondary"></i>&nbsp&nbsp&nbsp<i class="fa fa-trash text-danger"></i></span>
+&nbsp&nbsp<small style="color:grey;">{{node.description | slice:":25"}}</small>
+                  <span class="float-right">
+                    <a href="{% url 'editCategory' node.id %}" style="padding:10px;"><i class="fa fa-edit text-secondary"></i></a>
+                    &nbsp&nbsp&nbsp
+                    <a href="{% url 'deleteCategory' node.id %}" style="padding:10px;" onclick="return confirm('This action will also delete the subcategories (if any) permanently. Proceed?');"><i class="fa fa-trash text-danger"></i></a>
+                  </span>
                 </a>
               </p>
               <div class="collapse" id="{% if not node.is_leaf_node %}collapseCategory-{{node.id}}{% else %}#{% endif %}">

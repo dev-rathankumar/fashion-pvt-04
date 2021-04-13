@@ -22,6 +22,8 @@ urlpatterns = [
     # Categories
     path('categories/', views.allCategories, name='allCategories'),
     path('categories/addCategory/', views.addCategory, name='addCategory'),
+    path('categories/editCategory/<int:pk>/', views.editCategory, name='editCategory'),
+    path('categories/deleteCategory/<int:pk>/', views.deleteCategory, name='deleteCategory'),
 
     # Products
     path('products/', views.allProducts, name='allProducts'),

@@ -126,7 +126,7 @@ class CategoryForm(forms.ModelForm):
     }))
     class Meta:
         model = Category
-        fields = ('category_name', 'parent', 'cat_image')
+        fields = ('category_name', 'parent', 'cat_image', 'description')
 
     # Give same CSS class to all the fields
     def __init__(self, *args, **kwargs):
@@ -135,5 +135,8 @@ class CategoryForm(forms.ModelForm):
         for myField in self.fields:
             if myField == 'cat_image':
                 self.fields[myField].widget.attrs['class'] = 'form-control file'
+            elif myField == 'description':
+                self.fields[myField].widget.attrs['class'] = 'form-control'
+                self.fields[myField].widget.attrs['rows'] = '4'
             else:
                 self.fields[myField].widget.attrs['class'] = 'form-control'

@@ -7,29 +7,24 @@ from accounts.models import Business
 from django.http import HttpResponse
 from .forms import PaymentSettingForm
 from .models import PaymentSetting
-
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-
 from datetime import date, datetime
 import time
-
 import json
 from django.contrib import messages
-
 from .forms import UserForm, BusinessForm, ProductForm, ProductGalleryForm, ProductVariantForm
 from .forms import CategoryForm
-
 from products.models import Product, ProductGallery, Variants
 from django.forms import inlineformset_factory
 from django import forms
 from django.template.defaultfilters import slugify
-
 from category.models import Category
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
 
@@ -259,9 +254,12 @@ def paymentSettings(request, pk=None):
 def allProducts(request):
     business = get_object_or_404(Business, pk=request.user.id)
     products = Product.objects.filter(business=business, is_active=True).order_by('-created_date')
+    paginator = Paginator(products, 10)
+    page = request.GET.get('page')
+    paged_products = paginator.get_page(page)
 
     context = {
-        'products': products,
+        'products': paged_products,
     }
     return render(request, 'business/allProducts.html', context)
 
@@ -385,9 +383,7 @@ def deleteProduct(request, pk=None):
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
 def allCategories(request):
-    # business = get_object_or_404(Business, pk=request.user.id)
     categories = Category.objects.filter(is_active=True).order_by('-created_date')
-
     context = {
         'categories': categories,
     }
@@ -414,3 +410,37 @@ def addCategory(request):
         'form': form,
     }
     return render(request, 'business/addCategory.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def editCategory(request, pk=None):
+    category = get_object_or_404(Category, pk=pk)
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, request.FILES, instance=category)
+        if form.is_valid():
+            category_name = form.cleaned_data['category_name']
+            category = form.save(commit=False)
+            category.slug = slugify(category_name)
+            form.save()
+            messages.success(request, 'Category Modified Successfully')
+            return redirect('allCategories')
+        else:
+            print(form.errors)
+
+    else:
+        form = CategoryForm(instance=category)
+    context = {
+        'form': form,
+        'category': category,
+    }
+    return render(request, 'business/editCategory.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def deleteCategory(request, pk=None):
+    category = get_object_or_404(Category, pk=pk)
+    category.delete()
+    messages.success(request, 'Category has been deleted.')
+    return redirect('allCategories')

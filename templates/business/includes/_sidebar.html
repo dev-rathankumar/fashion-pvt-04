@@ -72,6 +72,19 @@
                     </ul>
                 </li>
 
+                <li>
+                    <a href="/business/profile"
+                    {% if 'orders' in request.path or 'editOrder' in request.path %}
+                      class="waves-effect active"
+                    {% else %}
+                      class="waves-effect"
+                    {% endif %}
+                    >
+                        <i class="bx bxs-cart"></i>
+                        <span>Manage Orders</span>
+                    </a>
+                </li>
+
 
                 <li>
                     <a href="/business/profile"
