@@ -18,13 +18,14 @@ import time
 import json
 from django.contrib import messages
 from .forms import UserForm, BusinessForm, ProductForm, ProductGalleryForm, ProductVariantForm
-from .forms import CategoryForm
+from .forms import CategoryForm, OrderForm
 from products.models import Product, ProductGallery, Variants
 from django.forms import inlineformset_factory
 from django import forms
 from django.template.defaultfilters import slugify
 from category.models import Category
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from orders.models import Order, OrderProduct
 
 
 
@@ -444,3 +445,79 @@ def deleteCategory(request, pk=None):
     category.delete()
     messages.success(request, 'Category has been deleted.')
     return redirect('allCategories')
+
+
+# Manage Orders
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def allOrders(request):
+    orders = Order.objects.filter(ordered=True).order_by('-created_at')
+    paginator = Paginator(orders, 10)
+    page = request.GET.get('page')
+    paged_orders = paginator.get_page(page)
+    context = {
+        'orders': paged_orders,
+    }
+    return render(request, 'business/allOrders.html', context)
+
+
+def bizOrderDetail(request, pk=None):
+    try:
+        order = Order.objects.get(order_number=pk)
+        ordered_products = OrderProduct.objects.filter(order__order_number=pk)
+    except Order.DoesNotExist:
+        return redirect('allOrders')
+    subtotal = 0
+    for i in ordered_products:
+        subtotal += i.variant.price * i.quantity
+
+    context = {
+        'ordered_products': ordered_products,
+        'order': order,
+        'subtotal': subtotal,
+    }
+    return render(request, 'business/viewOrder.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def editOrder(request, pk=None):
+    order = get_object_or_404(Order, pk=pk)
+
+    # Get ordered products
+    try:
+        orders = Order.objects.get(pk=pk)
+        ordered_products = OrderProduct.objects.filter(order__order_number=order.order_number)
+        subtotal = 0
+        for i in ordered_products:
+            subtotal += i.variant.price * i.quantity
+    except Order.DoesNotExist:
+        return redirect('allOrders')
+
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Order has been updated.')
+            return redirect('allOrders')
+        else:
+            print(form.errors)
+
+    else:
+        form = OrderForm(instance=order)
+    context = {
+        'form': form,
+        'order': order,
+        'ordered_products': ordered_products,
+        'subtotal': subtotal,
+    }
+    return render(request, 'business/editOrder.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def deleteOrder(request, pk=None):
+    order = get_object_or_404(Order, pk=pk)
+    order.delete()
+    messages.success(request, 'Order has been deleted.')
+    return redirect('allOrders')

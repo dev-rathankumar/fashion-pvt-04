@@ -84,3 +84,35 @@ $(document).on('submit', '#biz_changePassword', function(e) {
   });
   this.reset();
 });
+
+
+
+// Ordered Products
+$(document).on('submit', '#ordered_products_form', function(e) {
+  e.preventDefault();
+  var order_number = $('#order_number').val();
+  console.log(order_number);
+  exit();
+  var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
+
+  $.ajax({
+    type: 'POST',
+    url: '/subscribe/',
+    data: {
+      email: email,
+      csrfmiddlewaretoken: csrfmiddlewaretoken,
+    },
+
+    success: function(data) {
+      // $('#site_settings').addClass('alert alert-success alert-dismissible fade show');
+      $("#subscriptionMessage").html(data);
+    },
+    error: function(data) {
+      $("#subscriptionMessage").html("Something went wrong, please try again.");
+    }
+  });
+});
+
+function goBack() {
+  window.history.back();
+}

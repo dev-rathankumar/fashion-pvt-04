@@ -1,0 +1,172 @@
+{% extends 'business/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+  <div class="page-content">
+    <div class="container-fluid">
+
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">All Orders</h4>
+
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Orders</a></li>
+                <li class="breadcrumb-item active">All Orders</li>
+              </ol>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+      {% include 'includes/_alerts.html' %}
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+
+            {% if not orders %}
+            <h2 class="text-center" style="padding:25px;">You did not recieve any orders yet</h2>
+            {% else %}
+            <div class="card-body">
+              <div class="row mb-2">
+                <div class="col-sm-4">
+                  <div class="search-box mr-2 mb-2 d-inline-block">
+                    <div class="position-relative">
+                      <input type="text" id="myInput" class="form-control" placeholder="Search...">
+                      <i class="bx bx-search-alt search-icon"></i>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="table-responsive">
+                <table class="table table-centered table-nowrap">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>Order Number</th>
+                      <th>Name</th>
+                      <th>Contact</th>
+                      <th>City</th>
+                      <th>Total</th>
+                      <th>Status</th>
+                      <th>Ordered Date</th>
+                      <th>View Order</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="myTable">
+
+
+
+                    {% for order in orders %}
+                    <tr>
+                      <td><a href="{% url 'bizOrderDetail' order.order_number %}">{{ order.order_number }}</a></td>
+                      <td>{{order.name}}</td>
+                      <td>
+                        {{order.phone}}<br>
+                        {{order.email}}
+                      </td>
+                      <td>
+                        {{order.city}}
+                      </td>
+                      <td>
+                        ${{order.total}}
+                      </td>
+                      <td>
+                        {% if order.status == 'New' %}
+                        <span class="badge badge-pill badge-soft-success font-size-12 w-100">New</span>
+                        {% elif order.status == 'Accepted' %}
+                        <span class="badge badge-pill badge-soft-primary font-size-12 w-100">Accepted</span>
+                        {% elif order.status == 'Completed' %}
+                        <span class="badge badge-pill badge-soft-warning font-size-12 w-100">Completed</span>
+                        {% elif order.status == 'Cancelled' %}
+                        <span class="badge badge-pill badge-soft-danger font-size-12 w-100">Cancelled</span>
+                        {% else %} <span class="badge badge-pill badge-soft-success font-size-12 w-100">{{order.status}}</span>
+                        {% endif %}
+
+                      </td>
+                      <td>
+                        {{order.created_at}}
+                      </td>
+                      <td>
+                        <a href="{% url 'bizOrderDetail' order.order_number %}" class="btn btn-primary">
+                          View Order
+                        </a>
+
+                      </td>
+                      <td>
+                        <a href="{% url 'editOrder' order.id %}" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
+                        <a href="{% url 'deleteOrder' order.id %}" onclick="return confirm('Are you sure you want to delete this order?')" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i
+                            class="mdi mdi-close font-size-18"></i></a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+
+
+
+              <!-- Paginator Start -->
+              {% if orders.has_other_pages %}
+              <ul class="pagination pagination-rounded justify-content-end mb-2">
+                {% if orders.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{orders.previous_page_number}}" aria-label="Previous">
+                    <i class="mdi mdi-chevron-left"></i>
+                  </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" aria-label="Previous">
+                    <i class="mdi mdi-chevron-left"></i>
+                  </a>
+                </li>
+                {% endif %}
+                {% for i in orders.paginator.page_range %}
+                {% if orders.number == i %}
+                <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                {% endif %}
+                {% endfor %}
+
+                {% if orders.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{orders.next_page_number}}" aria-label="Next">
+                    <i class="mdi mdi-chevron-right"></i>
+                  </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" aria-label="Next">
+                    <i class="mdi mdi-chevron-right"></i>
+                  </a>
+                </li>
+                {% endif %}
+              </ul>
+              {% endif %}
+              <!-- Paginator End -->
+
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <!-- end row -->
+    </div> <!-- container-fluid -->
+  </div>
+
+
+  {% endblock %}

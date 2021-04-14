@@ -33,6 +33,12 @@ urlpatterns = [
     path('products/addProduct/', views.addProduct, name='addProduct'),
     path('products/deleteProduct/<int:pk>/', views.deleteProduct, name='deleteProduct'),
 
+    # Manage Orders
+    path('orders/', views.allOrders, name='allOrders'),
+    path('orders/orderDetail/<int:pk>/', views.bizOrderDetail, name='bizOrderDetail'),
+    path('orders/editOrder/<int:pk>/', views.editOrder, name='editOrder'),
+    path('orders/deleteOrder/<int:pk>/', views.deleteOrder, name='deleteOrder'),
+
     # Site settings
     path('site_settings/', include('sitesettings.urls')),
 

@@ -6,6 +6,7 @@ from category.models import Category
 from ckeditor.widgets import CKEditorWidget
 from django.forms import inlineformset_factory
 from mptt.forms import TreeNodeChoiceField
+from orders.models import Order
 
 
 class UserForm(forms.ModelForm):
@@ -140,3 +141,13 @@ class CategoryForm(forms.ModelForm):
                 self.fields[myField].widget.attrs['rows'] = '4'
             else:
                 self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ('first_name', 'last_name', 'phone', 'email', 'address_line_1', 'address_line_2', 'state', 'country', 'pin_code','note', 'status')
+    def __init__(self, *args, **kwargs):
+        super(OrderForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
