@@ -5,6 +5,7 @@ from .models import User, RegionalManager, Business
 from contacts.models import Inquiry
 from products.models import Product
 from orders.models import Order, OrderProduct
+from business.models import PaymentSetting
 
 # Send account verification email
 from django.contrib.auth.tokens import default_token_generator
@@ -304,6 +305,13 @@ def biz_password_reset(request):
             business.is_account_verified = True
             user.save()
             business.save()
+            
+            # Automatically Creating Payment Setting
+            payment_setting = PaymentSetting()
+            payment_setting.user_id = user.id
+            payment_setting.business = business
+            payment_setting.save()
+
             mail_subject = 'Your Business Account is Activated'
             # message = 'Congratulations! Your business account has been activated.'
             current_site = get_current_site(request)

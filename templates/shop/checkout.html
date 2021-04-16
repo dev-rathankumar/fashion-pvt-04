@@ -56,7 +56,7 @@
       </div>
     </div> -->
 
-    
+
     <form action="{% url 'orderproduct' %}" method="POST">
       {% csrf_token %}
       <div class="row billing-fields">
@@ -172,8 +172,25 @@
                   </tbody>
                   <tfoot class="font-weight-600">
                     <tr>
-                      <td colspan="4" class="text-right">Tax </td>
-                      <td>${{tax | intcomma}}</td>
+
+                      <td colspan="4" class="text-right">
+
+                          {% for key, value in tax_dict.items %}
+                          {% for i, j in value.items %}
+                          <span class="col-12 col-sm-6 cart__subtotal-title">{{key}} ({{i}}%)</span><br>
+                          <!-- <p style="margin-bottom:0;">{{key}} ({{i}}%):<span class="product-price">${{j | intcomma}}</span></p> -->
+                          {% endfor %}
+                          {% endfor %}
+
+                      </td>
+
+                      <td>
+                        {% for key, value in tax_dict.items %}
+                        {% for i, j in value.items %}
+                        <span class="product-price">${{j | intcomma}}</span><br>
+                        {% endfor %}
+                        {% endfor %}
+                      </td>
                     </tr>
                     <tr>
                       <td colspan="4" class="text-right bold">

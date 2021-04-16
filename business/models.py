@@ -9,7 +9,7 @@ class PaymentSetting(models.Model):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
-    payment_method = models.CharField(max_length=50, choices=payment_method_choice)
+    payment_method = models.CharField(max_length=50, choices=payment_method_choice, blank=True)
     paypal_address = models.EmailField(max_length=100, blank=True)
     bank_name = models.CharField(max_length=50, blank=True)
     bank_account_name = models.CharField(max_length=50, blank=True)

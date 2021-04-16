@@ -43,17 +43,17 @@
                       <p style="margin-bottom:0;">Customer ID: {{order.user.customer.customer_id}}</p>
                       <p style="margin-bottom:0;">Transaction ID: <span>{{order.payment.payment_id}}</span></p>
                       <p>Order Status: <span>
-                        {% if order.status == 'New' %}
-                        <span class="badge badge-pill badge-soft-success font-size-12">New</span>
-                        {% elif order.status == 'Accepted' %}
-                        <span class="badge badge-pill badge-soft-primary font-size-12">Accepted</span>
-                        {% elif order.status == 'Completed' %}
-                        <span class="badge badge-pill badge-soft-warning font-size-12">Completed</span>
-                        {% elif order.status == 'Cancelled' %}
-                        <span class="badge badge-pill badge-soft-danger font-size-12">Cancelled</span>
-                        {% else %} <span class="badge badge-pill badge-soft-success font-size-12">{{order.status}}</span>
-                        {% endif %}
-                      </span></p>
+                          {% if order.status == 'New' %}
+                          <span class="badge badge-pill badge-soft-success font-size-12">New</span>
+                          {% elif order.status == 'Accepted' %}
+                          <span class="badge badge-pill badge-soft-primary font-size-12">Accepted</span>
+                          {% elif order.status == 'Completed' %}
+                          <span class="badge badge-pill badge-soft-warning font-size-12">Completed</span>
+                          {% elif order.status == 'Cancelled' %}
+                          <span class="badge badge-pill badge-soft-danger font-size-12">Cancelled</span>
+                          {% else %} <span class="badge badge-pill badge-soft-success font-size-12">{{order.status}}</span>
+                          {% endif %}
+                        </span></p>
 
 
 
@@ -148,7 +148,14 @@
                             <div class="col-md-3">
                               <div class="card-body">
                                 <h6>Subtotal: ${{subtotal}}</h6>
-                                <h6>Tax: ${{order.tax}}</h6>
+                                <h6>
+                                  {% for key, value in order.tax_data.items %}
+                                  {% for i, j in value.items %}
+                                  {{key}} ({{i}}%) : ${{j}} <br>
+                                  {% endfor %}
+                                  {% endfor %}
+                                </h6>
+
                                 <h4>Grand Total: ${{order.total}}</h4>
                               </div>
                             </div>

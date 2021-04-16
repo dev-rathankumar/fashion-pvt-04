@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product
 from category.models import Category
-from .models import Tax, ShopCart, ShopCartForm
+from .models import Tax, ShopCart, ShopCartForm, TaxSetting
 from accounts.models import Business, Country
 from django.core.exceptions import ObjectDoesNotExist
 from urllib.parse import urlparse
@@ -237,12 +237,15 @@ def shopcart(request):
     url = request.build_absolute_uri()
     domain = urlparse(url).netloc
     biz_id = Business.objects.get(domain_name=domain)
-    try:
-        get_tax = Tax.objects.get(business__business_id=biz_id.business_id)
-        tax_percent = get_tax.tax_percentage
-        tax = round((tax_percent * total)/100, 2)
-    except Tax.DoesNotExist:
-        tax = 0
+    get_tax = TaxSetting.objects.all()
+    tax_dict = {}
+    for i in get_tax:
+        tax_type = i.tax_type
+        tax_value = i.tax_value
+        tx_amount = round((tax_value * total)/100, 2)
+        tax_dict.update({tax_type: {tax_value:tx_amount}})
+
+    tax = sum(x for counter in tax_dict.values() for x in counter.values())
     grand_total = round(total + tax, 2)
 
     context={'shopcart': shopcart,

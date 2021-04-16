@@ -47,8 +47,9 @@
                   <tr>
                     <td align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 24px; padding-top: 10px;">
                       <p>Transaction ID : {{transaction_id}}</p>
-                      <p style="font-size: 12px; font-weight: 400; line-height: 18px; color: #777777;"><span style="font-size:12px;font-weight:800;">Hello {{user.first_name}},</span><br> Thank you for shopping with us. We'll send a confirmation email once your item has shipped.
-                       Your Order details are indicated below. The payment details of your transaction can be found on the order invoice.</p>
+                      <p style="font-size: 12px; font-weight: 400; line-height: 18px; color: #777777;"><span style="font-size:12px;font-weight:800;">Hello {{user.first_name}},</span><br> Thank you for shopping with us. We'll send a confirmation email
+                        once your item has shipped.
+                        Your Order details are indicated below. The payment details of your transaction can be found on the order invoice.</p>
                     </td>
                   </tr>
                   <tr>
@@ -68,7 +69,8 @@
                         {% for item in ordered_products %}
                         <tr>
                           <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> {{ item.variant.title }} </td>
-                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><span class="cart__meta-text" style="font-size:10px !important;">( ${{ item.variant.price }} ) </span> x {{ item.quantity }} </td>
+                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><span class="cart__meta-text"
+                              style="font-size:10px !important;">( ${{ item.variant.price }} ) </span> x {{ item.quantity }} </td>
                           <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> ${{ item.amount }} </td>
                         </tr>
                         {% endfor %}
@@ -77,20 +79,37 @@
                   </tr>
                   <tr>
                     <td align="left" style="padding-top:0;">
-                      <table cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:0";>
+                      <table cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:0" ;>
                         <tr>
                           <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size:12px; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> Subtotal </td>
                           <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size:12px; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> ${{subtotal}} </td>
                         </tr>
                         <tr>
-                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> Tax </td>
-                          <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> ${{order.tax}} </td>
+                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text">
+                            {% for key, value in order.tax_data.items %}
+                            {% for i, j in value.items %}
+                            {{key}} ({{i}}%)<br>
+                            {% endfor %}
+                            {% endfor %}
+                          </td>
+                          <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text">
+                            {% for key, value in order.tax_data.items %}
+                            {% for i, j in value.items %}
+                            ${{j}}<br>
+                            {% endfor %}
+                            {% endfor %}
+                          </td>
+
                         </tr>
+
+
+
                         <tr>
                           <td width="75%" align="left"
                             style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 20px; padding: 0px 10px 0px 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;"> TOTAL </td>
                           <td width="25%" align="left"
-                            style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 20px; padding: 0px 10px 0px 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;"> ${{order.total}} </td>
+                            style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 20px; padding: 0px 10px 0px 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
+                            ${{order.total}} </td>
                         </tr>
                       </table>
                     </td>
@@ -123,7 +142,9 @@
                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;margin-bottom:0;">
                   <tr>
                     <td align="center" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
-                      <a href="{% url 'shop' %}"><h4 style="font-size: 24px; font-weight: 700; line-height: 24px; color: #ffffff; margin: 0;"> Shop Again </h4></a>
+                      <a href="{% url 'shop' %}">
+                        <h4 style="font-size: 24px; font-weight: 700; line-height: 24px; color: #ffffff; margin: 0;"> Shop Again </h4>
+                      </a>
                     </td>
                   </tr>
 

@@ -1,11 +1,15 @@
 from django.contrib import admin
-from .models import Tax, ShopCart
+from .models import Tax, ShopCart, TaxSetting
+
+class TaxSettingInline(admin.TabularInline):
+    model = TaxSetting
+    list_display = ('business',)
+    extra = 1
+
 
 class TaxAdmin(admin.ModelAdmin):
-    def tax_percent(self, object):
-        return object.tax_percentage
-    tax_percent.short_description = 'Tax (%)'
-    list_display = ('business', 'tax_percent')
+    list_display = ('business',)
+    inlines = [TaxSettingInline]
 
 
 class ShopCartAdmin(admin.ModelAdmin):

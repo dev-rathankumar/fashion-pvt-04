@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from carts.models import ShopCart, Tax
+from carts.models import ShopCart, Tax, TaxSetting
 from products.models import Product
 from .models import OrderForm, Order, OrderProduct, Payment
 from django.utils.crypto import get_random_string
@@ -121,13 +121,16 @@ def orderproduct(request):
     domain = urlparse(url).netloc
     biz_id = Business.objects.get(domain_name=domain)
 
-    try:
-        get_tax = Tax.objects.get(business__business_id=biz_id.business_id)
-        tax_percent = get_tax.tax_percentage
-        tax = round((tax_percent * total)/100, 2)
-    except Tax.DoesNotExist:
-        tax = 0
-    grand_total = round(total + tax, 2)
+    get_tax = TaxSetting.objects.all()
+    tax_dict = {}
+    for i in get_tax:
+        tax_type = i.tax_type
+        tax_value = i.tax_value
+        tx_amount = round((tax_value * total)/100, 2)
+        tax_dict.update({tax_type: {float(tax_value):float(tx_amount)}})
+
+    tax = sum(x for counter in tax_dict.values() for x in counter.values())
+    grand_total = round(float(total) + tax, 2)
 
     if request.method == 'POST':
         form = OrderForm(request.POST)
@@ -147,6 +150,7 @@ def orderproduct(request):
             data.note = form.cleaned_data['note']
             data.user_id = current_user.id
             data.total = grand_total
+            data.tax_data = tax_dict
             data.tax = tax
             data.ip = request.META.get('REMOTE_ADDR')
             data.save()
@@ -227,7 +231,7 @@ def order_complete(request):
             subtotal += i.variant.price * i.quantity
 
         payment = Payment.objects.get(payment_id=transaction_id)
-
+        print(type(order.tax_data))
         context = {
             'order_number': order.order_number,
             'ordered_products': ordered_products,

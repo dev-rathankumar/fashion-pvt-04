@@ -1,8 +1,11 @@
-from .models import ShopCart, Tax
+from .models import ShopCart, Tax, TaxSetting
 from .views import _cart_id, shopcart
 from category.models import Category
 from accounts.models import Business
 from urllib.parse import urlparse
+from django.db.models import FloatField
+from django.db.models.functions import Cast
+
 
 
 def counter(request):
@@ -41,12 +44,14 @@ def shopcart_context(request):
     except:
         biz_id = None
 
-    if biz_id is not None:
-        try:
-            get_tax = Tax.objects.get(business__business_id=biz_id.business_id)
-            tax_percent = get_tax.tax_percentage
-            tax = round((tax_percent * total)/100, 2)
-        except Tax.DoesNotExist:
-            tax = 0
-    grand_total = round(total + tax, 2)
-    return dict(shopcart=shopcart, category=category, total=total, tax_percent=tax_percent, tax=tax, grand_total=grand_total)
+    get_tax = TaxSetting.objects.all()
+    tax_dict = {}
+    for i in get_tax:
+        tax_type = i.tax_type
+        tax_value = i.tax_value
+        tx_amount = round((tax_value * total)/100, 2)
+        tax_dict.update({tax_type: {float(tax_value):float(tx_amount)}})
+
+    tax = sum(x for counter in tax_dict.values() for x in counter.values())
+    grand_total = round(float(total) + tax, 2)
+    return dict(shopcart=shopcart, category=category, total=total, tax_percent=tax_percent, tax=tax, grand_total=grand_total, tax_dict=tax_dict)

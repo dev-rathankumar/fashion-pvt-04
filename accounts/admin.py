@@ -70,7 +70,7 @@ class BusinessAdmin(admin.ModelAdmin):
 # Regional Manager Admin
 class RegionalManagerAdmin(admin.ModelAdmin):
     list_display_links = ('regional_manager_id', 'get_name', 'get_email')
-    list_display = ('regional_manager_id', 'get_name', 'get_email', 'is_verification_email_sent', 'is_account_verified', 'get_status')
+    list_display = ('regional_manager_id', 'get_name', 'get_email', 'commission_percentage', 'is_verification_email_sent', 'is_account_verified', 'get_status')
     readonly_fields = ['regional_manager_id']
 
     def get_name(self, obj):

@@ -43,11 +43,21 @@ class ShopCartForm(ModelForm):
 
 class Tax(models.Model):
     business = models.OneToOneField(Business, on_delete=models.CASCADE, unique=True)
-    tax_percentage = models.DecimalField(decimal_places=2, max_digits=4, verbose_name="Tax (%)")
+    # tax_percentage = models.DecimalField(decimal_places=2, max_digits=4, verbose_name="Tax (%)")
 
     class Meta:
         verbose_name = 'tax'
         verbose_name_plural = 'tax'
 
     def __unicode__(self):
-        return self.tax_percentage
+        return self.business
+
+
+class TaxSetting(models.Model):
+    tax = models.ForeignKey(Tax, on_delete=models.CASCADE)
+    tax_type = models.CharField(max_length=20)
+    tax_value = models.DecimalField(decimal_places=2, max_digits=4)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.tax_type

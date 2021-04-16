@@ -151,6 +151,7 @@ class RegionalManager(models.Model):
     address_line_2 = models.CharField(max_length=50, blank=True)
     date_of_joining = models.DateField()
     account_expiry_date = models.DateField()
+    commission_percentage = models.FloatField(default=0)
     is_editing = models.BooleanField(default=False, blank=True, editable=False)
     is_verification_email_sent = models.BooleanField(default=False, editable=False)
     is_account_verified = models.BooleanField(default=False, editable=False)
@@ -237,7 +238,8 @@ class Business(models.Model):
             self.business_id = '2'+str(random.randint(10000,99999))+str(self.pk)
             self.is_verification_email_sent = True
 
-        print('saving point')
+
+
         super(Business, self).save(*args, **kwargs)
 
     def __str__(self):
