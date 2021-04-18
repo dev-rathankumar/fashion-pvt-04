@@ -169,50 +169,6 @@ def orderproduct(request):
                 'order' : order,
             }
             return render(request, 'orders/payments.html', context)
-
-            # Move cart items to Order Products table
-            # shopcart = ShopCart.objects.filter(user_id=current_user.id)
-            # for item in shopcart:
-            #     orderproduct = OrderProduct()
-            #     orderproduct.order_id = data.id # Order Id
-            #     orderproduct.product_id = item.product_id
-            #     orderproduct.variant_id = item.variant.id
-            #     orderproduct.user_id = current_user.id
-            #     orderproduct.quantity = item.quantity
-            #     orderproduct.color = item.color
-            #     orderproduct.size = item.size
-            #     orderproduct.price = item.variant.price
-            #     orderproduct.amount = item.amount
-            #     orderproduct.save()
-            #
-            #     # Reduce quantity of sold products from the product db
-            #     product = Product.objects.get(id=item.product_id)
-            #     product.stock -= item.quantity
-            #     product.save()
-
-            # ordered_products = OrderProduct.objects.filter(order_id=orderproduct.order_id)
-            # order = Order.objects.get(order_number=order_number)
-            # subtotal = 0
-            # for i in ordered_products:
-            #     subtotal += i.variant.price * i.quantity
-
-            # ShopCart.objects.filter(user_id=current_user.id).delete() # Clear & Delete shopcart
-            # request.session['cart_items'] = 0
-            # send_mail(
-            #         'Thank you for your order!',
-            #         'Your order has been recieved.',
-            #         'rathan.kumar049@gmail.com',
-            #         [order.email],
-            #         fail_silently=False,
-            #     )
-
-            # context = {
-            #     'order_number': order_number,
-            #     'ordered_products': ordered_products,
-            #     'order': order,
-            #     'subtotal': subtotal,
-            # }
-            # return render(request, 'orders/order_complete.html', context)
         else:
             return redirect('checkout')
     else:

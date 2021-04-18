@@ -1,0 +1,156 @@
+{% extends 'business/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+  <div class="page-content">
+    <div class="container-fluid">
+
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">All Customers</h4>
+
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Customers</a></li>
+                <li class="breadcrumb-item active">All Customers</li>
+              </ol>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+      {% include 'includes/_alerts.html' %}
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+
+            {% if not customers %}
+            <h2 class="text-center" style="padding:25px;">You do not have any customers yet</h2>
+            {% else %}
+            <div class="card-body">
+              <div class="row mb-2">
+                <div class="col-sm-4">
+                  <div class="search-box mr-2 mb-2 d-inline-block">
+                    <div class="position-relative">
+                      <input type="text" id="myInput" class="form-control" placeholder="Search...">
+                      <i class="bx bx-search-alt search-icon"></i>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="table-responsive">
+                <table class="table table-centered table-nowrap">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>Customer ID</th>
+                      <th>Profile Picture</th>
+                      <th>Name</th>
+                      <th>Contact</th>
+                      <th>Username</th>
+                      <th>Gender</th>
+                      <th>Registered Date</th>
+                      <th>Profile</th>
+                    </tr>
+                  </thead>
+                  <tbody id="myTable">
+
+
+
+                    {% for customer in customers %}
+                    <tr>
+                      <td><a href="{% url 'CustomerViewProfile' customer.user.id %}">{{customer.customer_id}}</a></td>
+                      <td><img src="{{customer.user.profile_picture.url}}" alt="Customer Image" width="40" style="border-radius:50px;"></td>
+                      <td>{{customer.user.name}}</td>
+                      <td>
+                        {{customer.user.email}}<br>
+                        {{customer.user.phone_number}}
+                      </td>
+                      <td>
+                        {{customer.user.username}}
+                      </td>
+                      <td>
+                        {{customer.user.gender | capfirst}}
+                      </td>
+                      <td>
+                        {{customer.user.date_joined}}
+                      </td>
+                      <td>
+                        <a href="{% url 'CustomerViewProfile' customer.user.id %}" class="btn btn-primary">
+                          View Profile
+                        </a>
+                      </td>
+
+
+
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+
+
+
+              <!-- Paginator Start -->
+              {% if orders.has_other_pages %}
+              <ul class="pagination pagination-rounded justify-content-end mb-2">
+                {% if orders.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{orders.previous_page_number}}" aria-label="Previous">
+                    <i class="mdi mdi-chevron-left"></i>
+                  </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" aria-label="Previous">
+                    <i class="mdi mdi-chevron-left"></i>
+                  </a>
+                </li>
+                {% endif %}
+                {% for i in orders.paginator.page_range %}
+                {% if orders.number == i %}
+                <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                {% endif %}
+                {% endfor %}
+
+                {% if orders.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{orders.next_page_number}}" aria-label="Next">
+                    <i class="mdi mdi-chevron-right"></i>
+                  </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" aria-label="Next">
+                    <i class="mdi mdi-chevron-right"></i>
+                  </a>
+                </li>
+                {% endif %}
+              </ul>
+              {% endif %}
+              <!-- Paginator End -->
+
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <!-- end row -->
+    </div> <!-- container-fluid -->
+  </div>
+
+
+  {% endblock %}

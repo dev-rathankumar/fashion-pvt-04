@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, user_passes_test
-from accounts.models import User
-from accounts.models import Business
-from django.http import HttpResponse
+from accounts.models import User, Customer, RegionalManager
+from accounts.models import Business, TaxOnPlan
+from django.http import HttpResponse, JsonResponse
 from .forms import PaymentSettingForm
 from .models import PaymentSetting
 from django.contrib.sites.shortcuts import get_current_site
@@ -14,6 +14,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from datetime import date, datetime
+import datetime
 import time
 import json
 from django.contrib import messages
@@ -26,6 +27,12 @@ from django.template.defaultfilters import slugify
 from category.models import Category
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from orders.models import Order, OrderProduct
+from plans.models import Plan, PlanOrder, PlanPayment
+import json
+import ast # for converting tax_data string to dict
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+
 
 
 
@@ -82,7 +89,16 @@ def logout(request):
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
 def dashboard(request):
-    return render(request, 'business/dashboard.html')
+    orders = Order.objects.filter(ordered=True)
+    orders_count = orders.count()
+    revenue = 0
+    for i in orders:
+        revenue += i.total
+    context = {
+        'orders_count': orders_count,
+        'revenue': revenue,
+    }
+    return render(request, 'business/dashboard.html', context)
 
 
 @login_required(login_url = 'userLogin')
@@ -521,3 +537,195 @@ def deleteOrder(request, pk=None):
     order.delete()
     messages.success(request, 'Order has been deleted.')
     return redirect('allOrders')
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def plans(request):
+    plans = Plan.objects.all().order_by('plan_price')
+    business = Business.objects.get(user=request.user)
+    current_plan = Plan.objects.get(pk=business.plan_id)
+    context = {
+        'plans': plans,
+        'current_plan': current_plan,
+    }
+    return render(request, 'business/plans.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def purchasePlan(request):
+    plan_id = request.GET['plan_id']
+    try:
+        plan = Plan.objects.get(pk=plan_id)
+    except Plan.DoesNotExist:
+        messages.error(request, 'Invalid request. Please select the plan.')
+        return redirect('plans')
+    get_tax = TaxOnPlan.objects.all()
+    tax_dict = {}
+    for i in get_tax:
+        tax_type = i.tax_type
+        tax_value = i.tax_value
+        tx_amount = round((float(tax_value) * plan.plan_price)/100, 2)
+        tax_dict.update({tax_type: {float(tax_value):float(tx_amount)}})
+
+    tax = sum(x for counter in tax_dict.values() for x in counter.values())
+    print(tax)
+    grand_total = round(plan.plan_price + tax, 2)
+    context = {
+        'plan': plan,
+        'tax_dict': tax_dict,
+        'grand_total': grand_total,
+        'tax': tax,
+    }
+    return render(request, 'business/purchasePlan.html', context)
+
+
+
+def planPayment(request):
+    body = json.loads(request.body)
+    current_user = request.user
+    business = Business.objects.get(user=current_user)
+    order = PlanOrder.objects.get(business=business, ordered=False, order_number=body['orderID'])
+    # Store transaction details inside payment model
+
+    payment = PlanPayment(
+        business = business,
+        payment_id = body['transID'],
+        payment_method = body['payment_method'],
+        amount = body['total'],
+        status = body['status'],
+    )
+    payment.save()
+
+
+
+
+    # Update order model
+    order.plan_payment = payment
+    if body['status'] == 'COMPLETED':
+        order.ordered = True
+    else:
+        messages.error(request, 'Payment failed. Please try again')
+        return redirect('plans')
+    order.save()
+
+    # Send order recieved email to customer
+    mail_subject = 'Thank you for your order!'
+    message = render_to_string('business/plan_order_email.html', {
+        'user': request.user,
+        'order': order,
+    })
+    to_email = request.user.email
+    send_email = EmailMessage(mail_subject, message, to=[to_email])
+    send_email.send()
+
+    # Send order number and transaction id back to sendData method via JsonResponse
+    data = {
+        'order_number': order.order_number,
+        'transID': payment.payment_id,
+    }
+    return JsonResponse(data)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def planOrder(request):
+    current_user = request.user
+    if request.method == 'POST':
+        plan_id = request.POST['plan_id']
+        tax = request.POST['tax']
+        tax_data = request.POST['tax_data']
+        total = request.POST['total']
+        payment_method = request.POST['payment_method']
+        plan_price = request.POST['plan_price']
+
+        data = PlanOrder()
+        data.business_id = current_user.id
+        # data.plan_payment =
+        data.plan_id = plan_id
+        data.total = total
+        data.tax = tax
+        data.tax_data = tax_data
+        data.ip = request.META.get('REMOTE_ADDR')
+
+        # Calculate Account Manager's Commission
+        business = Business.objects.get(user=current_user)
+        account_manager = business.regional_manager
+        try:
+            get_account_manager = RegionalManager.objects.get(user=account_manager)
+            commission_percent = get_account_manager.commission_percentage
+        except RegionalManager.DoesNotExist:
+            commission_percent = 0
+        commission_amount = round((commission_percent * float(plan_price))/100, 2)
+        data.account_manager_commission = commission_amount
+        data.save()
+        # Generate Plan Order Number
+        yr = int(datetime.date.today().strftime('%Y'))
+        dt = int(datetime.date.today().strftime('%d'))
+        mt = int(datetime.date.today().strftime('%m'))
+        d = datetime.date(yr,mt,dt)
+        current_date = d.strftime("%Y%m%d")
+        order_number = 'P'+current_date + str(data.id)
+        data.order_number = order_number
+        data.save()
+        request.session['plan_order_number'] = order_number
+        business = Business.objects.get(user=current_user)
+        try:
+            plan_order = PlanOrder.objects.get(business=business, ordered=False, order_number=order_number)
+        except PlanOrder.DoesNotExist:
+            plan_order = None
+    else:
+        return redirect('plans')
+    # Converting tax_data string to dict for better looping in the template
+    tax_data = ast.literal_eval(tax_data)
+    context = {
+        'plan_order': plan_order,
+        'tax': tax,
+        'tax_data': tax_data,
+        'total': total,
+        'payment_method': payment_method,
+    }
+    return render(request, 'business/planPayment.html', context)
+
+
+
+def plan_order_complete(request):
+    order_number = request.GET.get('order_number')
+    transaction_id = request.GET.get('payment_id')
+
+    try:
+        order = PlanOrder.objects.get(order_number=order_number)
+        payment = PlanPayment.objects.get(payment_id=transaction_id)
+
+        context = {
+            'order': order,
+            'payment': payment,
+        }
+        return render(request, 'business/plan_order_complete.html', context)
+    except (Payment.DoesNotExist, Order.DoesNotExist):
+        return redirect('plans')
+
+
+def allCustomers(request):
+    customers = Customer.objects.filter(user__is_customer=True).order_by('-created_date')
+    paginator = Paginator(customers, 10)
+    page = request.GET.get('page')
+    paged_customers = paginator.get_page(page)
+    context = {
+        'customers': paged_customers,
+    }
+    return render(request, 'business/allCustomers.html', context)
+
+
+def CustomerViewProfile(request, pk=None):
+    try:
+        customer = Customer.objects.get(user__id=pk, user__is_customer=True)
+    except Customer.DoesNotExist:
+        messages.error(request, 'Invalid request. Please try again')
+        return redirect('allCustomers')
+
+    context = {
+        'customer': customer,
+    }
+    return render(request, 'business/CustomerViewProfile.html', context)

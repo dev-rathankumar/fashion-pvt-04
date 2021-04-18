@@ -18,6 +18,7 @@ from django.contrib.sites.models import Site
 from io import BytesIO
 from PIL import Image
 from django.core.files import File
+from plans.models import Plan
 
 # Custom user model
 class MyAccountManager(BaseUserManager):
@@ -204,6 +205,7 @@ class Business(models.Model):
     pin_code = models.CharField(max_length=50)
     address_line_1 = models.CharField(max_length=50)
     address_line_2 = models.CharField(max_length=50, blank=True)
+    plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
     account_activation_date = models.DateField()
     account_expiry_date = models.DateField()
     is_verification_email_sent = models.BooleanField(default=False)
@@ -246,6 +248,15 @@ class Business(models.Model):
         return self.company_name
 
 
+class TaxOnPlan(models.Model):
+    user = models.ForeignKey(Business, on_delete=models.CASCADE)
+    tax_type = models.CharField(max_length=20)
+    tax_value = models.DecimalField(decimal_places=2, max_digits=4)
+
+    def __str__(self):
+        return self.tax_type
+
+
 # def upload_to(instance, filename):
 #     return 'customers/%s/images/%s' % (instance.user.username, filename)
 
@@ -276,3 +287,6 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.user.first_name
+
+    def full_address(self):
+        return f'{self.address_line_1} {self.address_line_2}'

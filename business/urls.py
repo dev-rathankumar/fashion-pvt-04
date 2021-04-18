@@ -42,6 +42,15 @@ urlpatterns = [
     # Site settings
     path('site_settings/', include('sitesettings.urls')),
 
+    # Plans
+    path('plans/', views.plans, name='plans'),
+    path('purchasePlan/', views.purchasePlan, name='purchasePlan'),
+    path('planPayment/', views.planPayment, name='planPayment'),
+    path('planOrder/', views.planOrder, name='planOrder'),
+    path('plan_order_complete/', views.plan_order_complete, name='plan_order_complete'),
 
+    # Customers
+    path('customers/', views.allCustomers, name='allCustomers'),
+    path('customers/CustomerViewProfile/<int:pk>/', views.CustomerViewProfile, name='CustomerViewProfile'),
 
 ]

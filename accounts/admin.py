@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Customer, Country, State, Business, RegionalManager
+from .models import User, Customer, Country, State, Business, RegionalManager, TaxOnPlan
 from django.utils.html import format_html
 
 
@@ -46,11 +46,18 @@ class CustomerAdmin(admin.ModelAdmin):
     get_status.admin_order_field = 'user__status'
 
 
+class TaxOnPlanInline(admin.TabularInline):
+    model = TaxOnPlan
+    list_display = ('user',)
+    extra = 1
+
+
 # Business Admin
 class BusinessAdmin(admin.ModelAdmin):
     list_display_links = ('business_id', 'get_name', 'domain_name', 'get_email')
     list_display = ('business_id', 'get_name', 'domain_name', 'get_email', 'get_status')
     readonly_fields = ['business_id']
+    inlines = [TaxOnPlanInline]
 
     def get_name(self, obj):
         return obj.user.name

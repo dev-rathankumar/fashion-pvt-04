@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'jquery',
     'djangoformsetjs',
     'sitesettings',
+    'plans',
 ]
 
 SITE_ID = 1
