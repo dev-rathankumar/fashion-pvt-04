@@ -7,6 +7,7 @@ from ckeditor.widgets import CKEditorWidget
 from django.forms import inlineformset_factory
 from mptt.forms import TreeNodeChoiceField
 from orders.models import Order
+from carts.models import TaxSetting
 
 
 class UserForm(forms.ModelForm):
@@ -149,5 +150,15 @@ class OrderForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'phone', 'email', 'address_line_1', 'address_line_2', 'state', 'country', 'pin_code','note', 'status')
     def __init__(self, *args, **kwargs):
         super(OrderForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class TaxSettingForm(forms.ModelForm):
+    class Meta:
+        model = TaxSetting
+        fields = ('tax_type', 'tax_value', 'is_active')
+    def __init__(self, *args, **kwargs):
+        super(TaxSettingForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
             self.fields[myField].widget.attrs['class'] = 'form-control'

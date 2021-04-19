@@ -71,9 +71,9 @@ GenderChoice = (
 )
 # User model
 class User(AbstractBaseUser):
-    is_customer     = models.BooleanField(default=False, editable=False)
-    is_business     = models.BooleanField(default=False, editable=False)
-    is_regional_manager     = models.BooleanField(default=False, editable=False)
+    is_customer     = models.BooleanField(default=False)
+    is_business     = models.BooleanField(default=False)
+    is_regional_manager     = models.BooleanField(default=False)
 
     first_name      = models.CharField(max_length=50)
     last_name       = models.CharField(max_length=50)
@@ -180,7 +180,7 @@ class RegionalManager(models.Model):
         return super(RegionalManager, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.user.first_name
+        return self.user.name
 
 # Custom image upoad path
 # def upload_to(instance, filename):

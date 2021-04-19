@@ -1,6 +1,6 @@
 {% extends 'business/base.html' %}
 {% load static %}
-
+{% block title %} Add Product {% endblock %}
 
 {% block content %}
 
@@ -101,7 +101,7 @@
                     <div class="form-group">
                       <img src="{{ product.image_2.url }}" alt="" width="50">
                       <label for="productname">Secondary Product Image</label>
-                    
+
                       {{ basicInfo_form.image_2 }}
                     </div>
                   </div>

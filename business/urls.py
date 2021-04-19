@@ -53,4 +53,6 @@ urlpatterns = [
     path('customers/', views.allCustomers, name='allCustomers'),
     path('customers/CustomerViewProfile/<int:pk>/', views.CustomerViewProfile, name='CustomerViewProfile'),
 
+    path('setTax/<int:business_id>/', views.setTax, name='setTax'),
+
 ]

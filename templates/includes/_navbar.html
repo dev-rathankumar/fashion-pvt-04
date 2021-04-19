@@ -22,7 +22,7 @@
             <!--Desktop Logo-->
             <div class="logo col-4 col-sm-4 col-md-4 col-lg-2 align-self-center">
                 <a href="{% url 'home' %}">
-                  {% if header.site_logo.url %}
+                  {% if header.site_logo %}
 <img src="{{ header.site_logo.url }}" alt="{{ header.site_title }}" title="{{ header.site_title }}" />
                   {% else %}
 <img src="{% static 'images/avon-logo.svg' %}" alt="Altocan" title="{{ header.site_title }}" />
@@ -101,7 +101,12 @@
                 <div class="customer-links">
 
                     <p class="text-center">Welcome <strong>{{ user.name }}</strong></p>
-                    <p><a href="{% url 'userDashboard' %}" class="btn">Go To Dashboard</a></p>
+                    {% if user.is_business %}
+                    <p><a href="{% url 'biz_dashboard' %}" class="btn">Business Dashboard</a></p>
+                    {% elif user.is_regional_manager %}
+                    <p><a href="{% url 'rm_dashboard' %}" class="btn">Account Manager</a></p>
+                    {% endif %}
+                    <p><a href="{% url 'userDashboard' %}" class="btn">My Account</a></p>
                     <p class="text-right"><span><a href="javascript:{document.getElementById('logout').submit()}" style="color:red;">Logout</a></span></p>
                     <form action="{% url 'logout' %}" id="logout" method="POST">
                       {% csrf_token %}

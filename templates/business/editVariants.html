@@ -41,16 +41,16 @@
               <div class="container varImagContainer">
                 <p>Copy Image ID and paste it into <span><b>Image id</b></span> field</p>
                 {% for image in gallery %}
-                  <label class="var_image">
+                <label class="var_image">
 
-                    <ul class="var_image_list">
+                  <ul class="var_image_list">
                     <input type="radio" name="imageid" id="imageid" value="{{image.id}}">
                     <li class="active">
                       <img src="{{image.image.url}}" alt="Variant Image" width="50">
                       <p class="text-center mt-2">ID: <b>{{image.id}}</b></p>
                     </li>
-                    </ul>
-                  </label>
+                  </ul>
+                </label>
                 {% endfor %}
 
               </div>
@@ -59,12 +59,6 @@
                 {% csrf_token %}
                 <table class="table">
                   {{ formset.management_form }}
-                  <!-- {% for form in formset %}
-                  {% if form.image.value.url is not None %}
-                  <img src="{{form.image.value.url}}" alt="" width="75" height="75">
-                  {% else %}
-                  {% endif %}
-                  {% endfor %} -->
 
                   {% for form in formset.forms %}
                   {% if forloop.first %}

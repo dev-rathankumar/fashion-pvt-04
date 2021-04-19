@@ -12,11 +12,11 @@ class UserAdmin(UserAdmin):
 
     list_display = ('thumbnail', 'email', 'name', 'username', 'is_customer', 'is_business', 'is_regional_manager', 'is_active', 'is_superadmin')
     list_display_links = ('email', 'name', 'username')
-    list_editable = ('is_active',)
+    list_editable = ('is_active', 'is_customer', 'is_business', 'is_regional_manager')
     search_fields = ('id', 'first_name', 'last_name', 'username')
     readonly_fields = ('last_login', 'date_joined', 'is_superadmin')
     ordering = ('-date_joined',)
-    exclude = ('is_admin', 'is_staff')
+    exclude = ('is_admin', 'is_staff', 'is_business', 'is_regional_manager', 'is_customer')
 
     filter_horizontal = ()
     list_filter = ('is_customer','is_business','is_regional_manager','is_active')

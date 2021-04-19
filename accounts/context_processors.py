@@ -10,7 +10,7 @@ def get_business(request):
         business = Business.objects.get(domain_name=domain)
     except:
         business = None
-    return dict(business=business)
+    return dict(business=business, domain=domain)
 
 
 def get_sitesettings(request):

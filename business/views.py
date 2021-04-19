@@ -19,7 +19,7 @@ import time
 import json
 from django.contrib import messages
 from .forms import UserForm, BusinessForm, ProductForm, ProductGalleryForm, ProductVariantForm
-from .forms import CategoryForm, OrderForm
+from .forms import CategoryForm, OrderForm, TaxSettingForm
 from products.models import Product, ProductGallery, Variants
 from django.forms import inlineformset_factory
 from django import forms
@@ -32,6 +32,7 @@ import json
 import ast # for converting tax_data string to dict
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from carts.models import TaxSetting, Tax
 
 
 
@@ -729,3 +730,74 @@ def CustomerViewProfile(request, pk=None):
         'customer': customer,
     }
     return render(request, 'business/CustomerViewProfile.html', context)
+
+
+def setTax(request, pk=None):
+    # try:
+    #     tax = TaxSetting.objects.get(pk=pk)
+    # except:
+    #     tax = 0
+    business = Business.objects.get(user=request.user)
+    tax = get_object_or_404(TaxSetting, pk=pk)
+    for i in tax:
+        print(i)
+    if request.method == 'POST':
+        form = PaymentSettingForm(request.POST, instance=pay_setting)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your payment settings are saved successfully.')
+            return redirect('/business/paymentSettings/'+str(pk))
+    else:
+        form = PaymentSettingForm(instance=pay_setting)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/setTax.html')
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def setTax(request, business_id=None):
+    tax = get_object_or_404(Tax, business_id=business_id)
+    TaxSettingFormSet = inlineformset_factory(Tax, TaxSetting, form=TaxSettingForm, extra=1)
+
+    if request.method == 'POST':
+        add_another = request.POST['add_another']
+        formset = TaxSettingFormSet(request.POST, instance=tax)
+        if formset.is_valid():
+            formset.save()
+            tax.save()
+            if add_another == 'true':
+                return redirect('setTax', business_id)
+            else:
+                messages.success(request, 'Tax Added Successfully.')
+                return redirect('setTax', business_id)
+        else:
+            return HttpResponse(formset.errors)
+    else:
+        formset = TaxSettingFormSet(instance=tax)
+
+    context = {
+        'tax' : tax,
+        'formset': formset,
+    }
+    return render(request, 'business/setTax.html', context)
+
+
+
+
+    if request.method == 'POST':
+        add_another = request.POST['add_another']
+        formset = ProductVariantFormSet(request.POST, instance=product)
+        if formset.is_valid():
+            formset.save()
+            product.is_active = True
+            product.save()
+            if add_another == 'true':
+                return redirect('/business/products/editProduct/'+str(pk)+'/editVariants/')
+            else:
+                messages.success(request, 'Product has been uploaded successfully.')
+                return redirect('allProducts')
+        else:
+            return HttpResponse(formset.errors)
