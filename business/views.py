@@ -783,21 +783,3 @@ def setTax(request, business_id=None):
         'formset': formset,
     }
     return render(request, 'business/setTax.html', context)
-
-
-
-
-    if request.method == 'POST':
-        add_another = request.POST['add_another']
-        formset = ProductVariantFormSet(request.POST, instance=product)
-        if formset.is_valid():
-            formset.save()
-            product.is_active = True
-            product.save()
-            if add_another == 'true':
-                return redirect('/business/products/editProduct/'+str(pk)+'/editVariants/')
-            else:
-                messages.success(request, 'Product has been uploaded successfully.')
-                return redirect('allProducts')
-        else:
-            return HttpResponse(formset.errors)

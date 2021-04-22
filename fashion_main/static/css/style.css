@@ -927,6 +927,7 @@ body.pet-store, html .pet-store, .pet-store button, .pet-store input, .pet-store
 .slideshow .wrap-caption.right { float:right; text-align: right; }
 .slideshow .wrap-caption.left { float:left; text-align: left; }
 .left .slideshow__text-content { left:7%; text-align:center; }
+.center .slideshow__text-content { left: 50%;transform: translate(-50%, -50%) !important;text-align: center; }
 .container.left .slideshow__text-content { left:auto; }
 .right .slideshow__text-content { right:7%; text-align:center; }
 .slideshow__text-content { position:absolute; max-width:600px; width:50%; top:50%; z-index:3; -ms-transform:translateY(-50%); -webkit-transform:translateY(-50%); transform:translateY(-50%); }

@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from category.models import Category
 from products.models import Product, ProductGallery
+from accounts.models import Business
+from sitesettings.models import BannerImage
 
 from django.http import HttpResponse
 
@@ -8,8 +10,10 @@ from django.http import HttpResponse
 def home(request):
     """Home Page"""
     category = Category.objects.all()
+    banners = BannerImage.objects.all()
     context = {
         'category': category,
+        'banners': banners,
     }
 
     new_arrival_products = Product.objects.filter(is_active=True).order_by('-created_date')
