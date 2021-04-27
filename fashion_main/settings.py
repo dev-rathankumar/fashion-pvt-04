@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'djangoformsetjs',
     'sitesettings',
     'plans',
+    'colorfield',
 ]
 
 SITE_ID = 1

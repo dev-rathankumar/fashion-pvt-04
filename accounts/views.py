@@ -19,6 +19,7 @@ from .forms import UserForm
 
 from django.http import HttpResponse
 from urllib.parse import urlparse
+from sitesettings.models import Homepage, ParallaxBackground
 
 # Create your views here.
 def userRegister(request):
@@ -79,6 +80,8 @@ def activate(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
+
+
         messages.success(request, 'Congratulations! Your account is activated.')
         return redirect('userLogin')
     else:
@@ -305,7 +308,18 @@ def biz_password_reset(request):
             business.is_account_verified = True
             user.save()
             business.save()
-            
+
+            # Automatically creating homepage for this business
+            homepage = Homepage()
+            homepage.business = business
+            homepage.save()
+
+            # Automatically Creating Parallax Background Image for Homepage
+            background = ParallaxBackground()
+            background.homepage = homepage
+            background.parallax_image = 'parallax_image/default-background.png'
+            background.save()
+
             # Automatically Creating Payment Setting
             payment_setting = PaymentSetting()
             payment_setting.user_id = user.id

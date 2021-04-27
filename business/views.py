@@ -378,6 +378,8 @@ def addProduct(request):
             return redirect('/business/products/editProduct/'+str(pk)+'/editGallery/')
         else:
             print(basicInfo_form.errors)
+            messages.error(request, 'Something went wrong!')
+            return redirect('allProducts')
     else:
         basicInfo_form = ProductForm()
     context = {

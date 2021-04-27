@@ -154,7 +154,7 @@
                     <a href="javascript: void(0);" class="has-arrow waves-effect
                     {% if '/site_settings/' in request.path %} active {% else %} {% endif %}">
                         <i class="bx bx-cog"></i>
-                        <span key="t-ecommerce">Site Settings</span>
+                        <span key="t-ecommerce">Website Settings</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{% url 'header' %}" key="t-products"
@@ -164,6 +164,27 @@
                             class="waves-effect"
                           {% endif %}
                           >Header</a></li>
+                          <li><a href="{% url 'banners' %}" key="t-products"
+                            {% if '/site_settings/banners/' in request.path or '/site_settings/banners/editBanner' in request.path %}
+                              class="waves-effect active"
+                            {% else %}
+                              class="waves-effect"
+                            {% endif %}
+                            >Banners</a></li>
+                            <li><a href="{% url 'store_features' %}" key="t-products"
+                              {% if '/site_settings/store_features/' in request.path %}
+                                class="waves-effect active"
+                              {% else %}
+                                class="waves-effect"
+                              {% endif %}
+                              >Store Features</a></li>
+                              <li><a href="{% url 'homepage_background' %}" key="t-products"
+                                {% if '/site_settings/homepage_background/' in request.path %}
+                                  class="waves-effect active"
+                                {% else %}
+                                  class="waves-effect"
+                                {% endif %}
+                                >Homepage Background</a></li>
 
                     </ul>
                 </li>

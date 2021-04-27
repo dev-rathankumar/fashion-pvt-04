@@ -2,6 +2,7 @@ from django.db import models
 from accounts.models import Business, User
 from PIL import Image
 from ckeditor.fields import RichTextField
+from colorfield.fields import ColorField
 
 
 class Header(models.Model):
@@ -21,22 +22,23 @@ class Homepage(models.Model):
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
-        return self.business
+    def __str__(self):
+        return self.business.company_name
 
 
 class BannerImage(models.Model):
     align_choice = (
-        ('left', 'left'),
-        ('center', 'center'),
-        ('right', 'right'),
+        ('left', 'Left'),
+        ('center', 'Center'),
+        ('right', 'Right'),
     )
     homepage = models.ForeignKey(Homepage, on_delete=models.CASCADE)
     banner_image = models.ImageField(upload_to='banner_images', blank=True)
     title = models.CharField(max_length=500, null=True, blank=True)
     sub_title = models.CharField(max_length=500, null=True, blank=True)
     button_name = models.CharField(max_length=20, null=True, blank=True)
-    button_color = models.CharField(max_length=20, null=True, blank=True)
+    button_link = models.CharField(max_length=255, null=True, blank=True)
+    button_color = ColorField(default='#000000')
     content_align = models.CharField(max_length=10, choices=align_choice, default='center')
 
     def __str__(self):
@@ -65,16 +67,17 @@ class StoreFeature(models.Model):
 
 class ParallaxBackground(models.Model):
     btn_align_choice = (
-        ('left', 'left'),
-        ('center', 'center'),
-        ('right', 'right'),
+        ('left', 'Left'),
+        ('center', 'Center'),
+        ('right', 'Right'),
     )
     homepage = models.ForeignKey(Homepage, on_delete=models.CASCADE)
     parallax_image = models.ImageField(upload_to='parallax_image', blank=True)
     title = models.CharField(max_length=50, null=True, blank=True)
     description = RichTextField(max_length=1000, null=True, blank=True)
     button_name = models.CharField(max_length=20, null=True, blank=True)
-    button_color = models.CharField(max_length=20, null=True, blank=True)
+    button_link = models.CharField(max_length=20, null=True, blank=True)
+    button_color = ColorField(default='#000000')
     content_align = models.CharField(max_length=10, choices=btn_align_choice, default='center')
 
     def __str__(self):

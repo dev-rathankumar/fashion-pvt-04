@@ -1,6 +1,6 @@
 from accounts.models import Business
 from urllib.parse import urlparse
-from sitesettings.models import Header
+from sitesettings.models import Header, Homepage
 
 
 def get_business(request):
@@ -21,8 +21,10 @@ def get_sitesettings(request):
     except:
         business = None
     header = None
+    homepage = None
     try:
         header = Header.objects.get(business=business)
-    except Header.DoesNotExist:
+        homepage = Homepage.objects.get(business=business)
+    except (Header.DoesNotExist and Homepage.DoesNotExist):
         pass
-    return dict(header=header)
+    return dict(header=header, homepage=homepage)

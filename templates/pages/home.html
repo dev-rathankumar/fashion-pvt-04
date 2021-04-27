@@ -179,7 +179,7 @@
             {% for banner in banners %}
             	<div class="slide">
                 	<div class="blur-up lazyload">
-                        <img class="blur-up lazyload" data-src="{{banner.banner_image.url}}" src="{{banner.banner_image.url}}" alt="Banner Image" title="Banner Image"  />
+                        <img class="blur-up lazyload" data-src="{{banner.banner_image.url}}" src="{{banner.banner_image.url}}" alt="Banner Image" title="Banner Image" style="height:90vh;" />
                         <div class="slideshow__text-wrap slideshow__overlay {{banner.content_align}}">
                             <div class="slideshow__text-content">
                                 <div class="wrap-caption anim-tru left style1">
@@ -190,6 +190,7 @@
                                     <span class="mega-subtitle slideshow__subtitle">{{banner.sub_title}}</span>
                                   {% endif %}
                                   {% if banner.button_name %}
+                                  <a href="{% if banner.button_link == None %}#{% else %}{{banner.button_link}}{% endif %}" class="btn" style="background-color:{{banner.button_color}};">{{banner.button_name}}</a>
                                     <span class="btn" style="background-color:{{banner.button_color}};">{{banner.button_name}}</span>
                                   {% endif %}
                                 </div>
@@ -212,18 +213,15 @@
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <ul class="display-table store-info style2">
+                          {% for feature in features %}
                             <li class="display-table-cell">
-                                <a href="#"><i class="anm anm-phone-call-l" aria-hidden="true"></i><h5>Call Us Anytime</h5> <span class="sub-text"> <span>+1 (250) 444-5555</span></span></a>
+                              <div style="display:flex;">
+                                <img src="{{feature.icon.url}}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                                <a href="#"><h5>{{ feature.title }}</h5> <span class="sub-text"> <span>{{ feature.sub_title }}</span></span></a>
+                              </div>
+
                             </li>
-                            <li class="display-table-cell">
-                                <i class="anm anm-truck-line" aria-hidden="true"></i><h5>Free Shipping</h5> <span class="sub-text"><span>When you spend $100+</span></span>
-                            </li>
-                            <li class="display-table-cell">
-                                <i class="anm anm-undo-r" aria-hidden="true"></i><h5>Free Returns</h5> <span class="sub-text"> <span>30-days free return policy.</span> </span>
-                            </li>
-                            <li class="display-table-cell">
-                                <i class="anm anm-lock-al" aria-hidden="true"></i><h5>Secured Payments</h5> <span class="sub-text"> <span>We accept all major credit cards.</span> </span>
-                            </li>
+                          {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -376,16 +374,15 @@
         	<!--End Collection Box slider-->
 
           <!--Parallax Banner-->
-        <div class="section parallax-banner-style1">
+        <div class="section parallax-banner-style1" style="padding-bottom:0px;">
             <div class="hero hero--exlarge hero__overlay bg-size">
-                <img class="bg-img" src="{% static 'images/slideshow-site-banners/parallax-banner.jpg' %}" alt="">
+                <img class="bg-img" src="{{ background.parallax_image.url }}" alt="Background Image">
                 <div class="hero__inner">
                     <div class="container">
                         <div class="wrap-text center text-small font-bold">
-                            <span>HOT COLLECTION</span>
-                            <h2 class="h2 mega-title">SUMMER IN THE CITY</h2>
-                            <div class="rte-setting mega-subtitle">the brand continues to champion and further strengthen its core belief of size inclusivity by launching its new collection ‘Summer in the City’. The collection speaks of fresh summer hues, breezy silhouettes and more, available across sizes, all ready to feed the Indian woman’s inner urbanite.</div>
-                            <a href="#" class="btn">View Collection</a>
+                            <h2 class="h2 mega-title">{{ background.title }}</h2>
+                            <div class="rte-setting mega-subtitle">{{background.description | safe}}</div>
+                            <a href="{% if background.button_link %}{{background.button_link}}{% else %}#{% endif %}" class="btn" style="background-color:{{background.button_color}}">{{background.button_name}}</a>
                         </div>
                     </div>
                 </div>
@@ -395,81 +392,7 @@
 
      </div><!--End Body Container-->
 
-        <!--Blog Post-->
-        <!-- <div class="section home-blog-post">
-        	<div class="container">
-                <div class="section-header">
-                    <h2>Fresh From Our Blog</h2>
-                    <p>You are going to love this amazing shopify theme.</p>
-                </div>
-	            <div class="row">
-            	<div class="col-12 col-sm-12 col-md-12 col-lg-12">
-	                <div class="blog-post-slider">
-                        <div class="blogpost-item">
-                        	<a href="#;" class="post-thumb">
-                            	<img src="{% static 'images/blog/post-img1.jpg' %}" alt="" title=""/>
-                            </a>
-                            <div class="post-detail">
-                            	<h3 class="post-title"><a href="#;">Our development is your success</a></h3>
-                                <ul class="publish-detail">
-                                	<li><span class="article__date">March 06, 2019</span></li>
-                                    <li><i class="anm anm-comments-l"></i> <a href="#;" class="btn-link">1 comment</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="blogpost-item">
-                        	<a href="#;" class="post-thumb">
-                            	<img src="{% static 'images/blog/post-img1.jpg' %}" alt="" title=""/>
-                            </a>
-                            <div class="post-detail">
-                            	<h3 class="post-title"><a href="#;">Ensuring Customer Success</a></h3>
-                                <ul class="publish-detail">
-                                	<li><span class="article__date">February 11, 2019</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="blogpost-item">
-                        	<a href="#;" class="post-thumb">
-                            	<img src="{% static 'images/blog/post-img1.jpg' %}" alt="" title=""/>
-                            </a>
-                            <div class="post-detail">
-                            	<h3 class="post-title"><a href="#;">We can make your business shine!</a></h3>
-                                <ul class="publish-detail">
-                                	<li><span class="article__date">February 19, 2019</span></li>
-                                    <li><i class="anm anm-comments-l"></i> <a href="#;" class="btn-link">2 comments</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div> -->
-        <!--End Blog Post-->
 
-        <!--Store Feature-->
-        <div class="store-features">
-        	<div class="container">
-            	<div class="row store-info">
-                	<div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                    	<i class="anm anm-free-delivery" aria-hidden="true"></i>
-                        <h5>Free Shipping &amp; Return</h5>
-                        <p class="sub-text">Free shipping on all US orders</p>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                    	<i class="anm anm-money" aria-hidden="true"></i>
-                        <h5>Money Guarantee</h5>
-                        <p class="sub-text">30 days money back guarantee</p>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                    	<i class="anm anm-phone-24" aria-hidden="true"></i>
-                        <h5>Online Support</h5>
-                        <p class="sub-text">We support online 24/7 on day</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--End Store Feature-->
     </div><!--End Page Wrapper-->
 
 {% endblock %}
