@@ -36,7 +36,7 @@ class Product(models.Model):
     product_name    = models.CharField(max_length=200)
     slug            = models.SlugField(max_length=200, unique=True)
     description     = RichTextField()
-    full_specification = RichTextField(blank=True, default='Test desc')
+    full_specification = RichTextField(blank=True, default='')
     price           = models.DecimalField(max_digits=10, decimal_places=2)
     image           = models.ImageField(upload_to='store/products/%Y/%m/%d')
     image_2         = models.ImageField(upload_to='store/products/%Y/%m/%d', blank=True, default='default/default-user.png')

@@ -55,4 +55,7 @@ urlpatterns = [
 
     path('setTax/<int:business_id>/', views.setTax, name='setTax'),
 
+    # Emails
+    path('emails/', include('emails.urls')),
+
 ]

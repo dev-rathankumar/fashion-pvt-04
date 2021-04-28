@@ -99,7 +99,7 @@ class User(AbstractBaseUser):
     objects = MyAccountManager()
 
     def __str__(self):
-        return self.first_name
+        return self.email
 
     def has_perm(self, perm, obj=None):
         return self.is_admin
@@ -286,7 +286,7 @@ class Customer(models.Model):
         super(Customer, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.user.first_name
+        return self.user.email
 
     def full_address(self):
         return f'{self.address_line_1} {self.address_line_2}'

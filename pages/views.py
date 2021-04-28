@@ -10,7 +10,7 @@ from django.http import HttpResponse
 # Create your views here.
 def home(request):
     """Home Page"""
-    category = Category.objects.all()
+    categories = Category.objects.filter(parent=None).order_by('created_date')[:3]
     banners = BannerImage.objects.all()
     features = StoreFeature.objects.all()
 
@@ -24,7 +24,7 @@ def home(request):
     homepage = Homepage.objects.get(business=business)
     background = ParallaxBackground.objects.get(homepage=homepage)
     context = {
-        'category': category,
+        'categories': categories,
         'banners': banners,
         'features': features,
         'background': background

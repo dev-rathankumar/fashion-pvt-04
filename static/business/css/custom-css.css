@@ -86,3 +86,7 @@ ul.var_image_list{
   width: 80%;
   max_width: 80%;
 }
+
+#cke_id_email_body{
+  width: 100% !important;
+}

@@ -30,7 +30,6 @@ from orders.models import Order, OrderProduct
 from plans.models import Plan, PlanOrder, PlanPayment
 import json
 import ast # for converting tax_data string to dict
-from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from carts.models import TaxSetting, Tax
 

@@ -179,7 +179,7 @@
             {% for banner in banners %}
             	<div class="slide">
                 	<div class="blur-up lazyload">
-                        <img class="blur-up lazyload" data-src="{{banner.banner_image.url}}" src="{{banner.banner_image.url}}" alt="Banner Image" title="Banner Image" style="height:90vh;" />
+                        <img class="blur-up lazyload" data-src="{{banner.banner_image.url}}" src="{{banner.banner_image.url}}" alt="Banner Image" title="Banner Image" style="max-height:100vh;" />
                         <div class="slideshow__text-wrap slideshow__overlay {{banner.content_align}}">
                             <div class="slideshow__text-content">
                                 <div class="wrap-caption anim-tru left style1">
@@ -191,7 +191,7 @@
                                   {% endif %}
                                   {% if banner.button_name %}
                                   <a href="{% if banner.button_link == None %}#{% else %}{{banner.button_link}}{% endif %}" class="btn" style="background-color:{{banner.button_color}};">{{banner.button_name}}</a>
-                                    <span class="btn" style="background-color:{{banner.button_color}};">{{banner.button_name}}</span>
+
                                   {% endif %}
                                 </div>
                             </div>
@@ -338,36 +338,23 @@
             <!--Collection Box slider-->
             <div class="collection-banners style1 section no-pt-section">
             	<div class="row">
-                	<div class="col-12 col-sm-12 col-md-6 col-lg-6 banner-item">
+                {% for i in categories %}
+                	<div class="col-12 col-sm-12 col-md-4 col-lg-4 banner-item">
 		                <div class="imgBanner-grid-item">
                             <div class="img">
-                                <a href="collection-page.html" class="collection-grid-item__link">
-                                    <img data-src="{% static 'images/collection-banner/demo1-banr1.jpg' %}" src="{% static 'images/collection-banner/demo1-banr1.jpg' %}" alt="Fashion" class="blur-up lazyload"/>
+                                <a href="/shop/category/{{i.slug}}" class="collection-grid-item__link">
+                                    <img data-src="{{i.cat_image.url}}" src="{{i.cat_image.url}}" alt="Category {{i.category_name}}" class="blur-up lazyload"/>
                                 </a>
                             </div>
                             <div class="details center w-50">
                                 <div class="inner">
-                                    <h3 class="title">FIND THE BEST COLLECTION AROUND THE WORLD</h3>
-                                    <a href="#;" class="btn">Shop Now</a>
+                                    <h3 class="title">{{i.category_name}}</h3>
+                                    <a href="/shop/category/{{i.slug}}" class="btn">Shop Now</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 banner-item">
-                        <div class="imgBanner-grid-item">
-                            <div class="img">
-                                <a href="collection-page.html" class="collection-grid-item__link">
-                                    <img class="blur-up lazyload" data-src="{% static 'images/collection-banner/demo1-banr2.jpg' %}" src="{% static 'images/collection-banner/demo1-banr1.jpg' %}" alt="Cosmetic"/>
-                                </a>
-                            </div>
-                            <div class="details center w-50">
-                                <div class="inner">
-                                    <h3 class="title">AWESOME T-SHIRTS, CROP TOPS AND MORE...</h3>
-                                    <a href="#;" class="btn">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                     </div>
+                  {% endfor %}
                     </div>
                 </div>
         	</div>

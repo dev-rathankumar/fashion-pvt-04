@@ -1,4 +1,4 @@
-from accounts.models import Business
+from accounts.models import Business, User
 from urllib.parse import urlparse
 from sitesettings.models import Header, Homepage
 

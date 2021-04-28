@@ -190,6 +190,19 @@
                 </li>
 
                 <li>
+                    <a href="{% url 'emails' %}"
+                    {% if 'emails' in request.path %}
+                      class="waves-effect active"
+                    {% else %}
+                      class="waves-effect"
+                    {% endif %}
+                    >
+                        <i class="bx bxs-envelope"></i>
+                        <span>Emails</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="javascript:{document.getElementById('biz_logout').submit()}" class="waves-effect">
                         <i class="bx bx-power-off font-size-16 align-middle"></i>
                         <span key="t-logout">Logout</span>
