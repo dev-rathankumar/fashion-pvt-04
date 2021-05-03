@@ -3,6 +3,7 @@
 {% block content %}
 {% load static %}
 {% load humanize %}
+{{ customerinfo_form.media.js }}
 
 
 <div id="page-content">
@@ -67,21 +68,21 @@
               <div class="row">
                 <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                   <label for="input-firstname">First Name <span class="required-f">*</span></label>
-                  <input name="first_name" value="{{user.first_name}}" id="first_name" type="text" required>
+                  {{userinfo_form.first_name}}
                 </div>
                 <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                   <label for="input-lastname">Last Name <span class="required-f">*</span></label>
-                  <input name="last_name" value="{{user.last_name}}" id="last_name" type="text" required>
+                  {{userinfo_form.last_name}}
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                   <label for="input-email">E-Mail <span class="required-f">*</span></label>
-                  <input name="email" value="{{user.email}}" id="email" type="email" required>
+                  {{userinfo_form.email}}
                 </div>
                 <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                   <label for="input-telephone">Telephone <span class="required-f">*</span></label>
-                  <input name="phone" value="{{user.phone_number}}" id="phone" type="tel" required>
+                  {{userinfo_form.phone_number}}
                 </div>
               </div>
             </fieldset>
@@ -90,31 +91,31 @@
               <div class="row">
                 <div class="form-group col-md-6 col-lg-6 col-xl-6">
                   <label for="input-company">Address Line 1 <span class="required-f">*</span></label>
-                  <input name="address_line_1" value="{{user.customer.address_line_1}}" id="address_line_1" type="text" required>
+                  {{customerinfo_form.address_line_1}}
                 </div>
                 <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                   <label for="input-address-1">Address Line 2 </label>
-                  <input name="address_line_2" value="{{user.customer.address_line_2}}" id="address_line_1" type="text">
+                  {{customerinfo_form.address_line_2}}
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-6 col-lg-6 col-xl-6">
                   <label for="input-city">City <span class="required-f">*</span></label>
-                  <input name="city" value="{{user.customer.city}}" id="city" type="text" required>
+                  {{customerinfo_form.city}}
                 </div>
                 <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                   <label for="input-city">Pin Code <span class="required-f">*</span></label>
-                  <input name="pin_code" value="{{user.customer.pin_code}}" id="pin_code" type="text">
+                  {{customerinfo_form.pin_code}}
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                   <label for="input-country">Country <span class="required-f">*</span></label>
-                  <input name="country" value="{{user.customer.country}}" id="country" type="text">
+                  {{customerinfo_form.country}}
                 </div>
                 <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                   <label for="input-state">State <span class="required-f">*</span></label>
-                  <input name="state" value="{{user.customer.state}}" id="state" type="text">
+                  {{customerinfo_form.state}}
                 </div>
               </div>
               <div class="row">
@@ -124,9 +125,7 @@
                 </div>
               </div>
             </fieldset>
-            <fieldset>
 
-            </fieldset>
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">

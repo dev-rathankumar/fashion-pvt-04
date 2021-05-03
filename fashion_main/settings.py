@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'plans',
     'colorfield',
     'emails',
+    'taxes',
 ]
 
 SITE_ID = 1

@@ -21,7 +21,7 @@ class Category(MPTTModel):
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     category_name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
-    description = models.TextField(max_length=255, blank=True)
+    description = models.TextField(max_length=1000, blank=True)
     cat_image = models.ImageField(upload_to='store/categories/%Y/%m/%d', blank=True)
     is_active       = models.BooleanField(default=True)
     created_date    = models.DateTimeField(auto_now_add=True)

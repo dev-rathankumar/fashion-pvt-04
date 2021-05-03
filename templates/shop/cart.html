@@ -134,25 +134,24 @@
           <input type="hidden" name="tax" value="{{tax}}">
           <input type="hidden" name="grand_total" value="{{grand_total}}"> -->
         <div class="solid-border">
-          <div class="row">
+          <!-- <div class="row">
             <span class="col-12 col-sm-6 cart__subtotal-title">Subtotal</span>
             <span class="col-12 col-sm-6 cart__subtotal-title text-right"><span class="money">${{total | intcomma}}</span></span>
-          </div>
+          </div> -->
           <!-- Tax -->
 
-          <div class="row">
+          <!-- <div class="row">
             {% for key, value in tax_dict.items %}
             {% for i, j in value.items %}
             <label class="col-12 col-sm-6 cart__subtotal-title">{{key}} ({{i}}%)</label>
             <span class="col-12 col-sm-6 cart__subtotal-title text-right">${{j | intcomma}}</span>
-            <!-- <p style="margin-bottom:0;">{{key}} ({{i}}%):<span class="product-price">${{j | intcomma}}</span></p> -->
             {% endfor %}
             {% endfor %}
-          </div>
+          </div> -->
           <!-- Grand Total -->
           <div class="row">
-            <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Grand Total</strong></span>
-            <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money">${{grand_total | intcomma}}</span></span>
+            <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Total</strong></span>
+            <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money">${{total | intcomma}}</span></span>
           </div>
           <!-- <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div> -->
           <!-- <p class="cart_tearm">

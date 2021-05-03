@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponse, HttpResponseRedirect
+from orders.forms import BillingUserInfoForm, BillingCustomerInfoForm
 
 # Get the cart_id
 def _cart_id(request):
@@ -228,32 +229,32 @@ def shopcart(request):
     shopcart = ShopCart.objects.filter(user_id=current_user.id)
 
     total=0
-    tax = 0
-    grand_total = 0
-    tax_percent = 0
+    # tax = 0
+    # grand_total = 0
+    # tax_percent = 0
     for i in shopcart:
         total += i.variant.price * i.quantity
 
-    url = request.build_absolute_uri()
-    domain = urlparse(url).netloc
-    biz_id = Business.objects.get(domain_name=domain)
-    get_tax = TaxSetting.objects.all()
-    tax_dict = {}
-    for i in get_tax:
-        tax_type = i.tax_type
-        tax_value = i.tax_value
-        tx_amount = round((tax_value * total)/100, 2)
-        tax_dict.update({tax_type: {tax_value:tx_amount}})
+    # url = request.build_absolute_uri()
+    # domain = urlparse(url).netloc
+    # biz_id = Business.objects.get(domain_name=domain)
+    # get_tax = TaxSetting.objects.all()
+    # tax_dict = {}
+    # for i in get_tax:
+    #     tax_type = i.tax_type
+    #     tax_value = i.tax_value
+    #     tx_amount = round((tax_value * total)/100, 2)
+    #     tax_dict.update({tax_type: {tax_value:tx_amount}})
 
-    tax = sum(x for counter in tax_dict.values() for x in counter.values())
-    grand_total = round(total + tax, 2)
+    # tax = sum(x for counter in tax_dict.values() for x in counter.values())
+    # grand_total = round(total + tax, 2)
 
     context={'shopcart': shopcart,
              'category':category,
              'total': total,
-             'tax_percent': tax_percent,
-             'tax': tax,
-             'grand_total': grand_total,
+             # 'tax_percent': tax_percent,
+             # 'tax': tax,
+             # 'grand_total': grand_total,
              }
     return render(request,'shop/cart.html', context)
 
@@ -271,4 +272,10 @@ def checkout(request):
     if cart_count <= 0:
         return redirect('shop')
     else:
-        return render(request, 'shop/checkout.html')
+        userinfo_form = BillingUserInfoForm(instance=current_user)
+        customerinfo_form = BillingCustomerInfoForm()
+        context = {
+            'userinfo_form': userinfo_form,
+            'customerinfo_form': customerinfo_form,
+        }
+        return render(request, 'shop/checkout.html', context)

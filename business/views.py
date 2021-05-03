@@ -785,23 +785,3 @@ def setTax(request, business_id=None):
         'formset': formset,
     }
     return render(request, 'business/setTax.html', context)
-
-
-@login_required(login_url = 'userLogin')
-@business_required(login_url="userLogin")
-def initial_setup(request):
-    # if request.method == 'POST':
-    #     form = HeaderForm(request.POST)
-    #     if form.is_valid():
-    #         store_name = form.cleaned_data['site_title']
-    #         form.save()
-    #         messages.success(request, 'You are successfully logged in')
-    #         return redirect('business')
-    #     else:
-    #         print(form.errors)
-    # else:
-    form = HeaderForm()
-    context = {
-        'form': form,
-    }
-    return render(request, 'business/initial_setup.html', context)

@@ -107,7 +107,7 @@
                 </div>
                 <div class="priceRow">
                   <div class="product-price">
-                    <span class="money">${{ i.varamount | intcomma }} <small style="color:#777;">(${{i.product.price}} each)</small></span>
+                    <span class="money">${{ i.varamount | intcomma }} <small style="color:#777;">(${{i.variant.price}} each)</small></span>
                   </div>
                 </div>
               </div>
@@ -116,22 +116,16 @@
           </ul>
         </div>
         <div class="minicart-bottom">
-          <div class="subtotal list">
-            <span>Subtotal:</span>
-            <span class="product-price">${{total | intcomma}}</span>
-          </div>
-
-
-          <div class="subtotal list">
+          <!-- <div class="subtotal list">
             {% for key, value in tax_dict.items %}
             {% for i, j in value.items %}
             <p style="margin-bottom:0;">{{key}} ({{i}}%):<span class="product-price">${{j | intcomma}}</span></p>
             {% endfor %}
             {% endfor %}
-          </div>
+          </div> -->
           <div class="subtotal">
-            <span>Grand Total:</span>
-            <span class="product-price">${{grand_total | intcomma}}</span>
+            <span>Total:</span>
+            <span class="product-price">${{total | intcomma}}</span>
           </div>
           <a href="{% url 'checkout' %}" class="btn proceed-to-checkout">Proceed to Checkout</a>
           <a href="{% url 'shopcart' %}" class="btn btn-secondary cart-btn">View/Edit Cart</a>

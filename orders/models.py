@@ -1,7 +1,8 @@
 from django.db import models
-from accounts.models import User
+from accounts.models import User, Country, State
 from products.models import Product, Variants
 from django.forms import ModelForm
+from smart_selects.db_fields import ChainedForeignKey
 
 
 
@@ -37,8 +38,15 @@ class Order(models.Model):
     email = models.EmailField(max_length=50)
     address_line_1 = models.CharField(max_length=50)
     address_line_2 = models.CharField(max_length=50, blank=True)
-    country = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    state = ChainedForeignKey(
+            State,
+            chained_field="country",
+            chained_model_field="country",
+            show_all=False,
+            auto_choose=True,
+            sort=True
+        )
     city = models.CharField(max_length=50)
     pin_code = models.CharField(max_length=10)
     total = models.FloatField()

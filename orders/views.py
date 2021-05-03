@@ -170,6 +170,7 @@ def orderproduct(request):
             }
             return render(request, 'orders/payments.html', context)
         else:
+            print(form.errors)
             return redirect('checkout')
     else:
         return redirect('checkout')

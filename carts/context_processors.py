@@ -31,9 +31,9 @@ def shopcart_context(request):
     shopcart = ShopCart.objects.filter(user_id=current_user.id)
 
     total=0
-    tax = 0
-    grand_total = 0
-    tax_percent = 0
+    # tax = 0
+    # grand_total = 0
+    # tax_percent = 0
     for i in shopcart:
         total += i.variant.price * i.quantity
 
@@ -44,14 +44,15 @@ def shopcart_context(request):
     except:
         biz_id = None
 
-    get_tax = TaxSetting.objects.all()
-    tax_dict = {}
-    for i in get_tax:
-        tax_type = i.tax_type
-        tax_value = i.tax_value
-        tx_amount = round((tax_value * total)/100, 2)
-        tax_dict.update({tax_type: {float(tax_value):float(tx_amount)}})
-
-    tax = sum(x for counter in tax_dict.values() for x in counter.values())
-    grand_total = round(float(total) + tax, 2)
-    return dict(shopcart=shopcart, category=category, total=total, tax_percent=tax_percent, tax=tax, grand_total=grand_total, tax_dict=tax_dict)
+    # get_tax = TaxSetting.objects.all()
+    # tax_dict = {}
+    # for i in get_tax:
+    #     tax_type = i.tax_type
+    #     tax_value = i.tax_value
+    #     tx_amount = round((tax_value * total)/100, 2)
+    #     tax_dict.update({tax_type: {float(tax_value):float(tx_amount)}})
+    #
+    # tax = sum(x for counter in tax_dict.values() for x in counter.values())
+    # grand_total = round(float(total) + tax, 2)
+    # return dict(shopcart=shopcart, category=category, total=total, tax_percent=tax_percent, tax=tax, grand_total=grand_total, tax_dict=tax_dict)
+    return dict(shopcart=shopcart, category=category, total=total)
