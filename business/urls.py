@@ -58,4 +58,7 @@ urlpatterns = [
     # Emails
     path('emails/', include('emails.urls')),
 
+    # Initial Setup
+    path('initial-setup/', views.initial_setup, name='initial_setup'),
+
 ]

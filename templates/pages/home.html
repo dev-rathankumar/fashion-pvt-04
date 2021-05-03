@@ -201,7 +201,41 @@
                 {% endfor %}
                 {% else %}
 
-                  <h1 class="text-center" style="padding:100px;">Set your banner images</h1>
+                <div class="slide">
+                    <div class="blur-up lazyload">
+                          <img class="blur-up lazyload" data-src="{% static 'images/default-images/site-banner.jpg' %}" src="{% static 'images/default-images/site-banner-01.jpg' %}" alt="Default Banner Image" title="Default Banner Image" style="max-height:100vh;" />
+                          <div class="slideshow__text-wrap slideshow__overlay left">
+                              <div class="slideshow__text-content">
+                                  <div class="wrap-caption anim-tru left style1">
+                                      <h2 class="h1 mega-title slideshow__title">Your title goes here</h2>
+
+                                      <span class="mega-subtitle slideshow__subtitle">Your subtitle text goes here</span>
+
+                                    <a href="#" class="btn">BUTTON</a>
+
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="slide">
+                      <div class="blur-up lazyload">
+                            <img class="blur-up lazyload" data-src="{% static 'images/default-images/site-banner.jpg' %}" src="{% static 'images/default-images/site-banner-01.jpg' %}" alt="Default Banner Image" title="Default Banner Image" style="max-height:100vh;" />
+                            <div class="slideshow__text-wrap slideshow__overlay right">
+                                <div class="slideshow__text-content">
+                                    <div class="wrap-caption anim-tru left style1">
+                                        <h2 class="h1 mega-title slideshow__title">Your title goes here</h2>
+
+                                        <span class="mega-subtitle slideshow__subtitle">Your subtitle text goes here</span>
+
+                                      <a href="#" class="btn">BUTTON</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 {% endif %}
             </div>
@@ -213,15 +247,46 @@
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <ul class="display-table store-info style2">
-                          {% for feature in features %}
+                          {% if features %}
+                            {% for feature in features %}
+                              <li class="display-table-cell">
+                                <div style="display:flex;">
+                                  <img src="{{feature.icon.url}}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                                  <a href="#"><h5>{{ feature.title }}</h5> <span class="sub-text"> <span>{{ feature.sub_title }}</span></span></a>
+                                </div>
+
+                              </li>
+                            {% endfor %}
+                            {% else %}
                             <li class="display-table-cell">
                               <div style="display:flex;">
-                                <img src="{{feature.icon.url}}" alt="Feature Icon" width="35" style="margin-right:10px;">
-                                <a href="#"><h5>{{ feature.title }}</h5> <span class="sub-text"> <span>{{ feature.sub_title }}</span></span></a>
+                                <img src="{% static 'images/default-images/feature-phone-alt-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                                <a href="#"><h5>Call Us Anytime</h5> <span class="sub-text"> <span>+1 (555) 555-5555</span></span></a>
                               </div>
 
                             </li>
-                          {% endfor %}
+                            <li class="display-table-cell">
+                              <div style="display:flex;">
+                                <img src="{% static 'images/default-images/feature-truck-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                                <a href="#"><h5>Free Shipping</h5> <span class="sub-text"> <span>When you spend $100+</span></span></a>
+                              </div>
+
+                            </li>
+                            <li class="display-table-cell">
+                              <div style="display:flex;">
+                                <img src="{% static 'images/default-images/feature-check-circle-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                                <a href="#"><h5>Genuine Quality</h5> <span class="sub-text"> <span>All our products are Genuine</span></span></a>
+                              </div>
+
+                            </li>
+                            <li class="display-table-cell">
+                              <div style="display:flex;">
+                                <img src="{% static 'images/default-images/feature-lock-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                                <a href="#"><h5>Secure Payments</h5> <span class="sub-text"> <span>We accept all major credit cards.</span></span></a>
+                              </div>
+
+                            </li>
+                          {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -238,6 +303,7 @@
                     <p>Shop our new arrivals from established brands</p>
                 </div>
                 <div class="productSlider grid-products">
+                  {% if new_arrival_products %}
                   {% for product in new_arrival_products %}
                     <div class="col-12 item">
                         <!-- start product image -->
@@ -255,50 +321,6 @@
                                 <!-- End product label -->
                             </a>
                             <!-- end product image -->
-
-                            <!--Product Button-->
-                            <!-- <div class="button-set style1">
-                            	<ul>
-                                	<li>
-
-                                        <form class="add" action="cart-variant1.html" method="post">
-                                            <button class="btn-icon btn btn-addto-cart" type="button" tabindex="0">
-                                            	<i class="icon anm anm-cart-l"></i>
-                                                <span class="tooltip-label">Add to Cart</span>
-                                            </button>
-                                        </form>
-
-                                    </li>
-                                    <li>
-
-                                        <a href="javascript:void(0)" title="Quick View" class="btn-icon quick-view-popup quick-view" data-toggle="modal" data-target="#content_quickview">
-                                            <i class="icon anm anm-search-plus-l"></i>
-                                            <span class="tooltip-label">Quick View</span>
-                                        </a>
-
-                                    </li>
-                                    <li>
-
-                                        <div class="wishlist-btn">
-                                            <a class="btn-icon wishlist add-to-wishlist" href="my-wishlist.html">
-                                                <i class="icon anm anm-heart-l"></i>
-                                                <span class="tooltip-label">Add To Wishlist</span>
-                                            </a>
-                                        </div>
-
-                                    </li>
-                                    <li>
-
-                                        <div class="compare-btn">
-                                            <a class="btn-icon compare add-to-compare" href="compare-style2.html" title="Add to Compare">
-                                                <i class="icon icon-reload"></i>
-                                                <span class="tooltip-label">Add to Compare</span>
-                                            </a>
-                                        </div>
-
-                                    </li>
-                                </ul>
-                            </div> -->
 
                         </div>
                         <!-- end product image -->
@@ -328,6 +350,12 @@
                         <!-- End product details -->
                     </div>
                     {% endfor %}
+                    {% else %}
+
+<div class="section-header">
+    <h2>No products found</h2>
+</div>
+                    {% endif %}
                 </div>
             </div>
             <!--End New Arrivals-->
@@ -361,6 +389,7 @@
         	<!--End Collection Box slider-->
 
           <!--Parallax Banner-->
+          {% if background.parallax_image %}
         <div class="section parallax-banner-style1" style="padding-bottom:0px;">
             <div class="hero hero--exlarge hero__overlay bg-size">
                 <img class="bg-img" src="{{ background.parallax_image.url }}" alt="Background Image">
@@ -375,6 +404,25 @@
                 </div>
             </div>
         </div>
+        {% else %}
+        <div class="section parallax-banner-style1" style="padding-bottom:0px;">
+            <div class="hero hero--exlarge hero__overlay bg-size">
+                <img class="bg-img" src="{% static 'images/default-images/parallax-banner.jpg' %}" alt="Background Image">
+                <div class="hero__inner">
+                    <div class="container">
+                        <div class="wrap-text center text-small font-bold">
+                            <h2 class="h2 mega-title">About your business</h2>
+                            <div class="rte-setting mega-subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+optio, eaque rerum! Provident similique accusantium nemo autem.</div>
+                            <a href="#" class="btn">About Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
         <!--End Parallax Banner-->
 
      </div><!--End Body Container-->

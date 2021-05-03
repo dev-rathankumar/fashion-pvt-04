@@ -21,19 +21,19 @@ def home(request):
     except:
         business = None
 
-    homepage = Homepage.objects.get(business=business)
-    background = ParallaxBackground.objects.get(homepage=homepage)
+    if business is None:
+        return HttpResponse('<h3>Please assign a business to proceed!</h3>')
+
     context = {
         'categories': categories,
         'banners': banners,
         'features': features,
-        'background': background
+        # 'background': background,
     }
 
-    new_arrival_products = Product.objects.filter(is_active=True).order_by('-created_date')
-    context.update({
-        'new_arrival_products': new_arrival_products,
-    })
+
+    # new_arrival_products = Product.objects.filter(is_active=True).order_by('-created_date')
+
     return render(request, 'pages/home.html', context)
 
 def about(request):

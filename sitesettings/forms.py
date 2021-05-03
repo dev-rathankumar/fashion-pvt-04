@@ -7,7 +7,7 @@ from .models import Header, BannerImage, StoreFeature, ParallaxBackground
 
 class HeaderForm(forms.ModelForm):
     # site_logo = forms.ImageField(label=('Logo'),required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput)
-    site_logo = forms.ImageField(label=('Logo'), required=True, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+    site_logo = forms.ImageField(label=('Logo'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
         "type": "file",
         # "data-browse-on-zone-click": "true",
         "data-show-preview": "false"

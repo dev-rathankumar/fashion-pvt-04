@@ -173,6 +173,7 @@ class RegionalManager(models.Model):
             email = EmailMessage(
                 mail_subject, message, to=[to_email]
             )
+            email.content_subtype = "html"
             email.send()
             self.regional_manager_id = '1'+str(random.randint(10000,99999))+str(self.pk)
             self.is_verification_email_sent = True

@@ -19,7 +19,8 @@ from .forms import UserForm
 
 from django.http import HttpResponse
 from urllib.parse import urlparse
-from sitesettings.models import Homepage, ParallaxBackground
+from sitesettings.models import Homepage, ParallaxBackground, Header
+
 
 # Create your views here.
 def userRegister(request):
@@ -101,8 +102,20 @@ def userLogin(request):
             try:
                 if user.is_business:
                     auth.login(request, user)
-                    messages.success(request, "You are now logged in!")
-                    return redirect('biz_dashboard')
+                    # Check if the site title is set or not
+                    url = request.build_absolute_uri()
+                    domain = urlparse(url).netloc
+
+                    try:
+                        business = Business.objects.get(domain_name=domain)
+                        header = Header.objects.get(business=business)
+                        if header:
+                            messages.success(request, "You are now logged in!")
+                            return redirect('biz_dashboard')
+                    except Header.DoesNotExist:
+                        messages.success(request, "You are now logged in!")
+                        return redirect('initial_setup')
+
                 elif user.is_regional_manager:
                     auth.login(request, user)
                     messages.success(request, "You are now logged in!")
@@ -260,13 +273,19 @@ def rm_password_reset(request):
             user.save()
             regional_manager.save()
             mail_subject = 'Your Account is Activated'
-            message = 'Congratulations! Your account has been activated.'
+            # message = 'Congratulations! Your account has been activated.'
+            current_site = get_current_site(request)
+            message = render_to_string('accounts/rm_acc_activated_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+            })
             to_email = user.email
             email = EmailMessage(
                 mail_subject, message, to=[to_email]
             )
+            email.content_subtype = "html"
             email.send()
-            messages.success(request, 'Congratulations! Your business account has been activated.')
+            messages.success(request, 'Congratulations! Your account has been activated.')
             return redirect('userLogin')
         else:
             messages.error(request, 'Passwords do not match!')

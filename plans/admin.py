@@ -22,3 +22,4 @@ class PlanPaymentAdmin(admin.ModelAdmin):
 
 admin.site.register(Plan, PlanAdmin)
 admin.site.register(PlanPayment, PlanPaymentAdmin)
+admin.site.register(PlanOrder)

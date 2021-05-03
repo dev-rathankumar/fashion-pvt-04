@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User, Customer, Country, State, Business, RegionalManager, TaxOnPlan
 from django.utils.html import format_html
+from django.db.models import Q
 
 
 # User Admin
@@ -12,9 +13,9 @@ class UserAdmin(UserAdmin):
 
     list_display = ('thumbnail', 'email', 'name', 'username', 'is_customer', 'is_business', 'is_regional_manager', 'is_active', 'is_superadmin')
     list_display_links = ('email', 'name', 'username')
-    list_editable = ('is_active', 'is_customer', 'is_business', 'is_regional_manager')
+    list_editable = ('is_active',)
     search_fields = ('id', 'first_name', 'last_name', 'username')
-    readonly_fields = ('last_login', 'date_joined', 'is_superadmin')
+    readonly_fields = ('last_login', 'date_joined', 'is_superadmin', 'is_active')
     ordering = ('-date_joined',)
     exclude = ('is_admin', 'is_staff', 'is_business', 'is_regional_manager', 'is_customer')
 
@@ -74,6 +75,18 @@ class BusinessAdmin(admin.ModelAdmin):
     get_status.short_description = 'Is Active'
     get_status.admin_order_field = 'user__status'
 
+    # if there's already an entry, do not allow adding
+    def has_add_permission(self, request):
+        count = Business.objects.all().count()
+        if count == 0:
+          return True
+        return False
+
+    # ForeignKey list only non-business accounts
+    def render_change_form(self, request, context, *args, **kwargs):
+         context['adminform'].form.fields['user'].queryset = User.objects.filter(Q(is_regional_manager=False, is_business=False, is_customer=False, is_superadmin=False, is_active=False) | Q(is_business=True))
+         return super(BusinessAdmin, self).render_change_form(request, context, *args, **kwargs)
+
 # Regional Manager Admin
 class RegionalManagerAdmin(admin.ModelAdmin):
     list_display_links = ('regional_manager_id', 'get_name', 'get_email')
@@ -94,6 +107,15 @@ class RegionalManagerAdmin(admin.ModelAdmin):
         return obj.user.is_active
     get_status.short_description = 'Is Active'
     get_status.admin_order_field = 'user__status'
+
+    # if there's already an entry, do not allow adding
+    def has_add_permission(self, request):
+        count = RegionalManager.objects.all().count()
+        if count == 0:
+          return True
+
+        return False
+
 
 
 # State Admin
