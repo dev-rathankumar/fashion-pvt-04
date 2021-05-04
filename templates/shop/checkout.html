@@ -21,43 +21,6 @@
   </div>
   <!--End Page Title with Image-->
   <div class="container">
-    <!-- <div class="row">
-      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-3">
-        <div class="customer-box returning-customer">
-          <h3><i class="icon anm anm-user-al"></i> Returning customer? <a href="#customer-login" id="customer" class="text-white text-decoration-underline" data-toggle="collapse">Click here to login</a></h3>
-          <div id="customer-login" class="collapse customer-content">
-            <div class="customer-info">
-              <p class="coupon-text">If you have shopped with us before, please enter your details in the boxes below. If you are a new customer, please proceed to the Billing &amp; Shipping section.</p>
-              <form>
-                <div class="row">
-                  <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                    <label for="exampleInputEmail1">Email address <span class="required-f">*</span></label>
-                    <input type="email" class="no-margin" id="exampleInputEmail1">
-                  </div>
-                  <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                    <label for="exampleInputPassword1">Password <span class="required-f">*</span></label>
-                    <input type="password" id="exampleInputPassword1">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-check width-100 margin-20px-bottom">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value=""> Remember me!
-                      </label>
-                      <a href="#" class="float-right">Forgot your password?</a>
-                    </div>
-                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-
     <form action="{% url 'orderproduct' %}" method="POST">
       {% csrf_token %}
       <div class="row billing-fields">
@@ -170,14 +133,14 @@
                     {% endfor %}
                   </tbody>
                   <tfoot class="font-weight-600">
-                    <tr>
+                    <!-- <tr>
 
                       <td colspan="4" class="text-right">
 
                           {% for key, value in tax_dict.items %}
                           {% for i, j in value.items %}
                           <span class="col-12 col-sm-6 cart__subtotal-title">{{key}} ({{i}}%)</span><br>
-                          <!-- <p style="margin-bottom:0;">{{key}} ({{i}}%):<span class="product-price">${{j | intcomma}}</span></p> -->
+
                           {% endfor %}
                           {% endfor %}
 
@@ -190,13 +153,25 @@
                         {% endfor %}
                         {% endfor %}
                       </td>
+                    </tr> -->
+
+                    <tr>
+
+                      <td colspan="4" class="text-right">
+                          <span class="col-12 col-sm-6 cart__subtotal-title">Tax (<span id="tax_percent">0</span>%)</span><br>
+                      </td>
+
+                      <td>
+                        <span class="product-price">$<span id="tax_amount">0.00</span></span><br>
+                      </td>
                     </tr>
+
                     <tr>
                       <td colspan="4" class="text-right bold">
                         <h4>Grand Total</h4>
                       </td>
                       <td>
-                        <h4>${{grand_total | intcomma}}</h4>
+                        <h4>$ <span id="grand_total">{{total | intcomma}}</span></h4>
                       </td>
 
                     </tr>

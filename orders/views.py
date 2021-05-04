@@ -134,12 +134,14 @@ def orderproduct(request):
 
     if request.method == 'POST':
         form = OrderForm(request.POST)
+        phone = request.POST['phone_number']
+        print('phone', phone)
         if form.is_valid():
             # Send credit card info to bank and get the result.
             data = Order()
             data.first_name = form.cleaned_data['first_name']
             data.last_name = form.cleaned_data['last_name']
-            data.phone = form.cleaned_data['phone']
+            data.phone = phone
             data.email = form.cleaned_data['email']
             data.address_line_1 = form.cleaned_data['address_line_1']
             data.address_line_2 = form.cleaned_data['address_line_2']

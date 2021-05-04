@@ -82,6 +82,9 @@ urlpatterns = [
     path('resend_otp/', ContactViews.resend_otp, name='resend_otp'),
 
     # Orders
-    path('order/', include('orders.urls'))
+    path('order/', include('orders.urls')),
+
+    # New Tax
+    path('fetchTax/', include('taxes.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
