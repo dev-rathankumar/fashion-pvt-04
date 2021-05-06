@@ -44,7 +44,11 @@
                   </div>
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
+                      {% if background.parallax_image %}
                     <img src="{{ background.parallax_image.url }}" alt="Background Image" width="150">
+                    {% else %}
+<img src="{% static 'images/default-images/parallax-banner.jpg' %}" alt="Background Image" width="150">
+                    {% endif %}
                     </div>
                   </div>
 

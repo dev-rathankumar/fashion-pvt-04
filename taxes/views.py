@@ -18,6 +18,9 @@ def taxByState(request):
             tax_percent = TaxData.objects.get(state=state)
             tx_amount = round((tax_percent.tax_value * total)/100, 2)
             grand_total = round(total + tx_amount, 2)
+            request.session['tx_amount'] = float(tx_amount)
+            request.session['grand_total'] = float(grand_total)
+            # print(request.session['tx_amount'])
             data = {
                 'state': state.state_name,
                 'tax_percent': tax_percent.tax_value,

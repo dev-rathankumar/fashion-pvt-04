@@ -20,6 +20,7 @@ from .forms import UserForm
 from django.http import HttpResponse
 from urllib.parse import urlparse
 from sitesettings.models import Homepage, ParallaxBackground, Header
+from emails.models import BusinessEmailSetting
 
 
 # Create your views here.
@@ -102,19 +103,8 @@ def userLogin(request):
             try:
                 if user.is_business:
                     auth.login(request, user)
-                    # Check if the site title is set or not
-                    url = request.build_absolute_uri()
-                    domain = urlparse(url).netloc
-
-                    try:
-                        business = Business.objects.get(domain_name=domain)
-                        header = Header.objects.get(business=business)
-                        if header:
-                            messages.success(request, "You are now logged in!")
-                            return redirect('biz_dashboard')
-                    except Header.DoesNotExist:
-                        messages.success(request, "You are now logged in!")
-                        return redirect('initial_setup')
+                    messages.success(request, "You are now logged in!")
+                    return redirect('biz_dashboard')
 
                 elif user.is_regional_manager:
                     auth.login(request, user)
@@ -336,7 +326,6 @@ def biz_password_reset(request):
             # Automatically Creating Parallax Background Image for Homepage
             background = ParallaxBackground()
             background.homepage = homepage
-            background.parallax_image = 'parallax_image/default-background.png'
             background.save()
 
             # Automatically Creating Payment Setting
@@ -344,6 +333,11 @@ def biz_password_reset(request):
             payment_setting.user_id = user.id
             payment_setting.business = business
             payment_setting.save()
+
+            # Automatically Creating Email Setting
+            email_setting = BusinessEmailSetting()
+            email_setting.business = business
+            email_setting.save()
 
             mail_subject = 'Your Business Account is Activated'
             # message = 'Congratulations! Your business account has been activated.'

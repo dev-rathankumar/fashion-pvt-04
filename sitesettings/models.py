@@ -76,11 +76,11 @@ class ParallaxBackground(models.Model):
     title = models.CharField(max_length=50, null=True, blank=True)
     description = RichTextField(max_length=1000, null=True, blank=True)
     button_name = models.CharField(max_length=20, null=True, blank=True)
-    button_link = models.CharField(max_length=20, null=True, blank=True)
+    button_link = models.CharField(max_length=500, null=True, blank=True)
     button_color = ColorField(default='#000000')
     content_align = models.CharField(max_length=10, choices=btn_align_choice, default='center')
 
-    def __str__(self):
+    def __unicode__(self):
         return self.title
 
 

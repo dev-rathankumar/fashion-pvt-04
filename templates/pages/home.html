@@ -395,7 +395,7 @@
                 <img class="bg-img" src="{{ background.parallax_image.url }}" alt="Background Image">
                 <div class="hero__inner">
                     <div class="container">
-                        <div class="wrap-text center text-small font-bold">
+                        <div class="wrap-text {{background.content_align}} text-small font-bold">
                             <h2 class="h2 mega-title">{{ background.title }}</h2>
                             <div class="rte-setting mega-subtitle">{{background.description | safe}}</div>
                             <a href="{% if background.button_link %}{{background.button_link}}{% else %}#{% endif %}" class="btn" style="background-color:{{background.button_color}}">{{background.button_name}}</a>

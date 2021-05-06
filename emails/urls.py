@@ -5,4 +5,5 @@ urlpatterns = [
     path('', views.emails, name='emails'),
     path('send_email', views.send_email, name='send_email'),
     path('email_detail/<int:pk>/', views.email_detail, name='email_detail'),
+    path('email_settings/', views.email_settings, name='email_settings'),
 ]

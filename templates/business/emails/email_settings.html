@@ -1,0 +1,58 @@
+{% extends 'business/base.html' %}
+{% load static %}
+{% block title %} Email Settings {% endblock %}
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+  <div class="page-content">
+    <div class="container-fluid">
+
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">Email Settings</h4>
+          </div>
+        </div>
+
+      </div>
+      <!-- end page title -->
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card container">
+            <div class="card-body">
+              <h4 class="card-title">Email Settings</h4>
+<br>
+              <form method="POST" action="{% url 'email_settings' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+  {{form.as_p}}
+
+                <br>
+                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"> <i class="fa fa-check" aria-hidden="true"></i> SAVE SETTINGS</button>
+              </form>
+              <br>
+              <div style="width:300px;">
+                {% include 'includes/_alerts.html' %}
+              </div>
+
+            </div>
+          </div>
+
+
+
+
+        </div>
+      </div>
+      <!-- end row -->
+
+    </div> <!-- container-fluid -->
+  </div>
+  <!-- End Page-content -->
+
+  {% endblock %}

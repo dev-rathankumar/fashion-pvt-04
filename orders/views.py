@@ -12,6 +12,7 @@ from django.core.mail import send_mail
 import json
 from django.core import serializers
 from django.conf import settings
+from decimal import Decimal
 
 
 def payments(request):
@@ -120,22 +121,27 @@ def orderproduct(request):
     url = request.build_absolute_uri()
     domain = urlparse(url).netloc
     biz_id = Business.objects.get(domain_name=domain)
+    grand_total = request.session['grand_total']
+    tax = request.session['tx_amount']
 
-    get_tax = TaxSetting.objects.all()
-    tax_dict = {}
-    for i in get_tax:
-        tax_type = i.tax_type
-        tax_value = i.tax_value
-        tx_amount = round((tax_value * total)/100, 2)
-        tax_dict.update({tax_type: {float(tax_value):float(tx_amount)}})
+    grand_total = Decimal(grand_total)
+    tax = Decimal(tax)
+    print(type(grand_total))
 
-    tax = sum(x for counter in tax_dict.values() for x in counter.values())
-    grand_total = round(float(total) + tax, 2)
+    # get_tax = TaxSetting.objects.all()
+    # tax_dict = {}
+    # for i in get_tax:
+    #     tax_type = i.tax_type
+    #     tax_value = i.tax_value
+    #     tx_amount = round((tax_value * total)/100, 2)
+    #     tax_dict.update({tax_type: {float(tax_value):float(tx_amount)}})
+
+    # tax = sum(x for counter in tax_dict.values() for x in counter.values())
+    # grand_total = round(float(total) + tax, 2)
 
     if request.method == 'POST':
         form = OrderForm(request.POST)
         phone = request.POST['phone_number']
-        print('phone', phone)
         if form.is_valid():
             # Send credit card info to bank and get the result.
             data = Order()
@@ -152,7 +158,7 @@ def orderproduct(request):
             data.note = form.cleaned_data['note']
             data.user_id = current_user.id
             data.total = grand_total
-            data.tax_data = tax_dict
+            # data.tax_data = tax_dict
             data.tax = tax
             data.ip = request.META.get('REMOTE_ADDR')
             data.save()

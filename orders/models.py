@@ -50,7 +50,7 @@ class Order(models.Model):
     city = models.CharField(max_length=50)
     pin_code = models.CharField(max_length=10)
     total = models.FloatField()
-    tax_data = models.JSONField(default=tax_data_default, help_text = "Data format: {'tax_type':{'tax_value':'tax_amount'}}")
+    tax_data = models.JSONField(default=tax_data_default, blank=True, help_text = "Data format: {'tax_type':{'tax_value':'tax_amount'}}")
     tax = models.FloatField()
     status = models.CharField(max_length=10, choices=STATUS, default='New')
     ip = models.CharField(blank=True, max_length=20)

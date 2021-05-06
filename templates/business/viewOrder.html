@@ -149,13 +149,14 @@
                             <div class="col-md-3">
                               <div class="card-body">
                                 <h6>Subtotal: ${{subtotal}}</h6>
-                                <h6>
+                                <!-- <h6>
                                   {% for key, value in order.tax_data.items %}
                                   {% for i, j in value.items %}
                                   {{key}} ({{i}}%) : ${{j}} <br>
                                   {% endfor %}
                                   {% endfor %}
-                                </h6>
+                                </h6> -->
+                                <h6>Tax: ${{order.tax}}</h6>
 
                                 <h4>Grand Total: ${{order.total}}</h4>
                               </div>

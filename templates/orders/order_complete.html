@@ -85,7 +85,7 @@
                           <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size:12px; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> ${{subtotal}} </td>
                         </tr>
                         <tr>
-                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text">
+                          <!-- <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text">
                             {% for key, value in order.tax_data.items %}
                             {% for i, j in value.items %}
                             {{key}} ({{i}}%)<br>
@@ -98,7 +98,11 @@
                             ${{j}}<br>
                             {% endfor %}
                             {% endfor %}
-                          </td>
+                          </td> -->
+
+                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size:12px; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> Tax </td>
+                          <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size:12px; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> ${{order.tax}} </td>
+
 
                         </tr>
 

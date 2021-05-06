@@ -52,7 +52,7 @@
                     {% if form.site_logo.value %}
                     <img src="{{form.site_logo.value.url}}" alt="Site Logo" width="50">
                     {% else %}
-                    <lable>You have not set your logo</lable>
+                    <lable class="text-warning">You have not set your logo</lable>
                     {% endif %}
                   </div>
                   <div class="col-md-6 col-lg-6 col-sm-12">
@@ -63,7 +63,7 @@
                     {% if form.favicon.value %}
                     <img src="{{form.favicon.value.url}}" alt="Favicon" width="50">
                     {% else %}
-                    <lable>You have not set your site favicon</lable>
+                    <lable class="text-warning">You have not set your site favicon</lable>
                     {% endif %}
                   </div>
                 </div><br>

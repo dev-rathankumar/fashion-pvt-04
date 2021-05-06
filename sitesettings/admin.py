@@ -32,7 +32,7 @@ class HeaderAdmin(admin.ModelAdmin):
     list_display = ['business', 'site_title']
 
 class ParallaxBackgroundAdmin(admin.ModelAdmin):
-    list_display = ['title', 'button_name']
+    list_display = ['homepage', 'title', 'button_name']
     max_num = 1
 
 

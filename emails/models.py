@@ -1,6 +1,7 @@
 from django.db import models
-from accounts.models import User
+from accounts.models import User, Business
 from ckeditor.fields import RichTextField
+from django import forms
 
 # Create your models here.
 
@@ -21,3 +22,21 @@ class Email(models.Model):
 
     def __str__(self):
         return self.subject
+
+
+class BusinessEmailSetting(models.Model):
+    USE_TLS_CHOICES = (
+        ('True', 'Yes'),
+        ('False', 'No'),
+    )
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    email_host = models.CharField(max_length=100, blank=True)
+    email_host_user = models.EmailField(max_length=100, blank=True)
+    email_host_password = models.CharField(max_length=50, blank=True)
+    port = models.IntegerField(null=True, blank=True)
+    email_use_tls = models.CharField(max_length=10, choices=USE_TLS_CHOICES, default='True')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.business.company_name

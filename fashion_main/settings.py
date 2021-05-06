@@ -96,7 +96,7 @@ TEMPLATES = [
                 'accounts.context_processors.get_business',
                 'carts.context_processors.shopcart_context',
                 'products.context_processors.search_products',
-                # 'accounts.context_processors.get_sitesettings',
+                'accounts.context_processors.get_sitesettings',
             ],
         },
     },
@@ -182,6 +182,14 @@ EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+
+# 
+# # Business Email Sending
+# business_email_host = ''
+# business_email_port = 587
+# business_email_username = ''
+# business_email_password = ''
+# business_email_use_tls = True
 
 
 # Mailchimp Configuration

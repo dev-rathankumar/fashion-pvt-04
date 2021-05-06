@@ -147,18 +147,21 @@
                           <span class="col-12 col-sm-6 cart__subtotal-title">Subtotal</span>
                           <span class="col-12 col-sm-6 cart__subtotal-title text-right"><span class="money">${{total | intcomma}}</span></span>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                           {% for key, value in tax_dict.items %}
                           {% for i, j in value.items %}
                           <label class="col-12 col-sm-6 cart__subtotal-title">{{key}} ({{i}}%)</label>
                           <span class="col-12 col-sm-6 cart__subtotal-title text-right">${{j | intcomma}}</span>
-                          <!-- <p style="margin-bottom:0;">{{key}} ({{i}}%):<span class="product-price">${{j | intcomma}}</span></p> -->
                           {% endfor %}
                           {% endfor %}
+                        </div> -->
+                        <div class="row">
+                          <span class="col-12 col-sm-6 cart__subtotal-title">Tax</span>
+                          <span class="col-12 col-sm-6 cart__subtotal-title text-right"><span class="money">${{order.tax | intcomma}}</span></span>
                         </div>
                         <div class="row">
                           <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Grand Total</strong></span>
-                          <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money">${{grand_total | intcomma}}</span></span>
+                          <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money">${{order.total | intcomma}}</span></span>
                         </div>
                       </div>
 
@@ -222,7 +225,7 @@
   }
   var csrftoken = getCookie('csrftoken');
   var orderID = "{{ order.order_number }}";
-  var amount = "{{grand_total}}";
+  var amount = "{{order.total}}";
   var url = "{% url 'payments' %}";
   var payment_method = "paypal"
   var redirect_url = "{% url 'order_complete' %}";
