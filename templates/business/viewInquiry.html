@@ -1,7 +1,7 @@
 {% extends 'business/base.html' %}
 {% load static %}
 {% load humanize %}
-{% block title %} Email Details {% endblock %}
+{% block title %} Inquiry Details {% endblock %}
 {% block content %}
 
 <!-- ============================================================== -->
@@ -16,7 +16,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Email Detail</h4>
+            <h4 class="mb-0 font-size-18">Inquiry Detail</h4>
           </div>
         </div>
       </div>
@@ -36,15 +36,17 @@
                       <br>
 
 
-                      <p style="margin-bottom:0;">Status: {% if email.is_sent == True %}<i class="fa fa-check" aria-hidden="true" style="color:#28A745;"></i> Sent{% else %}<i class="fa fa-times" aria-hidden="true" style="color:#DC3545;"></i> Failed{% endif %}</p>
-        <p style="margin-bottom:0;">Recipients: {{email.to_address}}</p>
+                      <p style="margin-bottom:0;"><b>From:</b></p>
+                      <p style="margin-bottom:0;">{{inquiry.name}}</p>
+                      <p style="margin-bottom:0;">{{inquiry.email}}</p>
+                      <p style="margin-bottom:0;">{{inquiry.phone}}</p>
                       <div class="table-responsive-sm order-table">
 
                         <div class="card">
                           <div class="card-header">
                             <div class="row">
                               <div class="col-12">
-                                <h5 class="m-0"><strong>Subject:</strong> {{email.subject }}<span><small class="m-0" style="float:right;margin-bottom:0;">{{email.sent_date}}</small></span></h5>
+                                <h5 class="m-0"><strong>Product Name:</strong> {{inquiry.product_name }}<span><small class="m-0" style="float:right;margin-bottom:0;">{{inquiry.create_date}}</small></span></h5>
 
                               </div>
                             </div>
@@ -54,26 +56,20 @@
                             <div class="col-md-12 col-lg-12 col-sm-12">
                               <div class="card-body">
                                 <div>
-                                  {{email.email_body | safe}}
+                                  {{inquiry.inq_message | safe}}
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-
-
-
-
-
-
                       </div>
                     </div>
                   </div>
                 </div>
 
               </div>
-
-              <button onclick="goBack();" class="btn btn-primary"><i class="fas fa-arrow-left"></i>&nbsp Go back</button>
+<!-- <button onclick="goBack();" class="btn btn-primary"><i class="fas fa-reply"></i>&nbsp; Reply</button> -->
+<button onclick="goBack();" class="btn btn-primary"><i class="fas fa-arrow-left"></i>&nbsp; Go back</button>
             </div>
           </div>
 

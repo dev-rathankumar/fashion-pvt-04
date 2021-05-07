@@ -58,4 +58,9 @@ urlpatterns = [
     # Emails
     path('emails/', include('emails.urls')),
 
+    # Inquiries
+    path('inquiries/', views.allInquiries, name='allInquiries'),
+    path('inquiries/viewInquiry/<int:pk>/', views.viewInquiry, name='viewInquiry'),
+    path('inquiries/deleteInquiry/<int:pk>/', views.deleteInquiry, name='deleteInquiry'),
+
 ]

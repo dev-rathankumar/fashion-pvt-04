@@ -74,58 +74,146 @@ $(document).on('submit', '#newsletterForm', function(e) {
 });
 
 
+//Created / Generates the captcha function
+function DrawCaptcha()
+{
+   var a = Math.ceil(Math.random() * 10)+ '';
+   var b = Math.ceil(Math.random() * 10)+ '';
+   var c = Math.ceil(Math.random() * 10)+ '';
+   var d = Math.ceil(Math.random() * 10)+ '';
+   var e = Math.ceil(Math.random() * 10)+ '';
+   var f = Math.ceil(Math.random() * 10)+ '';
+   var g = Math.ceil(Math.random() * 10)+ '';
+   var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d + ' ' + e + ' '+ f + ' ' + g;
+   document.getElementById("txtCaptcha").value = code
+}
 
-// Send an inquiry
-$(document).on('submit', '#inquiry-modal', function(e) {
-  e.preventDefault();
-  $("#submit").val('Please wait...');
-  var business_id = $('#business_id').val();
-  var user_id = $('#user_id').val();
-  var product_id = $('#product_id').val();
-  var product_name = $('#product_name').val();
-  var first_name = $('#first_name').val();
-  var last_name = $('#last_name').val();
-  var email = $('#email').val();
-  var phone = $('#phone').val();
-  var inq_message = $('#inq_message').val();
-  var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
+// Validate the Entered input aganist the generated security code function
+function ValidCaptcha(){
+   var str1 = removeSpaces(document.getElementById('txtCaptcha').value);
+   var str2 = removeSpaces(document.getElementById('txtInput').value);
+   if (str1 == str2)
+   {
+     // Send an inquiry
+     $(document).on('submit', '#inquiry-modal', function(e) {
+       e.preventDefault();
+       $("#submit").val('Please wait...');
+       var business_id = $('#business_id').val();
+       var user_id = $('#user_id').val();
+       var product_id = $('#product_id').val();
+       var product_name = $('#product_name').val();
+       var first_name = $('#first_name').val();
+       var last_name = $('#last_name').val();
+       var email = $('#email').val();
+       var phone = $('#phone').val();
+       var inq_message = $('#inq_message').val();
+       var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
 
-  $.ajax({
-    type: 'POST',
-    url: '/inquiry/',
-    data: {
-      business_id: business_id,
-      user_id: user_id,
-      product_id: product_id,
-      product_name: product_name,
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      phone: phone,
-      inq_message: inq_message,
-      csrfmiddlewaretoken: csrfmiddlewaretoken,
-    },
+       $.ajax({
+         type: 'POST',
+         url: '/inquiry/',
+         data: {
+           business_id: business_id,
+           user_id: user_id,
+           product_id: product_id,
+           product_name: product_name,
+           first_name: first_name,
+           last_name: last_name,
+           email: email,
+           phone: phone,
+           inq_message: inq_message,
+           csrfmiddlewaretoken: csrfmiddlewaretoken,
+         },
 
-    success: function(data) {
-      if (data == 'already-inquired') {
-        $('#inquiry_success').addClass('alert alert-warning alert-dismissible fade show');
-        $("#inquiry_success").html('You have already made an inquiry about this product. Please wait until we get back to you.');
-        $("#submit").val('Send Inquiry');
-      } else {
-        $('#inquiry_success').addClass('alert alert-success alert-dismissible fade show');
-        $("#inquiry_success").html(data);
-        $("#submit").val('Sent');
-        $('#inquiry_success').delay(4000).fadeOut('slow');
-      }
-    },
-    error: function(data) {
-      $('#inquiry_success').addClass('alert alert-danger alert-dismissible fade show');
-      $("#inquiry_success").html("Something went wrong, please try again.");
+         success: function(data) {
+           if (data == 'already-inquired') {
+             $('#inquiry_success').addClass('alert alert-warning alert-dismissible fade show');
+             $("#inquiry_success").html('You have already made an inquiry about this product. Please wait until we get back to you.');
+             $("#submit").val('Send Inquiry');
+           } else {
+             $('#inquiry_success').addClass('alert alert-success alert-dismissible fade show');
+             $("#inquiry_success").html(data);
+             $("#submit").val('Sent');
+             $('#inquiry_success').delay(4000).fadeOut('slow');
+           }
+         },
+         error: function(data) {
+           $('#inquiry_success').addClass('alert alert-danger alert-dismissible fade show');
+           $("#inquiry_success").html("Something went wrong, please try again.");
 
-    }
-  });
-  this.reset();
-});
+         }
+       });
+       this.reset();
+     });
+   }
+   else{
+     // e.preventDefault();
+     // console.log('invalid captcha');
+     // exit();
+     alert('Invalid Captcha! Please try again.');
+     DrawCaptcha();
+     return false;
+   }
+}
+
+// Remove the spaces from the entered and generated code
+function removeSpaces(string)
+{
+   return string.split(' ').join('');
+}
+
+
+// // Send an inquiry
+// $(document).on('submit', '#inquiry-modal', function(e) {
+//   e.preventDefault();
+//   $("#submit").val('Please wait...');
+//   var business_id = $('#business_id').val();
+//   var user_id = $('#user_id').val();
+//   var product_id = $('#product_id').val();
+//   var product_name = $('#product_name').val();
+//   var first_name = $('#first_name').val();
+//   var last_name = $('#last_name').val();
+//   var email = $('#email').val();
+//   var phone = $('#phone').val();
+//   var inq_message = $('#inq_message').val();
+//   var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
+//
+//   $.ajax({
+//     type: 'POST',
+//     url: '/inquiry/',
+//     data: {
+//       business_id: business_id,
+//       user_id: user_id,
+//       product_id: product_id,
+//       product_name: product_name,
+//       first_name: first_name,
+//       last_name: last_name,
+//       email: email,
+//       phone: phone,
+//       inq_message: inq_message,
+//       csrfmiddlewaretoken: csrfmiddlewaretoken,
+//     },
+//
+//     success: function(data) {
+//       if (data == 'already-inquired') {
+//         $('#inquiry_success').addClass('alert alert-warning alert-dismissible fade show');
+//         $("#inquiry_success").html('You have already made an inquiry about this product. Please wait until we get back to you.');
+//         $("#submit").val('Send Inquiry');
+//       } else {
+//         $('#inquiry_success').addClass('alert alert-success alert-dismissible fade show');
+//         $("#inquiry_success").html(data);
+//         $("#submit").val('Sent');
+//         $('#inquiry_success').delay(4000).fadeOut('slow');
+//       }
+//     },
+//     error: function(data) {
+//       $('#inquiry_success').addClass('alert alert-danger alert-dismissible fade show');
+//       $("#inquiry_success").html("Something went wrong, please try again.");
+//
+//     }
+//   });
+//   this.reset();
+// });
 
 
 // Contact Form

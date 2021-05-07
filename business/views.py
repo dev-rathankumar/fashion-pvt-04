@@ -33,6 +33,7 @@ import ast # for converting tax_data string to dict
 from django.template.loader import render_to_string
 from carts.models import TaxSetting, Tax
 from sitesettings.forms import HeaderForm
+from contacts.models import Inquiry
 
 
 
@@ -785,3 +786,40 @@ def setTax(request, business_id=None):
         'formset': formset,
     }
     return render(request, 'business/setTax.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def allInquiries(request):
+    inquiries = Inquiry.objects.filter(business__user=request.user).order_by('-create_date')
+    print(inquiries)
+    paginator = Paginator(inquiries, 10)
+    page = request.GET.get('page')
+    paged_inquiries = paginator.get_page(page)
+    context = {
+        'inquiries': paged_inquiries,
+    }
+    return render(request, 'business/allInquiries.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def viewInquiry(request, pk=None):
+    try:
+        inquiry = Inquiry.objects.get(pk=pk)
+    except Inquiry.DoesNotExist:
+        messages.error(request, 'Invalid request. Please try again')
+        return redirect('allInquiries')
+    context = {
+        'inquiry': inquiry,
+    }
+    return render(request, 'business/viewInquiry.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def deleteInquiry(request, pk=None):
+    inquiry = get_object_or_404(Inquiry, pk=pk)
+    inquiry.delete()
+    messages.success(request, 'Inquiry has been deleted successfully.')
+    return redirect('allInquiries')

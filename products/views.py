@@ -13,6 +13,8 @@ from urllib.parse import urlparse
 
 from django.http import HttpResponse, HttpResponseRedirect
 
+import random
+
 
 # Create your views here.
 def shop(request, slug=None):
@@ -73,6 +75,9 @@ def shop(request, slug=None):
 
 
 def product_detail(request, category_slug, product_slug):
+    num = random.randrange(100000,999999)
+    str_num=str(num)
+    request.session['str_num'] = str_num
     try:
         single_product = Product.objects.get(category__slug=category_slug, slug=product_slug)
         # in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request), product=single_product).exists()
@@ -105,6 +110,7 @@ def product_detail(request, category_slug, product_slug):
         'reviews': reviews,
         'is_added_to_compare': is_added_to_compare,
         'business': business,
+        'captcha': str_num,
     }
 
     query = request.GET.get('q')

@@ -18,6 +18,11 @@ class Inquiry(models.Model):
     def __str__(self):
         return self.email
 
+    # Concatenate first name and last name
+    @property
+    def name(self):
+        return f'{self.first_name} {self.last_name}'
+
     class Meta:
         verbose_name = 'inquiry'
         verbose_name_plural = 'inquiries'

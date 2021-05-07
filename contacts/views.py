@@ -10,6 +10,10 @@ from .models import SiteContact
 import random
 from django.http import HttpResponse
 
+
+
+
+
 def inquiry(request):
     if request.method == 'POST':
         business_id = request.POST['business_id']
@@ -46,6 +50,8 @@ def inquiry(request):
 
         inquiry.save()
         return HttpResponse('Your inquiry has been submitted. Our representative will get in touch with you soon.')
+
+
 
 
 def contact(request):

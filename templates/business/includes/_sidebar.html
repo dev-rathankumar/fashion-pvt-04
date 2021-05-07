@@ -96,6 +96,18 @@
                         <span>Customers</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{% url 'allInquiries' %}"
+                    {% if 'inquiries' in request.path %}
+                      class="waves-effect active"
+                    {% else %}
+                      class="waves-effect"
+                    {% endif %}
+                    >
+                        <i class="bx bx-question-mark"></i>
+                        <span>Inquiries</span>
+                    </a>
+                </li>
                 <!-- <li>
                     <a href="{% url 'setTax' request.user.id %}"
                     {% if 'setTax' in request.path %}
