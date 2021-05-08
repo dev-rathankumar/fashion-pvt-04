@@ -264,11 +264,11 @@ class TaxOnPlan(models.Model):
 class Customer(models.Model):
     user            = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     customer_id     = models.CharField(max_length=100, blank=True)
-    address_line_1 = models.CharField(max_length=50)
+    address_line_1 = models.CharField(max_length=50, blank=True)
     address_line_2 = models.CharField(max_length=50, blank=True)
-    city = models.CharField(max_length=50)
-    pin_code = models.CharField(max_length=50)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    city = models.CharField(max_length=50, blank=True)
+    pin_code = models.CharField(max_length=50, blank=True)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, blank=True, null=True)
     state = ChainedForeignKey(
             State,
             chained_field="country",
@@ -276,6 +276,8 @@ class Customer(models.Model):
             show_all=False,
             auto_choose=True,
             sort=True,
+            blank=True,
+            null=True,
         )
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages, auth
-from .models import User, RegionalManager, Business
+from .models import User, RegionalManager, Business, Customer
 from contacts.models import Inquiry
 from products.models import Product
 from orders.models import Order, OrderProduct
@@ -21,6 +21,8 @@ from django.http import HttpResponse
 from urllib.parse import urlparse
 from sitesettings.models import Homepage, ParallaxBackground, Header
 from emails.models import BusinessEmailSetting
+from datetime import date, datetime
+import time
 
 
 # Create your views here.
@@ -82,6 +84,10 @@ def activate(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
+        # Automatically Create Customer
+        customer = Customer()
+        customer.user = user
+        customer.save()
 
 
         messages.success(request, 'Congratulations! Your account is activated.')
@@ -102,9 +108,20 @@ def userLogin(request):
         if user is not None:
             try:
                 if user.is_business:
-                    auth.login(request, user)
-                    messages.success(request, "You are now logged in!")
-                    return redirect('biz_dashboard')
+                    # Check for the expiry date
+                    biz = Business.objects.get(user__id=user.id)
+                    get_exp_date = biz.account_expiry_date
+                    exp_date = datetime.strptime(str(get_exp_date), '%Y-%m-%d')
+                    get_today = date.today()
+                    print(get_exp_date)
+                    today = datetime.strptime(str(get_today), '%Y-%m-%d')
+                    if today > exp_date:
+                        messages.error(request, "Your account is expired.")
+                        return redirect('userLogin')
+                    else:
+                        auth.login(request, user)
+                        messages.success(request, "You are now logged in!")
+                        return redirect('biz_dashboard')
 
                 elif user.is_regional_manager:
                     auth.login(request, user)

@@ -13,7 +13,8 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from datetime import date, datetime
+
+from datetime import datetime, timedelta, date
 import datetime
 import time
 import json
@@ -63,9 +64,9 @@ def login(request):
             # Check for the expiry date
             biz = Business.objects.get(user__id=user.id)
             get_exp_date = biz.account_expiry_date
-            exp_date = datetime.strptime(str(get_exp_date), '%Y-%m-%d')
+            exp_date = datetime.datetime.strptime(str(get_exp_date), '%Y-%m-%d')
             get_today = date.today()
-            today = datetime.strptime(str(get_today), '%Y-%m-%d')
+            today = datetime.datetime.strptime(str(get_today), '%Y-%m-%d')
             if today > exp_date:
                 messages.error(request, "Your account is expired.")
                 return redirect('userLogin')
@@ -548,10 +549,12 @@ def deleteOrder(request, pk=None):
 def plans(request):
     plans = Plan.objects.all().order_by('plan_price')
     business = Business.objects.get(user=request.user)
+    account_expiry_date = business.account_expiry_date
     current_plan = Plan.objects.get(pk=business.plan_id)
     context = {
         'plans': plans,
         'current_plan': current_plan,
+        'account_expiry_date': account_expiry_date,
     }
     return render(request, 'business/plans.html', context)
 
@@ -602,9 +605,6 @@ def planPayment(request):
     )
     payment.save()
 
-
-
-
     # Update order model
     order.plan_payment = payment
     if body['status'] == 'COMPLETED':
@@ -614,6 +614,26 @@ def planPayment(request):
         return redirect('plans')
     order.save()
 
+    # Upgrade plan
+    # Get the current plan date
+    current_exp_date = business.account_expiry_date
+    # Get the purchased plan frequency
+    purchased_plan = order.plan.plan_frequency
+    if purchased_plan == 'monthly':
+        plan_days = 30
+    elif purchased_plan == 'quarterly':
+        plan_days = 90
+    elif purchased_plan == 'half-yearly':
+        plan_days = 180
+    elif purchased_plan == 'annually':
+        plan_days = 365
+    else:
+        messages.error(request, 'Invalid plan. Please contact Altocan support.')
+        return redirect('plans')
+    exp_date = datetime.datetime.strptime(str(current_exp_date), '%Y-%m-%d')
+    end_date = exp_date + timedelta(days=plan_days)
+    business.account_expiry_date = end_date
+    business.save()
     # Send order recieved email to customer
     mail_subject = 'Thank you for your order!'
     message = render_to_string('business/plan_order_email.html', {
@@ -681,6 +701,8 @@ def planOrder(request):
             plan_order = None
     else:
         return redirect('plans')
+
+
     # Converting tax_data string to dict for better looping in the template
     tax_data = ast.literal_eval(tax_data)
     context = {
@@ -709,6 +731,38 @@ def plan_order_complete(request):
         return render(request, 'business/plan_order_complete.html', context)
     except (Payment.DoesNotExist, Order.DoesNotExist):
         return redirect('plans')
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def planPurchaseHistory(request):
+    plan_orders = PlanOrder.objects.filter(ordered=True).order_by('-created_at')
+    business = Business.objects.get(user=request.user)
+    account_expiry_date = business.account_expiry_date
+    current_plan = Plan.objects.get(pk=business.plan_id)
+    # Check if plan expired
+    exp_date = datetime.datetime.strptime(str(account_expiry_date), '%Y-%m-%d')
+    get_today = date.today()
+    today = datetime.datetime.strptime(str(get_today), '%Y-%m-%d')
+    if today > exp_date:
+        is_expired = False
+    else:
+        is_expired = True
+    context = {
+        'plan_orders': plan_orders,
+        'account_expiry_date': account_expiry_date,
+        'current_plan': current_plan,
+        'is_expired': is_expired,
+    }
+    return render(request, 'business/planPurchaseHistory.html', context)
+
+
+def planHistoryDetail(request, pk=None):
+    planHistoryDetail = get_object_or_404(PlanOrder, pk=pk)
+    context = {
+        'planHistoryDetail': planHistoryDetail,
+    }
+    return render(request, 'business/planHistoryDetail.html', context)
 
 
 def allCustomers(request):

@@ -44,6 +44,8 @@ urlpatterns = [
 
     # Plans
     path('plans/', views.plans, name='plans'),
+    path('planPurchaseHistory/', views.planPurchaseHistory, name='planPurchaseHistory'),
+    path('planHistoryDetail/<int:pk>/', views.planHistoryDetail, name='planHistoryDetail'),
     path('purchasePlan/', views.purchasePlan, name='purchasePlan'),
     path('planPayment/', views.planPayment, name='planPayment'),
     path('planOrder/', views.planOrder, name='planOrder'),
