@@ -116,3 +116,71 @@ $(document).on('submit', '#ordered_products_form', function(e) {
 function goBack() {
   window.history.back();
 }
+
+
+// Approval Swtich
+function approvalSwitch(rating_id) {
+  var approvalSwitch = 'approvalSwitch-' + rating_id;
+  var approvalSwitch = document.getElementById(approvalSwitch);
+  var status = document.getElementById("status");
+  // var id =
+
+  if (approvalSwitch.checked == true){
+    var event = Boolean(true);
+    toggleApproval(event, rating_id);
+    // status.style.display = "block";
+  } else {
+    var event = Boolean(false);
+    toggleApproval(event, rating_id);
+     // status.style.display = "none";
+  }
+}
+
+function toggleApproval(event, rating_id){
+  $.ajax({
+    type: 'GET',
+    url: '/business/review-ratings/toggleApproval/'+rating_id,
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'true') {
+        var reviewstatus = 'reviewstatus-'+rating_id;
+        document.getElementById(reviewstatus).innerHTML = "Approved";
+      }
+      else{
+        var reviewstatus = 'reviewstatus-'+rating_id;
+        document.getElementById(reviewstatus).innerHTML = "Pending";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}
+//
+// $(document).on('submit', '#ordered_products_form', function(e) {
+//   e.preventDefault();
+//   var order_number = $('#order_number').val();
+//   console.log(order_number);
+//   exit();
+//   var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
+//
+//   $.ajax({
+//     type: 'POST',
+//     url: '/subscribe/',
+//     data: {
+//       email: email,
+//       csrfmiddlewaretoken: csrfmiddlewaretoken,
+//     },
+//
+//     success: function(data) {
+//       // $('#site_settings').addClass('alert alert-success alert-dismissible fade show');
+//       $("#subscriptionMessage").html(data);
+//     },
+//     error: function(data) {
+//       $("#subscriptionMessage").html("Something went wrong, please try again.");
+//     }
+//   });
+// });

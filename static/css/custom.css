@@ -216,3 +216,7 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 #payment-processing-message{
   display: none;
 }
+
+.btn-danger:disabled{
+  cursor: not-allowed !important;
+}

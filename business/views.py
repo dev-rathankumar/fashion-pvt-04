@@ -20,7 +20,7 @@ import json
 from django.contrib import messages
 from .forms import UserForm, BusinessForm, ProductForm, ProductGalleryForm, ProductVariantForm
 from .forms import CategoryForm, OrderForm, TaxSettingForm
-from products.models import Product, ProductGallery, Variants
+from products.models import Product, ProductGallery, Variants, ReviewRating
 from django.forms import inlineformset_factory
 from django import forms
 from django.template.defaultfilters import slugify
@@ -823,3 +823,29 @@ def deleteInquiry(request, pk=None):
     inquiry.delete()
     messages.success(request, 'Inquiry has been deleted successfully.')
     return redirect('allInquiries')
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def allReviewRatings(request):
+    reviewratings = ReviewRating.objects.all().order_by('-create_at')
+    paginator = Paginator(reviewratings, 10)
+    page = request.GET.get('page')
+    paged_reviewratings = paginator.get_page(page)
+    context = {
+        'reviewratings': paged_reviewratings,
+    }
+    return render(request, 'business/allReviewRatings.html', context)
+
+
+def toggleApproval(request, pk=None):
+    event = request.GET.get('event')
+    reviewrating = get_object_or_404(ReviewRating, pk=pk)
+    reviewrating.status = event.capitalize()
+    reviewrating.save()
+
+    reviewrating = get_object_or_404(ReviewRating, pk=pk)
+    if reviewrating.status:
+        return HttpResponse('true')
+    else:
+        return HttpResponse('false')

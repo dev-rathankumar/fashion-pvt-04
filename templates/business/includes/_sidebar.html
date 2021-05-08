@@ -108,6 +108,19 @@
                         <span>Inquiries</span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="{% url 'allReviewRatings' %}"
+                    {% if 'review-ratings' in request.path %}
+                      class="waves-effect active"
+                    {% else %}
+                      class="waves-effect"
+                    {% endif %}
+                    >
+                        <i class="bx bx-comment"></i>
+                        <span>Rating & Reviews</span>
+                    </a>
+                </li>
                 <!-- <li>
                     <a href="{% url 'setTax' request.user.id %}"
                     {% if 'setTax' in request.path %}

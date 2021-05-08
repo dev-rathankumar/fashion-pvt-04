@@ -41,8 +41,35 @@
                 <div class="input-group">
                   <input type="email" class="input-group__field newsletter-input" name="email" id="email" placeholder="Email address" required>
                   <!-- {{ form }} -->
+
+                  <table>
+                    <tr>
+                      <td>
+                        <div class="container">
+                          <div class="row">
+                            <div class="col">
+                                <input type="text" id="txtInput" placeholder="Enter Captcha" class="form-control"/>
+
+                            </div>
+                            <div class="col">
+                              <input type="text" id="txtCaptcha" style="background-image:url({% static 'images/default-images/captcha-bg.jpg' %}); text-align:center; font-size:20px; border:none;
+              font-weight:bold; font-family:Modern"/>
+                              <i class="fa fa-refresh" aria-hidden="true" onclick="DrawCaptcha();" style="font-size:24px;cursor:pointer;float:right;"></i>
+                            </div>
+                          </div>
+                        </div>
+
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+
+                      </td>
+                    </tr>
+                  </table>
                   <span class="input-group__btn">
-                    <input type="submit" name="submit" value="Subscribe" id="Subscribe" class="btn newsletter__submit">
+                    <input type="submit" name="submit" value="Subscribe" id="Subscribe" class="btn newsletter__submit" onclick="return ValidCaptcha();">
                   </span>
                 </div>
                 <div id="subscriptionMessage"></div>

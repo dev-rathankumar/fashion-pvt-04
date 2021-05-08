@@ -94,57 +94,7 @@ function ValidCaptcha(){
    var str2 = removeSpaces(document.getElementById('txtInput').value);
    if (str1 == str2)
    {
-     // Send an inquiry
-     $(document).on('submit', '#inquiry-modal', function(e) {
-       e.preventDefault();
-       $("#submit").val('Please wait...');
-       var business_id = $('#business_id').val();
-       var user_id = $('#user_id').val();
-       var product_id = $('#product_id').val();
-       var product_name = $('#product_name').val();
-       var first_name = $('#first_name').val();
-       var last_name = $('#last_name').val();
-       var email = $('#email').val();
-       var phone = $('#phone').val();
-       var inq_message = $('#inq_message').val();
-       var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
-
-       $.ajax({
-         type: 'POST',
-         url: '/inquiry/',
-         data: {
-           business_id: business_id,
-           user_id: user_id,
-           product_id: product_id,
-           product_name: product_name,
-           first_name: first_name,
-           last_name: last_name,
-           email: email,
-           phone: phone,
-           inq_message: inq_message,
-           csrfmiddlewaretoken: csrfmiddlewaretoken,
-         },
-
-         success: function(data) {
-           if (data == 'already-inquired') {
-             $('#inquiry_success').addClass('alert alert-warning alert-dismissible fade show');
-             $("#inquiry_success").html('You have already made an inquiry about this product. Please wait until we get back to you.');
-             $("#submit").val('Send Inquiry');
-           } else {
-             $('#inquiry_success').addClass('alert alert-success alert-dismissible fade show');
-             $("#inquiry_success").html(data);
-             $("#submit").val('Sent');
-             $('#inquiry_success').delay(4000).fadeOut('slow');
-           }
-         },
-         error: function(data) {
-           $('#inquiry_success').addClass('alert alert-danger alert-dismissible fade show');
-           $("#inquiry_success").html("Something went wrong, please try again.");
-
-         }
-       });
-       this.reset();
-     });
+     // pass
    }
    else{
      // e.preventDefault();
@@ -163,57 +113,59 @@ function removeSpaces(string)
 }
 
 
-// // Send an inquiry
-// $(document).on('submit', '#inquiry-modal', function(e) {
-//   e.preventDefault();
-//   $("#submit").val('Please wait...');
-//   var business_id = $('#business_id').val();
-//   var user_id = $('#user_id').val();
-//   var product_id = $('#product_id').val();
-//   var product_name = $('#product_name').val();
-//   var first_name = $('#first_name').val();
-//   var last_name = $('#last_name').val();
-//   var email = $('#email').val();
-//   var phone = $('#phone').val();
-//   var inq_message = $('#inq_message').val();
-//   var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
-//
-//   $.ajax({
-//     type: 'POST',
-//     url: '/inquiry/',
-//     data: {
-//       business_id: business_id,
-//       user_id: user_id,
-//       product_id: product_id,
-//       product_name: product_name,
-//       first_name: first_name,
-//       last_name: last_name,
-//       email: email,
-//       phone: phone,
-//       inq_message: inq_message,
-//       csrfmiddlewaretoken: csrfmiddlewaretoken,
-//     },
-//
-//     success: function(data) {
-//       if (data == 'already-inquired') {
-//         $('#inquiry_success').addClass('alert alert-warning alert-dismissible fade show');
-//         $("#inquiry_success").html('You have already made an inquiry about this product. Please wait until we get back to you.');
-//         $("#submit").val('Send Inquiry');
-//       } else {
-//         $('#inquiry_success').addClass('alert alert-success alert-dismissible fade show');
-//         $("#inquiry_success").html(data);
-//         $("#submit").val('Sent');
-//         $('#inquiry_success').delay(4000).fadeOut('slow');
-//       }
-//     },
-//     error: function(data) {
-//       $('#inquiry_success').addClass('alert alert-danger alert-dismissible fade show');
-//       $("#inquiry_success").html("Something went wrong, please try again.");
-//
-//     }
-//   });
-//   this.reset();
-// });
+// Send an inquiry
+$(document).on('submit', '#inquiry-modal', function(e) {
+  e.preventDefault();
+  $("#submit").val('Please wait...');
+  var business_id = $('#business_id').val();
+  var user_id = $('#user_id').val();
+  var product_id = $('#product_id').val();
+  var product_name = $('#product_name').val();
+  var first_name = $('#first_name').val();
+  var last_name = $('#last_name').val();
+  var email = $('#email').val();
+  var phone = $('#phone').val();
+  var inq_message = $('#inq_message').val();
+  var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
+
+  $.ajax({
+    type: 'POST',
+    url: '/inquiry/',
+    data: {
+      business_id: business_id,
+      user_id: user_id,
+      product_id: product_id,
+      product_name: product_name,
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      phone: phone,
+      inq_message: inq_message,
+      csrfmiddlewaretoken: csrfmiddlewaretoken,
+    },
+
+    success: function(data) {
+      if (data == 'already-inquired') {
+        $('#inquiry_success').addClass('alert alert-warning alert-dismissible fade show');
+        $("#inquiry_success").html('You have already made an inquiry about this product. Please wait until we get back to you.');
+        $("#submit").val('Send Inquiry');
+        $("#submit").attr("disabled", true);
+      } else {
+        $('#inquiry_success').addClass('alert alert-success alert-dismissible fade show');
+        $("#inquiry_success").html(data);
+        $("#submit").val('Sent');
+        $("#submit").attr("disabled", true);
+        $('#inquiry_success').delay(4000).fadeOut('slow');
+      }
+    },
+    error: function(data) {
+      $('#inquiry_success').addClass('alert alert-danger alert-dismissible fade show');
+      $("#inquiry_success").html("Something went wrong, please try again.");
+
+    }
+  });
+  this.reset();
+});
 
 
 // Contact Form

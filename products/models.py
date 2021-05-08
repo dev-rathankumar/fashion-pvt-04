@@ -190,7 +190,7 @@ class ReviewRating(models.Model):
     review = models.TextField(max_length=500,blank=True)
     rating = models.DecimalField(max_digits=4, decimal_places=2)
     ip = models.CharField(max_length=20, blank=True)
-    status = models.BooleanField(max_length=10, default=True)
+    status = models.BooleanField(max_length=10, default=False)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
