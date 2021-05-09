@@ -73,7 +73,7 @@
           </form>
         </div>
 
-      <!-- OTP VERIFICATION -->
+        <!-- OTP VERIFICATION -->
         <div class="otp_form" id="contactOTP">
           <form method="POST" id="contact_otp_form">
             {% csrf_token %}
@@ -118,21 +118,16 @@
         <div class="contact-details">
           <ul class="addressFooter">
             <li><i class="icon anm anm-map-marker-al"></i>
-              <p>55 Gallaxy Enque, 2568 steet, 23568 NY</p>
+              <p>{{contact_page.full_address}}</p>
             </li>
             <li class="phone"><i class="icon anm anm-phone-s"></i>
-              <p>(440) 000 000 0000</p>
+              <p><a href="tel:{{contact_page.phone_number}}">{{contact_page.phone_number}}</a></p>
             </li>
             <li class="email"><i class="icon anm anm-envelope-l"></i>
-              <p>sales@yousite.com</p>
+              <p><a href="mailto:{{contact_page.email}}">{{contact_page.email}}</a></p>
             </li>
           </ul>
-          <hr>
-          <div class="open-hours">
-            <strong>Opening Hours</strong><br>
-            Mon - Sat : 9am - 11pm<br>
-            Sunday: 11am - 5pm
-          </div>
+
           <hr>
           <ul class="list--inline site-footer__social-icons social-icons">
             <li><a class="social-icons__link" href="#" target="_blank" title="Facebook"><i class="icon icon-facebook"></i></a></li>
@@ -149,21 +144,9 @@
     <div class="row">
       <div class="col-12">
         <div class="map-section map">
-          <iframe src="https://www.google.com/maps/embed?pb=" allowfullscreen="" height="350"></iframe>
-          <div class="container">
-            <div class="row">
-              <div class="map-section__overlay-wrapper">
-                <div class="map-section__overlay">
-                  <h3 class="h4">Our store</h3>
-                  <div class="rte-setting">
-                    <p>123 Fake St.<br>Toronto, Canada</p>
-                    <p>Mon - Fri, 10am - 9pm<br>Saturday, 11am - 9pm<br>Sunday, 11am - 5pm</p>
-                  </div>
-                  <p><a href="https://maps.google.com?daddr=80 Spadina Ave, Toronto" class="btn btn--secondary btn--small" target="_blank">Get directions</a></p>
-                </div>
-              </div>
-            </div>
-          </div>
+          {% if contact_page.embed_google_map %}
+          {{contact_page.embed_google_map | safe}}
+          {% endif %}
         </div>
       </div>
     </div>

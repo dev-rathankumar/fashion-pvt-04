@@ -69,7 +69,6 @@ urlpatterns = [
     path('review-ratings/', views.allReviewRatings, name='allReviewRatings'),
     path('review-ratings/toggleApproval/<int:pk>/', views.toggleApproval, name='toggleApproval'),
 
-    # path('inquiries/viewInquiry/<int:pk>/', views.viewInquiry, name='viewInquiry'),
-    # path('inquiries/deleteInquiry/<int:pk>/', views.deleteInquiry, name='deleteInquiry'),
+
 
 ]

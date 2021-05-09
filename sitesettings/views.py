@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Header, Homepage, BannerImage, StoreFeature, ParallaxBackground
-from .forms import HeaderForm, BannerImageForm, StoreFeatureForm, ParallaxBackgroundForm
+from .models import Header, Homepage, BannerImage, StoreFeature, ParallaxBackground, ContactPage
+from .forms import HeaderForm, BannerImageForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm
 from django.contrib import messages
 from django.http import HttpResponse
 from accounts.models import Business
@@ -215,3 +215,22 @@ def homepage_background(request):
         'background': background,
     }
     return render(request, 'business/sitesettings/homepage_background.html', context)
+
+
+def contactUs(request):
+    business = Business.objects.get(user=request.user)
+    contact_page = get_object_or_404(ContactPage, business=business)
+    if request.method == 'POST':
+        form = ContactPageForm(request.POST, instance=contact_page)
+        if form.is_valid():
+            contact = form.save(commit=False)
+            contact.business = business
+            form.save()
+            messages.success(request, 'Settings saved successfully')
+            return redirect('contactUs')
+    else:
+        form = ContactPageForm(instance=contact_page)
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/sitesettings/contactUs.html', context)

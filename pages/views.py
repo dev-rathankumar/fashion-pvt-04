@@ -2,7 +2,7 @@ from django.shortcuts import render
 from category.models import Category
 from products.models import Product, ProductGallery
 from accounts.models import Business
-from sitesettings.models import BannerImage, StoreFeature, ParallaxBackground, Homepage
+from sitesettings.models import BannerImage, StoreFeature, ParallaxBackground, Homepage,ContactPage
 from urllib.parse import urlparse
 
 from django.http import HttpResponse
@@ -43,3 +43,21 @@ def home(request):
 def about(request):
     """About Page"""
     return render(request, 'pages/about.html')
+
+
+def contact_page(request):
+    """Contact Page"""
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    try:
+        business = Business.objects.get(domain_name=domain)
+    except:
+        business = None
+
+    if business is None:
+        return HttpResponse('<h3>Please assign a business to proceed!</h3>')
+    contact_page = ContactPage.objects.get(business=business)
+    context = {
+        'contact_page': contact_page,
+    }
+    return render(request, 'pages/contact.html', context)

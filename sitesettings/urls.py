@@ -21,4 +21,9 @@ urlpatterns = [
 
     # Homepage Background
     path('homepage_background/', views.homepage_background, name='homepage_background'),
+
+    # About Us
+
+    # Contact Us
+    path('contactUs/', views.contactUs, name='contactUs'),
 ]

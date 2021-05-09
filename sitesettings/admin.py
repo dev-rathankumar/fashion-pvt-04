@@ -36,9 +36,19 @@ class ParallaxBackgroundAdmin(admin.ModelAdmin):
     max_num = 1
 
 
+class ContactPageAdmin(admin.ModelAdmin):
+    list_display = ['business', 'address_line_1', 'city', 'country', 'state', 'modified_date']
+
+    # if there's already an entry, do not allow adding
+    def has_add_permission(self, request):
+        count = ContactPage.objects.all().count()
+        if count == 0:
+          return True
+        return False
+
 admin.site.register(Header, HeaderAdmin)
 admin.site.register(Footer)
-admin.site.register(ContactPage)
+admin.site.register(ContactPage, ContactPageAdmin)
 admin.site.register(Homepage, HomepageAdmin)
 admin.site.register(BannerImage)
 admin.site.register(ParallaxBackground, ParallaxBackgroundAdmin)

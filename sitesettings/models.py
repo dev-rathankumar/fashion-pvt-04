@@ -1,8 +1,9 @@
 from django.db import models
-from accounts.models import Business, User
+from accounts.models import Business, User, Country, State
 from PIL import Image
 from ckeditor.fields import RichTextField
 from colorfield.fields import ColorField
+from smart_selects.db_fields import ChainedForeignKey
 
 
 class Header(models.Model):
@@ -96,15 +97,30 @@ class Footer(models.Model):
 
 class ContactPage(models.Model):
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
-    address_line_1 = models.CharField(max_length=100)
-    address_line_2 = models.CharField(max_length=100)
-    city = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
-    country = models.CharField(max_length=50)
-    phone_number = models.CharField(max_length=50)
-    email = models.EmailField(max_length=50)
-    created_date    = models.DateTimeField(auto_now_add=True)
-    modified_date   = models.DateTimeField(auto_now=True)
+    address_line_1 = models.CharField(max_length=100, blank=True)
+    address_line_2 = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=50, blank=True)
+    pin_code = models.CharField(max_length=10, blank=True)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, blank=True, null=True)
+    state = ChainedForeignKey(
+            State,
+            chained_field="country",
+            chained_model_field="country",
+            show_all=False,
+            auto_choose=True,
+            sort=True,
+            blank=True,
+            null=True,
+        )
+    phone_number = models.CharField(max_length=50, blank=True)
+    email = models.EmailField(max_length=50, blank=True)
+    embed_google_map = models.CharField(max_length=1000, blank=True)
+    created_date    = models.DateTimeField(auto_now_add=True, blank=True)
+    modified_date   = models.DateTimeField(auto_now=True, blank=True)
+
+    @property
+    def full_address(self):
+        return f'{self.address_line_1} {self.address_line_2}'
 
     def __str__(self):
-        return self.business
+        return self.business.company_name

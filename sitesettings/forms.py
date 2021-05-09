@@ -1,7 +1,7 @@
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 from django.forms import inlineformset_factory
-from .models import Header, BannerImage, StoreFeature, ParallaxBackground
+from .models import Header, BannerImage, StoreFeature, ParallaxBackground, ContactPage
 
 
 
@@ -83,3 +83,18 @@ class ParallaxBackgroundForm(forms.ModelForm):
                 self.fields[myField].widget.attrs['class'] = 'form-control file'
             else:
                 self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class ContactPageForm(forms.ModelForm):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={
+    }), label="Email")
+
+    class Meta:
+        model = ContactPage
+        fields = ['address_line_1', 'address_line_2', 'city', 'pin_code', 'country', 'state', 'phone_number', 'email', 'embed_google_map']
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(ContactPageForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
