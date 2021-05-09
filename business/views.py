@@ -109,9 +109,15 @@ def dashboard(request):
 def biz_profile(request):
     current_user = request.user
     biz = Business.objects.get(user__id=current_user.id)
-
+    orders = Order.objects.filter(ordered=True)
+    orders_count = orders.count()
+    revenue = 0
+    for i in orders:
+        revenue += i.total
     context = {
         'biz': biz,
+        'revenue': revenue,
+        'orders_count': orders_count,
     }
     return render(request, 'business/profile.html', context)
 
@@ -759,8 +765,10 @@ def planPurchaseHistory(request):
 
 def planHistoryDetail(request, pk=None):
     planHistoryDetail = get_object_or_404(PlanOrder, pk=pk)
+    subtotal = planHistoryDetail.total - planHistoryDetail.tax
     context = {
         'planHistoryDetail': planHistoryDetail,
+        'subtotal': subtotal,
     }
     return render(request, 'business/planHistoryDetail.html', context)
 

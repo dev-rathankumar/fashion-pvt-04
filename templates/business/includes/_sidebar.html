@@ -121,19 +121,6 @@
                         <span>Rating & Reviews</span>
                     </a>
                 </li>
-                <!-- <li>
-                    <a href="{% url 'setTax' request.user.id %}"
-                    {% if 'setTax' in request.path %}
-                      class="waves-effect active"
-                    {% else %}
-                      class="waves-effect"
-                    {% endif %}
-                    >
-                        <i class="bx bx-dollar"></i>
-                        <span>Tax</span>
-                    </a>
-                </li> -->
-
 
                 <li>
                     <a href="/business/profile"
@@ -233,20 +220,27 @@
                         <span key="t-ecommerce">Emails</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{% url 'email_settings' %}" key="t-products"
-                          {% if '/emails/' == request.path or '/emails/email_settings/' in request.path %}
-                            class="waves-effect active"
-                          {% else %}
-                            class="waves-effect"
-                          {% endif %}
-                          >Email Settings</a></li>
                         <li><a href="{% url 'emails' %}" key="t-product-detail"
                           {% if '/emails/' == request.path %}
                             class="waves-effect active"
                           {% else %}
                             class="waves-effect"
                           {% endif %}
-                          >Emails</a></li>
+                          >All Emails</a></li>
+                          <li><a href="{% url 'send_email' %}" key="t-product-detail"
+                            {% if '/send_email/' == request.path %}
+                              class="waves-effect active"
+                            {% else %}
+                              class="waves-effect"
+                            {% endif %}
+                            >Send New Email</a></li>
+                          <li><a href="{% url 'email_settings' %}" key="t-products"
+                            {% if '/emails/' == request.path or '/emails/email_settings/' in request.path %}
+                              class="waves-effect active"
+                            {% else %}
+                              class="waves-effect"
+                            {% endif %}
+                            >Email Settings</a></li>
                     </ul>
                 </li>
 

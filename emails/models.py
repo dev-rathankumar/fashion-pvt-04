@@ -14,7 +14,7 @@ from django import forms
 
 
 class Email(models.Model):
-    to_address = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
+    recipients = models.TextField(null=True, blank=True)
     subject = models.CharField(max_length=255, blank=True)
     email_body = RichTextField(blank=True)
     is_sent = models.BooleanField(default=False)

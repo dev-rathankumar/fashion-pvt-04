@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-sm-8">
                   <div class="text-sm-right">
-                    <a href="{% url 'send_email' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-email mr-1"></i> Send An Email</a>
+                    <a href="{% url 'send_email' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-email mr-1"></i> Send New Email</a>
 
                   </div>
                 </div><!-- end col-->
@@ -103,11 +103,11 @@
               </div>
 
               <!-- Paginator Start -->
-              {% if products.has_other_pages %}
+              {% if emails.has_other_pages %}
               <ul class="pagination pagination-rounded justify-content-end mb-2">
-                {% if products.has_previous %}
+                {% if emails.has_previous %}
                 <li class="page-item">
-                  <a class="page-link" href="?page={{products.previous_page_number}}" aria-label="Previous">
+                  <a class="page-link" href="?page={{emails.previous_page_number}}" aria-label="Previous">
                     <i class="mdi mdi-chevron-left"></i>
                   </a>
                 </li>
@@ -118,17 +118,17 @@
                   </a>
                 </li>
                 {% endif %}
-                {% for i in products.paginator.page_range %}
-                {% if products.number == i %}
+                {% for i in emails.paginator.page_range %}
+                {% if emails.number == i %}
                 <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
                 {% else %}
                 <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
                 {% endif %}
                 {% endfor %}
 
-                {% if products.has_next %}
+                {% if emails.has_next %}
                 <li class="page-item">
-                  <a class="page-link" href="?page={{products.next_page_number}}" aria-label="Next">
+                  <a class="page-link" href="?page={{emails.next_page_number}}" aria-label="Next">
                     <i class="mdi mdi-chevron-right"></i>
                   </a>
                 </li>
