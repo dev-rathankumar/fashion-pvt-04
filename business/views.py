@@ -763,6 +763,8 @@ def planPurchaseHistory(request):
     return render(request, 'business/planPurchaseHistory.html', context)
 
 
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
 def planHistoryDetail(request, pk=None):
     planHistoryDetail = get_object_or_404(PlanOrder, pk=pk)
     subtotal = planHistoryDetail.total - planHistoryDetail.tax

@@ -36,6 +36,18 @@
                         <span>Supplier</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{% url 'bizPlanPurchaseHistory' %}"
+                    {% if 'bizPlanPurchaseHistory' in request.path or 'bizPlanHistoryDetail' in request.path %}
+                      class="waves-effect active"
+                    {% else %}
+                      class="waves-effect"
+                    {% endif %}
+                    >
+                        <i class="bx bx-history"></i>
+                        <span>Purchase History</span>
+                    </a>
+                </li>
 
 
 

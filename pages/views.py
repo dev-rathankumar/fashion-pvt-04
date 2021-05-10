@@ -53,10 +53,11 @@ def contact_page(request):
         business = Business.objects.get(domain_name=domain)
     except:
         business = None
-
+    print('tyest')
     if business is None:
         return HttpResponse('<h3>Please assign a business to proceed!</h3>')
     contact_page = ContactPage.objects.get(business=business)
+    print(contact_page)
     context = {
         'contact_page': contact_page,
     }

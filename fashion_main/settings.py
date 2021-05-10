@@ -183,7 +183,7 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 
-# 
+#
 # # Business Email Sending
 # business_email_host = ''
 # business_email_port = 587

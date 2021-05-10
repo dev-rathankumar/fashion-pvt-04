@@ -17,4 +17,7 @@ urlpatterns = [
     path('editProfile/<int:pk>/', views.editProfile, name='rm_editProfile'),
 
     path('supplier/', views.supplier, name='supplier'),
+    path('bizPlanPurchaseHistory/', views.bizPlanPurchaseHistory, name='bizPlanPurchaseHistory'),
+    path('bizPlanHistoryDetail/<int:pk>/', views.bizPlanHistoryDetail, name='bizPlanHistoryDetail'),
+
 ]

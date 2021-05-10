@@ -5,12 +5,12 @@
     <head>
 
         <meta charset="utf-8" />
-        <title>Dashboard | Altocan Regional Manager's Dashboard</title>
+        <title>{% block title %}    {% endblock %} | {% if header is not None %}{{header.site_title}}{% else %}{{company_name}}{% endif %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{% static 'business/images/favicon.ico' %}">
+        <link rel="shortcut icon" href="{% if header.favicon %} {{header.favicon.url}}{% endif %}">
 
         <!-- Bootstrap Css -->
         <link rel="stylesheet" href="{% static 'business/css/bootstrap.min.css' %}" id="bootstrap-style" />

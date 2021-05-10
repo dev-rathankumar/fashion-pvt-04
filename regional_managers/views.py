@@ -10,11 +10,14 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from datetime import date, datetime
+from datetime import datetime, timedelta, date
+import datetime
 import time
 from .forms import UserForm, RegionalManagerForm
 from django import forms
 from urllib.parse import urlparse
+from orders.models import Order
+from plans.models import PlanOrder, Plan
 
 
 
@@ -60,7 +63,19 @@ def login(request):
 @login_required(login_url = 'userLogin')
 @regional_manager_required(login_url="userLogin")
 def dashboard(request):
-    return render(request, 'regional_managers/dashboard.html')
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    account_manager = RegionalManager.objects.get(user=request.user)
+    business = Business.objects.get(domain_name=domain)
+    get_commission = PlanOrder.objects.filter(business=business, ordered=True)
+    total_commission = 0
+    for i in get_commission:
+        total_commission += i.account_manager_commission
+    context ={
+        'account_manager': account_manager,
+        'total_commission': total_commission,
+    }
+    return render(request, 'regional_managers/dashboard.html', context)
 
 @login_required(login_url = 'userLogin')
 def logout(request):
@@ -146,8 +161,18 @@ def rm_profile(request):
     current_user = request.user
     rm = RegionalManager.objects.get(user__id=current_user.id)
 
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    # account_manager = RegionalManager.objects.get(user=request.user)
+    business = Business.objects.get(domain_name=domain)
+    get_commission = PlanOrder.objects.filter(business=business, ordered=True)
+    total_commission = 0
+    for i in get_commission:
+        total_commission += i.account_manager_commission
+
     context = {
         'rm': rm,
+        'total_commission': total_commission,
     }
     return render(request, 'regional_managers/profile.html', context)
 
@@ -229,10 +254,54 @@ def supplier(request):
 
     try:
         supplier = Business.objects.get(regional_manager=regional_manager, business_id=business.business_id)
+        orders = Order.objects.filter(ordered=True)
+        orders_count = orders.count()
+        revenue = 0
+        for i in orders:
+            revenue += i.total
     except:
         supplier = None
 
     context = {
         'supplier': supplier,
+        'orders_count': orders_count,
+        'revenue': revenue,
     }
     return render(request, 'regional_managers/supplier.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@regional_manager_required(login_url="userLogin")
+def bizPlanPurchaseHistory(request):
+    plan_orders = PlanOrder.objects.filter(ordered=True).order_by('-created_at')
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    business = Business.objects.get(domain_name=domain)
+    account_expiry_date = business.account_expiry_date
+    current_plan = Plan.objects.get(pk=business.plan_id)
+    # Check if plan expired
+    exp_date = datetime.datetime.strptime(str(account_expiry_date), '%Y-%m-%d')
+    get_today = date.today()
+    today = datetime.datetime.strptime(str(get_today), '%Y-%m-%d')
+    if today > exp_date:
+        is_expired = False
+    else:
+        is_expired = True
+    context = {
+        'plan_orders': plan_orders,
+        'account_expiry_date': account_expiry_date,
+        'current_plan': current_plan,
+        'is_expired': is_expired,
+        'business': business,
+    }
+    return render(request, 'regional_managers/bizPlanPurchaseHistory.html', context)
+
+
+def bizPlanHistoryDetail(request, pk=None):
+    bizPlanHistoryDetail = get_object_or_404(PlanOrder, pk=pk)
+    subtotal = bizPlanHistoryDetail.total - bizPlanHistoryDetail.tax
+    context = {
+        'bizPlanHistoryDetail': bizPlanHistoryDetail,
+        'subtotal': subtotal,
+    }
+    return render(request, 'regional_managers/bizPlanHistoryDetail.html', context)
