@@ -1,7 +1,7 @@
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 from django.forms import inlineformset_factory
-from .models import Header, BannerImage, StoreFeature, ParallaxBackground, ContactPage
+from .models import Header, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer
 
 
 
@@ -96,5 +96,17 @@ class ContactPageForm(forms.ModelForm):
     # Give same CSS class to all the fields
     def __init__(self, *args, **kwargs):
         super(ContactPageForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class FooterForm(forms.ModelForm):
+    class Meta:
+        model = Footer
+        fields = ['footer_credit',]
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(FooterForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
             self.fields[myField].widget.attrs['class'] = 'form-control'

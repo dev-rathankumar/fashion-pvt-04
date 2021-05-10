@@ -104,6 +104,7 @@
           </a>
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="{% url 'header' %}" key="t-products" {% if '/site_settings/header/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Header</a></li>
+            <li><a href="{% url 'footerEdit' %}" key="t-products" {% if '/site_settings/footerEdit/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Footer</a></li>
             <li><a href="{% url 'banners' %}" key="t-products" {% if '/site_settings/banners/' in request.path or '/site_settings/banners/editBanner' in request.path %} class="waves-effect active" {% else %} class="waves-effect"
                 {% endif %}>Banners</a></li>
             <li><a href="{% url 'store_features' %}" key="t-products" {% if '/site_settings/store_features/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Store Features</a></li>

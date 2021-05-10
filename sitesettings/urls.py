@@ -26,4 +26,7 @@ urlpatterns = [
 
     # Contact Us
     path('contactUs/', views.contactUs, name='contactUs'),
+
+    # Footer
+    path('footerEdit/', views.footerEdit, name='footerEdit'),
 ]

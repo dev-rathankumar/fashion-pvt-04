@@ -1,6 +1,6 @@
 from accounts.models import Business, User
 from urllib.parse import urlparse
-from sitesettings.models import Header, Homepage
+from sitesettings.models import Header, Homepage, Footer
 from django.http import HttpResponse
 
 
@@ -24,7 +24,9 @@ def get_sitesettings(request):
     company_name = None
     try:
         header = Header.objects.get(business=business)
+        footer = Footer.objects.get(business=business)
     except:
         header = None
+        footer = None
         company_name = business.company_name
-    return dict(header=header, company_name=company_name)
+    return dict(header=header, company_name=company_name, footer=footer)

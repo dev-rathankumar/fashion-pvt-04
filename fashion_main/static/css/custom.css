@@ -220,3 +220,11 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 .btn-danger:disabled{
   cursor: not-allowed !important;
 }
+
+.footer-bottom .copytext{
+  float: unset;
+  text-align: center;
+}
+#site-scroll{
+  background-color: #000 !important;
+}

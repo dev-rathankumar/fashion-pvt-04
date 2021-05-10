@@ -82,7 +82,7 @@
   </div>
   <div class="footer-bottom clearfix">
     <div class="container">
-      <ul class="payment-icons list--inline">
+      <!-- <ul class="payment-icons list--inline">
         <li><i class="anm anm-cc-visa" aria-hidden="true"></i></li>
         <li><i class="anm anm-cc-mastercard" aria-hidden="true"></i></li>
         <li><i class="anm anm-cc-amex" aria-hidden="true"></i></li>
@@ -90,9 +90,13 @@
         <li><i class="anm anm-cc-discover" aria-hidden="true"></i></li>
         <li><i class="anm anm-cc-stripe" aria-hidden="true"></i></li>
         <li><i class="anm anm-cc-jcb" aria-hidden="true"></i></li>
-      </ul>
+      </ul> -->
       <div class="copytext">
-        &copy; 2020 Avone. All Rights Reserved.
+        {% if footer is not None %}
+        {{footer.footer_credit}}
+        {% else %}
+        &copy; {% now "Y" %} {{company_name}}. All Rights Reserved.
+        {% endif %}
       </div>
     </div>
   </div>

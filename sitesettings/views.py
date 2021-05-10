@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Header, Homepage, BannerImage, StoreFeature, ParallaxBackground, ContactPage
-from .forms import HeaderForm, BannerImageForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm
+from .models import Header, Homepage, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer
+from .forms import HeaderForm, BannerImageForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm
 from django.contrib import messages
 from django.http import HttpResponse
 from accounts.models import Business
@@ -234,3 +234,21 @@ def contactUs(request):
         'form': form,
     }
     return render(request, 'business/sitesettings/contactUs.html', context)
+
+
+
+def footerEdit(request):
+    business = Business.objects.get(user=request.user)
+    footer = get_object_or_404(Footer, business=business)
+    if request.method == 'POST':
+        form = FooterForm(request.POST, instance=footer)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Footer Copyright updated successfully')
+            return redirect('footerEdit')
+    else:
+        form = FooterForm(instance=footer)
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/sitesettings/footerEdit.html', context)
