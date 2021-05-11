@@ -2,7 +2,7 @@ from django.shortcuts import render
 from category.models import Category
 from products.models import Product, ProductGallery
 from accounts.models import Business
-from sitesettings.models import BannerImage, StoreFeature, ParallaxBackground, Homepage,ContactPage
+from sitesettings.models import BannerImage, StoreFeature, ParallaxBackground, Homepage, ContactPage, SocialMediaLink
 from urllib.parse import urlparse
 
 from django.http import HttpResponse
@@ -53,12 +53,14 @@ def contact_page(request):
         business = Business.objects.get(domain_name=domain)
     except:
         business = None
-    print('tyest')
     if business is None:
         return HttpResponse('<h3>Please assign a business to proceed!</h3>')
     contact_page = ContactPage.objects.get(business=business)
-    print(contact_page)
+
+    # get social media icons
+    social_icons = SocialMediaLink.objects.filter(business=business).order_by('created_date')
     context = {
         'contact_page': contact_page,
+        'social_icons': social_icons,
     }
     return render(request, 'pages/contact.html', context)

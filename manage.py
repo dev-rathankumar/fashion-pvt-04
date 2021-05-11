@@ -2,7 +2,10 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import warnings
 
+IGNORE_MODULES = 'faicon|webpack_loader'
+warnings.filterwarnings("ignore", module=IGNORE_MODULES)
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fashion_main.settings')

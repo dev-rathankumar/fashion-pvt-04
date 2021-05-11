@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Header, Footer, ContactPage, Homepage, BannerImage, StoreFeature, ParallaxBackground
+from .models import Header, Footer, ContactPage, Homepage, BannerImage, StoreFeature, ParallaxBackground, SocialMediaLink
 import admin_thumbnails
 
 
@@ -46,6 +46,10 @@ class ContactPageAdmin(admin.ModelAdmin):
           return True
         return False
 
+
+class SocialMediaLinkAdmin(admin.ModelAdmin):
+    list_display = ['business', 'social_media_name', 'link', 'updated_date']
+
 admin.site.register(Header, HeaderAdmin)
 admin.site.register(Footer)
 admin.site.register(ContactPage, ContactPageAdmin)
@@ -53,3 +57,4 @@ admin.site.register(Homepage, HomepageAdmin)
 admin.site.register(BannerImage)
 admin.site.register(ParallaxBackground, ParallaxBackgroundAdmin)
 admin.site.register(StoreFeature)
+admin.site.register(SocialMediaLink, SocialMediaLinkAdmin)

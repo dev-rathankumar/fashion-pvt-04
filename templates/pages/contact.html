@@ -2,7 +2,7 @@
 {% block title %} Contact {% endblock %}
 
 {% block content %}
-
+{% load faicon %}
 <div id="page-content">
   <!--Body Container-->
   <!--Breadcrumbs-->
@@ -130,13 +130,9 @@
 
           <hr>
           <ul class="list--inline site-footer__social-icons social-icons">
-            <li><a class="social-icons__link" href="#" target="_blank" title="Facebook"><i class="icon icon-facebook"></i></a></li>
-            <li><a class="social-icons__link" href="#" target="_blank" title="Twitter"><i class="icon icon-twitter"></i> <span class="icon__fallback-text">Twitter</span></a></li>
-            <li><a class="social-icons__link" href="#" target="_blank" title="Pinterest"><i class="icon icon-pinterest"></i> <span class="icon__fallback-text">Pinterest</span></a></li>
-            <li><a class="social-icons__link" href="#" target="_blank" title="Instagram"><i class="icon icon-instagram"></i> <span class="icon__fallback-text">Instagram</span></a></li>
-            <li><a class="social-icons__link" href="#" target="_blank" title="Tumblr"><i class="icon icon-tumblr-alt"></i> <span class="icon__fallback-text">Tumblr</span></a></li>
-            <li><a class="social-icons__link" href="#" target="_blank" title="YouTube"><i class="icon icon-youtube"></i> <span class="icon__fallback-text">YouTube</span></a></li>
-            <li><a class="social-icons__link" href="#" target="_blank" title="Vimeo"><i class="icon icon-vimeo-alt"></i> <span class="icon__fallback-text">Vimeo</span></a></li>
+            {% for icon in social_icons %}
+            <li><a class="social-icons__link" href="{{ icon.link }}" target="_blank"><i class="{{icon.icon.style}} fa-{{icon.icon.icon}} {{icon.icon.extra}}" aria-hidden="true" style="font-size:20px;"></i></a></li>
+            {% endfor %}
           </ul>
         </div>
       </div>

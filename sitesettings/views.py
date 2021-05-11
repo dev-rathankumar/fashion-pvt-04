@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Header, Homepage, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer
-from .forms import HeaderForm, BannerImageForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm
+from .models import Header, Homepage, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink
+from .forms import HeaderForm, BannerImageForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm
 from django.contrib import messages
 from django.http import HttpResponse
 from accounts.models import Business
@@ -200,6 +200,8 @@ def deleteFeature(request, pk=None):
     return redirect('store_features')
 
 
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
 def homepage_background(request):
     homepage = Homepage.objects.get(business__user=request.user)
     background = get_object_or_404(ParallaxBackground, homepage=homepage)
@@ -217,6 +219,8 @@ def homepage_background(request):
     return render(request, 'business/sitesettings/homepage_background.html', context)
 
 
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
 def contactUs(request):
     business = Business.objects.get(user=request.user)
     contact_page = get_object_or_404(ContactPage, business=business)
@@ -236,7 +240,8 @@ def contactUs(request):
     return render(request, 'business/sitesettings/contactUs.html', context)
 
 
-
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
 def footerEdit(request):
     business = Business.objects.get(user=request.user)
     footer = get_object_or_404(Footer, business=business)
@@ -252,3 +257,64 @@ def footerEdit(request):
         'form': form,
     }
     return render(request, 'business/sitesettings/footerEdit.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def socialIcons(request):
+    business = Business.objects.get(user=request.user)
+    social_icons = SocialMediaLink.objects.filter(business=business).order_by('created_date')
+    context = {
+        'social_icons': social_icons,
+    }
+    return render(request, 'business/sitesettings/socialIcons.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def addIcon(request):
+    business = Business.objects.get(user=request.user)
+    social_icons = SocialMediaLink.objects.filter(business=business)
+    form = SocialMediaLinkForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            socialicon = form.save(commit=False)
+            socialicon.business = business
+            form.save()
+            messages.success(request, 'Social icon saved successfully.')
+            return redirect('socialIcons')
+    else:
+        form = SocialMediaLinkForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/sitesettings/addIcon.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def editIcon(request, pk=None):
+    social_icons = get_object_or_404(SocialMediaLink, pk=pk)
+
+    if request.method == 'POST':
+        form = SocialMediaLinkForm(request.POST, instance=social_icons)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Social Icon updated successfully.')
+            return redirect('socialIcons')
+    else:
+        form = SocialMediaLinkForm(instance=social_icons)
+    context = {
+        'form': form,
+        'social_icons': social_icons,
+    }
+    return render(request, 'business/sitesettings/editIcon.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def deleteIcon(request, pk=None):
+    social_icon = get_object_or_404(SocialMediaLink, pk=pk)
+    social_icon.delete()
+    messages.success(request, 'Social Icon has been deleted.')
+    return redirect('socialIcons')

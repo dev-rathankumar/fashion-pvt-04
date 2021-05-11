@@ -29,4 +29,11 @@ urlpatterns = [
 
     # Footer
     path('footerEdit/', views.footerEdit, name='footerEdit'),
+
+    # Social Icons
+    path('socialIcons/', views.socialIcons, name='socialIcons'),
+    path('socialIcons/addIcon/', views.addIcon, name='addIcon'),
+    path('socialIcons/editIcon/<int:pk>/', views.editIcon, name='editIcon'),
+    path('socialIcons/deleteIcon/<int:pk>/', views.deleteIcon, name='deleteIcon'),
+
 ]

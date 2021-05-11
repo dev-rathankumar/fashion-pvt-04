@@ -4,6 +4,7 @@ from PIL import Image
 from ckeditor.fields import RichTextField
 from colorfield.fields import ColorField
 from smart_selects.db_fields import ChainedForeignKey
+from faicon.fields import FAIconField
 
 
 class Header(models.Model):
@@ -121,6 +122,19 @@ class ContactPage(models.Model):
     @property
     def full_address(self):
         return f'{self.address_line_1} {self.address_line_2}'
+
+    def __str__(self):
+        return self.business.company_name
+
+
+class SocialMediaLink(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    social_media_name = models.CharField(max_length=50)
+    icon = FAIconField()
+    link = models.URLField(max_length=500)
+    created_date    = models.DateTimeField(auto_now_add=True, blank=True)
+    updated_date   = models.DateTimeField(auto_now=True, blank=True)
+
 
     def __str__(self):
         return self.business.company_name

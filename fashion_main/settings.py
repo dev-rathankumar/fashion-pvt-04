@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'colorfield',
     'emails',
     'taxes',
+    'faicon',
 ]
 
 SITE_ID = 1
@@ -97,6 +98,7 @@ TEMPLATES = [
                 'carts.context_processors.shopcart_context',
                 'products.context_processors.search_products',
                 'accounts.context_processors.get_sitesettings',
+                'pages.context_processors.social_media_links',
             ],
         },
     },
@@ -105,6 +107,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'fashion_main.wsgi.application'
 
 AUTH_USER_MODEL = 'accounts.User'
+
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

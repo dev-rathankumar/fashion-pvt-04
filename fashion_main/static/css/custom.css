@@ -228,3 +228,6 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 #site-scroll{
   background-color: #000 !important;
 }
+.social-icons a:hover{
+  color: #000000 !important;
+}

@@ -87,4 +87,7 @@ urlpatterns = [
     # New Tax
     path('fetchTax/', include('taxes.urls')),
 
+    # Font Awesome Icon Picker
+    path('faicon/', include('faicon.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

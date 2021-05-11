@@ -9,12 +9,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
+
         <!-- App favicon -->
         <link rel="shortcut icon" href="{% if header.favicon %} {{header.favicon.url}}{% endif %}">
 
         <!-- Bootstrap Css -->
         <link rel="stylesheet" href="{% static 'business/css/bootstrap.min.css' %}" id="bootstrap-style" />
         <!-- Icons Css -->
+
+        <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
 
         <link rel="stylesheet" href="{% static 'business/css/icons.min.css' %}">
         <!-- App Css-->
@@ -28,7 +31,8 @@
 
         <!-- <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
         <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
-        <script src="https://use.fontawesome.com/7452714568.js"></script>
+        <!-- <script src="https://use.fontawesome.com/7452714568.js"></script> -->
+
         <script src="{% static 'business/js/ajax.js' %}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
@@ -37,6 +41,12 @@
 
         <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+
+<!-- faicons -->
+<link href="{% static 'faicon/css/faicon.css' %}" rel="stylesheet" />
+<script type="text/javascript" src="{% static "faicon/js/list.min.js" %}"></script>
+<script type="text/javascript" src="{% static "faicon/js/faicon.js" %}"></script>
 
 <!-- Color Picker -->
 <script type="text/javascript" src="{% static "js/jscolor.min.js" %}"></script>
