@@ -19,7 +19,7 @@ from .forms import UserForm
 
 from django.http import HttpResponse
 from urllib.parse import urlparse
-from sitesettings.models import Homepage, ParallaxBackground, Header, ContactPage, Footer
+from sitesettings.models import Homepage, ParallaxBackground, Header, ContactPage, Footer, AboutPage
 from emails.models import BusinessEmailSetting
 from datetime import date, datetime
 import time
@@ -360,6 +360,13 @@ def biz_password_reset(request):
             footer = Footer()
             footer.business = business
             footer.save()
+
+            # Automatically creating about us page
+            about_page = AboutPage()
+            about_page.heading = 'About Us'
+            about_page.business = business
+            about_page.cover_image = 'default/about-img.jpg'
+            about_page.save()
 
             # Automatically Creating Contact Page
             contact_page = ContactPage()

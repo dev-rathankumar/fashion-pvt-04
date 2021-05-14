@@ -21,11 +21,15 @@
         <div class="col-12 col-sm-12 col-md-4 col-lg-4 footer-links">
           <h4 class="h4">Important Links</h4>
           <ul>
-            <li><a href="aboutus-style1.html">About us</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="#">Privacy policy</a></li>
-            <li><a href="#">Terms &amp; condition</a></li>
-            <li><a href="my-account.html">My Account</a></li>
+            {% if user.id is not None %}
+            <li><a href="{% url 'userDashboard' %}">My Account</a></li>
+            {% else %}
+            <li><a href="{% url 'userLogin' %}">Login</a></li>
+            {% endif %}
+            <li><a href="{% url 'about' %}">About us</a></li>
+            <li><a href="{% url 'contact_page' %}">Contact Us</a></li>
+            <li><a href="{% url 'privacy_policy' %}">Privacy policy</a></li>
+            <li><a href="{% url 'terms_and_conditions' %}">Terms &amp; condition</a></li>
           </ul>
         </div>
 

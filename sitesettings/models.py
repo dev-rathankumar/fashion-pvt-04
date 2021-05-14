@@ -76,7 +76,7 @@ class ParallaxBackground(models.Model):
     homepage = models.ForeignKey(Homepage, on_delete=models.CASCADE)
     parallax_image = models.ImageField(upload_to='parallax_image', blank=True)
     title = models.CharField(max_length=50, null=True, blank=True)
-    description = RichTextField(max_length=1000, null=True, blank=True)
+    description = RichTextField(null=True, blank=True)
     button_name = models.CharField(max_length=20, null=True, blank=True)
     button_link = models.CharField(max_length=500, null=True, blank=True)
     button_color = ColorField(default='#000000')
@@ -138,3 +138,38 @@ class SocialMediaLink(models.Model):
 
     def __str__(self):
         return self.business.company_name
+
+
+class AboutPage(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    heading = models.CharField(max_length=255)
+    sub_heading = RichTextField(null=True, blank=True)
+    description = RichTextField(null=True, blank=True)
+    cover_image = models.ImageField(upload_to='about', blank=True)
+    created_date    = models.DateTimeField(auto_now_add=True, blank=True)
+    updated_date   = models.DateTimeField(auto_now=True, blank=True)
+
+    def __str__(self):
+        return self.heading
+
+
+class Policy(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    heading = models.CharField(max_length=255)
+    content = RichTextField(null=True, blank=True)
+    created_date    = models.DateTimeField(auto_now_add=True, blank=True)
+    updated_date   = models.DateTimeField(auto_now=True, blank=True)
+
+    def __str__(self):
+        return self.heading
+
+
+class TermsAndCondition(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    heading = models.CharField(max_length=255)
+    content = RichTextField(null=True, blank=True)
+    created_date    = models.DateTimeField(auto_now_add=True, blank=True)
+    updated_date   = models.DateTimeField(auto_now=True, blank=True)
+
+    def __str__(self):
+        return self.heading

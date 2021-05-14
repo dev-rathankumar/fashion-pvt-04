@@ -1,7 +1,7 @@
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 from django.forms import inlineformset_factory
-from .models import Header, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink
+from .models import Header, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition
 
 
 
@@ -100,6 +100,26 @@ class ContactPageForm(forms.ModelForm):
             self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
+class AboutPageForm(forms.ModelForm):
+    cover_image = forms.ImageField(label=('Cover Image'), required=True, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+        "type": "file",
+        "data-show-preview": "false"
+    }))
+
+    class Meta:
+        model = AboutPage
+        fields = ['heading', 'sub_heading', 'description', 'cover_image']
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(AboutPageForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            if myField == 'cover_image':
+                self.fields[myField].widget.attrs['class'] = 'form-control file'
+            else:
+                self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
 class FooterForm(forms.ModelForm):
     class Meta:
         model = Footer
@@ -121,5 +141,27 @@ class SocialMediaLinkForm(forms.ModelForm):
     # Give same CSS class to all the fields
     def __init__(self, *args, **kwargs):
         super(SocialMediaLinkForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class PolicyForm(forms.ModelForm):
+    class Meta:
+        model = Policy
+        fields = ['heading', 'content']
+
+    def __init__(self, *args, **kwargs):
+        super(PolicyForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class TermsAndConditionForm(forms.ModelForm):
+    class Meta:
+        model = TermsAndCondition
+        fields = ['heading', 'content']
+
+    def __init__(self, *args, **kwargs):
+        super(TermsAndConditionForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
             self.fields[myField].widget.attrs['class'] = 'form-control'

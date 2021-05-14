@@ -2,7 +2,7 @@ from django.shortcuts import render
 from category.models import Category
 from products.models import Product, ProductGallery
 from accounts.models import Business
-from sitesettings.models import BannerImage, StoreFeature, ParallaxBackground, Homepage, ContactPage, SocialMediaLink
+from sitesettings.models import BannerImage, StoreFeature, ParallaxBackground, Homepage, ContactPage, SocialMediaLink, AboutPage, Policy, TermsAndCondition
 from urllib.parse import urlparse
 
 from django.http import HttpResponse
@@ -42,7 +42,21 @@ def home(request):
 
 def about(request):
     """About Page"""
-    return render(request, 'pages/about.html')
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    try:
+        business = Business.objects.get(domain_name=domain)
+    except:
+        business = None
+    if business is None:
+        return HttpResponse('<h3>Please assign a business to proceed!</h3>')
+    about_page = AboutPage.objects.get(business=business)
+
+
+    context = {
+        'about_page': about_page,
+    }
+    return render(request, 'pages/about.html', context)
 
 
 def contact_page(request):
@@ -64,3 +78,39 @@ def contact_page(request):
         'social_icons': social_icons,
     }
     return render(request, 'pages/contact.html', context)
+
+
+def privacy_policy(request):
+    """Privacy Policy Page"""
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    try:
+        business = Business.objects.get(domain_name=domain)
+    except:
+        business = None
+    if business is None:
+        return HttpResponse('<h3>Please assign a business to proceed!</h3>')
+    policy = Policy.objects.get(business=business)
+
+    context = {
+        'policy': policy,
+    }
+    return render(request, 'pages/privacy_policy.html', context)
+
+
+def terms_and_conditions(request):
+    """Terms & Conditions Page"""
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    try:
+        business = Business.objects.get(domain_name=domain)
+    except:
+        business = None
+    if business is None:
+        return HttpResponse('<h3>Please assign a business to proceed!</h3>')
+    terms = TermsAndCondition.objects.get(business=business)
+
+    context = {
+        'terms': terms,
+    }
+    return render(request, 'pages/terms_and_conditions.html', context)

@@ -22,11 +22,6 @@ urlpatterns = [
     # Homepage Background
     path('homepage_background/', views.homepage_background, name='homepage_background'),
 
-    # About Us
-
-    # Contact Us
-    path('contactUs/', views.contactUs, name='contactUs'),
-
     # Footer
     path('footerEdit/', views.footerEdit, name='footerEdit'),
 
@@ -35,5 +30,11 @@ urlpatterns = [
     path('socialIcons/addIcon/', views.addIcon, name='addIcon'),
     path('socialIcons/editIcon/<int:pk>/', views.editIcon, name='editIcon'),
     path('socialIcons/deleteIcon/<int:pk>/', views.deleteIcon, name='deleteIcon'),
+
+    # Pages
+    path('aboutUs/', views.aboutUs, name='aboutUs'),
+    path('contactUs/', views.contactUs, name='contactUs'),
+    path('editPolicy/', views.editPolicy, name='editPolicy'),
+    path('editTermsConditions/', views.editTermsConditions, name='editTermsConditions'),
 
 ]

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Header, Homepage, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink
-from .forms import HeaderForm, BannerImageForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm
+from .models import Header, Homepage, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition
+from .forms import HeaderForm, BannerImageForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, TermsAndConditionForm
 from django.contrib import messages
 from django.http import HttpResponse
 from accounts.models import Business
@@ -221,6 +221,30 @@ def homepage_background(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+def aboutUs(request):
+    business = Business.objects.get(user=request.user)
+    about_page = get_object_or_404(AboutPage, business=business)
+    if request.method == 'POST':
+        form = AboutPageForm(request.POST, request.FILES, instance=about_page)
+        if form.is_valid():
+            about = form.save(commit=False)
+            about.business = business
+            form.save()
+            messages.success(request, 'Settings saved successfully')
+            return redirect('aboutUs')
+        else:
+            print(form.errors)
+    else:
+        form = AboutPageForm(instance=about_page)
+    context = {
+        'form': form,
+        'about_page': about_page,
+    }
+    return render(request, 'business/sitesettings/aboutUs.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
 def contactUs(request):
     business = Business.objects.get(user=request.user)
     contact_page = get_object_or_404(ContactPage, business=business)
@@ -318,3 +342,45 @@ def deleteIcon(request, pk=None):
     social_icon.delete()
     messages.success(request, 'Social Icon has been deleted.')
     return redirect('socialIcons')
+
+
+def editPolicy(request):
+    business = Business.objects.get(user=request.user)
+    policy = get_object_or_404(Policy, business=business)
+    if request.method == 'POST':
+        form = PolicyForm(request.POST, instance=policy)
+        if form.is_valid():
+            policy = form.save(commit=False)
+            policy.business = business
+            form.save()
+            messages.success(request, 'Policy saved successfully')
+            return redirect('editPolicy')
+        else:
+            print(form.errors)
+    else:
+        form = PolicyForm(instance=policy)
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/sitesettings/editPolicy.html', context)
+
+
+def editTermsConditions(request):
+    business = Business.objects.get(user=request.user)
+    terms = get_object_or_404(TermsAndCondition, business=business)
+    if request.method == 'POST':
+        form = TermsAndConditionForm(request.POST, instance=terms)
+        if form.is_valid():
+            terms = form.save(commit=False)
+            terms.business = business
+            form.save()
+            messages.success(request, 'Terms & Conditions saved successfully')
+            return redirect('editTermsConditions')
+        else:
+            print(form.errors)
+    else:
+        form = TermsAndConditionForm(instance=terms)
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/sitesettings/editTermsConditions.html', context)

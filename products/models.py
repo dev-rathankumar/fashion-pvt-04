@@ -123,9 +123,9 @@ class Variants(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     color = models.ForeignKey(Color, on_delete=models.CASCADE,blank=True,null=True)
     size = models.ForeignKey(Size, on_delete=models.CASCADE,blank=True,null=True)
-    image_id = models.IntegerField(blank=True,null=True,default=0)
-    quantity = models.IntegerField(default=1)
-    price = models.DecimalField(max_digits=12, decimal_places=2,default=0)
+    image_id = models.IntegerField(blank=True,null=True)
+    quantity = models.IntegerField()
+    price = models.DecimalField(max_digits=12, decimal_places=2)
 
     def __str__(self):
         return self.title

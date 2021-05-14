@@ -221,3 +221,6 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+#cke_id_sub_heading, #cke_id_content{
+  width: 100% !important;
+}

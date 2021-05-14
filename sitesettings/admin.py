@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Header, Footer, ContactPage, Homepage, BannerImage, StoreFeature, ParallaxBackground, SocialMediaLink
+from .models import Header, Footer, ContactPage, Homepage, BannerImage, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition
 import admin_thumbnails
 
 
@@ -50,6 +50,40 @@ class ContactPageAdmin(admin.ModelAdmin):
 class SocialMediaLinkAdmin(admin.ModelAdmin):
     list_display = ['business', 'social_media_name', 'link', 'updated_date']
 
+
+class AboutPageAdmin(admin.ModelAdmin):
+    list_display = ['business', 'heading', 'updated_date']
+
+    # if there's already an entry, do not allow adding
+    def has_add_permission(self, request):
+        count = AboutPage.objects.all().count()
+        if count == 0:
+          return True
+        return False
+
+
+class PolicyAdmin(admin.ModelAdmin):
+    list_display = ['business', 'heading', 'updated_date']
+
+    # if there's already an entry, do not allow adding
+    def has_add_permission(self, request):
+        count = Policy.objects.all().count()
+        if count == 0:
+          return True
+        return False
+
+
+class TermsAndConditionAdmin(admin.ModelAdmin):
+    list_display = ['business', 'heading', 'updated_date']
+
+    # if there's already an entry, do not allow adding
+    def has_add_permission(self, request):
+        count = TermsAndCondition.objects.all().count()
+        if count == 0:
+          return True
+        return False
+
+
 admin.site.register(Header, HeaderAdmin)
 admin.site.register(Footer)
 admin.site.register(ContactPage, ContactPageAdmin)
@@ -58,3 +92,6 @@ admin.site.register(BannerImage)
 admin.site.register(ParallaxBackground, ParallaxBackgroundAdmin)
 admin.site.register(StoreFeature)
 admin.site.register(SocialMediaLink, SocialMediaLinkAdmin)
+admin.site.register(AboutPage, AboutPageAdmin)
+admin.site.register(Policy, PolicyAdmin)
+admin.site.register(TermsAndCondition, TermsAndConditionAdmin)
