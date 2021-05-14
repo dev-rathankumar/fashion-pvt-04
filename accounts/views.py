@@ -19,7 +19,7 @@ from .forms import UserForm
 
 from django.http import HttpResponse
 from urllib.parse import urlparse
-from sitesettings.models import Homepage, ParallaxBackground, Header, ContactPage, Footer, AboutPage
+from sitesettings.models import Homepage, ParallaxBackground, Header, ContactPage, Footer, AboutPage, Policy, TermsAndCondition
 from emails.models import BusinessEmailSetting
 from datetime import date, datetime
 import time
@@ -380,6 +380,18 @@ def biz_password_reset(request):
             contact_page.phone_number = business.user.phone_number
             contact_page.email = business.user.email
             contact_page.save()
+
+            # Automatically creating Privacy Policy page
+            policy = Policy()
+            policy.heading = 'Privacy Policy'
+            policy.business = business
+            policy.save()
+
+            # Automatically creating Terms & Conditions page
+            terms = TermsAndCondition()
+            terms.heading = 'Terms & Conditions'
+            terms.business = business
+            terms.save()
 
             mail_subject = 'Your Business Account is Activated'
             # message = 'Congratulations! Your business account has been activated.'
