@@ -1,7 +1,7 @@
 from django import forms
 from accounts.models import User, Business
 from .models import PaymentSetting
-from products.models import Product, ProductGallery, Variants
+from products.models import Product, ProductGallery, Variants, Color, Size
 from category.models import Category
 from ckeditor.widgets import CKEditorWidget
 from django.forms import inlineformset_factory
@@ -160,5 +160,29 @@ class TaxSettingForm(forms.ModelForm):
         fields = ('tax_type', 'tax_value', 'is_active')
     def __init__(self, *args, **kwargs):
         super(TaxSettingForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class ColorForm(forms.ModelForm):
+    class Meta:
+        model = Color
+        fields = ['name', 'code']
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(ColorForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class SizeForm(forms.ModelForm):
+    class Meta:
+        model = Size
+        fields = ['name']
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(SizeForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
             self.fields[myField].widget.attrs['class'] = 'form-control'

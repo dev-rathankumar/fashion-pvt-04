@@ -1,6 +1,6 @@
 {% extends 'business/base.html' %}
 {% load static %}
-
+{% block title %} Edit Variants {% endblock %}
 
 {% block content %}
 
@@ -71,7 +71,7 @@
                   </thead>
                   {% endif %}
                   <tr class="{% cycle row1 row2 %} formset_row">
-                  
+
                     {% for field in form.visible_fields %}
                     <td>
                       {# Include the hidden fields in the form #}
@@ -87,6 +87,11 @@
                     {% endfor %}
                   </tr>
                   {% endfor %}
+                  <tr>
+                    <td></td>
+                    <td class="text-center"><small><a href="{% url 'addColor' %}" onclick="window.open('{% url 'addColor' %}', 'newwindow', 'width=1024, height=500');return false;"><i class="fa fa-plus"></i> Add Color</a><br><a href="">Refresh</a></small></td>
+                    <td class="text-center"><small><a href="{% url 'addSize' %}" onclick="window.open('{% url 'addSize' %}', 'newwindow', 'width=1024, height=500');return false;"><i class="fa fa-plus"></i> Add Size</a><br><a href="">Refresh</a></small></td>
+                  </tr>
                 </table>
                 <button type="submit" name="add_another" value="true" class="btn btn-success mr-1 waves-effect waves-light" style="letter-spacing: 2px;" formaction="{% url 'editVariants' product.id %}"><i class='fas fa-plus'></i>
                   SAVE & ADD ANOTHER</button>
