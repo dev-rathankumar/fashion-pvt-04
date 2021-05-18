@@ -477,8 +477,12 @@ def orderDetail(request, pk=None):
 #         supplier = Business.objects.get(regional_manager=regional_manager, business_id=business.business_id)
 #     except:
 #         supplier = None
-#
+
 #     context = {
 #         'supplier': supplier,
 #     }
 #     return render(request, 'regional_managers/supplier.html', context)
+
+def demo(request):
+    return HttpResponse('pull request')
+#
