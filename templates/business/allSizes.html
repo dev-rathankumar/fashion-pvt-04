@@ -1,6 +1,6 @@
 {% extends 'business/base.html' %}
 {% load static %}
-{% block title %} All Banners {% endblock %}
+{% block title %} Variant Sizes {% endblock %}
 
 {% block content %}
 
@@ -16,7 +16,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">All Banners</h4>
+            <h4 class="mb-0 font-size-18">Variant Sizes</h4>
 
 
 
@@ -29,10 +29,9 @@
         <div class="col-12">
           <div class="card">
 
-            {% if not banners %}
-            <h2 class="text-center" style="padding:25px;">You do not have any banners</h2>
-            <div class="text-sm-center" style="padding-bottom:25px;">
-              <a href="{% url 'addBanner' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Banner</a>
+            {% if not sizes %}
+            <div class="text-sm-right" style="padding-bottom:25px;padding-top:25px;">
+              <a href="{% url 'addSize' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add Size</a>
             </div>
             {% else %}
             <div class="card-body">
@@ -47,7 +46,7 @@
                 </div>
                 <div class="col-sm-8">
                   <div class="text-sm-right">
-                    <a href="{% url 'addBanner' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Banner</a>
+                    <a href="{% url 'addSize' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add Size</a>
                   </div>
                 </div><!-- end col-->
               </div>
@@ -63,63 +62,27 @@
                           <label class="custom-control-label" for="customCheck1">&nbsp;</label>
                         </div>
                       </th> -->
-                      <th>Banner Image</th>
-                      <th>Title</th>
-                      <th>Sub Title</th>
-                      <th>Button Name</th>
-                      <th>Button Color</th>
-                      <th>Content Alignment</th>
-                      <th>Preview</th>
+                      <th>Size</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {% for banner in banners %}
+
+
+                    {% for size in sizes %}
                     <tr>
 
                       <td>
-                        <img src="{{ banner.banner_image.url }}" alt="Banner Image" width="200">
-                      </td>
-                      <td style="max-width:300px;">{{banner.title}}</td>
-                      <td style="max-width:300px;">
-                        {% if banner.sub_title == None %}
-                          NA
-                        {% else %}
-                        {{banner.sub_title}}
-                        {% endif %}
-                      </td>
-                      <td>
-                        {% if banner.button_name == None %}
-                          NA
-                        {% else %}
-                        {{banner.button_name}}
-                        {% endif %}
-                      </td>
-                      <td>
-                        {% if banner.button_color == None %}
-                          NA
-                        {% else %}
-                        <div style="width:50px;height:25px;background-color:{{banner.button_color}};"></div>
-                        {% endif %}
-                      </td>
-                      <td>
-                        {{banner.content_align | capfirst }}
-                      </td>
-                      <td>
-                        <a href="http://{{domain}}/" target="_blank" class="btn btn-primary btn-sm btn-rounded">
-                          Preview
-                        </a>
+                        {{size.name}}
                       </td>
 
                       <td>
-                        <a href="{% url 'editBanner' banner.id %}" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
-                        <a href="{% url 'deleteBanner' banner.id %}" onclick="return confirm('Are you sure you want to delete this banner?')" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i
+                        <a href="{% url 'editSize' size.id %}" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
+                        <a href="{% url 'deleteSize' size.id %}" onclick="return confirm('Are you sure you want to delete this size?')" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i
                             class="mdi mdi-close font-size-18"></i></a>
                       </td>
                     </tr>
                     {% endfor %}
-
-
                   </tbody>
                 </table>
               </div>

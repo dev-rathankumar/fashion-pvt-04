@@ -20,8 +20,8 @@ import time
 import json
 from django.contrib import messages
 from .forms import UserForm, BusinessForm, ProductForm, ProductGalleryForm, ProductVariantForm
-from .forms import CategoryForm, OrderForm, TaxSettingForm
-from products.models import Product, ProductGallery, Variants, ReviewRating
+from .forms import CategoryForm, OrderForm, TaxSettingForm, ColorForm, SizeForm
+from products.models import Product, ProductGallery, Variants, ReviewRating, Color, Size
 from django.forms import inlineformset_factory
 from django import forms
 from django.template.defaultfilters import slugify
@@ -279,7 +279,7 @@ def paymentSettings(request, pk=None):
 @business_required(login_url="userLogin")
 def allProducts(request):
     business = get_object_or_404(Business, pk=request.user.id)
-    products = Product.objects.filter(business=business, is_active=True).order_by('-created_date')
+    products = Product.objects.filter(business=business).order_by('-created_date')
     paginator = Paginator(products, 10)
     page = request.GET.get('page')
     paged_products = paginator.get_page(page)
@@ -913,3 +913,121 @@ def toggleApproval(request, pk=None):
         return HttpResponse('true')
     else:
         return HttpResponse('false')
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def allColors(request):
+    colors = Color.objects.all()
+    context = {
+        'colors': colors,
+    }
+    return render(request, 'business/allColors.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def allSizes(request):
+    sizes = Size.objects.all()
+    context = {
+        'sizes': sizes,
+    }
+    return render(request, 'business/allSizes.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def addColor(request):
+    if request.method == 'POST':
+        form = ColorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Color Added Successfully')
+            return redirect('allColors')
+        else:
+            print(form.errors)
+
+    form = ColorForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/addColor.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def addSize(request):
+    if request.method == 'POST':
+        form = SizeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Size Added Successfully')
+            return redirect('allSizes')
+        else:
+            print(form.errors)
+
+    form = SizeForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/addSize.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def editColor(request, pk=None):
+    color = get_object_or_404(Color, pk=pk)
+    if request.method == 'POST':
+        form = ColorForm(request.POST, instance=color)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Color Added Successfully')
+            return redirect('allColors')
+        else:
+            print(form.errors)
+
+    form = ColorForm(instance=color)
+    context = {
+        'form': form,
+        'color': color,
+    }
+    return render(request, 'business/editColor.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def editSize(request, pk=None):
+    size = get_object_or_404(Size, pk=pk)
+    if request.method == 'POST':
+        form = SizeForm(request.POST, instance=size)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Size Added Successfully')
+            return redirect('allSizes')
+        else:
+            print(form.errors)
+
+    form = SizeForm(instance=size)
+    context = {
+        'form': form,
+        'size': size,
+    }
+    return render(request, 'business/editSize.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def deleteColor(request, pk=None):
+    color = get_object_or_404(Color, pk=pk)
+    color.delete()
+    messages.success(request, 'Color has been deleted.')
+    return redirect('allColors')
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def deleteSize(request, pk=None):
+    size = get_object_or_404(Size, pk=pk)
+    size.delete()
+    messages.success(request, 'Size has been deleted.')
+    return redirect('allSizes')
