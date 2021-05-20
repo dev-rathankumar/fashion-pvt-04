@@ -44,4 +44,6 @@ def email_list_subscribe(request):
                 form.save()
                 # messages.success(request, "Thank you for subscribing to our newsletters!")
                 return HttpResponse("Thank you for subscribing to our newsletters!")
+        else:
+            return HttpResponse('Known bug. Email address field conflict in this page. Check another page')
     return redirect(request.META.get("HTTP_REFERER"))
