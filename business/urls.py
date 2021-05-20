@@ -69,6 +69,14 @@ urlpatterns = [
     path('review-ratings/', views.allReviewRatings, name='allReviewRatings'),
     path('review-ratings/toggleApproval/<int:pk>/', views.toggleApproval, name='toggleApproval'),
 
-
+    # Manage Variants
+    path('colors/', views.allColors, name='allColors'),
+    path('sizes/', views.allSizes, name='allSizes'),
+    path('colors/addColor/', views.addColor, name='addColor'),
+    path('sizes/addSize/', views.addSize, name='addSize'),
+    path('colors/editColor/<int:pk>/', views.editColor, name='editColor'),
+    path('sizes/editSize/<int:pk>/', views.editSize, name='editSize'),
+    path('colors/deleteColor/<int:pk>/', views.deleteColor, name='deleteColor'),
+    path('sizes/deleteSize/<int:pk>/', views.deleteSize, name='deleteSize'),
 
 ]

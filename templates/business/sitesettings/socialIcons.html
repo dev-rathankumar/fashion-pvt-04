@@ -30,9 +30,9 @@
           <div class="card">
 
             {% if not social_icons %}
-            <h2 class="text-center" style="padding:25px;">You do not added any Social Icons yet</h2>
+            <h2 class="text-center" style="padding:25px;">You have not added any Social Icons yet</h2>
             <div class="text-sm-center" style="padding-bottom:25px;">
-              <a href="{% url 'addBanner' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Icon</a>
+              <a href="{% url 'addIcon' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Icon</a>
             </div>
             {% else %}
             <div class="card-body">

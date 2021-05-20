@@ -34,6 +34,13 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body" style="padding: 1.25rem 3rem 1.25rem 3rem;">
+
+              {% if not categories %}
+              <h2 class="text-center" style="padding:25px;">You do not have any category</h2>
+              <div class="text-sm-center" style="padding-bottom:25px;">
+                <a href="{% url 'addCategory' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Category</a>
+              </div>
+              {% else %}
               <div class="row mb-2">
                 <div class="col-sm-4">
                   <div class="search-box mr-2 mb-2 d-inline-block">
@@ -69,6 +76,7 @@
               </div>
               {% endrecursetree %}
 
+        {% endif %}
             </div>
           </div>
 

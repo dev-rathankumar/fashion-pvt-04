@@ -43,6 +43,18 @@
         </li>
 
         <li>
+          <a href="javascript: void(0);" class="has-arrow waves-effect
+                    {% if '/colors/' in request.path or '/sizes/' in request.path %} active {% else %} {% endif %}">
+            <i class="bx bx-palette"></i>
+            <span key="t-ecommerce">Product Variants</span>
+          </a>
+          <ul class="sub-menu" aria-expanded="false">
+            <li><a href="{% url 'allColors' %}" key="t-products" {% if 'colors' in request.path or 'addColor' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Colors</a></li>
+            <li><a href="{% url 'allSizes' %}" key="t-product-detail" {% if '/sizes/' in request.path or 'addSize' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Sizes</a></li>
+          </ul>
+        </li>
+
+        <li>
           <a href="/business/orders" {% if 'orders' in request.path or 'editOrder' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>
             <i class="bx bxs-cart"></i>
             <span>Manage Orders</span>
