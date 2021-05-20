@@ -748,12 +748,15 @@ def planPurchaseHistory(request):
     current_plan = Plan.objects.get(pk=business.plan_id)
     # Check if plan expired
     exp_date = datetime.datetime.strptime(str(account_expiry_date), '%Y-%m-%d')
+    print(exp_date)
     get_today = date.today()
     today = datetime.datetime.strptime(str(get_today), '%Y-%m-%d')
-    if today > exp_date:
+    print(today)
+    if today < exp_date:
         is_expired = False
     else:
         is_expired = True
+    print(is_expired)
     context = {
         'plan_orders': plan_orders,
         'account_expiry_date': account_expiry_date,
