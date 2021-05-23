@@ -11,9 +11,13 @@ class BillingUserInfoForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'email', 'phone_number']
 
 
+
 class BillingCustomerInfoForm(forms.ModelForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={
     }), label="Email")
+    address_line_1 = forms.CharField(required=True,)
+    city = forms.CharField(required=True,)
+    pin_code = forms.CharField(required=True,)
 
     class Meta:
         model = Customer

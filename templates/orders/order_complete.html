@@ -159,11 +159,18 @@
               <td align="center" style="padding: 20px; background-color: #ececec;" bgcolor="#ececec">
                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;margin-bottom:0;">
                   <tr>
-                    <td align="center"> <img src="{% static 'images/avon-logo.svg' %}" width="90" style="display: block; border: 0px;" /> </td>
+                    <td align="center">
+
+                     {% if header.site_logo %}
+                      <img src="{{ header.site_logo.url }}" alt="{{ header.site_title }}" title="{{ header.site_title }}" style="max-width:250px;" />
+                     {% else %}
+                      <img src="{% static 'images/default-images/logo.png' %}" alt="Logo" />
+                     {% endif %}
+                    </td>
                   </tr>
                   <tr>
                     <td align="center" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 24px; padding: 5px 0 0 0;">
-                      <p style="font-size: 12px; font-weight: 400; line-height: 18px; color: #333333;"> 675 Parko Avenue LA, CA 02232 </p>
+                      <p style="font-size: 12px; font-weight: 400; line-height: 18px; color: #333333;"> {{business.address_line_1}}, {{business.address_line_2}}, {{business.city}} - {{business.pin_code}}, {{business.state}} </p>
                     </td>
                   </tr>
                 </table>
