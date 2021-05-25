@@ -35,11 +35,32 @@
               </div>
               <div id="slider-range"></div>
               <div class="row">
-                <div class="col-6">
-                  <p class="no-margin" style="display:inline-flex;"><input id="min-price" name="min-price" type="text"><input id="max-price" name="max-price" type="text"></p>
+                <div class="col-12">
+                  <select name="price" class="w-100" >
+                    <option value="">Select Price Range</option>
+                    <option value="0-200">Below $200</option>
+                    <option value="200-400">$200 to $400</option>
+                    <option value="400-600">$400 to $600</option>
+                    <option value="600-1500">Above $600</option>
+                 </select>
+
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-6">
+                      <input type="number" name="min-custom-price" placeholder="Min Price" min="0">
+                    </div>
+                    <div class="col-6">
+                      <input type="number" name="max-custom-price" placeholder="Max Price" min="0">
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+
 
             <!--End Price Filter-->
             <!--Size Swatches-->
