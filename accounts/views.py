@@ -51,19 +51,29 @@ def userRegister(request):
                     user.is_customer = True
                     user.profile_picture="default/default-user.png"
                     user.save()
-                    # Send account verification email
                     current_site = get_current_site(request)
+                    business = Business.objects.get(domain_name=current_site.domain)
+                    header = Header.objects.get(business=business)
+                    support_email = business.user.email
+                    # print('business', )
+                    # print('header',header.site_logo)
+                    # return HttpResponse('Stopping code')
+                    # Send account verification email
+
                     mail_subject = 'Activate your account.'
                     message = render_to_string('accounts/acc_active_email.html', {
                         'user': user,
                         'domain': current_site.domain,
                         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                         'token': default_token_generator.make_token(user),
+                        'header': header,
+                        'support_email': support_email,
                     })
                     to_email = email
                     email = EmailMessage(
                         mail_subject, message, to=[to_email]
                     )
+                    email.content_subtype = "html"
                     email.send()
                     messages.warning(request, 'Please confirm your email address to complete the registration')
                     return redirect('userLogin')
@@ -189,17 +199,24 @@ def forgotPassword(request):
         if User.objects.filter(email=email).exists():
             user = User.objects.get(email__exact=email)
             current_site = get_current_site(request)
+            business = Business.objects.get(domain_name=current_site.domain)
+            header = Header.objects.get(business=business)
+            support_email= business.user.email
             mail_subject = 'Reset Your Password'
             message = render_to_string('accounts/reset_password_email.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': default_token_generator.make_token(user),
+                'header': header,
+                'support_email':support_email,
+
             })
             to_email = email
             email = EmailMessage(
                 mail_subject, message, to=[to_email]
             )
+            email.content_subtype = "html"
             email.send()
             messages.warning(request, 'Password reset link has been sent to your email address.')
             return redirect('userLogin')
@@ -236,6 +253,12 @@ def resetPassword(request):
             uid = request.session.get('uid')
             user = User.objects.get(pk=uid)
             user.set_password(password)
+            if user.is_customer == True and user.is_active == False:
+                user.is_active = True
+                # Automatically Create Customer
+                customer = Customer()
+                customer.user = user
+                customer.save()
             user.save()
             messages.success(request, 'Password reset successful')
             return redirect('userLogin')
