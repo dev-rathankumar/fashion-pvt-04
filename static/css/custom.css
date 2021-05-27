@@ -103,7 +103,7 @@ label.var_color{
 
 [type=checkbox]:checked + .filter_size{
         box-shadow: 2px 2px 2px 2px black;
-        border-radius: 50px !important;
+
 }
 .var_color input.filter_color_input{
     display:none;
@@ -143,8 +143,8 @@ label.var_color{
     padding-right: 0;
 }
 /* Click + hover color */
-input:checked ~ label, /* color current and previous stars on checked */
-label:hover, label:hover ~ label { color: #ffb503;  } /* color previous stars on hover */
+.new-review-form input:checked ~ label, /* color current and previous stars on checked */
+.new-review-form label:hover, .new-review-form label:hover ~ label { color: #ffb503;  } /* color previous stars on hover */
 
 /* Hover highlights */
 input:checked + label:hover, input:checked ~ label:hover, /* highlight current and previous stars */
@@ -230,4 +230,8 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 }
 .social-icons a:hover{
   color: #000000 !important;
+}
+
+.filter-widget .widget-title:after{
+  content: unset !important;
 }

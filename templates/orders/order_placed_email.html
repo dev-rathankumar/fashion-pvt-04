@@ -1,21 +1,19 @@
-{% extends 'base.html' %}
-{% block title %} Order Confirmation {% endblock %}
-{% block content %}
 {% load static %}
-{% load humanize %}
 
-<div id="page-content">
-  <!--Body Container-->
-  <!--Breadcrumbs-->
-  <div class="breadcrumbs-wrapper">
-    <div class="container">
-      <div class="breadcrumbs"><a href="{% url 'shop' %}" title="Go back to shop page"><i class="fa fa-chevron-left" style="font-size:11px;"></i> Back to Shop</a></div>
-    </div>
-  </div>
-  <!--End Breadcrumbs-->
-  <!--Page Title with Image-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
-  <!--End Page Title with Image-->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="x-apple-disable-message-reformatting">
+  <!--[if !mso]><!-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--<![endif]-->
+  <title></title>
+</head>
+<body class="clean-body" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #ffffff">
+
   <div class="container">
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr>
@@ -32,7 +30,7 @@
                     </tr>
                   </table>
                 </div>
-
+  
               </td>
             </tr>
             <tr>
@@ -46,10 +44,8 @@
                   </tr>
                   <tr>
                     <td align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 24px; padding-top: 10px;">
-                      <p>Transaction ID : {{transaction_id}}</p>
-                      <p style="font-size: 12px; font-weight: 400; line-height: 18px; color: #777777;"><span style="font-size:12px;font-weight:800;">Hello {{user.first_name}},</span><br> Thank you for shopping with us. We'll send a confirmation email
-                        once your item has shipped.
-                        Your Order details are indicated below. The payment details of your transaction can be found on the order invoice.</p>
+                      <p>Transaction ID : {{order.payment}}</p>
+                      <p style="font-size: 12px; font-weight: 400; line-height: 18px; color: #777777;"><span style="font-size:12px;font-weight:800;">Hello {{order.user.first_name}},</span><br> Thank you for shopping with us. Here's your order details.</p>
                     </td>
                   </tr>
                   <tr>
@@ -60,7 +56,7 @@
                           <td width="0%" align="left" bgcolor="#ffffff" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"></td>
                           <td width="25%" align="left" bgcolor="#ffffff" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> {{order_number}} </td>
                         </tr>
-
+  
                         <tr>
                           <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><b>Purchased Items</b></td>
                           <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><b>Qty</b></td>
@@ -68,11 +64,14 @@
                         </tr>
                         {% for item in ordered_products %}
                         <tr>
-                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> {{ item.variant.title }} </td>
+                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> {{ item.variant.title }} 
+                            <p style="font-size: 10px;">{{item.color}} | {{item.size}}</p>
+                          </td>
                           <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><span class="cart__meta-text"
                               style="font-size:10px !important;">( ${{ item.variant.price }} ) </span> x {{ item.quantity }} </td>
                           <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> ${{ item.amount }} </td>
                         </tr>
+                        
                         {% endfor %}
                       </table>
                     </td>
@@ -85,29 +84,16 @@
                           <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size:12px; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> ${{subtotal}} </td>
                         </tr>
                         <tr>
-                          <!-- <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text">
-                            {% for key, value in order.tax_data.items %}
-                            {% for i, j in value.items %}
-                            {{key}} ({{i}}%)<br>
-                            {% endfor %}
-                            {% endfor %}
-                          </td>
-                          <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text">
-                            {% for key, value in order.tax_data.items %}
-                            {% for i, j in value.items %}
-                            ${{j}}<br>
-                            {% endfor %}
-                            {% endfor %}
-                          </td> -->
-
+                         
+  
                           <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size:12px; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> Tax </td>
                           <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size:12px; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> ${{order.tax}} </td>
-
-
+  
+  
                         </tr>
-
-
-
+  
+  
+  
                         <tr>
                           <td width="75%" align="left"
                             style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 20px; padding: 0px 10px 0px 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;"> TOTAL </td>
@@ -151,7 +137,7 @@
                       </a>
                     </td>
                   </tr>
-
+  
                 </table>
               </td>
             </tr>
@@ -160,9 +146,9 @@
                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;margin-bottom:0;">
                   <tr>
                     <td align="center">
-
+  
                      {% if header.site_logo %}
-                      <img src="{{ header.site_logo.url }}" alt="{{ header.site_title }}" title="{{ header.site_title }}" style="max-width:250px;" />
+                      <img src="http://{{ domain }}{{ header.site_logo.url }}" alt="{{ header.site_title }}" title="{{ header.site_title }}" style="max-width:250px;" />
                      {% else %}
                       <img src="{% static 'images/default-images/logo.png' %}" alt="Logo" />
                      {% endif %}
@@ -182,10 +168,5 @@
     </table>
     <!--End Main Content-->
   </div>
-  <!--End Body Container-->
+</body>
 
-</div>
-<!--End Page Wrapper-->
-<!--End Page Wrapper-->
-
-{% endblock %}

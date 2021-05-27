@@ -108,7 +108,12 @@ $(document).ready(function(){
     var value = $(this).val().toLowerCase();
     $("#myTable tr").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      
+
     });
   });
 });
+
+$(document).ready(function()){
+  // $("#id_country").prop("required", true);
+  $("#id_country").attr("required", "required");
+}
