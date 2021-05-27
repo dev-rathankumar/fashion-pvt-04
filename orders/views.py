@@ -1,5 +1,9 @@
+from sitesettings.models import Footer, Header
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail.message import EmailMessage
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
+from django.template.loader import render_to_string
 from carts.models import ShopCart, Tax, TaxSetting
 from products.models import Product
 from .models import OrderForm, Order, OrderProduct, Payment
@@ -65,14 +69,38 @@ def payments(request):
 
     ShopCart.objects.filter(user_id=request.user.id).delete() # Clear & Delete shopcart
     request.session['cart_items'] = 0
-    email_host_user = settings.EMAIL_HOST_USER
-    send_mail(
-            'Thank you for your order!',
-            'Your order has been recieved.',
-            email_host_user,
-            [order.email],
-            fail_silently=False,
-        )
+    # email_host_user = settings.EMAIL_HOST_USER
+    # send_mail(
+    #         'Thank you for your order!',
+    #         'Your order has been recieved.',
+    #         email_host_user,
+    #         [order.email],
+    #         fail_silently=False,
+    #     )
+
+    current_site = get_current_site(request)
+    business = Business.objects.get(domain_name=current_site.domain)
+    header = Header.objects.get(business=business)
+    footer = Footer.objects.get(business=business)
+    support_email = business.user.email
+    mail_subject = 'Thank you for your order!'
+    message = render_to_string('orders/order_placed_email.html', {
+        'order': order,
+        'business': business,
+        'header': header,
+        'footer': footer,
+        'support_email': support_email,
+        'ordered_products': ordered_products,
+        'domain': current_site.domain,
+        'subtotal': subtotal,
+        'payment': payment,
+    })
+    to_email = order.user.email
+    email = EmailMessage(
+        mail_subject, message, to=[to_email]
+    )
+    email.content_subtype = "html"
+    email.send()
 
     context = {
         'order_number': order.order_number,
