@@ -219,6 +219,10 @@ class Business(models.Model):
         verbose_name = 'business'
         verbose_name_plural = 'businesses'
 
+    @property
+    def full_address(self):
+        return f'{self.address_line_1} {self.address_line_2}'
+
     # Override save method
     def save(self, *args, **kwargs):
         if self.is_editing == False and self.is_verification_email_sent == False:

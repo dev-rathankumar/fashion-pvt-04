@@ -99,6 +99,7 @@ TEMPLATES = [
                 'products.context_processors.search_products',
                 'accounts.context_processors.get_sitesettings',
                 'pages.context_processors.social_media_links',
+                'pages.context_processors.address',
             ],
         },
     },

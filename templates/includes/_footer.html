@@ -13,9 +13,17 @@
 <img src="{% static 'images/default-images/logo.png' %}" alt="Logo" />
           {% endif %}
 
-          <p>55 Gallaxy Enque,<br>2568 steet, 23568 NY</p>
-          <p><b>Phone</b>: (440) 000 000 0000</p>
-          <p><b>Email</b>: <a href="mailto:sales@yousite.com">sales@yousite.com</a></p>
+          <p class="mb-0">{{business.company_name}}</p>
+          {% if contact_page.full_address %}
+          <p class="mb-0">{{contact_page.full_address}}</p>
+          <p class="mb-0"><b>Phone</b>: <a href="tel:{{contact_page.phone_number}}">{{contact_page.phone_number}}</a></p>
+          <p class="mb-0"><b>Email</b>: <a href="mailto:{{contact_page.email}}">{{contact_page.email}}</a></p>
+          {% else %}
+          <p class="mb-0">{{business.full_address}}</p>
+          <p class="mb-0"><b>Phone</b>: {{business.user.phone_number}}</p>
+          <p class="mb-0"><b>Email</b>: <a href="mailto:{{business.user.email}}">{{business.user.email}}</a></p>
+          {% endif %}
+
           <ul class="list--inline social-icons">
             {% for icon in social_icons %}
             <li><a href="{{icon.link}}" target="_blank"><i class="{{icon.icon.style}} fa-{{icon.icon.icon}} {{icon.icon.extra}}" aria-hidden="true" style="font-size:20px;"></i></a></li>
