@@ -1,5 +1,7 @@
-from sitesettings.models import SocialMediaLink
+from django.http import HttpResponse
+from sitesettings.models import ContactPage, SocialMediaLink
 from urllib.parse import urlparse
+from accounts.models import Business
 
 
 def social_media_links(request):
@@ -28,3 +30,18 @@ def social_media_links(request):
 #         except Wishlist.DoesNotExist:
 #             wish_count = 0
 #     return dict(wish_count=wish_count)
+
+
+def address(request):
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    try:
+        business = Business.objects.get(domain_name=domain)
+    except:
+        business = None
+    if business is None:
+        return HttpResponse('<h3>Please assign a business to proceed!</h3>')
+    contact_page = ContactPage.objects.get(business=business)
+
+    return dict(contact_page=contact_page)
+
