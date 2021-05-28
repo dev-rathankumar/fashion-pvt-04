@@ -37,11 +37,8 @@ def address(request):
     domain = urlparse(url).netloc
     try:
         business = Business.objects.get(domain_name=domain)
+        contact_page = ContactPage.objects.get(business=business)
+        return dict(contact_page=contact_page)
     except:
-        business = None
-    if business is None:
-        return HttpResponse('<h3>Please assign a business to proceed!</h3>')
-    contact_page = ContactPage.objects.get(business=business)
-
-    return dict(contact_page=contact_page)
+        return {}
 

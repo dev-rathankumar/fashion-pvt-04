@@ -22,7 +22,7 @@ $(document).on('submit', '#changePassword', function(e) {
       if (data == 'success') {
         document.getElementById("submit").innerHTML = "Change";
         $('#result').delay(10000).fadeOut('slow');
-        $(location).attr('href', '/regional_managers/login/')
+        $(location).attr('href', '/userLogin/')
       }
       else{
         $('#result').addClass('alert alert-danger');
@@ -66,7 +66,7 @@ $(document).on('submit', '#biz_changePassword', function(e) {
       if (data == 'success') {
         document.getElementById("submit").innerHTML = "Change";
         $('#result').delay(10000).fadeOut('slow');
-        $(location).attr('href', '/business/login/')
+        $(location).attr('href', 'userLogin')
       }
       else{
         $('#result').addClass('alert alert-danger');
