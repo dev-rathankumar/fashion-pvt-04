@@ -321,11 +321,11 @@
 
             <!-- End Product Action -->
             <!-- </form> -->
-            <div class="trustseal-img"><img src="assets/images/checkout-cards.png" alt=""></div>
-            <p id="freeShipMsg" class="freeShipMsg" data-price="199"><i class="fa fa-truck" aria-hidden="true"></i> Getting Closer! Only <b class="freeShip"><span class="money" data-currency-usd="$199.00" data-currency="USD">$199.00</span></b> Away
+            
+            <!-- <p id="freeShipMsg" class="freeShipMsg" data-price="199"><i class="fa fa-truck" aria-hidden="true"></i> Getting Closer! Only <b class="freeShip"><span class="money" data-currency-usd="$199.00" data-currency="USD">$199.00</span></b> Away
               From <b>FREE SHIPPING!</b></p>
-            <p class="shippingMsg"><i class="fa fa-clock-o" aria-hidden="true"></i> Estimated Delivery Between <b id="fromDate">Wed. May 1</b> and <b id="toDate">Tue. May 7</b>.</p>
-
+            <p class="shippingMsg"><i class="fa fa-clock-o" aria-hidden="true"></i> Estimated Delivery Between <b id="fromDate">Wed. May 1</b> and <b id="toDate">Tue. May 7</b>.</p> -->
+<br><br>
             <!-- Inquiry modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="width:100%;">
               Send an Inquiry
@@ -427,196 +427,129 @@
       </div>
     </div>
 
-    <!--Product Tabs-->
-    <div class="tabs-listing" id="tabs-listing">
-      <ul class="product-tabs">
-        <li rel="tab1" class="active"><a class="tablink">Product Details</a></li>
-        <li rel="tab2"><a class="tablink">Reviews</a></li>
-        <li rel="tab3"><a class="tablink">Size Chart</a></li>
-        <li rel="tab4"><a class="tablink">Shipping &amp; Returns</a></li>
-      </ul>
-      <div class="tab-container">
-        <h3 class="tabs-ac-style active" rel="tab1">Product Details</h3>
-        <div id="tab1" class="tab-content">
-          <div class="product-description rte">
-            {{single_product.full_specification | safe}}
-          </div>
-        </div>
-
-
-        <h3 class="tabs-ac-style" rel="tab2">Review</h3>
-        <div id="tab2" class="tab-content">
-          <div class="row">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
-              <div class="spr-form clearfix">
-                <form method="post" action="{% url 'submit_review' single_product.id %}" id="new-review-form" class="new-review-form">
-                  {% csrf_token %}
-                  <h3 class="spr-form-title">Write Your Review</h3>
-                  <fieldset class="spr-form-contact">
-                    <div class="spr-form-review-rating">
-                      <label class="spr-form-label">How do you rate this product?<span class="required">*</span></label>
-                      <!-- Rating -->
-                      <div class="rate">
-                        <input type="radio" id="rating10" name="rating" value="5" required /><label for="rating10" title="5"></label>
-                        <input type="radio" id="rating9" name="rating" value="4.5" required /><label class="half" for="rating9" title="4.5"></label>
-                        <input type="radio" id="rating8" name="rating" value="4" required /><label for="rating8" title="4"></label>
-                        <input type="radio" id="rating7" name="rating" value="3.5" required /><label class="half" for="rating7" title="3.5"></label>
-                        <input type="radio" id="rating6" name="rating" value="3" required /><label for="rating6" title="3"></label>
-                        <input type="radio" id="rating5" name="rating" value="2.5" required /><label class="half" for="rating5" title="2.5"></label>
-                        <input type="radio" id="rating4" name="rating" value="2" required /><label for="rating4" title="2"></label>
-                        <input type="radio" id="rating3" name="rating" value="1.5" required /><label class="half" for="rating3" title="1.5"></label>
-                        <input type="radio" id="rating2" name="rating" value="1" required /><label for="rating2" title="1"></label>
-                        <input type="radio" id="rating1" name="rating" value="0.5" required /><label class="half" for="rating1" title="0.5"></label>
-                      </div>
-
-
-                    </div>
-                  </fieldset>
-                  <fieldset class="spr-form-review">
-                    <div class="spr-form-review-title">
-                      <label class="spr-form-label" for="review">Review Title</label>
-                      <input class="spr-form-input spr-form-input-text " id="subject" type="text" name="subject" value="">
-                    </div>
-
-                    <div class="spr-form-review-body">
-                      <label class="spr-form-label" for="review">Review</label>
-                      <div class="spr-form-input">
-                        <textarea class="spr-form-input spr-form-input-textarea" id="review" name="review" rows="5"></textarea>
-                      </div>
-                    </div>
-                  </fieldset>
-                  {% if user.is_authenticated %}
-                  <div class="spr-form-actions">
-                    <input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Submit Review">
-                  </div>
-                  {% else %}
-                  <p>You must be logged in to post a review. <span><a href="{% url 'userLogin' %}"><u>Login now</u></a></span></p>
-
-                  {% endif %}
-                </form>
-              </div>
-            </div>
-
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-              <div class="spr-reviews">
-                <h3 class="spr-form-title">Customer Reviews ( <span class="product-review spr-starratings spr-review-header-starratings">
-                    <span class="reviewLink">
-                      <i class="font-13 fa fa-star{% if single_product.avaregereview < 0.5 %}-o{% elif single_product.avaregereview >= 0.5 and single_product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
-                      <i class="font-13 fa fa-star{% if single_product.avaregereview < 1.5 %}-o{% elif single_product.avaregereview >= 1.5 and single_product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
-                      <i class="font-13 fa fa-star{% if single_product.avaregereview < 2.5 %}-o{% elif single_product.avaregereview >= 2.5 and single_product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
-                      <i class="font-13 fa fa-star{% if single_product.avaregereview < 3.5 %}-o{% elif single_product.avaregereview >= 3.5 and single_product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
-                      <i class="font-13 fa fa-star{% if single_product.avaregereview < 4.5 %}-o{% elif single_product.avaregereview >= 4.5 and single_product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
-                    </span>
-                    {{ single_product.avaregereview}}/{{ single_product.countreview}}
-                  </span> <span style="font-size:14px; text-transform:lowercase;">reviews</span> )</h3>
-
-                {% if not reviews %}
-                <h6 style="margin-top:30px;">Be the first to review this product.</h6>
-                {% else %}
-
-                <div class="review-inner">
-                  {% for review in reviews %}
-                  <div class="spr-review">
-                    <div class="spr-review-header">
-
-                      <span class="product-review spr-starratings spr-review-header-starratings">
-                        <span class="reviewLink">
-                          <i class="font-13 fa fa-star{% if review.rating == 0.5 %}-half-o{% elif review.rating < 1 %}-o empty{% endif %}"></i>
-                          <i class="font-13 fa fa-star{% if review.rating == 1.5 %}-half-o{% elif review.rating < 2 %}-o empty{% endif %}"></i>
-                          <i class="font-13 fa fa-star{% if review.rating == 2.5 %}-half-o{% elif review.rating < 3 %}-o empty{% endif %}"></i>
-                          <i class="font-13 fa fa-star{% if review.rating == 3.5 %}-half-o{% elif review.rating < 4 %}-o empty{% endif %}"></i>
-                          <i class="font-13 fa fa-star{% if review.rating == 4.5 %}-half-o{% elif review.rating < 5 %}-o empty{% endif %}"></i>
-                        </span>
-                      </span>
-
-                      <h3 class="spr-review-header-title">{{review.subject}}</h3>
-                      <span class="spr-review-header-byline"><strong>{{review.user.name}}</strong> on <strong>{{review.update_at}}</strong></span>
-                    </div>
-                    <div class="spr-review-content">
-                      <p class="spr-review-content-body">{{ review.review }}</p>
-                    </div>
-                  </div>
-                  {% endfor %}
-                </div>
-                {% endif %}
-              </div>
+    <div class="container" >
+      <div class="row" style="margin-top: 50px;">
+        <div class="col-md-12">
+          <h3>PRODUCT DETAILS</h3>
+          <div style="margin-top: 20px;">
+            <div class="product-description rte">
+              {{single_product.full_specification | safe}}
             </div>
           </div>
         </div>
-
-        <h3 class="tabs-ac-style" rel="tab3">Size Chart</h3>
-        <div id="tab3" class="tab-content">
-          <h3>Women's Body Sizing Chart</h3>
-          <table>
-            <tbody>
-              <tr>
-                <th>Size</th>
-                <th>XS</th>
-                <th>S</th>
-                <th>M</th>
-                <th>L</th>
-                <th>XL</th>
-              </tr>
-              <tr>
-                <td>Chest</td>
-                <td>31" - 33"</td>
-                <td>33" - 35"</td>
-                <td>35" - 37"</td>
-                <td>37" - 39"</td>
-                <td>39" - 42"</td>
-              </tr>
-              <tr>
-                <td>Waist</td>
-                <td>24" - 26"</td>
-                <td>26" - 28"</td>
-                <td>28" - 30"</td>
-                <td>30" - 32"</td>
-                <td>32" - 35"</td>
-              </tr>
-              <tr>
-                <td>Hip</td>
-                <td>34" - 36"</td>
-                <td>36" - 38"</td>
-                <td>38" - 40"</td>
-                <td>40" - 42"</td>
-                <td>42" - 44"</td>
-              </tr>
-              <tr>
-                <td>Regular inseam</td>
-                <td>30"</td>
-                <td>30½"</td>
-                <td>31"</td>
-                <td>31½"</td>
-                <td>32"</td>
-              </tr>
-              <tr>
-                <td>Long (Tall) Inseam</td>
-                <td>31½"</td>
-                <td>32"</td>
-                <td>32½"</td>
-                <td>33"</td>
-                <td>33½"</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <h3 class="tabs-ac-style" rel="tab4">Shipping &amp; Returns</h3>
-        <div id="tab4" class="tab-content">
-          <h4>Returns Policy</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eros justo, accumsan non dui sit amet. Phasellus semper volutpat mi sed imperdiet. Ut odio lectus, vulputate non ex non, mattis sollicitudin purus. Mauris consequat justo a
-            enim interdum, in consequat dolor accumsan. Nulla iaculis diam purus, ut vehicula leo efficitur at.</p>
-          <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. In blandit nunc enim, sit amet pharetra erat aliquet ac.</p>
-          <h4>Shipping</h4>
-          <p>Pellentesque ultrices ut sem sit amet lacinia. Sed nisi dui, ultrices ut turpis pulvinar. Sed fringilla ex eget lorem consectetur, consectetur blandit lacus varius. Duis vel scelerisque elit, et vestibulum metus. Integer sit amet
-            tincidunt tortor. Ut lacinia ullamcorper massa, a fermentum arcu vehicula ut. Ut efficitur faucibus dui Nullam tristique dolor eget turpis consequat varius. Quisque a interdum augue. Nam ut nibh mauris.</p>
-        </div>
-
       </div>
-    </div>
-    <!--End Product Tabs-->
-    <!--Related Product Slider-->
 
-    <!--End Related Product Slider-->
+      <div class="row" style="margin-top: 50px;">
+        <div class="col-md-12">
+          <h3>REVIEWS</h3>
+          <div id="tab2" class="tab-content">
+            <div class="row">
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
+                <div class="spr-form clearfix">
+                  <form method="post" action="{% url 'submit_review' single_product.id %}" id="new-review-form" class="new-review-form">
+                    {% csrf_token %}
+                    <h3 class="spr-form-title">Write Your Review</h3>
+                    <fieldset class="spr-form-contact">
+                      <div class="spr-form-review-rating">
+                        <p class="spr-form-label">How do you rate this product?<span class="required">*</span></p>
+                        <!-- Rating -->
+                        <div class="rate">
+                          <input type="radio" id="rating10" name="rating" value="5" required /><label for="rating10" title="5"></label>
+                          <input type="radio" id="rating9" name="rating" value="4.5" required /><label class="half" for="rating9" title="4.5"></label>
+                          <input type="radio" id="rating8" name="rating" value="4" required /><label for="rating8" title="4"></label>
+                          <input type="radio" id="rating7" name="rating" value="3.5" required /><label class="half" for="rating7" title="3.5"></label>
+                          <input type="radio" id="rating6" name="rating" value="3" required /><label for="rating6" title="3"></label>
+                          <input type="radio" id="rating5" name="rating" value="2.5" required /><label class="half" for="rating5" title="2.5"></label>
+                          <input type="radio" id="rating4" name="rating" value="2" required /><label for="rating4" title="2"></label>
+                          <input type="radio" id="rating3" name="rating" value="1.5" required /><label class="half" for="rating3" title="1.5"></label>
+                          <input type="radio" id="rating2" name="rating" value="1" required /><label for="rating2" title="1"></label>
+                          <input type="radio" id="rating1" name="rating" value="0.5" required /><label class="half" for="rating1" title="0.5"></label>
+                        </div>
+  
+  
+                      </div>
+                    </fieldset>
+                    <fieldset class="spr-form-review">
+                      <div class="spr-form-review-title">
+                        <p class="spr-form-label" for="review">Review Title</p>
+                        <input class="spr-form-input spr-form-input-text " id="subject" type="text" name="subject" value="">
+                      </div>
+  
+                      <div class="spr-form-review-body">
+                        <p class="spr-form-label" for="review">Review</p>
+                        <div class="spr-form-input">
+                          <textarea class="spr-form-input spr-form-input-textarea" id="review" name="review" rows="5"></textarea>
+                        </div>
+                      </div>
+                    </fieldset>
+                    {% if user.is_authenticated %}
+                        {% if orderproduct %}
+                    <div class="spr-form-actions">
+                      <input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Submit Review">
+                    </div>
+                        {% else %}
+                        <p>You must purchase this product to write a review.</p>
+                        {% endif %}
+                    {% else %}
+                    <p>You must be logged in to post a review. <span><a href="{% url 'userLogin' %}"><u>Login now</u></a></span></p>
+  
+                    {% endif %}
+                  </form>
+                </div>
+              </div>
+  
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="spr-reviews">
+                  <h3 class="spr-form-title">Customer Reviews ( <span class="product-review spr-starratings spr-review-header-starratings">
+                      <span class="reviewLink">
+                        <i class="font-13 fa fa-star{% if single_product.avaregereview < 0.5 %}-o{% elif single_product.avaregereview >= 0.5 and single_product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if single_product.avaregereview < 1.5 %}-o{% elif single_product.avaregereview >= 1.5 and single_product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if single_product.avaregereview < 2.5 %}-o{% elif single_product.avaregereview >= 2.5 and single_product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if single_product.avaregereview < 3.5 %}-o{% elif single_product.avaregereview >= 3.5 and single_product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if single_product.avaregereview < 4.5 %}-o{% elif single_product.avaregereview >= 4.5 and single_product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                      </span>
+                      {{ single_product.avaregereview}}/{{ single_product.countreview}}
+                    </span> <span style="font-size:14px; text-transform:lowercase;">reviews</span> )</h3>
+  
+                  {% if not reviews %}
+                  <h6 style="margin-top:30px;">Be the first to review this product.</h6>
+                  {% else %}
+  
+                  <div class="review-inner">
+                    {% for review in reviews %}
+                    <div class="spr-review">
+                      <div class="spr-review-header">
+  
+                        <span class="product-review spr-starratings spr-review-header-starratings">
+                          <span class="reviewLink">
+                            <i class="font-13 fa fa-star{% if review.rating == 0.5 %}-half-o{% elif review.rating < 1 %}-o empty{% endif %}"></i>
+                            <i class="font-13 fa fa-star{% if review.rating == 1.5 %}-half-o{% elif review.rating < 2 %}-o empty{% endif %}"></i>
+                            <i class="font-13 fa fa-star{% if review.rating == 2.5 %}-half-o{% elif review.rating < 3 %}-o empty{% endif %}"></i>
+                            <i class="font-13 fa fa-star{% if review.rating == 3.5 %}-half-o{% elif review.rating < 4 %}-o empty{% endif %}"></i>
+                            <i class="font-13 fa fa-star{% if review.rating == 4.5 %}-half-o{% elif review.rating < 5 %}-o empty{% endif %}"></i>
+                          </span>
+                        </span>
+  
+                        <h3 class="spr-review-header-title">{{review.subject}}</h3>
+                        <span class="spr-review-header-byline"><strong>{{review.user.name}}</strong> on <strong>{{review.update_at}}</strong></span>
+                      </div>
+                      <div class="spr-review-content">
+                        <p class="spr-review-content-body">{{ review.review }}</p>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
   </div>
   <!--End Body Container-->
 

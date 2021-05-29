@@ -235,3 +235,6 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 .filter-widget .widget-title:after{
   content: unset !important;
 }
+.fa{
+  font: normal normal normal 14px/1 FontAwesome !important;
+}

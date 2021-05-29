@@ -10,6 +10,7 @@ from carts.models import ShopCart, ShopCartForm
 from django.db.models import Q
 from django.db.models import Max
 from urllib.parse import urlparse
+from orders.models import OrderProduct
 
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -109,6 +110,14 @@ def product_detail(request, category_slug, product_slug):
     except Compare.DoesNotExist:
         pass
 
+    if request.user.is_authenticated:
+        try:
+            orderproduct = OrderProduct.objects.filter(user=request.user, product_id=single_product.id).exists()
+        except OrderProduct.DoesNotExist:
+            orderproduct = None
+    else:
+        orderproduct = None
+    print(orderproduct)
     context = {
         'single_product': single_product,
         'gallery': gallery,
@@ -116,6 +125,7 @@ def product_detail(request, category_slug, product_slug):
         'is_added_to_compare': is_added_to_compare,
         'business': business,
         'captcha': str_num,
+        'orderproduct': orderproduct,
     }
 
     query = request.GET.get('q')
