@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.forms import ModelForm
 from ckeditor.fields import RichTextField
 from django.db.models import Avg, Count
+from colorfield.fields import ColorField
 
 # Image manipulation
 from io import BytesIO
@@ -98,7 +99,7 @@ class ProductGallery(models.Model):
 
 class Color(models.Model):
     name = models.CharField(max_length=20, unique=True)
-    code = models.CharField(max_length=10, blank=True, null=True)
+    code = ColorField(default='#000000')
 
     def __str__(self):
         return self.name

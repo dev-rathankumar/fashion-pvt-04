@@ -166,6 +166,7 @@ def forgotPassword(request):
                 email = EmailMessage(
                     mail_subject, message, to=[to_email]
                 )
+                email.content_subtype = "html"
                 email.send()
                 messages.warning(request, 'Password reset link has been sent to your email address.')
                 return redirect('userLogin')
@@ -479,7 +480,7 @@ def deleteCategory(request, pk=None):
 @business_required(login_url="userLogin")
 def allOrders(request):
     orders = Order.objects.filter(ordered=True).order_by('-created_at')
-    paginator = Paginator(orders, 10)
+    paginator = Paginator(orders, 5)
     page = request.GET.get('page')
     paged_orders = paginator.get_page(page)
     context = {
@@ -520,10 +521,28 @@ def editOrder(request, pk=None):
             subtotal += i.variant.price * i.quantity
     except Order.DoesNotExist:
         return redirect('allOrders')
-
+    current_status = order.status
     if request.method == 'POST':
         form = OrderForm(request.POST, instance=order)
         if form.is_valid():
+            changed_status = form.cleaned_data['status']
+            if changed_status != current_status:
+                # Send order update email
+                mail_subject = 'Your order has been '+changed_status
+                # current_site = get_current_site(request)
+                message = render_to_string('orders/order_status_email.html', {
+                    'user': order.user,
+                    # 'domain': current_site.domain,
+                    'changed_status': changed_status,
+                    'order': order,
+                })
+                to_email = order.user.email
+                email = EmailMessage(
+                    mail_subject, message, to=[to_email]
+                )
+                # email.content_subtype = "html"
+                email.send()
+                print('Current status was '+current_status +', '+ 'new status is '+ changed_status)
             form.save()
             messages.success(request, 'Order has been updated.')
             return redirect('allOrders')
@@ -922,8 +941,11 @@ def toggleApproval(request, pk=None):
 @business_required(login_url="userLogin")
 def allColors(request):
     colors = Color.objects.all()
+    paginator = Paginator(colors, 5)
+    page = request.GET.get('page')
+    paged_colors = paginator.get_page(page)
     context = {
-        'colors': colors,
+        'colors': paged_colors,
     }
     return render(request, 'business/allColors.html', context)
 
