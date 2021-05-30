@@ -40,6 +40,12 @@
 
     </div>
 
+    {% if account_expiry %}
+    <div class="d-flex text-danger">
+      <h5 class="text-danger">Your account is expired. Please <span><a href="{% url 'plans' %}" class="text-danger" style="text-decoration: underline !important;">activate your account</a></span> to resume the service.</h5>
+    </div>
+    {% endif %}
+
     <div class="d-flex">
 
 
