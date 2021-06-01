@@ -15,7 +15,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 from datetime import datetime, timedelta, date
-import datetime
+# import datetime
 import time
 import json
 from django.contrib import messages
@@ -35,7 +35,29 @@ from django.template.loader import render_to_string
 from carts.models import TaxSetting, Tax
 from sitesettings.forms import HeaderForm
 from contacts.models import Inquiry
+from urllib.parse import urlparse
 
+
+
+# Custom decorator to check if the business account expired or not
+def is_account_expired(func):
+    def wrapper(request, *args, **kwargs):
+        url = request.build_absolute_uri()
+        domain = urlparse(url).netloc
+        try:
+            business = Business.objects.get(domain_name=domain)
+            get_exp_date = business.account_expiry_date
+            exp_date = datetime.strptime(str(get_exp_date), '%Y-%m-%d')
+            get_today = date.today()
+            today = datetime.strptime(str(get_today), '%Y-%m-%d')
+            
+            if today > exp_date:
+                messages.error(request, "Your account is expired!")
+                return redirect('biz_dashboard')
+        except:
+            pass            
+        return func(request, *args, **kwargs)
+    return wrapper
 
 
 
@@ -64,9 +86,9 @@ def login(request):
             # Check for the expiry date
             biz = Business.objects.get(user__id=user.id)
             get_exp_date = biz.account_expiry_date
-            exp_date = datetime.datetime.strptime(str(get_exp_date), '%Y-%m-%d')
+            exp_date = datetime.strptime(str(get_exp_date), '%Y-%m-%d')
             get_today = date.today()
-            today = datetime.datetime.strptime(str(get_today), '%Y-%m-%d')
+            today = datetime.strptime(str(get_today), '%Y-%m-%d')
             if today > exp_date:
                 messages.error(request, "Your account is expired.")
                 return redirect('userLogin')
@@ -123,6 +145,7 @@ def biz_profile(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def biz_changePassword(request):
     if request.method == 'POST':
         current_password = request.POST['current_password']
@@ -216,6 +239,7 @@ def biz_resetPassword(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def editProfile(request, pk=None):
     user = get_object_or_404(User, pk=pk)
     business = get_object_or_404(Business, pk=pk)
@@ -258,6 +282,7 @@ def editProfile(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def paymentSettings(request, pk=None):
     user = get_object_or_404(User, pk=pk)
     pay_setting = get_object_or_404(PaymentSetting, user=user)
@@ -278,6 +303,7 @@ def paymentSettings(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def allProducts(request):
     business = get_object_or_404(Business, pk=request.user.id)
     products = Product.objects.filter(business=business).order_by('-created_date')
@@ -293,6 +319,7 @@ def allProducts(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def editProduct(request, pk=None):
     product = get_object_or_404(Product, pk=pk)
     if request.method == 'POST':
@@ -314,6 +341,7 @@ def editProduct(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def editGallery(request, pk=None):
     product = get_object_or_404(Product, pk=pk)
     ProductGalleryFormSet = inlineformset_factory(Product, ProductGallery, form=ProductGalleryForm, extra=1)
@@ -340,6 +368,7 @@ def editGallery(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def editVariants(request, pk=None):
     product = get_object_or_404(Product, pk=pk)
     ProductVariantFormSet = inlineformset_factory(Product, Variants, form=ProductVariantForm, extra=1)
@@ -372,6 +401,7 @@ def editVariants(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def addProduct(request):
     if request.method == 'POST':
         basicInfo_form = ProductForm(request.POST, request.FILES)
@@ -400,6 +430,7 @@ def addProduct(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def deleteProduct(request, pk=None):
     product = get_object_or_404(Product, pk=pk)
     product.delete()
@@ -411,6 +442,7 @@ def deleteProduct(request, pk=None):
 # Manage Categories
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def allCategories(request):
     categories = Category.objects.filter(is_active=True).order_by('-created_date')
     context = {
@@ -421,6 +453,7 @@ def allCategories(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def addCategory(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST, request.FILES)
@@ -443,6 +476,7 @@ def addCategory(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def editCategory(request, pk=None):
     category = get_object_or_404(Category, pk=pk)
     if request.method == 'POST':
@@ -468,6 +502,7 @@ def editCategory(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def deleteCategory(request, pk=None):
     category = get_object_or_404(Category, pk=pk)
     category.delete()
@@ -478,6 +513,7 @@ def deleteCategory(request, pk=None):
 # Manage Orders
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def allOrders(request):
     orders = Order.objects.filter(ordered=True).order_by('-created_at')
     paginator = Paginator(orders, 5)
@@ -489,6 +525,9 @@ def allOrders(request):
     return render(request, 'business/allOrders.html', context)
 
 
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
 def bizOrderDetail(request, pk=None):
     try:
         order = Order.objects.get(order_number=pk)
@@ -509,6 +548,7 @@ def bizOrderDetail(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def editOrder(request, pk=None):
     order = get_object_or_404(Order, pk=pk)
 
@@ -542,7 +582,7 @@ def editOrder(request, pk=None):
                 )
                 # email.content_subtype = "html"
                 email.send()
-                print('Current status was '+current_status +', '+ 'new status is '+ changed_status)
+                # print('Current status was '+current_status +', '+ 'new status is '+ changed_status)
             form.save()
             messages.success(request, 'Order has been updated.')
             return redirect('allOrders')
@@ -562,6 +602,7 @@ def editOrder(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def deleteOrder(request, pk=None):
     order = get_object_or_404(Order, pk=pk)
     order.delete()
@@ -602,7 +643,6 @@ def purchasePlan(request):
         tax_dict.update({tax_type: {float(tax_value):float(tx_amount)}})
 
     tax = sum(x for counter in tax_dict.values() for x in counter.values())
-    print(tax)
     grand_total = round(plan.plan_price + tax, 2)
     context = {
         'plan': plan,
@@ -655,8 +695,13 @@ def planPayment(request):
     else:
         messages.error(request, 'Invalid plan. Please contact Altocan support.')
         return redirect('plans')
-    exp_date = datetime.datetime.strptime(str(current_exp_date), '%Y-%m-%d')
-    end_date = exp_date + timedelta(days=plan_days)
+    exp_date = datetime.strptime(str(current_exp_date), '%Y-%m-%d')
+    get_today = date.today()
+    today = datetime.strptime(str(get_today), '%Y-%m-%d')
+    if today > exp_date:
+        end_date = today + timedelta(days=plan_days)
+    else:
+        end_date = exp_date + timedelta(days=plan_days)
     business.account_expiry_date = end_date
     business.save()
     # Send order recieved email to customer
@@ -710,6 +755,8 @@ def planOrder(request):
         data.account_manager_commission = commission_amount
         data.save()
         # Generate Plan Order Number
+        if 'planOrder' in request.path:
+            import datetime
         yr = int(datetime.date.today().strftime('%Y'))
         dt = int(datetime.date.today().strftime('%d'))
         mt = int(datetime.date.today().strftime('%m'))
@@ -754,7 +801,7 @@ def plan_order_complete(request):
             'payment': payment,
         }
         return render(request, 'business/plan_order_complete.html', context)
-    except (Payment.DoesNotExist, Order.DoesNotExist):
+    except (PlanPayment.DoesNotExist, PlanOrder.DoesNotExist):
         return redirect('plans')
 
 
@@ -766,16 +813,13 @@ def planPurchaseHistory(request):
     account_expiry_date = business.account_expiry_date
     current_plan = Plan.objects.get(pk=business.plan_id)
     # Check if plan expired
-    exp_date = datetime.datetime.strptime(str(account_expiry_date), '%Y-%m-%d')
-    print(exp_date)
+    exp_date = datetime.strptime(str(account_expiry_date), '%Y-%m-%d')
     get_today = date.today()
-    today = datetime.datetime.strptime(str(get_today), '%Y-%m-%d')
-    print(today)
+    today = datetime.strptime(str(get_today), '%Y-%m-%d')
     if today < exp_date:
         is_expired = False
     else:
         is_expired = True
-    print(is_expired)
     context = {
         'plan_orders': plan_orders,
         'account_expiry_date': account_expiry_date,
@@ -797,6 +841,9 @@ def planHistoryDetail(request, pk=None):
     return render(request, 'business/planHistoryDetail.html', context)
 
 
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
 def allCustomers(request):
     customers = Customer.objects.filter(user__is_customer=True).order_by('-created_date')
     paginator = Paginator(customers, 10)
@@ -847,6 +894,7 @@ def setTax(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def setTax(request, business_id=None):
     tax = get_object_or_404(Tax, business_id=business_id)
     TaxSettingFormSet = inlineformset_factory(Tax, TaxSetting, form=TaxSettingForm, extra=1)
@@ -876,9 +924,9 @@ def setTax(request, business_id=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def allInquiries(request):
     inquiries = Inquiry.objects.filter(business__user=request.user).order_by('-create_date')
-    print(inquiries)
     paginator = Paginator(inquiries, 10)
     page = request.GET.get('page')
     paged_inquiries = paginator.get_page(page)
@@ -890,6 +938,7 @@ def allInquiries(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def viewInquiry(request, pk=None):
     try:
         inquiry = Inquiry.objects.get(pk=pk)
@@ -904,6 +953,7 @@ def viewInquiry(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def deleteInquiry(request, pk=None):
     inquiry = get_object_or_404(Inquiry, pk=pk)
     inquiry.delete()
@@ -913,6 +963,7 @@ def deleteInquiry(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def allReviewRatings(request):
     reviewratings = ReviewRating.objects.all().order_by('-create_at')
     paginator = Paginator(reviewratings, 10)
@@ -924,6 +975,9 @@ def allReviewRatings(request):
     return render(request, 'business/allReviewRatings.html', context)
 
 
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
 def toggleApproval(request, pk=None):
     event = request.GET.get('event')
     reviewrating = get_object_or_404(ReviewRating, pk=pk)
@@ -939,6 +993,7 @@ def toggleApproval(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def allColors(request):
     colors = Color.objects.all()
     paginator = Paginator(colors, 5)
@@ -952,6 +1007,7 @@ def allColors(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def allSizes(request):
     sizes = Size.objects.all()
     context = {
@@ -962,6 +1018,7 @@ def allSizes(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def addColor(request):
     if request.method == 'POST':
         form = ColorForm(request.POST)
@@ -981,6 +1038,7 @@ def addColor(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def addSize(request):
     if request.method == 'POST':
         form = SizeForm(request.POST)
@@ -1000,6 +1058,7 @@ def addSize(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def editColor(request, pk=None):
     color = get_object_or_404(Color, pk=pk)
     if request.method == 'POST':
@@ -1021,6 +1080,7 @@ def editColor(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def editSize(request, pk=None):
     size = get_object_or_404(Size, pk=pk)
     if request.method == 'POST':
@@ -1042,6 +1102,7 @@ def editSize(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def deleteColor(request, pk=None):
     color = get_object_or_404(Color, pk=pk)
     color.delete()
@@ -1051,6 +1112,7 @@ def deleteColor(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def deleteSize(request, pk=None):
     size = get_object_or_404(Size, pk=pk)
     size.delete()
