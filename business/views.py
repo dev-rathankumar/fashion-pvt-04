@@ -50,12 +50,12 @@ def is_account_expired(func):
             exp_date = datetime.strptime(str(get_exp_date), '%Y-%m-%d')
             get_today = date.today()
             today = datetime.strptime(str(get_today), '%Y-%m-%d')
-            
+
             if today > exp_date:
                 messages.error(request, "Your account is expired!")
                 return redirect('biz_dashboard')
         except:
-            pass            
+            pass
         return func(request, *args, **kwargs)
     return wrapper
 
@@ -243,6 +243,7 @@ def biz_resetPassword(request):
 def editProfile(request, pk=None):
     user = get_object_or_404(User, pk=pk)
     business = get_object_or_404(Business, pk=pk)
+    # plan = get_object_or_404(Business, pk=pk)
     if request.method == 'POST':
         user_form = UserForm(request.POST, request.FILES, instance=user, prefix="user")
         business_form = BusinessForm(request.POST, prefix="business")
@@ -251,8 +252,10 @@ def editProfile(request, pk=None):
             business_form.cleaned_data["user"] = user
             current_user = request.user
             biz = Business.objects.get(user=current_user)
+            print(biz.plan.id)
             business = business_form.save(commit=False)
             business.user = request.user
+            business.plan_id = biz.plan.id
             business.is_editing = True
             business.is_verification_email_sent = True
             business.is_account_verified = True
@@ -262,6 +265,7 @@ def editProfile(request, pk=None):
             business.account_expiry_date = biz.account_expiry_date
             business.regional_manager = biz.regional_manager
             business.created_date = biz.created_date
+            #biz.account_expiry_date = True
             business_form.save()
             messages.success(request, 'Your profile has been updated successfully.')
             return redirect('/business/editProfile/'+str(pk))
