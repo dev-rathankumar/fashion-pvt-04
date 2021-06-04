@@ -96,12 +96,16 @@
           <!--End Color Swatches-->
 
           <!--Popular Products-->
+
           <div class="sidebar_widget sidePro">
+            {% if popular_products %}
             <div class="widget-title">
               <h2>Popular Products</h2>
             </div>
+            {% endif %}
             <div class="widget-content">
               <div class="sideProSlider grid-products">
+
 
                 {% for product in popular_products %}
                 <div class="item">
