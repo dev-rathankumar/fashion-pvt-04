@@ -128,7 +128,7 @@
                                 <tr>
                                   <td style="padding-right: 0px;padding-left: 0px;" align="center">
 
-                                    <img align="center" border="0" src="https://www.altocan.com/static/img/logo.png" alt="Image" title="Image"
+                                    <img align="center" border="0" src="http://{{domain}}{{header.site_logo.url}}" alt="Image" title="Image"
                                       style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;max-width: 200px; width:80%;" />
                                   </td>
                                 </tr>
@@ -181,7 +181,7 @@
                             <td style="overflow-wrap:break-word;word-break:break-word;padding:30px 55px 10px;font-family:'Cabin',sans-serif;" align="left">
 
                               <div style="color: #000000; line-height: 170%; text-align: center; word-wrap: break-word;">
-                                
+
                                 <p style="font-size: 14px; line-height: 170%;"><span style="font-family: Cabin, sans-serif; font-size: 18px; line-height: 30.6px;">{{email_body | safe}}</span>
                                 </p>
                               </div>
@@ -198,7 +198,7 @@
                           <tr>
                             <td style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 30px;font-family:'Cabin',sans-serif;" align="left">
 
-                              <p style="padding-top:15px;text-align:center;">If you have any questions, feel free to contact <span><a href="mailto:support@altocan.com">support@altocan.com</a></span></p>
+                              <p style="padding-top:15px;text-align:center;">If you have any questions, feel free to contact <span><a href="mailto:{{support_email}}">{{support_email}}</a></span></p>
                             </td>
                           </tr>
                         </tbody>
@@ -253,8 +253,10 @@
                               <td style="overflow-wrap:break-word;word-break:break-word;padding:44px 55px;font-family:'Cabin',sans-serif;" align="left">
 
                                 <div style="color: #ffffff; line-height: 230%; text-align: center; word-wrap: break-word;">
-                                  <p style="font-size: 12px; line-height: 230%;"><span style="font-family: Cabin, sans-serif; font-size: 12px; line-height: 41.4px; letter-spacing:2px;">© Copyright Altocan 2021. All Rights Reserved
+                                  <p style="font-size: 12px; line-height: 230%;"><span style="font-family: Cabin, sans-serif; font-size: 12px; line-height: 41.4px; letter-spacing:2px;">
+                                    {{ footer_credit }}
                                     </span></p>
+
 
                                 </div>
 

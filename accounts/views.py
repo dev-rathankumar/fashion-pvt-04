@@ -54,7 +54,7 @@ def userRegister(request):
                     current_site = get_current_site(request)
                     business = Business.objects.get(domain_name=current_site.domain)
                     header = Header.objects.get(business=business)
-                    footer = Footer.objects.get(business=business)
+                    footer = get_object_or_404(Footer, business=business)
                     footer_credit = footer.footer_credit
                     support_email = business.user.email
 
@@ -71,8 +71,8 @@ def userRegister(request):
                         'token': default_token_generator.make_token(user),
                         'header': header,
                         'support_email': support_email,
-                        'footer' : footer,
-                        'footer_credit': footer_credit,
+                        'footer':footer,
+                        'footer_credit':footer_credit,
                     })
                     to_email = email
                     email = EmailMessage(
@@ -206,6 +206,8 @@ def forgotPassword(request):
             current_site = get_current_site(request)
             business = Business.objects.get(domain_name=current_site.domain)
             header = Header.objects.get(business=business)
+            footer = get_object_or_404(Footer, business=business)
+            footer_credit = footer.footer_credit
             support_email= business.user.email
             footer = Footer.objects.get(business=business)
             footer_credit = footer.footer_credit

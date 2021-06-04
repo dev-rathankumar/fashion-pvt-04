@@ -269,6 +269,7 @@ def contactUs(request):
 def footerEdit(request):
     business = Business.objects.get(user=request.user)
     footer = get_object_or_404(Footer, business=business)
+
     if request.method == 'POST':
         form = FooterForm(request.POST, instance=footer)
         if form.is_valid():
@@ -279,6 +280,7 @@ def footerEdit(request):
         form = FooterForm(instance=footer)
     context = {
         'form': form,
+        'footer': footer,
     }
     return render(request, 'business/sitesettings/footerEdit.html', context)
 
