@@ -7,11 +7,12 @@ from django.core.mail import EmailMessage
 from django.core.mail.message import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
-from accounts.models import User
+from accounts.models import User, Business
 from django.http import HttpResponse
 from django.conf import settings
 from newsletters.models import NewsletterUser
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from sitesettings.models import Footer, Header
 
 # Create your views here.
 
@@ -28,6 +29,7 @@ def emails(request):
 
 def send_email(request):
     subscribers = NewsletterUser.objects.values_list('email', flat=True).order_by('-date_added')
+
     # print('subscribers=>', subscribers)
     if request.method == 'POST':
         form = EmailForm(request.POST)
@@ -36,12 +38,23 @@ def send_email(request):
             subject = form.cleaned_data['subject']
             email_body = form.cleaned_data['email_body']
             to_address = list(subscribers)
+
+
             # Send email
             current_site = get_current_site(request)
+            business = Business.objects.get(domain_name=current_site.domain)
+            header = Header.objects.get(business=business)
+            support_email = business.user.email
+            footer = get_object_or_404(Footer, business=business)
+            footer_credit = footer.footer_credit
             mail_subject = subject
             message = render_to_string('business/emails/email_template.html', {
                 'domain': current_site.domain,
                 'email_body': email_body,
+                'footer':footer,
+                'header': header,
+                'support_email': support_email,
+                'footer_credit' : footer_credit,
             })
             to_email = to_address
             # Get Email Connection
