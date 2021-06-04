@@ -61,6 +61,13 @@ def shop(request, slug=None):
         paged_products = paginator.get_page(page)
         product_count = products.count()
         popular_products = Product.objects.all().filter(is_available=True, is_active=True, is_popular=True).order_by('id')
+        #products_by_category = Product.objects.filter(category_name= category_name)
+
+    #if category_name != None:
+            #instance = Category.objects.get(parent=parent,slug=category_slug[-1])
+
+
+
     else:
         products = Product.objects.all().filter(is_available=True, is_active=True).order_by('id')
         paginator = Paginator(products, 10)
@@ -68,6 +75,8 @@ def shop(request, slug=None):
         paged_products = paginator.get_page(page)
         product_count = products.count()
         popular_products = Product.objects.all().filter(is_available=True, is_active=True, is_popular=True).order_by('id')
+        ##
+        products_by_category = Product.objects.filter(category_name= category_name)
 
     context = {
         'products': paged_products,
@@ -75,6 +84,9 @@ def shop(request, slug=None):
         'popular_products': popular_products,
         'sizes': sizes,
         'colors': colors,
+        ##
+        #'products_by_category':products_by_category,
+        #'instance': instance,
     }
     return render(request, 'shop/shop.html', context)
 
