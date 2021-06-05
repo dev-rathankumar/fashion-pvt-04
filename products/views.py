@@ -54,29 +54,25 @@ def shop(request, slug=None):
         products = Product.objects.filter(id__in=product)
 
     if slug != None:
-        categories = get_object_or_404(Category, slug=slug)
-        products = Product.objects.filter(category=categories, is_available=True, is_active=True)
-        paginator = Paginator(products, 10)
+
+        categories = get_object_or_404(Category, slug=slug).get_descendants(include_self=True)
+        prods = Product.objects.filter(category__in=categories)
+        paginator = Paginator(prods, 8)
         page = request.GET.get('page')
         paged_products = paginator.get_page(page)
-        product_count = products.count()
+        # print(type(paged_products))
+        product_count = prods.count()
         popular_products = Product.objects.all().filter(is_available=True, is_active=True, is_popular=True).order_by('id')
-        #products_by_category = Product.objects.filter(category_name= category_name)
-
-    #if category_name != None:
-            #instance = Category.objects.get(parent=parent,slug=category_slug[-1])
-
-
 
     else:
         products = Product.objects.all().filter(is_available=True, is_active=True).order_by('id')
-        paginator = Paginator(products, 10)
+        paginator = Paginator(products, 8)
         page = request.GET.get('page')
         paged_products = paginator.get_page(page)
         product_count = products.count()
         popular_products = Product.objects.all().filter(is_available=True, is_active=True, is_popular=True).order_by('id')
         ##
-        products_by_category = Product.objects.filter(category_name= category_name)
+        #products_by_category = Product.objects.filter(category_name= category_name)
 
     context = {
         'products': paged_products,
