@@ -113,6 +113,7 @@ $(document).ready(function(){
   });
 });
 
-$(document).ready(function()){
-  $("#id_country").prop("required", true);
-}
+$(document).ready(function(){
+  // $("#id_country").prop("required", true);
+  $("#id_country").attr("required", "required");
+})

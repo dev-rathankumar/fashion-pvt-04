@@ -173,7 +173,7 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 }
 
 .grid-products .item .product-image img{
-	height: 340px !important;
+	height: 250px !important;
 }
 
 @media (min-width: 576px){
