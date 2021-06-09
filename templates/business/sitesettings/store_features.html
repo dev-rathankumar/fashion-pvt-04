@@ -1,6 +1,6 @@
 {% extends 'business/base.html' %}
 {% load static %}
-{% block title %} All Products {% endblock %}
+{% block title %} Store Features {% endblock %}
 
 {% block content %}
 
@@ -71,6 +71,7 @@
                       <th>Icon</th>
                       <th>Title</th>
                       <th>Sub Title</th>
+                      <th>Feature URL</th>
                       <th>Preview</th>
                       <th>Action</th>
                     </tr>
@@ -96,6 +97,7 @@
                         {{feature.sub_title}}
                         {% endif %}
                       </td>
+                      <td>{{feature.feature_url}}</td>
 
                       <td>
                         <a href="http://{{domain}}/" target="_blank" class="btn btn-primary btn-sm btn-rounded">

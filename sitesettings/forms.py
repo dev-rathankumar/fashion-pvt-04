@@ -54,7 +54,7 @@ class StoreFeatureForm(forms.ModelForm):
     }))
     class Meta:
         model = StoreFeature
-        fields = ['icon', 'title', 'sub_title']
+        fields = ['icon', 'title', 'sub_title','feature_url']
 
     # Give same CSS class to all the fields
     def __init__(self, *args, **kwargs):

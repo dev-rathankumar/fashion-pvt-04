@@ -52,15 +52,16 @@ class StoreFeature(models.Model):
     icon = models.ImageField(upload_to='store_feature_icons', blank=True)
     title = models.CharField(max_length=30, null=True, blank=True)
     sub_title = models.CharField(max_length=30, null=True, blank=True)
+    feature_url = models.URLField(max_length=200, blank = True)
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        img = Image.open(self.icon.path)
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     img = Image.open(self.icon.path)
 
-        if img.height > 80 or img.weight > 80:
-            output_size = (80,80)
-            img.thumbnail(output_size)
-            img.save(self.icon.path)
+    #     if img.height > 80 or img.weight > 80:
+    #         output_size = (80,80)
+    #         img.thumbnail(output_size)
+    #         img.save(self.icon.path)
 
 
     def __str__(self):
