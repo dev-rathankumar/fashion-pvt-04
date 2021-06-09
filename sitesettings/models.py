@@ -89,9 +89,10 @@ class ParallaxBackground(models.Model):
 
 class Footer(models.Model):
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
-    footer_credit = models.CharField(max_length=250, blank=True)
+    footer_text = RichTextField(blank=True)
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now=True)
+
 
     def __str__(self):
         return self.business.company_name
