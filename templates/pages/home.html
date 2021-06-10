@@ -252,7 +252,12 @@
                               <li class="display-table-cell">
                                 <div style="display:flex;">
                                   <img src="{{feature.icon.url}}" alt="Feature Icon" width="35" style="margin-right:10px;">
-                                  <a><h5>{{ feature.title }}</h5> <span class="sub-text"> <span>{{ feature.sub_title }}</span></span></a>
+                                  {% if feature.feature_url %}
+                                   <a href="{{feature.feature_url}}"><h5>{{ feature.title }}</h5> <span class="sub-text"> <span>{{ feature.sub_title }}</span></span></a>
+                                  {% else %}
+                                   <a><h5>{{ feature.title }}</h5> <span class="sub-text"> <span>{{ feature.sub_title }}</span></span></a>
+                                  {% endif %}
+
                                 </div>
 
                               </li>

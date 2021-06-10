@@ -1,6 +1,6 @@
 {% extends 'business/base.html' %}
 {% load static %}
-{% block title %} Banner Settings {% endblock %}
+{% block title %} Edit Store Feature {% endblock %}
 
 {% block content %}
 
@@ -62,6 +62,12 @@
                       {{ form.sub_title }}
                     </div>
                   </div>
+                  <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="form-group">
+                      <label for="favicon">Feature URL</label>
+                      {{ form.feature_url }}
+                    </div>
+                </div>
                 </div>
                 <a onclick="goBack()" class="btn margin-15px-top btn-secondary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
                 <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i> SAVE</button>
