@@ -8,9 +8,9 @@
       <div class="row">
         <div class="col-12 col-sm-12 col-md-4 col-lg-4 about-us-col">
           {% if header.site_logo %}
-<img src="{{ header.site_logo.url }}" alt="{{ header.site_title }}" title="{{ header.site_title }}" style="max-width:250px;" />
+          <img src="{{ header.site_logo.url }}" alt="{{ header.site_title }}" title="{{ header.site_title }}" style="max-width:250px;" />
           {% else %}
-<img src="{% static 'images/default-images/logo.png' %}" alt="Logo" />
+          <img src="{% static 'images/default-images/logo.png' %}" alt="Logo" style="max-width:250px;" />
           {% endif %}
 
           <p class="mb-0">{{business.company_name}}</p>
@@ -64,12 +64,12 @@
                         <div class="container">
                           <div class="row">
                             <div class="col">
-                                <input type="text" id="txtInput" placeholder="Enter Captcha" class="form-control"/>
+                              <input type="text" id="txtInput" placeholder="Enter Captcha" class="form-control" />
 
                             </div>
                             <div class="col">
                               <input type="text" id="txtCaptcha" style="background-image:url({% static 'images/default-images/captcha-bg.jpg' %}); text-align:center; font-size:20px; border:none;
-              font-weight:bold; font-family:Modern"/>
+              font-weight:bold; font-family:Modern" />
                               <i class="fa fa-refresh" aria-hidden="true" onclick="DrawCaptcha();" style="font-size:24px;cursor:pointer;float:right;"></i>
                             </div>
                           </div>
@@ -107,9 +107,9 @@
         <li><i class="anm anm-cc-stripe" aria-hidden="true"></i></li>
         <li><i class="anm anm-cc-jcb" aria-hidden="true"></i></li>
       </ul> -->
-      <div class="copytext">
+      <div >
         {% if footer is not None %}
-        {{footer.footer_credit}}
+        {{footer.footer_text|safe}}
         {% else %}
         &copy; {% now "Y" %} {{company_name}}. All Rights Reserved.
         {% endif %}
