@@ -355,6 +355,7 @@
 
                       <input type="hidden" name="product_id" id="product_id" value="{{single_product.id}}">
                       <h5>Please fill below form to inquire about this product.</h5>
+                      <p id="blankCaptchaError" style="color: #e95144;"></p>
                       <div class="form-group">
                         <input type="text" name="product_name" id="product_name" class="form-control" value="{{ single_product.product_name }}" readonly>
                       </div>
@@ -410,6 +411,7 @@
                           </td>
                         </tr>
                       </table>
+                      <p id="invalidCode" style="color: #e95144;"></p>
 
                       <input type="submit" name="submit" id="submit" value="Send Inquiry" class="btn btn-block btn-danger" onclick="return ValidCaptcha();">
                     </form>

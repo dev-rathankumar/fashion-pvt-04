@@ -89,15 +89,24 @@ function DrawCaptcha()
 function ValidCaptcha(){
    var str1 = removeSpaces(document.getElementById('txtCaptcha').value);
    var str2 = removeSpaces(document.getElementById('txtInput').value);
+
    if (str1 == str2)
    {
+    $("#invalidCode").html('');
+    $("#blankCaptchaError").html('');
      // pass
+   }
+   else if(str2 == ''){
+    $("#blankCaptchaError").html('Please enter Captcha!');
+    return false;
    }
    else{
      // e.preventDefault();
      // console.log('invalid captcha');
      // exit();
-     alert('Invalid Captcha! Please try again.');
+     $("#blankCaptchaError").html('');
+     $("#invalidCode").html('Invalid verification code. Please enter the correct code to be able to submit.');
+    
      DrawCaptcha();
      return false;
    }
@@ -108,6 +117,9 @@ function removeSpaces(string)
 {
    return string.split(' ').join('');
 }
+
+
+
 
 
 // Send an inquiry
