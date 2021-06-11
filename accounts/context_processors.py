@@ -1,6 +1,6 @@
 from accounts.models import Business, User
 from urllib.parse import urlparse
-from sitesettings.models import Header, Homepage, Footer
+from sitesettings.models import Header, Homepage, Footer, Topbar
 from django.http import HttpResponse
 from datetime import date, datetime
 
@@ -34,11 +34,14 @@ def get_sitesettings(request):
             try:
                 header = Header.objects.get(business=business)
                 footer = Footer.objects.get(business=business)
+                topbar = Topbar.objects.get(business=business)
             except:
                 header = None
                 footer = None
+                topbar = None
     except:
         header = None
         footer = None
+        topbar = None
         company_name = None
-    return dict(header=header, company_name=company_name, footer=footer)
+    return dict(header=header, company_name=company_name, footer=footer, topbar=topbar)

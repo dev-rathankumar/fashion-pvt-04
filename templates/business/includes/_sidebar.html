@@ -117,6 +117,7 @@
             <span key="t-ecommerce">Website Settings</span>
           </a>
           <ul class="sub-menu" aria-expanded="false">
+            <li><a href="{% url 'topbarEdit' %}" key="t-products" {% if '/site_settings/topbarEdit/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Topbar</a></li>
             <li><a href="{% url 'header' %}" key="t-products" {% if '/site_settings/header/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Header</a></li>
             <li><a href="{% url 'footerEdit' %}" key="t-products" {% if '/site_settings/footerEdit/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Footer</a></li>
             <li><a href="{% url 'banners' %}" key="t-products" {% if '/site_settings/banners/' in request.path or '/site_settings/banners/editBanner' in request.path %} class="waves-effect active" {% else %} class="waves-effect"

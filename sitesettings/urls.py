@@ -25,6 +25,10 @@ urlpatterns = [
     # Footer
     path('footerEdit/', views.footerEdit, name='footerEdit'),
 
+    # Topbar
+    path('topbarEdit/', views.topbarEdit, name='topbarEdit'),
+    path('topbarEdit/topbarToggleEnable/', views.topbarToggleEnable, name='topbarToggleEnable'),
+
     # Social Icons
     path('socialIcons/', views.socialIcons, name='socialIcons'),
     path('socialIcons/addIcon/', views.addIcon, name='addIcon'),

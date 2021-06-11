@@ -1,6 +1,8 @@
+from django.core.mail import message
+from products.models import ReviewRating
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Header, Homepage, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition
-from .forms import HeaderForm, BannerImageForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, TermsAndConditionForm
+from .models import Header, Homepage, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
+from .forms import HeaderForm, BannerImageForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, TermsAndConditionForm, TopbarForm
 from django.contrib import messages
 from django.http import HttpResponse
 from accounts.models import Business
@@ -283,6 +285,46 @@ def footerEdit(request):
         'footer': footer,
     }
     return render(request, 'business/sitesettings/footerEdit.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def topbarEdit(request):
+    business = Business.objects.get(user=request.user)
+    # try:
+    #     checkTopbar = Topbar.objects.get(business=business, is_enabled=True)
+    # except:
+    #     checkTopbar = None
+    topbar = get_object_or_404(Topbar, business=business)
+
+    if request.method == 'POST':
+        form = TopbarForm(request.POST, instance=topbar)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Topbar updated successfully')
+            return redirect('topbarEdit')
+    else:
+        form = TopbarForm(instance=topbar)
+    context = {
+        'form': form,
+        'topbar': topbar,
+    }
+    return render(request, 'business/sitesettings/topbarEdit.html', context)
+
+
+def topbarToggleEnable(request):
+    event = request.GET.get('event')
+    business = Business.objects.get(user=request.user)
+    topbar = get_object_or_404(Topbar, business=business)
+    if event == 'true':
+        topbar.is_enabled = True
+        topbar.save()
+        result = 'enabled'
+    else:
+        topbar.is_enabled = False
+        topbar.save()
+        result = 'disabled'
+    return HttpResponse(result)
 
 
 @login_required(login_url = 'userLogin')
