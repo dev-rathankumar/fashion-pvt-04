@@ -30,11 +30,6 @@
                     </tr>
                   </table>
                 </div>
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> 711d0c3b4b0a65d851ccf55a36b1332ad173204b
               </td>
             </tr>
             <tr>
@@ -60,11 +55,6 @@
                           <td width="0%" align="left" bgcolor="#ffffff" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"></td>
                           <td width="25%" align="left" bgcolor="#ffffff" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> {{order_number}} </td>
                         </tr>
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> 711d0c3b4b0a65d851ccf55a36b1332ad173204b
                         <tr>
                           <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><b>Purchased Items</b></td>
                           <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><b>Qty</b></td>
@@ -72,22 +62,13 @@
                         </tr>
                         {% for item in ordered_products %}
                         <tr>
-<<<<<<< HEAD
-                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> {{ item.variant.title }} 
-=======
                           <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> {{ item.variant.title }}
->>>>>>> 711d0c3b4b0a65d851ccf55a36b1332ad173204b
                             <p style="font-size: 10px;">{{item.color}} | {{item.size}}</p>
                           </td>
                           <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><span class="cart__meta-text"
                               style="font-size:10px !important;">( ${{ item.variant.price }} ) </span> x {{ item.quantity }} </td>
                           <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> ${{ item.amount }} </td>
                         </tr>
-<<<<<<< HEAD
-                        
-=======
-
->>>>>>> 711d0c3b4b0a65d851ccf55a36b1332ad173204b
                         {% endfor %}
                       </table>
                     </td>
