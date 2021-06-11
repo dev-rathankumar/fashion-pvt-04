@@ -210,7 +210,7 @@ def forgotPassword(request):
             footer_text = footer.footer_text
             support_email= business.user.email
             footer = Footer.objects.get(business=business)
-            footer_credit = footer.footer_credit
+            footer_credit = footer.footer_text
 
             mail_subject = 'Reset Your Password'
             message = render_to_string('accounts/reset_password_email.html', {
