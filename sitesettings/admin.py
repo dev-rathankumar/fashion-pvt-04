@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Header, Footer, ContactPage, Homepage, BannerImage, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition
+from .models import Header, Footer, ContactPage, Homepage, BannerImage, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
 import admin_thumbnails
 
 
@@ -84,6 +84,17 @@ class TermsAndConditionAdmin(admin.ModelAdmin):
         return False
 
 
+class TopbarAdmin(admin.ModelAdmin):
+    list_display = ['business', 'modified_date']
+
+    # if there's already an entry, do not allow adding
+    def has_add_permission(self, request):
+        count = Topbar.objects.all().count()
+        if count == 0:
+          return True
+        return False
+
+
 admin.site.register(Header, HeaderAdmin)
 admin.site.register(Footer)
 admin.site.register(ContactPage, ContactPageAdmin)
@@ -95,3 +106,4 @@ admin.site.register(SocialMediaLink, SocialMediaLinkAdmin)
 admin.site.register(AboutPage, AboutPageAdmin)
 admin.site.register(Policy, PolicyAdmin)
 admin.site.register(TermsAndCondition, TermsAndConditionAdmin)
+admin.site.register(Topbar, TopbarAdmin)

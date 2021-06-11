@@ -26,8 +26,8 @@
 <script src="https://www.paypal.com/sdk/js?client-id=AeYRcJZnHmc5hiNpsPO3ndhukGSobIo6DO-CHfcB0rcuiAv5gBbzrBlbP6ev2ZX6Cl9EuotFoeSoLwRW&currency=USD"></script>
 <!-- faicons -->
 <link href="{% static 'faicon/css/faicon.css' %}" rel="stylesheet" />
-<script type="text/javascript" src="{% static "faicon/js/list.min.js" %}"></script>
-<script type="text/javascript" src="{% static "faicon/js/faicon.js" %}"></script>
+<script type="text/javascript" src="{% static 'faicon/js/list.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'faicon/js/faicon.js' %}"></script>
 
 </head>
 <body class="template-index index-demo1" onload="DrawCaptcha();">
@@ -36,10 +36,12 @@
 </div> -->
 <div class="page-wrapper">
     <!--Promotion Bar-->
-	<!-- <div class="notification-bar mobilehide">
-    	<a href="https://www.altocan.com/" target="_blank" class="notification-bar__message">Visit <b>Altocan</b> Official Website</a>
+    {% if topbar.is_enabled %}
+	<div class="notification-bar mobilehide">
+    	<span class="notification-bar__message">{{ topbar.topbar_text | safe }}</span>
         <span class="close-announcement"><i class="anm anm-times-l" aria-hidden="true"></i></span>
-    </div> -->
+    </div>
+    {% endif %}
     <!--End Promotion Bar-->
 
     {% include 'includes/_navbar.html' %}

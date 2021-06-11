@@ -1,7 +1,7 @@
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 from django.forms import inlineformset_factory
-from .models import Header, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition
+from .models import Header, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
 
 
 
@@ -163,5 +163,17 @@ class TermsAndConditionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(TermsAndConditionForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class TopbarForm(forms.ModelForm):
+    class Meta:
+        model = Topbar
+        fields = ['topbar_text']
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(TopbarForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
             self.fields[myField].widget.attrs['class'] = 'form-control'

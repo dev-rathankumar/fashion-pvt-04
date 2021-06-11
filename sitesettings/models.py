@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.base import Model
 from accounts.models import Business, User, Country, State
 from PIL import Image
 from ckeditor.fields import RichTextField
@@ -175,3 +176,14 @@ class TermsAndCondition(models.Model):
 
     def __str__(self):
         return self.heading
+
+
+class Topbar(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    topbar_text = RichTextField(blank=True)
+    is_enabled = models.BooleanField(default=False)
+    created_date    = models.DateTimeField(auto_now_add=True)
+    modified_date   = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.business.company_name
