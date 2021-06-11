@@ -217,6 +217,8 @@ def forgotPassword(request):
                 'header': header,
                 'support_email':support_email,
 
+
+
             })
             to_email = email
             email = EmailMessage(
