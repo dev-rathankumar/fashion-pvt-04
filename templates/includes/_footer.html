@@ -6,11 +6,11 @@
   <div class="footer-top clearfix">
     <div class="container">
       <div class="row">
-        <div class="col-12 col-sm-12 col-md-4 col-lg-4 about-us-col">
+        <div class="col-12 col-sm-12 col-md-3 col-lg-3 about-us-col">
           {% if header.site_logo %}
-          <img src="{{ header.site_logo.url }}" alt="{{ header.site_title }}" title="{{ header.site_title }}" style="max-width:250px;" />
+          <img src="{{ header.site_logo.url }}" alt="{{ header.site_title }}" title="{{ header.site_title }}" style="max-width:150px;" />
           {% else %}
-          <img src="{% static 'images/default-images/logo.png' %}" alt="Logo" style="max-width:250px;" />
+          <img src="{% static 'images/default-images/logo.png' %}" alt="Logo" style="max-width:150px;" />
           {% endif %}
 
           <p class="mb-0">{{business.company_name}}</p>
@@ -31,7 +31,16 @@
           </ul>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4 col-lg-4 footer-links">
+        <div class="col-12 col-sm-12 col-md-2 col-lg-2 footer-links">
+          <h4 class="h4">Quick Shop</h4>
+          <ul>
+            {% for i in quickshopCat %}
+            <li><a href="{% url 'shop' %}category/{{ i.slug }}">{{i}}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-2 col-lg-2 footer-links">
           <h4 class="h4">Important Links</h4>
           <ul>
             {% if user.id is not None %}
@@ -46,7 +55,7 @@
           </ul>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4 col-lg-4 newsletter-col">
+        <div class="col-12 col-sm-12 col-md-5 col-lg-5 newsletter-col">
           <div class="display-table">
             <div class="display-table-cell footer-newsletter">
               <form method="post" id="newsletterForm">
@@ -61,7 +70,7 @@
                   <table>
                     <tr>
                       <td>
-                        <div class="container">
+                        <div class="container newsletterCaptcha" style="padding: 0px !important;">
                           <div class="row">
                             <div class="col">
                               <input type="text" id="txtInput" placeholder="Enter Captcha" class="form-control" />
@@ -75,7 +84,8 @@
                           </div>
                         </div>
 
-
+                        <p id="invalidCode" class="text-danger"></p>
+                        <p id="blankCaptchaError" class="text-danger"></p>
                       </td>
                     </tr>
                     <tr>
@@ -107,7 +117,7 @@
         <li><i class="anm anm-cc-stripe" aria-hidden="true"></i></li>
         <li><i class="anm anm-cc-jcb" aria-hidden="true"></i></li>
       </ul> -->
-      <div >
+      <div>
         {% if footer is not None %}
         {{footer.footer_text|safe}}
         {% else %}
