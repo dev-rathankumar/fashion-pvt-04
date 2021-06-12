@@ -30,7 +30,6 @@
                     </tr>
                   </table>
                 </div>
-  
               </td>
             </tr>
             <tr>
@@ -56,7 +55,10 @@
                           <td width="0%" align="left" bgcolor="#ffffff" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"></td>
                           <td width="25%" align="left" bgcolor="#ffffff" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> {{order_number}} </td>
                         </tr>
-  
+<<<<<<< HEAD
+
+=======
+>>>>>>> 67ab489... email templates for outlook biz account activation, biz account activated, biz reset password,
                         <tr>
                           <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><b>Purchased Items</b></td>
                           <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><b>Qty</b></td>
@@ -64,14 +66,21 @@
                         </tr>
                         {% for item in ordered_products %}
                         <tr>
-                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> {{ item.variant.title }} 
+<<<<<<< HEAD
+                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> {{ item.variant.title }}
+=======
+                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> {{ item.variant.title }}
+>>>>>>> 67ab489... email templates for outlook biz account activation, biz account activated, biz reset password,
                             <p style="font-size: 10px;">{{item.color}} | {{item.size}}</p>
                           </td>
                           <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><span class="cart__meta-text"
                               style="font-size:10px !important;">( ${{ item.variant.price }} ) </span> x {{ item.quantity }} </td>
                           <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> ${{ item.amount }} </td>
                         </tr>
-                        
+<<<<<<< HEAD
+
+=======
+>>>>>>> 67ab489... email templates for outlook biz account activation, biz account activated, biz reset password,
                         {% endfor %}
                       </table>
                     </td>
@@ -84,16 +93,16 @@
                           <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size:12px; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> ${{subtotal}} </td>
                         </tr>
                         <tr>
-                         
-  
+
+
                           <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size:12px; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> Tax </td>
                           <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size:12px; font-weight: 600; line-height: 15px; padding: 5px 10px;" class="cart__meta-text"> ${{order.tax}} </td>
-  
-  
+
+
                         </tr>
-  
-  
-  
+
+
+
                         <tr>
                           <td width="75%" align="left"
                             style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 20px; padding: 0px 10px 0px 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;"> TOTAL </td>
@@ -137,7 +146,7 @@
                       </a>
                     </td>
                   </tr>
-  
+
                 </table>
               </td>
             </tr>
@@ -146,7 +155,7 @@
                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;margin-bottom:0;">
                   <tr>
                     <td align="center">
-  
+
                      {% if header.site_logo %}
                       <img src="http://{{ domain }}{{ header.site_logo.url }}" alt="{{ header.site_title }}" title="{{ header.site_title }}" style="max-width:250px;" />
                      {% else %}
@@ -169,4 +178,3 @@
     <!--End Main Content-->
   </div>
 </body>
-
