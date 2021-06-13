@@ -327,7 +327,7 @@
             <p class="shippingMsg"><i class="fa fa-clock-o" aria-hidden="true"></i> Estimated Delivery Between <b id="fromDate">Wed. May 1</b> and <b id="toDate">Tue. May 7</b>.</p> -->
 <br><br>
             <!-- Inquiry modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="width:100%;">
+            <button type="button" onclick="DrawCaptchaInq()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="width:100%;">
               Send an Inquiry
             </button>
 
@@ -355,7 +355,7 @@
 
                       <input type="hidden" name="product_id" id="product_id" value="{{single_product.id}}">
                       <h5>Please fill below form to inquire about this product.</h5>
-                      <p id="blankCaptchaError" style="color: #e95144;"></p>
+                      <p id="blankCaptchaErrorInq" style="color: #e95144;"></p>
                       <div class="form-group">
                         <input type="text" name="product_name" id="product_name" class="form-control" value="{{ single_product.product_name }}" readonly>
                       </div>
@@ -388,16 +388,17 @@
                       <table>
                         <tr>
                           <td>
-                            <div class="container">
+                            <div class="container" id="captchaRating">
+                             
                               <div class="row">
-                                <div class="col">
-                                    <input type="text" id="txtInput" placeholder="Enter Captcha" class="form-control"/>
+                                <div class="col pl-0">
+                                    <input type="text" id="txtInputInq" placeholder="Enter Captcha" class="form-control"/>
 
                                 </div>
-                                <div class="col">
-                                  <input type="text" id="txtCaptcha" style="background-image:url({% static 'images/default-images/captcha-bg.jpg' %}); text-align:center; font-size:20px; border:none;
+                                <div class="col pr-0">
+                                  <input type="text" id="txtCaptchaInq" style="background-image:url({% static 'images/default-images/captcha-bg.jpg' %}); text-align:center; font-size:20px; border:none;
                   font-weight:bold; font-family:Modern"/>
-                                  <i class="fa fa-refresh" aria-hidden="true" onclick="DrawCaptcha();" style="font-size:24px;cursor:pointer;float:right;"></i>
+                                  <i class="fa fa-refresh" aria-hidden="true" onclick="DrawCaptchaInq();" style="font-size:24px;cursor:pointer;float:right;"></i>
                                 </div>
                               </div>
                             </div>
@@ -411,9 +412,9 @@
                           </td>
                         </tr>
                       </table>
-                      <p id="invalidCode" style="color: #e95144;"></p>
+                      <p id="invalidCodeInq" style="color: #e95144;"></p>
 
-                      <input type="submit" name="submit" id="submit" value="Send Inquiry" class="btn btn-block btn-danger" onclick="return ValidCaptcha();">
+                      <input type="submit" name="submit" id="submit" value="Send Inquiry" class="btn btn-block btn-danger" onclick="return ValidCaptchaInq();">
                     </form>
                   </div>
                   <div class="modal-footer">
@@ -474,20 +475,37 @@
                     <fieldset class="spr-form-review">
                       <div class="spr-form-review-title">
                         <p class="spr-form-label" for="review">Review Title</p>
-                        <input class="spr-form-input spr-form-input-text " id="subject" type="text" name="subject" value="">
+                        <input class="spr-form-input spr-form-input-text " id="subject" type="text" name="subject" required >
                       </div>
   
                       <div class="spr-form-review-body">
                         <p class="spr-form-label" for="review">Review</p>
                         <div class="spr-form-input">
-                          <textarea class="spr-form-input spr-form-input-textarea" id="review" name="review" rows="5"></textarea>
+                          <textarea class="spr-form-input spr-form-input-textarea" id="review" name="review" rows="5" required></textarea>
                         </div>
                       </div>
                     </fieldset>
                     {% if user.is_authenticated %}
                         {% if orderproduct %}
                     <div class="spr-form-actions">
-                      <input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Submit Review">
+
+                      <div class="container">
+                        <div class="row">
+                          <div class="col pl-0">
+                              <input type="text" id="txtInputRating" placeholder="Enter Captcha" class="form-control"/>
+
+                          </div>
+                          <div class="col pr-0">
+                            <input type="text" id="txtCaptchaRating" style="background-image:url({% static 'images/default-images/captcha-bg.jpg' %}); text-align:center; font-size:20px; border:none;
+            font-weight:bold; font-family:Modern"/>
+                            <i class="fa fa-refresh" aria-hidden="true" onclick="DrawCaptchaRating();" style="font-size:24px;cursor:pointer;float:right;"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <p id="invalidCodeRating" style="color: #e95144;"></p>
+                      <p id="blankCaptchaErrorRating" style="color: #e95144;"></p>
+
+                      <input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Submit Review" onclick="return ValidCaptchaRating();">
                     </div>
                         {% else %}
                         <p>You must purchase this product to write a review.</p>
