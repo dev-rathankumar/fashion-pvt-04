@@ -23,9 +23,9 @@
             <div class="logo col-4 col-sm-4 col-md-4 col-lg-2 align-self-center">
                 <a href="{% url 'home' %}">
                   {% if header.site_logo %}
-<img src="{{ header.site_logo.url }}" alt="{{ header.site_title }}" title="{{ header.site_title }}" />
+                    <img src="{{ header.site_logo.url }}" alt="{{ header.site_title }}" title="{{ header.site_title }}" />
                   {% else %}
-<img src="{% static 'images/default-images/logo.png' %}" alt="Altocan" style="max-width:100%;max-height: 100%;" />
+                    <img src="{% static 'images/default-images/logo.png' %}" alt="Altocan" style="max-width:100%;max-height: 100%;" />
                   {% endif %}
 
                 </a>
