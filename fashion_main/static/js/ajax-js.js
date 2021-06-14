@@ -97,13 +97,11 @@ function ValidCaptcha(){
      // pass
    }
    else if(str2 == ''){
+    $("#invalidCode").html('');
     $("#blankCaptchaError").html('Please enter Captcha!');
     return false;
    }
    else{
-     // e.preventDefault();
-     // console.log('invalid captcha');
-     // exit();
      $("#blankCaptchaError").html('');
      $("#invalidCode").html('Invalid verification code. Please enter the correct code to be able to submit.');
     
@@ -111,6 +109,81 @@ function ValidCaptcha(){
      return false;
    }
 }
+
+
+// Captcha verification inquiry
+function DrawCaptchaInq()
+{
+   var a = Math.ceil(Math.random() * 9)+ '';
+   var b = Math.ceil(Math.random() * 9)+ '';
+   var c = Math.ceil(Math.random() * 9)+ '';
+   var d = Math.ceil(Math.random() * 9)+ '';
+   var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d;
+   document.getElementById("txtCaptchaInq").value = code
+}
+
+// Validate the Entered input aganist the generated security code function
+function ValidCaptchaInq(){
+   var str1 = removeSpaces(document.getElementById('txtCaptchaInq').value);
+   var str2 = removeSpaces(document.getElementById('txtInputInq').value);
+
+   if (str1 == str2)
+   {
+    $("#invalidCodeInq").html('');
+    $("#blankCaptchaErrorInq").html('');
+     // pass
+   }
+   else if(str2 == ''){
+    $("#invalidCodeInq").html('');
+    $("#blankCaptchaErrorInq").html('Please enter Captcha!');
+    return false;
+   }
+   else{
+     $("#blankCaptchaErrorInq").html('');
+     $("#invalidCodeInq").html('Invalid verification code. Please enter the correct code to be able to submit.');
+    
+     DrawCaptchaInq();
+     return false;
+   }
+}
+
+
+// Captcha verification inquiry
+function DrawCaptchaRating()
+{
+   var a = Math.ceil(Math.random() * 9)+ '';
+   var b = Math.ceil(Math.random() * 9)+ '';
+   var c = Math.ceil(Math.random() * 9)+ '';
+   var d = Math.ceil(Math.random() * 9)+ '';
+   var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d;
+   document.getElementById("txtCaptchaRating").value = code
+}
+
+// Validate the Entered input aganist the generated security code function
+function ValidCaptchaRating(){
+   var str1 = removeSpaces(document.getElementById('txtCaptchaRating').value);
+   var str2 = removeSpaces(document.getElementById('txtInputRating').value);
+
+   if (str1 == str2)
+   {
+    $("#invalidCodeRating").html('');
+    $("#blankCaptchaErrorRating").html('');
+     // pass
+   }
+   else if(str2 == ''){
+    $("#invalidCodeRating").html('');
+    $("#blankCaptchaErrorRating").html('Please enter Captcha!');
+    return false;
+   }
+   else{
+     $("#blankCaptchaErrorRating").html('');
+     $("#invalidCodeRating").html('Invalid verification code. Please enter the correct code to be able to submit.');
+    
+     DrawCaptchaRating();
+     return false;
+   }
+}
+
 
 // Remove the spaces from the entered and generated code
 function removeSpaces(string)

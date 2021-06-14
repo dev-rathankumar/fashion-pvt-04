@@ -118,7 +118,7 @@ function goBack() {
 }
 
 
-// Approval Swtich
+// Approval Switch
 function approvalSwitch(rating_id) {
   var approvalSwitch = 'approvalSwitch-' + rating_id;
   var approvalSwitch = document.getElementById(approvalSwitch);
@@ -135,6 +135,7 @@ function approvalSwitch(rating_id) {
      // status.style.display = "none";
   }
 }
+
 
 function toggleApproval(event, rating_id){
   $.ajax({
@@ -159,6 +160,48 @@ function toggleApproval(event, rating_id){
     }
   });
 }
+
+
+// Topbar Switch
+function topbarSwitch() {
+  var topbarSwitch = document.getElementById('topbarSwitch');
+
+  var status = document.getElementById("status");
+
+  if (topbarSwitch.checked == true){
+    var event = Boolean(true);
+    topbarToggleEnable(event);
+    document.getElementById("topbarForm").style.display = "block";
+  } else {
+    var event = Boolean(false);
+    topbarToggleEnable(event);
+    document.getElementById("topbarForm").style.display = "none";
+  }
+}
+
+function topbarToggleEnable(event){
+  $.ajax({
+    type: 'GET',
+    url: '/business/site_settings/topbarEdit/topbarToggleEnable/',
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'enabled') {
+        document.getElementById('topbarStatus').innerHTML = "Enabled";
+      }
+      else{
+        document.getElementById('topbarStatus').innerHTML = "Disabled";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}
+
+
 //
 // $(document).on('submit', '#ordered_products_form', function(e) {
 //   e.preventDefault();

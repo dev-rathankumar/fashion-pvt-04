@@ -219,6 +219,8 @@ def forgotPassword(request):
                 'token': default_token_generator.make_token(user),
                 'header': header,
                 'support_email':support_email,
+                'footer': footer,
+                'footer_credit':footer_credit,
 
 
 
