@@ -31,6 +31,7 @@ def get_sitesettings(request):
         business = Business.objects.get(domain_name=domain)
         if business:
             company_name = business.company_name
+            
             try:
                 header = Header.objects.get(business=business)
                 footer = Footer.objects.get(business=business)
