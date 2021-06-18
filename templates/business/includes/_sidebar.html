@@ -94,6 +94,28 @@
         </li>
 
         <li>
+          <a href="javascript: void(0);" class="has-arrow waves-effect
+                    {% if '/products/' == request.path or '/editProduct/' in request.path %} active {% else %} {% endif %}">
+            <i class="bx bx-store"></i>
+            <span key="t-ecommerce">Blogs</span>
+          </a>
+          <ul class="sub-menu" aria-expanded="false">
+            <li><a href="{% url 'allBlogs' %}" key="t-products" {% if '/blogs/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>All Blogs</a></li>
+            <li><a href="{% url 'addBlog' %}" key="t-product-detail" {% if '/addBlog/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Add Blog</a></li>
+            <li>
+              <a href="javascript: void(0);" class="has-arrow waves-effect
+                        {% if '/categories/' == request.path or '/editCategory/' in request.path %} active {% else %} {% endif %}">
+                <i class="bx bx-list-check"></i>
+                <span key="t-ecommerce">Categories</span>
+              </a>
+              <ul class="sub-menu" aria-expanded="false">
+                <li><a href="{% url 'allBlogsCategories' %}" key="t-products" {% if '/categories/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>All Categories</a></li>
+                <li><a href="{% url 'addBlogCategories'%}" key="t-product-detail" {% if '/addcategories/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Add Category</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
           <a href="{% url 'paymentSettings' user.id %}" {% if 'paymentSettings' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>
             <i class="bx bxs-credit-card"></i>
             <span>Payment Settings</span>

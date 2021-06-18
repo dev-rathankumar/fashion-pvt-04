@@ -1,0 +1,102 @@
+{% extends 'business/base.html' %}
+{% load static %}
+{% block title %} Edit Product {% endblock %}
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+  <div class="page-content">
+    <div class="container-fluid">
+
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">Add Blog</h4>
+
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">{{blog.title}}</a></li>
+                <li class="breadcrumb-item active">Edit Blog</li>
+              </ol>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card container">
+            <div class="card-body">
+              <h4 class="card-title">Blog Information</h4>
+              <p class="card-title-desc">Fill all information below</p>
+              {% include 'includes/_alerts.html' %}
+
+              <form method="POST" action="{% url 'editBlog' blog.id %}" enctype="multipart/form-data">
+                {% csrf_token %}          <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                              <div class="form-group">
+                                <label for="productname">Title</label>
+                                {{ blogInfo_form.title }}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                              <div class="form-group">
+                                <label for="productname">Category <span><small><a href="{% url 'addBlogCategories'%}">&nbsp;&nbsp;Add New Category</a></small></span></label>
+                                {{ blogInfo_form.category }}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                              <div class="form-group">
+                                <label for="productname">Blog Short Description</label>
+                                {{ blogInfo_form.short_description }}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                              <div class="form-group">
+                                <label for="productname">Full Description</label>
+                                {{ blogInfo_form.blog_body }}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                              <div class="form-group">
+                                <label for="productname">Status</label>
+                                {{ blogInfo_form.status }}
+                              </div>
+                            </div>
+                            </div>
+                          <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                              <div class="form-group">
+                                <img src="{{ blogs.featured_image.url }}" alt="" width="50">
+                                <label for="productname">Blog Image</label>
+                                {{ blogInfo_form.featured_image }}
+                              </div>
+                            </div>
+                          </div>
+                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="float: left;letter-spacing: 2px;"><i class="fas fa-check"></i> SAVE</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end row -->
+    </div> <!-- container-fluid -->
+  </div>
+  <!-- End Page-content -->
+  {% endblock %}

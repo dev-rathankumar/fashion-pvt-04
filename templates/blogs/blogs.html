@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %} Blogs {% endblock %}
+{% block content %}
+{% load static %}
+{% load mptt_tags %}
+<div id="page-content">
+  <!--Body Container-->
+  <!--Breadcrumbs-->
+  <div class="breadcrumbs-wrapper">
+    <div class="container">
+      <div class="breadcrumbs"><a href="index.html" title="Back to the home page">Home</a> <span aria-hidden="true">|</span> <span>Blogs</span></div>
+    </div>
+  </div>
+  <!--End Breadcrumbs-->
+  <div class="page-title">
+    <h1>Blogs</h1>
+  </div>
+  <div class="container">
+    <div class="row">
+      <!--Sidebar-->
+      <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar">
+        <div class="sidebar_widget">
+          <div class="widget-title">
+            <h2>Search</h2>
+          </div>
+          <div class="custom-search">
+            <form action="/search" method="get" class="input-group search-header search" role="search" style="position: relative;">
+              <input class="search-header__input search__input input-group__field" type="search" name="q" placeholder="Blog Search..." aria-label="Search" autocomplete="off">
+              <span class="input-group__btn"><button class="btnSearch" type="submit"> <i class="icon anm anm-search-l"></i> </button></span>
+            </form>
+          </div>
+        </div>
+        <div class="sidebar_tags">
+          <div class="sidebar_widget categories">
+            <div class="widget-title">
+              <h2>Blog Category</h2>
+            </div>
+            <div class="widget-content">
+              <ul class="sidebar_categories">
+                <li class="lvl-1 "><a href="/" class="site-nav lvl-1">Denim Jeans</a></li>
+                <li class="lvl-1  active"><a href="#" class="site-nav lvl-1">Fashion</a></li>
+                <li class="lvl-1 "><a href="#" class="site-nav lvl-1">Summer</a></li>
+                <li class="lvl-1 "><a href="#" class="site-nav lvl-1">Trending</a></li>
+                <li class="lvl-1 "><a href="#" class="site-nav lvl-1">Winter</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="sidebar_widget">
+            <div class="widget-title">
+              <h2>Recent Blog Posts</h2>
+            </div>
+            <div class="widget-content">
+              <div class="list list-sidebar-products">
+                <div class="grid">
+                  <div class="grid__item">
+                    <div class="mini-list-item">
+                      <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image blur-up ls-is-cached lazyloaded" data-src="assets/images/blog/post-img6.jpg" src="assets/images/blog/post-img6.jpg"
+                            alt=""></a> </div>
+                      <div class="details"> <a class="grid-view-item__title" href="#">Accusantium doloremque</a>
+                        <div class="grid-view-item__meta"><span class="article__date">May 02, 2017</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!--End Sidebar-->
+
+      <!--Main Content-->
+      <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
+        <div class="blog--list-view blog--grid-load-more blog-list-view">
+
+          <div class="article">
+            {% for blog in blogs %}
+            <div class="row">
+              <!-- Article Image -->
+              <div class="col-12 col-sm-6 col-md-6 col-lg-6 post-img">
+                <a class="article_featured-image" href="blog-single-post.html">
+                  <img class="blur-up ls-is-cached lazyloaded" data-src="{{ blog.featured_image.url }}"
+                    src="{{ blog.featured_image.url }}" alt=""></a>
+                  </div>
+              <div class="col-12 col-sm-6 col-md-6 col-lg-6 post-content">
+                <h2 class="h3"><a href="blog-single-post.html">{{blog.title}}</a></h2>
+                <ul class="publish-detail">
+                  <li><i>{{blog.author}}</i</li>
+                  <li><i class="icon anm anm-clock-r"></i>{{blog.created_on}}</li>
+                  <li><i class="icon anm anm-comments-l"></i> <a href="#"> 0 comments</a></li>
+                </ul>
+                <div class="rte">
+                  <p>{{blog.short_description}}</p>
+                </div>
+                <p><a href="{{blog.get_url}}" class="btn btn-secondary btn--small">Read more</a></p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+
+        </div>
+      </div>
+      <!--End Main Content-->
+    </div>
+  </div>
+</div>
+<!--End Page Wrapper-->
+
+{% endblock %}
