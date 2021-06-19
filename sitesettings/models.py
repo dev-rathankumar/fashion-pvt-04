@@ -89,8 +89,15 @@ class ParallaxBackground(models.Model):
 
 
 class Footer(models.Model):
+    ALIGN = (
+    ('left','LEFT'),
+    ('center', 'CENTER'),
+    ('right','RIGHT'),
+)
+
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
     footer_text = RichTextField(blank=True)
+    footer_align = models.CharField(max_length=10, choices=ALIGN, default='center')
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now=True)
 

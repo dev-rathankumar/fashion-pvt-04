@@ -123,7 +123,7 @@ class AboutPageForm(forms.ModelForm):
 class FooterForm(forms.ModelForm):
     class Meta:
         model = Footer
-        fields = ['footer_text']
+        fields = ['footer_text','footer_align']
 
     # Give same CSS class to all the fields
     def __init__(self, *args, **kwargs):
