@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Header, Footer, ContactPage, Homepage, BannerImage, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
+from .models import Header, Footer, ContactPage, Homepage, BannerImage, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent
 import admin_thumbnails
 
 
@@ -51,8 +51,15 @@ class SocialMediaLinkAdmin(admin.ModelAdmin):
     list_display = ['business', 'social_media_name', 'link', 'updated_date']
 
 
+
+class AboutContentInline(admin.TabularInline):
+    model = AboutContent
+    extra = 1
+
 class AboutPageAdmin(admin.ModelAdmin):
-    list_display = ['business', 'heading', 'updated_date']
+    list_display = ['business', 'heading']
+    inlines = [AboutContentInline]
+
 
     # if there's already an entry, do not allow adding
     def has_add_permission(self, request):
@@ -107,3 +114,4 @@ admin.site.register(AboutPage, AboutPageAdmin)
 admin.site.register(Policy, PolicyAdmin)
 admin.site.register(TermsAndCondition, TermsAndConditionAdmin)
 admin.site.register(Topbar, TopbarAdmin)
+admin.site.register(AboutContent)

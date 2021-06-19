@@ -1,29 +1,26 @@
-{% extends 'business/base.html' %}
-{% load static %}
-{% block title %} Edit About Us Page {% endblock %}
-
-{% block content %}
-{{ form.media.js }}
+{% extends 'business/base.html' %} {% load static %} {% block title %} Edit
+About Us Page {% endblock %} {% block content %} {{ form.media.js }}
 
 <!-- ============================================================== -->
 <!-- Start right Content here -->
 <!-- ============================================================== -->
 <div class="main-content">
-
   <div class="page-content">
     <div class="container-fluid">
-
       <!-- start page title -->
       <div class="row">
         <div class="col-12">
-          <div class="page-title-box d-flex align-items-center justify-content-between">
+          <div
+            class="
+              page-title-box
+              d-flex
+              align-items-center
+              justify-content-between
+            "
+          >
             <h4 class="mb-0 font-size-18">Edit About Us Page</h4>
-
-
-
           </div>
         </div>
-
       </div>
       <!-- end page title -->
 
@@ -33,13 +30,17 @@
             <div class="card-body">
               <h4 class="card-title">Edit About Us Page</h4>
 
-              <form method="POST" action="{% url 'aboutUs' %}" enctype="multipart/form-data">
+              <form
+                method="POST"
+                action="{% url 'aboutUs' %}"
+                enctype="multipart/form-data"
+              >
                 {% csrf_token %}
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
                       <label for="logo">Heading</label>
-                      {{ form.heading }}
+                      {{ about_form.heading }}
                     </div>
                   </div>
                 </div>
@@ -48,52 +49,119 @@
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
                       <label>Sub Heading</label>
-                      {{ form.sub_heading }}
+                      {{ about_form.sub_heading }}
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-9 col-lg-9 col-sm-12">
-                    <div class="form-group">
-                      <label>Cover Image <small>(Optional)</small></label>
-                      {{ form.cover_image }}
-                    </div>
-                  </div>
-                  <div class="col-md-3 col-lg-3 col-sm-12">
-                    <div class="form-group">
-                      <img src="{{about_page.cover_image.url}}" alt="Cover Image" width="100%">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group">
-                      <label>Description</label>
-                      {{ form.description }}
-                    </div>
-                  </div>
-                </div>
-                <br>
-                <a onclick="goBack()" class="btn margin-15px-top btn-secondary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
-                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i> SAVE</button>
+                <br />
+
+                <!-- <a onclick="goBack()" class="btn margin-15px-top btn-secondary"
+                  ><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a
+                > -->
+                <button
+                  type="submit"
+                  class="btn btn-primary mr-1 waves-effect waves-light"
+                  style="letter-spacing: 2px"
+                >
+                  <i class="fas fa-save"></i> SAVE
+                </button>
               </form>
-              <br>
-              <div style="width:300px;">
-                {% include 'includes/_alerts.html' %}
+              <br />
+
+              <!-- Add more content -->
+              <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                  <div class="form-group">
+                    <h2>Add more content</h2>
+                  </div>
+                </div>
               </div>
 
+              
+              <form action="{% url 'aboutContent' %}" enctype="multipart/form-data" id="add_more_about" method="POST" >
+                {% csrf_token %}
+
+                
+                {{ formset.management_form }}
+
+                {% for form in formset.forms %}
+                <table class="aboutTable">
+                  {{ form.as_table }}
+                  
+                    {% if forloop.counter != 1 %}
+                      <hr style="margin-top: 0rem; margin-bottom: 3rem;border-top: 1px solid #556EE6;">
+                    {% endif %}
+                  {{ field.errors.as_ul }}
+                    {% if form.image.value %}
+                    <img src="{{ form.image.value.url }}" alt="" width="200" class="aboutImage">
+                    {% endif %}
+                   
+              </table>
+                
+                <tr class="{% cycle row1 row2 %} formset_row">
+
+                  
+                 
+                  <!-- {% for field in form.visible_fields %}
+                  
+                  {{ field }}
+                  <br>
+                  {% endfor %} -->
+
+                  <!-- <div class="container">
+                    <div class="row">
+                      <div class="col-md-6 col-lg-6 col-sm-12">
+                        {{ form.image }}
+                      </div>
+                      <div class="col-md-6 col-lg-6 col-sm-12">
+                        {{ form.header }}
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row mb-5">
+                      <div class="col-md-12 col-lg-12 col-sm-12">
+                        <img src="{{ form.image.value.url }}" alt="" width="300">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 col-lg-12 col-sm-12">
+                        {{ form.header_text }}
+                      </div>
+                    </div>
+                    <input type="hidden" name="id" value="1" />
+                  </div> -->
+                  
+                </tr>
+               <br><br>
+                {% endfor %}
+              
+
+               
+                <button
+                type="submit"
+                  name="add_another" value="true"
+                  class="btn btn-primary mr-1 waves-effect waves-light"
+                  style="letter-spacing: 2px"
+                >
+                  <i class="fas fa-save"></i> SAVE
+                </button>
+            
+                
+              </form>
+            
+              
+              <div style="width: 300px">
+                {% include 'includes/_alerts.html' %}
+              </div>
             </div>
           </div>
-
-
-
-
         </div>
       </div>
       <!-- end row -->
-
-    </div> <!-- container-fluid -->
+    </div>
+    <!-- container-fluid -->
   </div>
   <!-- End Page-content -->
 
   {% endblock %}
+</div>

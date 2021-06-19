@@ -37,6 +37,7 @@ urlpatterns = [
 
     # Pages
     path('aboutUs/', views.aboutUs, name='aboutUs'),
+    path('aboutContent/', views.aboutContent, name='aboutContent'),
     path('contactUs/', views.contactUs, name='contactUs'),
     path('editPolicy/', views.editPolicy, name='editPolicy'),
     path('editTermsConditions/', views.editTermsConditions, name='editTermsConditions'),
