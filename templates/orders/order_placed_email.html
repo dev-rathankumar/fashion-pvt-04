@@ -4,32 +4,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="x-apple-disable-message-reformatting">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="x-apple-disable-message-reformatting" />
   <!--[if !mso]><!-->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!--<![endif]-->
   <title></title>
 </head>
-<body class="clean-body" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #ffffff">
 
-  <div class="container">
+<body class="clean-body" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #ffffff" width ="400">
+
+  <table class="container">
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr>
         <td align="center" style="background-color: #ffffff;" bgcolor="#ffffff">
           <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
             <tr>
               <td align="center" valign="top" style="font-size:0; padding: 35px;" bgcolor="#000">
-                <div style="max-width:100%; min-width:100px;width:100%;">
-                  <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:80%;margin:0;">
+                <table style="max-width:100%; min-width:100px;width:100%;">
+                  <tbody align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:80%;margin:0;">
                     <tr>
                       <td align="center" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 36px; font-weight: 800; line-height: 48px;" class="mobile-center">
                         <h1 style="font-size: 24px; font-weight: 700; margin: 0; color: #ffffff;">ORDER CONFIRMATION</h1>
                       </td>
                     </tr>
-                  </table>
-                </div>
+                  </tbody>
+                </table>
               </td>
             </tr>
             <tr>
@@ -44,7 +45,8 @@
                   <tr>
                     <td align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 24px; padding-top: 10px;">
                       <p>Transaction ID : {{order.payment}}</p>
-                      <p style="font-size: 12px; font-weight: 400; line-height: 18px; color: #777777;"><span style="font-size:12px;font-weight:800;">Hello {{order.user.first_name}},</span><br> Thank you for shopping with us. Here's your order details.</p>
+                      <p style="font-size: 12px; font-weight: 400; line-height: 18px; color: #777777;"><span style="font-size:12px;font-weight:800;">Hello {{order.user.first_name}},</span><br> Thank you for shopping with us. Here's your order
+                        details.</p>
                     </td>
                   </tr>
                   <tr>
@@ -109,16 +111,16 @@
                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:660px;">
                   <tr>
                     <td align="center" valign="top" style="font-size:0;">
-                      <div style="display:inline-block; max-width:100%; min-width:240px; vertical-align:top; width:100%;">
-                        <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:300px;">
+                      <table style="display:inline-block; max-width:100%; min-width:240px; vertical-align:top; width:100%;">
+                        <tbody align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:300px;">
                           <tr>
                             <td align="left" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 20px;">
                               <p style="font-weight: 800;margin-bottom:0; font-size:15px;">DELIVERY ADDRESS</p>
                               <p>{{order.name}}<br>{{order.address}}<br>{{order.city}} - {{order.pin_code}}<br>{{order.state}}, {{order.country}}<br>{{order.phone}}<br>{{order.email}}</p>
                             </td>
                           </tr>
-                        </table>
-                      </div>
+                        </tbody>
+                      </table>
                     </td>
                   </tr>
                 </table>
@@ -142,11 +144,11 @@
                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;margin-bottom:0;">
                   <tr>
                     <td align="center">
-                     {% if header.site_logo %}
+                      {% if header.site_logo %}
                       <img src="http://{{ domain }}{{ header.site_logo.url }}" alt="{{ header.site_title }}" title="{{ header.site_title }}" style="max-width:250px;" />
-                     {% else %}
+                      {% else %}
                       <img src="{% static 'images/default-images/logo.png' %}" alt="Logo" />
-                     {% endif %}
+                      {% endif %}
                     </td>
                   </tr>
                   <tr>
@@ -162,5 +164,6 @@
       </tr>
     </table>
     <!--End Main Content-->
-  </div>
+  </table>
+
 </body>

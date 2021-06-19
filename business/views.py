@@ -119,6 +119,7 @@ def dashboard(request):
     revenue = 0
     for i in orders:
         revenue += i.total
+        revenue = round(revenue,2)
     context = {
         'orders_count': orders_count,
         'revenue': revenue,
@@ -136,6 +137,7 @@ def biz_profile(request):
     revenue = 0
     for i in orders:
         revenue += i.total
+        revenue = round(revenue,2)
     context = {
         'biz': biz,
         'revenue': revenue,
@@ -243,10 +245,18 @@ def biz_resetPassword(request):
 def editProfile(request, pk=None):
     user = get_object_or_404(User, pk=pk)
     business = get_object_or_404(Business, pk=pk)
+    orders = Order.objects.filter(ordered=True)
+
+    orders_count = orders.count()
+    revenue = 0
+    for i in orders:
+        revenue += i.total
+        revenue =round(revenue,2)
     # plan = get_object_or_404(Business, pk=pk)
     if request.method == 'POST':
         user_form = UserForm(request.POST, request.FILES, instance=user, prefix="user")
         business_form = BusinessForm(request.POST, prefix="business")
+
         if user_form.is_valid() and business_form.is_valid():
             user = user_form.save()
             business_form.cleaned_data["user"] = user
@@ -275,11 +285,14 @@ def editProfile(request, pk=None):
     else:
         user_form = UserForm(instance=user, prefix="user")
         business_form = BusinessForm(instance=business, prefix="business")
+
     context = {
         'user_form': user_form,
         'business_form': business_form,
         'user': user,
         'business': business,
+        'orders_count':orders_count,
+        'revenue':revenue,
     }
     return render(request, 'business/editProfile.html', context)
 
