@@ -1,7 +1,7 @@
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 from django.forms import inlineformset_factory
-from .models import Header, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
+from .models import Header, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent
 
 
 
@@ -101,20 +101,32 @@ class ContactPageForm(forms.ModelForm):
 
 
 class AboutPageForm(forms.ModelForm):
-    cover_image = forms.ImageField(label=('Cover Image'), required=True, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
-        "type": "file",
-        "data-show-preview": "false"
-    }))
-
     class Meta:
         model = AboutPage
-        fields = ['heading', 'sub_heading', 'description', 'cover_image']
+        fields = ['heading', 'sub_heading']
 
     # Give same CSS class to all the fields
     def __init__(self, *args, **kwargs):
         super(AboutPageForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
-            if myField == 'cover_image':
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class AboutContentForm(forms.ModelForm):
+    image = forms.ImageField(label=('Image'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+        "type": "file",
+        "data-show-preview": "false",
+        "id": "id_image"
+    }))
+
+    class Meta:
+        model = AboutContent
+        fields = ['image', 'header', 'header_text']
+
+    def __init__(self, *args, **kwargs):
+        super(AboutContentForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            if myField == 'image':
                 self.fields[myField].widget.attrs['class'] = 'form-control file'
             else:
                 self.fields[myField].widget.attrs['class'] = 'form-control'

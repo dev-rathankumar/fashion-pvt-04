@@ -227,3 +227,67 @@ function topbarToggleEnable(event){
 //     }
 //   });
 // });
+
+
+// function addMoreAbout(){
+
+//   var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
+//   var header = $('#id_header').val();
+//   var header_text = CKEDITOR.instances['id_header_text'].getData();
+//   var url = $('#url').val();
+
+//   var data = new FormData();
+//   data.append("file", $("input[id^='id_image']")[0].files[0]);
+//   data.append("csrfmiddlewaretoken", csrfmiddlewaretoken);
+//   data.append("header", header),
+//   data.append("header_text", header_text)
+
+
+//   $.ajax({
+//     type: 'POST',
+//     url: url,
+//     processData: false,
+//     contentType: false,
+//     mimeType: "multipart/form-data",
+//     data: data,
+  
+//     success: function(response) {
+//       alertt
+//       (response)
+//     },
+//     error: function(data) {
+//       $("#subscriptionMessage").html("Something went wrong, please try again.");
+//     }
+//   });
+// }
+
+
+$(document).on('submit', '#add_more_about', function(e) {
+  e.preventDefault();
+  alert('ok');
+  exit();
+  $form = $(this)
+  var formData = new FormData(this);
+  $.ajax({
+      url: window.location.pathname,
+      type: 'POST',
+      data: formData,
+      success: function (response) {
+          $('.error').remove();
+          console.log(response)
+          if(response.error){
+              $.each(response.errors, function(name, error){
+                  error = '<small class="text-muted error">' + error + '</small>'
+                  $form.find('[name=' + name + ']').after(error);
+              })
+          }
+          else{
+              alert(response.message)
+              window.location = ""
+          }
+      },
+      cache: false,
+      contentType: false,
+      processData: false
+  });
+});

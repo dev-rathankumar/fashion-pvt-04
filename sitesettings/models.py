@@ -147,13 +147,21 @@ class AboutPage(models.Model):
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
     heading = models.CharField(max_length=255)
     sub_heading = RichTextField(null=True, blank=True)
-    description = RichTextField(null=True, blank=True)
-    cover_image = models.ImageField(upload_to='about', blank=True)
+
+    def __str__(self):
+        return self.heading
+
+    
+class AboutContent(models.Model):
+    about = models.ForeignKey(AboutPage, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='about/', blank=True)
+    header = models.CharField(max_length=255, blank=True)
+    header_text = RichTextField(blank=True, null=True)
     created_date    = models.DateTimeField(auto_now_add=True, blank=True)
     updated_date   = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
-        return self.heading
+        return self.header
 
 
 class Policy(models.Model):

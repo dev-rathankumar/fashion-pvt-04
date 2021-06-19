@@ -202,28 +202,21 @@ function topbarToggleEnable(event){
 }
 
 
-//
-// $(document).on('submit', '#ordered_products_form', function(e) {
+
+
+// $(document).on('submit', '#add_more_about1', function(e) {
 //   e.preventDefault();
-//   var order_number = $('#order_number').val();
-//   console.log(order_number);
-//   exit();
-//   var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
-//
+//   var url = $('#url').val();
+//   var formData = new FormData(this);
 //   $.ajax({
-//     type: 'POST',
-//     url: '/subscribe/',
-//     data: {
-//       email: email,
-//       csrfmiddlewaretoken: csrfmiddlewaretoken,
-//     },
-//
-//     success: function(data) {
-//       // $('#site_settings').addClass('alert alert-success alert-dismissible fade show');
-//       $("#subscriptionMessage").html(data);
-//     },
-//     error: function(data) {
-//       $("#subscriptionMessage").html("Something went wrong, please try again.");
-//     }
+//       type: 'POST',
+//       url: url,
+//       data: formData,
+//       processData: false,
+//       contentType: false,
+//       success: function (response) {
+//         alert(response.msg)
+//       },
+     
 //   });
 // });
