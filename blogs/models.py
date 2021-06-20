@@ -2,7 +2,7 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from mptt.models import MPTTModel, TreeForeignKey
 from django.urls import reverse
-from accounts.models import Business
+from accounts.models import Business,User
 
 
 class Category(MPTTModel):
@@ -58,3 +58,20 @@ class Blog(models.Model):
 
     def get_url(self):
         return reverse('blog_detail', args=[self.category.slug, self.slug])
+
+
+#commets model
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='comments')
+    comment_body = models.TextField()
+    reply = models.ForeignKey('Comment', null=True, related_name='replies', blank=True, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=False)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now= True)
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return 'Comment {} by {} '.format(self.comment_body, self.user)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Blog, Category
+from .models import Blog, Category, Comment
 from mptt.admin import DraggableMPTTAdmin
 
 
@@ -44,5 +44,16 @@ class BlogAdmin(admin.ModelAdmin):
     search_fields = ['title', 'content']
     prepopulated_fields = {'slug': ('title',)}
 
+#Comments
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('user','comment_body', 'blog', 'created_on', 'updated_on', 'is_active')
+    list_filter = ('is_active', 'created_on')
+    search_fields = ('user', 'comment_body')
+    actions = ['approve_comments']
+
+    def approve_comments(self, request, queryset):
+        queryset.update(is_active=True)
+
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Comment, CommentAdmin)

@@ -25,7 +25,7 @@
        <ul class="publish-detail">
          <li><i class="anm anm-user-al" aria-hidden="true"></i> {{single_blog.author}}</li>
          <li><i class="icon anm anm-clock-r"></i> <time>{{single_blog.created_on}}</time></li>
-         <li><i class="icon anm anm-comments-l"></i> <a href="#"> 0 comments</a></li>
+         <li><i class="icon anm anm-comments-l"></i> <a href="#"> {{comments_count}} comments</a></li>
        </ul>
        <hr>
        <div class="rte">
@@ -52,64 +52,59 @@
 
        <hr>
        <div class="blog-comment">
-         <h2>Comments (4)</h2>
+         <h2>Comments {{comments_count}}</h2>
+         {% if not blog.comments.all %}
+          No Comments Added..
+          {% else %}
+          {% for comment in comments %}
          <ol class="comments-list comments-list--level--0">
            <li class="comments-list__item">
              <div class="comment">
-               <div class="comment__avatar"><img src="assets/images/avatar-img.jpg" alt=""></div>
+               <div lass="comment__avatar"><img src="assets/images/avatar-img.jpg" alt=""></div>
                <div class="comment__content">
-                 <div class="comment__header">
-                   <div class="comment__author">Jessica Moore</div>
+                 <div class="comment__header" >
+                   <div class="comment__text"> {{comment.comment_body}}</div>
+                   <small>{{comment.user.name}}</small><br>
+                   <small>{{comment.updated_on}}</small>
                    <div class="comment__reply"><button type="button" class="btn btn-xs btn-light">Reply</button></div>
+
+
                  </div>
-                 <div class="comment__text">Aliquam ullamcorper elementum sagittis. Etiam lacus lacus, mollis in mattis in, vehicula eu nulla. Nulla nec tellus pellentesque.</div>
-                 <div class="comment__date">November 30, 2018</div>
+
+
                </div>
              </div>
+
+
              <div class="comment-list__children">
+               {% for reply in comment.replies.all %}
                <ol class="comments-list comments-list--level--1">
                  <li class="comments-list__item">
                    <div class="comment">
                      <div class="comment__avatar"><img src="assets/images/avatar-img1.jpg" alt=""></div>
                      <div class="comment__content">
                        <div class="comment__header">
-                         <div class="comment__author">Adam Taylor</div>
+                         <div class="comment__author">{{reply.user.name}}</div>
                          <div class="comment__reply"><button type="button" class="btn btn-xs btn-light">Reply</button></div>
                        </div>
-                       <div class="comment__text">Ut vitae finibus nisl, suscipit porttitor urna. Integer efficitur efficitur velit non pulvinar. Aliquam blandit volutpat arcu vel tristique. Integer commodo ligula id augue tincidunt faucibus.</div>
-                       <div class="comment__date">December 4, 2018</div>
+                       <div class="comment__text">{{reply.comment_body}}</div>
+                       <div class="comment__date">{{reply.updated_on}}</div>
                      </div>
                    </div>
                  </li>
-                
-         </ol>
+               </ol>
+               {% endfor %}
+         {% endfor %}
        </div>
 
+       {% endif %}
        <div class="formFeilds contact-form form-vertical">
-         <form method="post" action="#" id="comment_form" accept-charset="UTF-8" class="comment-form">
+         <form method="post" action="{{blog.get_url}}" id="comment_form" accept-charset="UTF-8" class="comment-form">
+           {% csrf_token %}
            <h2>Write A Comment</h2>
            <div class="row">
-           <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-             <div class="form-group">
-             <input type="text" id="ContactFormName" name="contact[name]" placeholder="First Name" value="" required="">
-             </div>
-           </div>
-           <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-             <div class="form-group">
-             <input type="text" id="ContactFormLastName" name="contact[name]" placeholder="Last Name" value="" required="">
-             </div>
-           </div>
-           <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-             <div class="form-group">
-             <input type="email" id="ContactFormEmail" name="contact[email]" placeholder="Email" value="" required="">
-             </div>
-           </div>
-           </div>
-           <div class="row">
            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-             <div class="form-group">
-             <textarea required="" rows="10" id="ContactFormMessage" name="contact[body]" placeholder="Message"></textarea>
-             </div>
+              {{comment_form.as_p}}
            </div>
            </div>
            <div class="row">
@@ -123,8 +118,5 @@
      </div>
    </div>
    </div><!--End Page Wrapper-->
-
-
-
 
 {% endblock %}

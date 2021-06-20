@@ -87,7 +87,7 @@ urlpatterns = [
 
     #blogCategories
     path('blogs/categories/', views.allBlogsCategories, name='allBlogsCategories'),
-    path('/blogs/addcategory/', views.addBlogCategories, name='addBlogCategories'),
+    path('blogs/addcategory/', views.addBlogCategories, name='addBlogCategories'),
     path('blogs/deletecategory/<int:pk>/', views.deleteBlogCategory, name='deleteBlogCategory'),
     path('blogs/editcategory/<int:pk>/', views.editBlogCategory, name='editBlogCategory'),
 
