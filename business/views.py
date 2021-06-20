@@ -19,7 +19,7 @@ from datetime import datetime, timedelta, date
 import time
 import json
 from django.contrib import messages
-from .forms import UserForm, BusinessForm, ProductForm, ProductGalleryForm, ProductVariantForm
+from .forms import UserForm, BusinessForm, ProductForm, ProductGalleryForm, ProductVariantForm, BlogForm,BlogCategoryForm
 from .forms import CategoryForm, OrderForm, TaxSettingForm, ColorForm, SizeForm
 from products.models import Product, ProductGallery, Variants, ReviewRating, Color, Size
 from django.forms import inlineformset_factory
@@ -36,7 +36,8 @@ from carts.models import TaxSetting, Tax
 from sitesettings.forms import HeaderForm
 from contacts.models import Inquiry
 from urllib.parse import urlparse
-
+from blogs.models import Blog
+from blogs.models import Category as BlogCategory
 
 
 # Custom decorator to check if the business account expired or not
@@ -1134,3 +1135,155 @@ def deleteSize(request, pk=None):
     size.delete()
     messages.success(request, 'Size has been deleted.')
     return redirect('allSizes')
+
+
+#blogs
+#allBlogs
+login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def allBlogs(request):
+    business = get_object_or_404(Business, pk=request.user.id)
+    blogs= Blog.objects.filter(business=business).order_by('-created_on')
+    paginator = Paginator(blogs, 10)
+    page = request.GET.get('page')
+    paged_blogs = paginator.get_page(page)
+
+    context = {
+        'blogs': paged_blogs,
+    }
+    return render(request, 'business/allBlogs.html', context)
+
+#addBlog
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def addBlog(request):
+    if request.method == 'POST':
+        blogInfo_form = BlogForm(request.POST, request.FILES)
+        if blogInfo_form.is_valid():
+            current_user = request.user
+            business_name = Business.objects.get(user=current_user)
+            title  = blogInfo_form.cleaned_data['title']
+            blog  = blogInfo_form.save(commit=False)
+            blog.business = business_name
+            blog.slug = slugify(title)
+            blog.author = current_user.name
+            blogInfo_form.save()
+            messages.success(request, 'You have added a new blog!')
+            return redirect('allBlogs')
+        else:
+            print(blogInfo_form.errors)
+            messages.error(request, 'Something went wrong!')
+            return redirect('allBlogs')
+    else:
+        blogInfo_form = BlogForm()
+    context = {
+        'blogInfo_form': blogInfo_form,
+    }
+    return render(request, 'business/addBlog.html', context)
+
+#deleteBlog
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def deleteBlog(request, pk=None):
+    blog = get_object_or_404(Blog, pk=pk)
+    blog.delete()
+    messages.success(request, 'Blog has been deleted.')
+    return redirect('allBlogs')
+
+#editBlog
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def editBlog(request, pk=None):
+    blog = get_object_or_404(Blog, pk=pk)
+    if request.method == 'POST':
+        blogInfo_form = BlogForm(request.POST, request.FILES, instance=blog)
+        if blogInfo_form.is_valid():
+            blogInfo_form.save()
+            messages.success(request, 'Blog has been updated.')
+            return redirect('allBlogs')
+        else:
+            messages.error(request, 'Something went wrong, please try again!')
+            return redirect('allBlogs')
+    else:
+        blogInfo_form = BlogForm(instance=blog)
+    context = {
+        'blogInfo_form': blogInfo_form,
+        'blog': blog,
+    }
+    return render(request, 'business/editBlog.html', context)
+
+#blogCategories
+#allBlogsCategories
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def allBlogsCategories(request):
+    blogcategories = BlogCategory.objects.all()
+    context = {
+        'blogcategories': blogcategories,
+    }
+    return render(request, 'business/allBlogsCategories.html', context)
+
+#addBlogCategory
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def addBlogCategories(request):
+    if request.method == 'POST':
+        blogform = BlogCategoryForm(request.POST, request.FILES)
+        if blogform.is_valid():
+            category_name = blogform.cleaned_data['category_name']
+            blogcategory = blogform.save(commit=False)
+            blogcategory.slug = slugify(category_name)
+            blogform.save()
+            messages.success(request, 'Category Added Successfully')
+            return redirect('allBlogsCategories')
+        else:
+            print(blogform.errors)
+
+    blogform = BlogCategoryForm()
+    context = {
+        'blogform': blogform,
+    }
+    return render(request, 'business/addBlogCategory.html', context)
+
+#deleteBlogCategory
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def deleteBlogCategory(request, pk=None):
+    category = get_object_or_404(BlogCategory, pk=pk)
+    category.delete()
+    messages.success(request, 'Category has been deleted.')
+    return redirect('allBlogsCategories')
+
+#editBlogCategory
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def editBlogCategory(request, pk=None):
+    category = get_object_or_404(BlogCategory, pk=pk)
+    if request.method == 'POST':
+        form = BlogCategoryForm(request.POST, request.FILES, instance=category)
+        if form.is_valid():
+            category_name = form.cleaned_data['category_name']
+            category = form.save(commit=False)
+            category.slug = slugify(category_name)
+            form.save()
+            messages.success(request, 'Category Modified Successfully')
+            return redirect('allBlogsCategories')
+        else:
+            print(form.errors)
+
+    else:
+        form = BlogCategoryForm(instance=category)
+    context = {
+        'form': form,
+        'category': category,
+    }
+    return render(request, 'business/editBlogCategory.html', context)

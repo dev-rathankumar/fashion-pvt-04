@@ -8,6 +8,8 @@ from django.forms import inlineformset_factory
 from mptt.forms import TreeNodeChoiceField
 from orders.models import Order
 from carts.models import TaxSetting
+from blogs.models import Blog
+from blogs.models import Category as BlogCategory
 
 
 class UserForm(forms.ModelForm):
@@ -186,3 +188,45 @@ class SizeForm(forms.ModelForm):
         super(SizeForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
             self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+#addBlogForm
+class BlogForm(forms.ModelForm):
+    featured_image = forms.ImageField(label=('Blog Image'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+        "type": "file",
+        "data-show-preview": "false"
+    }))
+
+    class Meta:
+        model = Blog
+        fields = ['title', 'short_description', 'blog_body', 'featured_image',  'category', 'status' ]
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(BlogForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            if myField == 'featured_image':
+                self.fields[myField].widget.attrs['class'] = 'form-control file'
+            else:
+                self.fields[myField].widget.attrs['class'] = 'form-control'
+
+#addBlogCategory
+class BlogCategoryForm(forms.ModelForm):
+    parent = TreeNodeChoiceField(queryset=BlogCategory.objects.all())
+
+    class Meta:
+        model = BlogCategory
+        fields = ('category_name', 'parent', 'description')
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(BlogCategoryForm, self).__init__(*args, **kwargs)
+        self.fields['parent'].required = False
+        for myField in self.fields:
+            if myField == 'cat_image':
+                self.fields[myField].widget.attrs['class'] = 'form-control file'
+            elif myField == 'description':
+                self.fields[myField].widget.attrs['class'] = 'form-control'
+                self.fields[myField].widget.attrs['rows'] = '4'
+            else:
+                self.fields[myField].widget.attrs['class'] = 'form-control'

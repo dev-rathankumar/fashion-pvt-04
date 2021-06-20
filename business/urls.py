@@ -79,4 +79,17 @@ urlpatterns = [
     path('colors/deleteColor/<int:pk>/', views.deleteColor, name='deleteColor'),
     path('sizes/deleteSize/<int:pk>/', views.deleteSize, name='deleteSize'),
 
+    #Blogs
+    path('blogs/', views.allBlogs, name='allBlogs'),
+    path('blogs/addBlog/', views.addBlog, name='addBlog'),
+    path('blogs/deleteBlog/<int:pk>/', views.deleteBlog, name='deleteBlog'),
+    path('blogs/editBlog/<int:pk>/', views.editBlog, name='editBlog'),
+
+    #blogCategories
+    path('blogs/categories/', views.allBlogsCategories, name='allBlogsCategories'),
+    path('blogs/addcategory/', views.addBlogCategories, name='addBlogCategories'),
+    path('blogs/deletecategory/<int:pk>/', views.deleteBlogCategory, name='deleteBlogCategory'),
+    path('blogs/editcategory/<int:pk>/', views.editBlogCategory, name='editBlogCategory'),
+
+
 ]

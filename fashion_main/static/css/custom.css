@@ -254,3 +254,4 @@ a.page-link{
   line-height: 12px;
   padding: 8px;
 }
+.comments-list__item{list-style-type: none!important;}
