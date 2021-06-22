@@ -90,4 +90,8 @@ urlpatterns = [
     # Font Awesome Icon Picker
     path('faicon/', include('faicon.urls')),
 
+    #blog
+    path('blogs/', include('blogs.urls'))
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

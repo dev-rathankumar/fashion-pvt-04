@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'emails',
     'taxes',
     'faicon',
+    'blogs',
 ]
 
 SITE_ID = 1
