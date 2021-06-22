@@ -51,7 +51,7 @@
             <span key="t-ecommerce">Pages</span>
           </a>
           <ul class="sub-menu" aria-expanded="false">
-            <li><a href="{% url 'aboutUs' %}" key="t-products" {% if '/site_settings/aboutUs/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>About Us</a></li>
+            <li><a href="{% url 'aboutContent' %}" key="t-products" {% if '/site_settings/aboutUs/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>About Us</a></li>
             <li><a href="{% url 'contactUs' %}" key="t-products" {% if '/site_settings/contactUs/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Contact Us</a></li>
             <li><a href="{% url 'editPolicy' %}" key="t-product-detail" {% if '/site_settings/editPolicy/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Privacy Policy</a></li>
             <li><a href="{% url 'editTermsConditions' %}" key="t-product-detail" {% if '/site_settings/editTermsConditions/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Terms & Conditions</a></li>

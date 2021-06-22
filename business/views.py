@@ -262,7 +262,6 @@ def editProfile(request, pk=None):
             business_form.cleaned_data["user"] = user
             current_user = request.user
             biz = Business.objects.get(user=current_user)
-            print(biz.plan.id)
             business = business_form.save(commit=False)
             business.user = request.user
             business.plan_id = biz.plan.id

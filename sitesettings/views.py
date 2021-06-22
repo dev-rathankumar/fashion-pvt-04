@@ -1,14 +1,18 @@
+import json
+from pages.views import about
 from django.core.mail import message
 from products.models import ReviewRating
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Header, Homepage, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
-from .forms import HeaderForm, BannerImageForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, TermsAndConditionForm, TopbarForm
+from .models import AboutContent, Header, Homepage, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
+from .forms import AboutContentForm, HeaderForm, BannerImageForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, TermsAndConditionForm, TopbarForm
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from accounts.models import Business
 from django.forms import inlineformset_factory
 from django.contrib.auth.decorators import login_required
 from business.views import business_required
+
+from django.core.files.storage import FileSystemStorage
 
 
 @login_required(login_url = 'userLogin')
@@ -226,23 +230,61 @@ def homepage_background(request):
 def aboutUs(request):
     business = Business.objects.get(user=request.user)
     about_page = get_object_or_404(AboutPage, business=business)
+    AboutContentFormSet = inlineformset_factory(AboutPage, AboutContent, form=AboutContentForm, extra=1)
     if request.method == 'POST':
-        form = AboutPageForm(request.POST, request.FILES, instance=about_page)
+        form = AboutPageForm(request.POST, instance=about_page)
         if form.is_valid():
             about = form.save(commit=False)
             about.business = business
             form.save()
             messages.success(request, 'Settings saved successfully')
-            return redirect('aboutUs')
+            return redirect('aboutContent')
         else:
             print(form.errors)
     else:
         form = AboutPageForm(instance=about_page)
+        aboutContent_form = AboutContentForm()
+        formset = AboutContentFormSet()
     context = {
         'form': form,
         'about_page': about_page,
+        'aboutContent_form': aboutContent_form,
+        'formset': formset,
     }
     return render(request, 'business/sitesettings/aboutUs.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def aboutContent(request):
+    business = Business.objects.get(user=request.user)
+    aboutus = get_object_or_404(AboutPage, business=business)
+    about_form = AboutPageForm(instance=aboutus)
+    AboutContentFormSet = inlineformset_factory(AboutPage, AboutContent, form=AboutContentForm, extra=1)
+    if request.method == 'POST':
+        add_another = request.POST['add_another']
+        formset = AboutContentFormSet(request.POST, request.FILES, instance=aboutus)
+        if formset.is_valid():
+            # aboutContent = formset.save(commit=False)
+            # aboutContent.about_id = aboutus.id
+            formset.save()
+            return redirect('aboutContent')
+        else:
+            print(formset.errors)
+            return redirect('aboutContent')
+
+    else:
+        formset = AboutContentFormSet(instance=aboutus)
+        about_form = AboutPageForm(instance=aboutus)
+
+    context = {
+        'aboutus': aboutus,
+        'formset': formset,
+        'about_form': about_form,
+    }
+    return render(request, 'business/sitesettings/aboutUs.html', context)
+
+
 
 
 @login_required(login_url = 'userLogin')
