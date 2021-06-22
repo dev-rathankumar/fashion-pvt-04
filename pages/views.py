@@ -2,7 +2,7 @@ from django.shortcuts import render
 from category.models import Category
 from products.models import Product, ProductGallery
 from accounts.models import Business
-from sitesettings.models import BannerImage, StoreFeature, ParallaxBackground, Homepage, ContactPage, SocialMediaLink, AboutPage, Policy, TermsAndCondition
+from sitesettings.models import AboutContent, BannerImage, StoreFeature, ParallaxBackground, Homepage, ContactPage, SocialMediaLink, AboutPage, Policy, TermsAndCondition
 from urllib.parse import urlparse
 
 from django.http import HttpResponse
@@ -51,10 +51,12 @@ def about(request):
     if business is None:
         return HttpResponse('<h3>Please assign a business to proceed!</h3>')
     about_page = AboutPage.objects.get(business=business)
+    aboutContents = AboutContent.objects.filter(about_id=about_page)
 
 
     context = {
         'about_page': about_page,
+        'aboutContents': aboutContents,
     }
     return render(request, 'pages/about.html', context)
 
