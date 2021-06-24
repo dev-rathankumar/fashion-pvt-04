@@ -217,6 +217,44 @@ function topbarToggleEnable(event){
 //       success: function (response) {
 //         alert(response.msg)
 //       },
-     
+
 //   });
 // });
+
+
+// Approval Swtich
+function approvalSwitch(comment_id) {
+  var approvalSwitch = 'approvalSwitch-' + comment_id;
+  var approvalSwitch = document.getElementById(approvalSwitch);
+
+  if (approvalSwitch.checked == true){
+    var event = Boolean(true);
+    commentApproval(event, comment_id);
+  } else {
+    var event = Boolean(false);
+    commentApproval(event, comment_id);
+  }
+}
+
+function commentApproval(event, comment_id){
+  $.ajax({
+    type: 'GET',
+    url: '/business/comments/commentApproval/'+comment_id,
+    data: {
+      event:event,
+    },
+    success: function(data) {
+      if (data == 'true') {
+        var commentstatus = 'commentstatus-'+comment_id;
+        document.getElementById(commentstatus).innerHTML = "Approved";
+      }
+      else{
+        var commentstatus = 'commentstatus-'+comment_id;
+        document.getElementById(commentstatus).innerHTML = "Pending";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}
