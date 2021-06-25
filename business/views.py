@@ -36,7 +36,7 @@ from carts.models import TaxSetting, Tax
 from sitesettings.forms import HeaderForm
 from contacts.models import Inquiry
 from urllib.parse import urlparse
-from blogs.models import Blog
+from blogs.models import Blog, Comment
 from blogs.models import Category as BlogCategory
 
 
@@ -1287,3 +1287,34 @@ def editBlogCategory(request, pk=None):
         'category': category,
     }
     return render(request, 'business/editBlogCategory.html', context)
+
+
+#blog_comments
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def allComments(request):
+    comments = Comment.objects.all().order_by('-created_on')
+    paginator = Paginator(comments, 10)
+    page = request.GET.get('page')
+    paged_comments = paginator.get_page(page)
+    context = {
+        'comments': comments,
+    }
+    return render(request, 'business/allComments.html', context)
+
+#commentsapproval
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def commentApproval(request, pk=None):
+    event = request.GET.get('event')
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.is_active = event.capitalize()
+    comment.save()
+
+    comment = get_object_or_404(Comment, pk=pk)
+    if comment.is_active:
+        return HttpResponse('true')
+    else:
+        return HttpResponse('false')

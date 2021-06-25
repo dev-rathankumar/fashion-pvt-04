@@ -24,7 +24,7 @@
        <h1>{{single_blog.title}}</h1>
        <ul class="publish-detail">
          <li><i class="anm anm-user-al" aria-hidden="true"></i> {{single_blog.author}}</li>
-         <li><i class="icon anm anm-clock-r"></i> <time>{{single_blog.updated_on}}</time></li>
+         <li><i class="icon anm anm-clock-r"></i> <time>{{single_blog.created_on}}</time></li>
          <li><i class="icon anm anm-comments-l"></i> <a href="#"> {{comments_count}} comments</a></li>
        </ul>
        <hr>
@@ -65,7 +65,7 @@
                  <div class="comment__header" >
                    <div class="comment__text"> {{comment.comment_body}}</div>
                    <small>{{comment.user.name}}</small><br>
-                   <small>{{comment.updated_on}}</small>
+                   <small>{{comment.created_on}}</small>
                    <div class="comment__reply"><button type="button" class="btn btn-xs btn-light">Reply</button></div>
 
 
