@@ -110,7 +110,25 @@
            <div class="row">
            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
              <p class="fine-print"><i>Please note, comments must be approved before they are published</i></p>
-             <input type="submit" class="btn" value="Submit">
+             <div>
+               <div class="container newsletterCaptcha" style="padding: 0px !important;">
+                 <div class="row">
+                   <div class="col">
+                     <input type="text" id="txtInput" placeholder="Enter Captcha" class="form-control" />
+
+                   </div>
+                   <div class="col">
+                     <input type="text" id="txtCaptcha" style="background-image:url({% static 'images/default-images/captcha-bg.jpg' %}); text-align:center; font-size:20px; border:none;
+     font-weight:bold; font-family:Modern" />
+                     <i class="fa fa-refresh" aria-hidden="true" onclick="DrawCaptcha();" style="font-size:24px;cursor:pointer;float:right;"></i>
+                   </div>
+                 </div>
+               </div>
+
+               <p id="invalidCode" class="text-danger"></p>
+               <p id="blankCaptchaError" class="text-danger"></p>
+             </div>
+             <input type="submit" class="btn" value="Submit" onclick="return ValidCaptcha();"  data-toggle="modal" data-target="#exampleModalCenter" >
            </div>
           </div>
         </form>
