@@ -24,6 +24,7 @@ a.active{color: red !important;}
 
 ul.color-option{
 	list-style-type: none;
+  margin-bottom: 0;
 }
 .color-option>li>a{
 	display: block;
@@ -255,3 +256,4 @@ a.page-link{
   padding: 8px;
 }
 .comments-list__item{list-style-type: none!important;}
+

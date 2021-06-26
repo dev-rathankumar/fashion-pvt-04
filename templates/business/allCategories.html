@@ -56,7 +56,7 @@
               </div>
               {% load mptt_tags %}
               {% recursetree category %}
-              <p style="display: flex;justify-content:center;align-items:center;margin-right:15px;">
+              <p class="allCategories" style="display: flex;justify-content:center;align-items:center;margin-right:15px;">
                 <a class="btn btn-{% if not node.is_leaf_node %}link{% else %}link{% endif %} w-100 ml-50 text-left" data-toggle="collapse" href="#collapseCategory-{{node.id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
                   <img src="{{ node.cat_image.url }}" alt="Category Image" width="30" style="border-radius:50px;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{ node.category_name }} {% if not node.is_leaf_node %}&nbsp&nbsp&nbsp<i class="fa fa-angle-right" aria-hidden="true"></i>{% endif %}
 &nbsp&nbsp<small style="color:grey;">{{node.description | slice:":25"}}</small>
