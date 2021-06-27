@@ -233,6 +233,20 @@ a.btn.disabled{
   font: normal normal normal 14px/1 FontAwesome !important;
 }
 
-#cke_id_topbar_text, #cke_id_footer_text, #cke_id_header_text{
+#cke_id_topbar_text, #cke_id_footer_text, #cke_id_aboutcontent_set-0-header_text{
+  width: 100% !important;
+}
+
+.cke_chrome{
+  width: 100% !important;
+}
+.aboutTable tr th{
+  width: 15%;
+  padding: 15px;
+}
+.aboutImage{
+  margin-left: 15%;;
+}
+#cke_id_blog_body{
   width: 100% !important;
 }

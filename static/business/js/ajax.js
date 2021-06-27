@@ -202,92 +202,59 @@ function topbarToggleEnable(event){
 }
 
 
-//
-// $(document).on('submit', '#ordered_products_form', function(e) {
+
+
+// $(document).on('submit', '#add_more_about1', function(e) {
 //   e.preventDefault();
-//   var order_number = $('#order_number').val();
-//   console.log(order_number);
-//   exit();
-//   var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
-//
+//   var url = $('#url').val();
+//   var formData = new FormData(this);
 //   $.ajax({
-//     type: 'POST',
-//     url: '/subscribe/',
-//     data: {
-//       email: email,
-//       csrfmiddlewaretoken: csrfmiddlewaretoken,
-//     },
-//
-//     success: function(data) {
-//       // $('#site_settings').addClass('alert alert-success alert-dismissible fade show');
-//       $("#subscriptionMessage").html(data);
-//     },
-//     error: function(data) {
-//       $("#subscriptionMessage").html("Something went wrong, please try again.");
-//     }
+//       type: 'POST',
+//       url: url,
+//       data: formData,
+//       processData: false,
+//       contentType: false,
+//       success: function (response) {
+//         alert(response.msg)
+//       },
+
 //   });
 // });
 
 
-// function addMoreAbout(){
+// Approval Swtich
+function approvalSwitch(comment_id) {
+  var approvalSwitch = 'approvalSwitch-' + comment_id;
+  var approvalSwitch = document.getElementById(approvalSwitch);
 
-//   var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
-//   var header = $('#id_header').val();
-//   var header_text = CKEDITOR.instances['id_header_text'].getData();
-//   var url = $('#url').val();
+  if (approvalSwitch.checked == true){
+    var event = Boolean(true);
+    commentApproval(event, comment_id);
+  } else {
+    var event = Boolean(false);
+    commentApproval(event, comment_id);
+  }
+}
 
-//   var data = new FormData();
-//   data.append("file", $("input[id^='id_image']")[0].files[0]);
-//   data.append("csrfmiddlewaretoken", csrfmiddlewaretoken);
-//   data.append("header", header),
-//   data.append("header_text", header_text)
-
-
-//   $.ajax({
-//     type: 'POST',
-//     url: url,
-//     processData: false,
-//     contentType: false,
-//     mimeType: "multipart/form-data",
-//     data: data,
-  
-//     success: function(response) {
-//       alertt
-//       (response)
-//     },
-//     error: function(data) {
-//       $("#subscriptionMessage").html("Something went wrong, please try again.");
-//     }
-//   });
-// }
-
-
-$(document).on('submit', '#add_more_about', function(e) {
-  e.preventDefault();
-  alert('ok');
-  exit();
-  $form = $(this)
-  var formData = new FormData(this);
+function commentApproval(event, comment_id){
   $.ajax({
-      url: window.location.pathname,
-      type: 'POST',
-      data: formData,
-      success: function (response) {
-          $('.error').remove();
-          console.log(response)
-          if(response.error){
-              $.each(response.errors, function(name, error){
-                  error = '<small class="text-muted error">' + error + '</small>'
-                  $form.find('[name=' + name + ']').after(error);
-              })
-          }
-          else{
-              alert(response.message)
-              window.location = ""
-          }
-      },
-      cache: false,
-      contentType: false,
-      processData: false
+    type: 'GET',
+    url: '/business/comments/commentApproval/'+comment_id,
+    data: {
+      event:event,
+    },
+    success: function(data) {
+      if (data == 'true') {
+        var commentstatus = 'commentstatus-'+comment_id;
+        document.getElementById(commentstatus).innerHTML = "Approved";
+      }
+      else{
+        var commentstatus = 'commentstatus-'+comment_id;
+        document.getElementById(commentstatus).innerHTML = "Pending";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
   });
-});
+}
