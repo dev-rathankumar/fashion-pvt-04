@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.template.loader import render_to_string
 from carts.models import ShopCart, Tax, TaxSetting
-from products.models import Product
+from products.models import Product, Variants
 from .models import OrderForm, Order, OrderProduct, Payment
 from django.utils.crypto import get_random_string
 from django.contrib import messages
@@ -21,7 +21,6 @@ from decimal import Decimal
 
 def payments(request):
     body = json.loads(request.body)
-    print('body-->', body)
     order = Order.objects.get(user=request.user, ordered=False, order_number=body['orderID'])
 
     # Create and save payment instance
@@ -60,6 +59,13 @@ def payments(request):
         product = Product.objects.get(id=item.product_id)
         product.stock -= item.quantity
         product.save()
+        print('variant_id', item.variant_id)
+        variants = Variants.objects.filter(id=item.variant_id)
+        for var in variants:
+            print('variant quantiy', var.quantity)
+            
+            var.quantity -= item.quantity
+            var.save()
 
     ordered_products = OrderProduct.objects.filter(order_id=orderproduct.order_id)
     order = Order.objects.get(order_number=order.order_number)

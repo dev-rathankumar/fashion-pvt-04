@@ -126,7 +126,7 @@ ul.var_image_list{
 }
 /* Click + hover color */
 input:checked ~ label, /* color current and previous stars on checked */
-label:hover, label:hover ~ label { color: #ffb503;  } /* color previous stars on hover */
+
 
 /* Hover highlights */
 input:checked + label:hover, input:checked ~ label:hover, /* highlight current and previous stars */
@@ -250,3 +250,6 @@ a.btn.disabled{
 #cke_id_blog_body{
   width: 100% !important;
 }
+p.allCategories:hover, .table-hover tbody tr:hover{
+  background-color: aliceblue !important;
+  }

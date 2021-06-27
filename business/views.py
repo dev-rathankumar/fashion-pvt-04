@@ -38,6 +38,7 @@ from contacts.models import Inquiry
 from urllib.parse import urlparse
 from blogs.models import Blog, Comment
 from blogs.models import Category as BlogCategory
+from django.db.models import Sum, Min
 
 
 # Custom decorator to check if the business account expired or not
@@ -370,6 +371,11 @@ def editGallery(request, pk=None):
             formset.save()
             if add_another == 'true':
                 return redirect('/business/products/editProduct/'+str(pk)+'/editGallery/')
+            elif add_another == 'finish':
+                product.is_active = True
+                product.save()
+                messages.success(request, 'Product has been uploaded successfully.')
+                return redirect('allProducts')
             else:
                 return redirect('/business/products/editProduct/'+str(pk)+'/editVariants/')
         else:
@@ -400,6 +406,12 @@ def editVariants(request, pk=None):
             if add_another == 'true':
                 return redirect('/business/products/editProduct/'+str(pk)+'/editVariants/')
             else:
+                variants = Variants.objects.filter(product=product)
+                total_quantity = variants.aggregate(Sum('quantity'))['quantity__sum'] or 0
+                min_price = variants.aggregate(Min('price'))['price__min'] or 0.00
+                product.price = min_price
+                product.stock = total_quantity
+                product.save()
                 messages.success(request, 'Product has been uploaded successfully.')
                 return redirect('allProducts')
         else:

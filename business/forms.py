@@ -67,7 +67,7 @@ class PaymentSettingForm(forms.ModelForm):
 
 class ProductForm(forms.ModelForm):
     description = forms.CharField(widget=CKEditorWidget())
-    image = forms.ImageField(label=('Product Image 01'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+    image = forms.ImageField(label=('Product Image 01'), required=True, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
         "type": "file",
         "data-show-preview": "false"
     }))
@@ -82,6 +82,7 @@ class ProductForm(forms.ModelForm):
     # Give same CSS class to all the fields
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
+        self.fields['variant'].widget.attrs['onchange'] = 'showDiv(this)'
         for myField in self.fields:
             if myField == 'is_popular':
                 self.fields[myField].widget.attrs['class'] = 'custom-chckbox-is_popular'

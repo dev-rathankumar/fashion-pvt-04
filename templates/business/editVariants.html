@@ -93,6 +93,7 @@
                     <td class="text-center"><small><a href="{% url 'addSize' %}" onclick="window.open('{% url 'addSize' %}', 'newwindow', 'width=1024, height=500');return false;"><i class="fa fa-plus"></i> Add Size</a><br><a href="">Refresh</a></small></td>
                   </tr>
                 </table>
+                <a onclick="goBack()" class="btn margin-15px-top btn-secondary" style="letter-spacing: 2px;"><i class="fa fa-arrow-left" aria-hidden="true"></i> BACK</a>
                 <button type="submit" name="add_another" value="true" class="btn btn-success mr-1 waves-effect waves-light" style="letter-spacing: 2px;" formaction="{% url 'editVariants' product.id %}"><i class='fas fa-plus'></i>
                   SAVE & ADD ANOTHER</button>
                 <button type="submit" name="add_another" value="false" class="btn btn-primary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;" formaction="{% url 'editVariants' product.id %}"><i class="fas fa-check"></i>
@@ -121,13 +122,6 @@
       deleteText: 'remove',
       prefix: 'gallery_formset'
     });
-
-
-    // $(document).ready(function(){
-    //  $('.image_id').focus(function(){
-    //      $('.varImagContainer').fadeIn(50);
-    //    })
-    // });
   </script>
 
   {% endblock %}

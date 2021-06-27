@@ -59,7 +59,7 @@
 
               <div class="table-responsive">
 
-                <table class="table table-centered table-nowrap">
+                <table class="table table-centered table-nowrap table-hover">
                   <thead class="thead-light">
                     <tr>
                       <!-- <th style="width: 20px;">
@@ -68,10 +68,11 @@
                           <label class="custom-control-label" for="customCheck1">&nbsp;</label>
                         </div>
                       </th> -->
-                      <th>Product Image</th>
+                      <th>Image</th>
                       <th>Product Name</th>
                       <th>Price</th>
                       <th>Stock</th>
+                      <th>Variants</th>
                       <th>Category</th>
                       <th>Availability</th>
                       <th>Status</th>
@@ -85,22 +86,17 @@
 
                     {% for product in products %}
                     <tr>
-                      <!-- <td>
-    <div class="custom-control custom-checkbox">
-      <input type="checkbox" class="custom-control-input" id="customCheck2">
-      <label class="custom-control-label" for="customCheck2">&nbsp;</label>
-    </div>
-  </td> -->
                       <td>
                         <img src="{{ product.image.url }}" alt="Product Image" width="30" style="border-radius:50px;">
                       </td>
-                      <td>{{product.product_name}}</td>
+                      <td style="max-width: 300px;white-space: unset;">{{product.product_name}}</td>
                       <td>
                         ${{product.price}}
                       </td>
                       <td>
                         {{product.stock}}
                       </td>
+                      <td>{% if product.variant == 'Size-Color' %}Size, Color{% else %}{{product.variant}}{% endif %}</td>
                       <td>
                         {{product.category}}
                       </td>
