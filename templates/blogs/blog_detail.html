@@ -55,7 +55,8 @@
 
         {% if user.is_authenticated %}
         <div class="formFeilds contact-form form-vertical">
-          <form method="post" action="{{blog.get_url}}" id="comment_form" accept-charset="UTF-8" class="comment-form">
+
+          <form action="#" id="comment_form" class="comment-form">
             {% csrf_token %}
             <h2>Write A Comment</h2>
             <div class="row">
@@ -84,10 +85,14 @@
                   <p id="invalidCode" class="text-danger"></p>
                   <p id="blankCaptchaError" class="text-danger"></p>
                 </div>
-                <input type="submit" class="btn" value="Submit" onclick="return ValidCaptcha();" data-toggle="modal" data-target="#exampleModalCenter">
+                
+                <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-danger" onclick="return ValidCaptcha();">
               </div>
             </div>
+            <br>
+            <h6 id="commentMessage"></h6>
           </form>
+
         </div>
         {% else %}
         <h5>Please <span><u><a href="{% url 'userLogin' %}">login</a></u></span> to write a comment.</h5>
@@ -118,17 +123,20 @@
 
                 {% if user.is_authenticated %}
               <div class="formFeilds contact-form form-vertical pt-3" style="margin-left:5em;">
-                <form method="post" action="{{blog.get_url}}" accept-charset="UTF-8" class="comment-form">
+                <form action="#" id="comment_form_reply" class="col-sm-12 col-md-6 col-lg-6 comment-form">
                   {% csrf_token %}
-                  <input type="hidden" name="comment_id" value="{{comment.id}}">
+                  <input type="hidden" name="comment_id" id="comment_id" value="{{comment.id}}">
                   <h5>Write A Reply</h5>
                   <div class="row">
-                    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
-                      {{comment_form.comment_body}}
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                      <!-- {{comment_form.comment_body}} -->
+                      <textarea name="comment_body" cols="30" rows="10" required id="id_comment_body1"></textarea>
                     </div>
                   </div><br>
+                  
                   <input type="submit" value="Submit" class="btn btn-primary">
                 </form>
+                <h6 id="replyMessage" class="pt-2 ml-3"></h6>
               </div>
               {% else %}
               <h5>Please <span><u><a href="{% url 'userLogin' %}">login</a></u></span> to write a reply.</h5>
@@ -157,6 +165,73 @@
         $(replies).slideToggle();
       });
     });
+
+
+    
+// Comment submit
+$(document).on('submit', '#comment_form', function(e) {
+  e.preventDefault();
+  var comment_body = $('#id_comment_body').val();
+  var url = "{{blog.get_url}}"
+  var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
+
+  $.ajax({
+    type: 'POST',
+    url: url,
+    data: {
+      comment_body: comment_body,
+      csrfmiddlewaretoken: csrfmiddlewaretoken,
+    },
+
+    success: function(data) {
+      if (data == 'success'){
+        document.getElementById("commentMessage").className = "text-success";
+        document.getElementById("commentMessage").innerHTML = "Thank you! Your comment will appear after it is approved by our system.";
+        document.getElementById("comment_form").reset();
+      }
+    },
+    error: function(data) {
+      document.getElementById("commentMessage").className = "text-danger";
+      document.getElementById("commentMessage").innerHTML = "Oops! Something is wrong. Please try again.";
+      document.getElementById("comment_form").reset();
+    }
+  });
+});
+
+// Reply submit
+$(document).on('submit', '#comment_form_reply', function(e) {
+  e.preventDefault();
+  var comment_body = $('#id_comment_body1').val();
+  var url = "{{blog.get_url}}"
+  var reply_id = $('#comment_id').val();
+  var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
+
+  $.ajax({
+    type: 'POST',
+    url: url,
+    data: {
+      comment_body: comment_body,
+      csrfmiddlewaretoken: csrfmiddlewaretoken,
+      'reply_id': reply_id,
+    },
+
+    success: function(data) {
+      alert(data.status);
+      return false;
+      if (data == 'success'){
+        document.getElementById("replyMessage").className = "text-success";
+        document.getElementById("replyMessage").innerHTML = "Thank you for your reply!";
+        document.getElementById("comment_form_reply").reset();
+      }
+    },
+    error: function(data) {
+      document.getElementById("replyMessage").className = "text-danger";
+      document.getElementById("replyMessage").innerHTML = "Oops! Something is wrong. Please try again.";
+      document.getElementById("comment_form_reply").reset();
+    }
+  });
+});
+
   </script>
 
   {% endblock %}

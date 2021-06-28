@@ -1,9 +1,10 @@
+from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render,get_object_or_404, redirect
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .models import Category, Blog, Comment
 from .forms import CommentForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.core import serializers
 
 
 def blog(request, slug=None):
@@ -34,7 +35,7 @@ def blog_detail(request, category_slug, blog_slug):
                 new_comment = comment_form.save(commit=False)
                 new_comment.user = request.user
                 new_comment.blog_id = blog.id
-                reply_id = request.POST.get('comment_id')
+                reply_id = request.POST.get('reply_id')
                 comment_body = request.POST.get('comment_body')
                 reply_qs =None
                 if reply_id:
@@ -46,8 +47,12 @@ def blog_detail(request, category_slug, blog_slug):
                     reply=reply_qs
                 )
                 new_comment.save()
-                url = request.META.get('HTTP_REFERER')  # get last url
-                return HttpResponseRedirect(url)
+                print(type(new_comment))
+                response_data = {}
+                response_data['status'] = 'success'
+                response_data['content'] = new_comment
+                print(response_data)
+                return JsonResponse(response_data, content_type="application/json")
 
         else:
             comment_form = CommentForm()
@@ -62,8 +67,5 @@ def blog_detail(request, category_slug, blog_slug):
         'new_comment': new_comment,
         'comment_form': comment_form,
         'comments_count':comments_count,
-
-
-
         }
     return render(request, 'blogs/blog_detail.html', context)

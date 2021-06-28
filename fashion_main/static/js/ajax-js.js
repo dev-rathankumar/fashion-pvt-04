@@ -410,3 +410,4 @@ $.ajax({
 });
 document.getElementById('id_country').required = true
 document.getElementById('id_state').required = true
+
