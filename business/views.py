@@ -1306,12 +1306,12 @@ def editBlogCategory(request, pk=None):
 @business_required(login_url="userLogin")
 @is_account_expired
 def allComments(request):
-    comments = Comment.objects.all().order_by('-created_on')
+    comments = Comment.objects.filter(reply=None).order_by('-created_on')
     paginator = Paginator(comments, 10)
     page = request.GET.get('page')
     paged_comments = paginator.get_page(page)
     context = {
-        'comments': comments,
+        'comments': paged_comments,
     }
     return render(request, 'business/allComments.html', context)
 
