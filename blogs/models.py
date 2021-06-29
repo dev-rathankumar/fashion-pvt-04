@@ -31,6 +31,9 @@ class Category(MPTTModel):
             k = k.parent
         return ' / '.join(full_path[::-1])
 
+    def get_url(self):
+        return reverse('blogs_by_category', args=[self.slug])
+
 
 STATUS = (
     (0,"Draft"),
@@ -47,6 +50,7 @@ class Blog(models.Model):
     blog_body = RichTextField()
     author = models.CharField(max_length=50)
     status = models.IntegerField(choices=STATUS, default=0)
+    
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now= True)
 
