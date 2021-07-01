@@ -38,7 +38,7 @@ from contacts.models import Inquiry
 from urllib.parse import urlparse
 from blogs.models import Blog, Comment
 from blogs.models import Category as BlogCategory
-from django.db.models import Sum, Min
+from django.db.models import Sum, Min, Count, Q
 
 
 # Custom decorator to check if the business account expired or not
@@ -1306,8 +1306,8 @@ def editBlogCategory(request, pk=None):
 @business_required(login_url="userLogin")
 @is_account_expired
 def allComments(request):
-    comments = Comment.objects.filter(reply=None).order_by('-created_on')
-    paginator = Paginator(comments, 10)
+    comments = Comment.objects.filter(reply=None).order_by('-created_on').annotate(number_of_replies=Count('replies')) # annotate the queryset
+    paginator = Paginator(comments, 50)
     page = request.GET.get('page')
     paged_comments = paginator.get_page(page)
     context = {

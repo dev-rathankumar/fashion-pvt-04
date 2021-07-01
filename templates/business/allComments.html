@@ -57,6 +57,7 @@
                       <th>Customers</th>
                       <th>Blogs</th>
                       <th>Comments</th>
+                      <th>Replies</th>
                       <th>Date</th>
                       <th>Approval</th>
 
@@ -64,13 +65,20 @@
                   </thead>
                   <tbody id="myTable">
 
+                    <!-- {% for i in replies %}
+                    {{i.id}}<br>
+                    {{i.number_of_replies}}
+                    <hr>
+                    {% endfor %} -->
+
                     {% for comment in comments %}
                     <tr>
-                      <td>{{comment.user.name}}</td>
+                      <td>{{comment.user.name}} </td>
                       <td style="max-width:200px;"> {{comment.blog}}</td>
                       <td style="max-width:200px;">
                           {{comment.comment_body}}
                       </td>
+                      <td>{{comment.number_of_replies}} replies</td>
                       <td>
                         {{comment.created_on}}
                       </td>

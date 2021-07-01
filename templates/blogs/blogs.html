@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block title %} Blogs {% endblock %}
 {% block content %}
 {% load static %}
@@ -24,13 +23,22 @@
           <div class="widget-title">
             <h2>Search</h2>
           </div>
+
           <div class="custom-search">
-            <form action="/search" method="get" class="input-group search-header search" role="search" style="position: relative;">
-              <input class="search-header__input search__input input-group__field" type="search" name="q" placeholder="Blog Search..." aria-label="Search" autocomplete="off">
-              <span class="input-group__btn"><button class="btnSearch" type="submit"> <i class="icon anm anm-search-l"></i> </button></span>
+            <form action="{% url 'blog' %}" class="form minisearch" id="header-search" method="GET">
+
+                <div class="input-group searchField">
+    <input type="text" class="form-control" name="keyword" value="{{values.keyword}}" placeholder="Search for blogs..."  class="input-text">
+    <div class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <i class="icon anm anm-search-l"></i>
+      </button>
+    </div>
+  </div>
             </form>
           </div>
         </div>
+
         <div class="sidebar_tags">
           <div class="sidebar_widget categories">
             <div class="widget-title">
@@ -38,11 +46,13 @@
             </div>
             <div class="widget-content">
               <ul class="sidebar_categories">
-                <li class="lvl-1 "><a href="/" class="site-nav lvl-1">Denim Jeans</a></li>
-                <li class="lvl-1  active"><a href="#" class="site-nav lvl-1">Fashion</a></li>
-                <li class="lvl-1 "><a href="#" class="site-nav lvl-1">Summer</a></li>
-                <li class="lvl-1 "><a href="#" class="site-nav lvl-1">Trending</a></li>
-                <li class="lvl-1 "><a href="#" class="site-nav lvl-1">Winter</a></li>
+                <ul class="dropdown">
+                  <li class="site-nav"><a href="{% url 'blog' %}">All Blogs</a></li>
+                  <ul>
+              {% for i in category %}
+              <li><a href="{{i.get_url}}">{{i}}</a></li>
+              {% endfor %}
+            </ul>
               </ul>
             </div>
           </div>
@@ -50,6 +60,9 @@
             <div class="widget-title">
               <h2>Recent Blog Posts</h2>
             </div>
+
+            {% for blog in recent_blogs %}
+
             <div class="widget-content">
               <div class="list list-sidebar-products">
                 <div class="grid">
@@ -57,14 +70,22 @@
                     <div class="mini-list-item">
                       <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image blur-up ls-is-cached lazyloaded" data-src="assets/images/blog/post-img6.jpg" src="assets/images/blog/post-img6.jpg"
                             alt=""></a> </div>
-                      <div class="details"> <a class="grid-view-item__title" href="#">Accusantium doloremque</a>
-                        <div class="grid-view-item__meta"><span class="article__date">May 02, 2017</span></div>
+
+                      <div class="details"> <a  href="{{blog.get_url}}">{{blog.title}}</a>
+                        <div ><span class="article__date">{{blog.created_on}}</span></div>
+
+
+
                       </div>
+
+
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
+            {% endfor %}
           </div>
 
         </div>
@@ -91,7 +112,7 @@
                 <ul class="publish-detail">
                   <li><i>{{blog.author}}</i</li>
                   <li><i class="icon anm anm-clock-r"></i>{{blog.updated_on}}</li>
-                  <li><i class="icon anm anm-comments-l"></i> <a href="#"> 0 comments</a></li>
+                  <!--<li><i class="icon anm anm-comments-l"></i> <a href="#">  comments</a></li>-->
                 </ul>
                 <div class="rte">
                   <p>{{blog.short_description}}</p>
@@ -106,8 +127,46 @@
         {% endif %}
       </div>
 
-
         </div>
+        <!-- Make the pagination here -->
+        {% if blogs.has_other_pages %}
+        <ul class="pagination mb-2 shop-page">
+          {% if blogs.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{blogs.previous_page_number}}" aria-label="Previous">
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" aria-label="Previous">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </a>
+          </li>
+          {% endif %}
+          {% for i in blogs.paginator.page_range %}
+          {% if blogs.number == i %}
+          <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+          {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+          {% endif %}
+          {% endfor %}
+
+          {% if blogs.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{blogs.next_page_number}}" aria-label="Next">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" aria-label="Next">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+        {% endif %}
       </div>
       <!--End Main Content-->
     </div>

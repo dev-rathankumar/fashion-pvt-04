@@ -100,7 +100,7 @@
 
         <br><br>
   <h3>Latest Comments</h3><br>
-        {% if not blog.comments.all %}
+        {% if not single_blog.comments.all %}
           No Comments Added..
         {% else %}
           {% for comment in comments %}
@@ -114,29 +114,33 @@
             </div>
             <br>
             <div class="comment__content replies" id="replies-{{comment.id}}" style="display: none;">
+              
                 {% for reply in comment.replies.all %}
-                <div class="comment__header mt-2 ml-5">
-                  <div class="comment__text"><span>&mdash;</span> {{reply.comment_body}}</div>
-                  <small class="ml-3 text-muted">Posted by {{reply.user.name}} | {{reply.created_on}}</small><br>
-                </div><br>
+                  {% if reply.is_active %}
+                  <div class="comment__header mt-2 ml-5">
+                    <div class="comment__text"><span>&mdash;</span> {{reply.comment_body}}</div>
+                    <small class="ml-3 text-muted">Posted by {{reply.user.name}} | {{reply.created_on}}</small><br>
+                  </div><br>
+                  {% endif %}
                 {% endfor %}
 
                 {% if user.is_authenticated %}
               <div class="formFeilds contact-form form-vertical pt-3" style="margin-left:5em;">
-                <form action="#" id="comment_form_reply" class="col-sm-12 col-md-6 col-lg-6 comment-form">
+                <!-- <form action="#" id="comment_form_reply" class="col-sm-12 col-md-6 col-lg-6 comment-form"> -->
+                <form action="#" id="comment_form_reply{{comment.id}}" onsubmit="replySubmit({{comment.id}});return false;" class="col-sm-12 col-md-6 col-lg-6 comment-form">
                   {% csrf_token %}
                   <input type="hidden" name="comment_id" id="comment_id" value="{{comment.id}}">
                   <h5>Write A Reply</h5>
                   <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12">
                       <!-- {{comment_form.comment_body}} -->
-                      <textarea name="comment_body" cols="30" rows="10" required id="id_comment_body1"></textarea>
+                      <textarea name="comment_body" cols="30" rows="10" required id="id_comment_body{{comment.id}}"></textarea>
                     </div>
                   </div><br>
                   
                   <input type="submit" value="Submit" class="btn btn-primary">
                 </form>
-                <h6 id="replyMessage" class="pt-2 ml-3"></h6>
+                <h6 id="replyMessage{{comment.id}}" class="pt-2 ml-3"></h6>
               </div>
               {% else %}
               <h5>Please <span><u><a href="{% url 'userLogin' %}">login</a></u></span> to write a reply.</h5>
@@ -172,7 +176,7 @@
 $(document).on('submit', '#comment_form', function(e) {
   e.preventDefault();
   var comment_body = $('#id_comment_body').val();
-  var url = "{{blog.get_url}}"
+  var url = "{{single_blog.get_url}}"
   var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
 
   $.ajax({
@@ -184,7 +188,8 @@ $(document).on('submit', '#comment_form', function(e) {
     },
 
     success: function(data) {
-      if (data == 'success'){
+      if (data.status == 'success'){
+        console.log(data.content)
         document.getElementById("commentMessage").className = "text-success";
         document.getElementById("commentMessage").innerHTML = "Thank you! Your comment will appear after it is approved by our system.";
         document.getElementById("comment_form").reset();
@@ -192,17 +197,18 @@ $(document).on('submit', '#comment_form', function(e) {
     },
     error: function(data) {
       document.getElementById("commentMessage").className = "text-danger";
-      document.getElementById("commentMessage").innerHTML = "Oops! Something is wrong. Please try again.";
+      document.getElementById("commentMessage").innerHTML = "Oops! Something went wrong. Please try again.";
       document.getElementById("comment_form").reset();
     }
   });
 });
 
-// Reply submit
-$(document).on('submit', '#comment_form_reply', function(e) {
-  e.preventDefault();
-  var comment_body = $('#id_comment_body1').val();
-  var url = "{{blog.get_url}}"
+
+
+function replySubmit(comment_id){
+  var id_comment_body = '#id_comment_body' +comment_id
+  var comment_body = $(id_comment_body).val();
+  var url = "{{single_blog.get_url}}"
   var reply_id = $('#comment_id').val();
   var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
 
@@ -216,22 +222,30 @@ $(document).on('submit', '#comment_form_reply', function(e) {
     },
 
     success: function(data) {
-      alert(data.status);
-      return false;
-      if (data == 'success'){
-        document.getElementById("replyMessage").className = "text-success";
-        document.getElementById("replyMessage").innerHTML = "Thank you for your reply!";
-        document.getElementById("comment_form_reply").reset();
+      if (data.status == 'success'){
+        var replyMessage = 'replyMessage'+comment_id
+        var replyForm = 'comment_form_reply' + comment_id
+        document.getElementById(replyMessage).className = "text-success";
+        document.getElementById(replyMessage).innerHTML = "Thank you! Your reply will appear after it is approved by our system.";
+        document.getElementById(replyForm).reset();
+      }
+      else{
+        var replyMessage = 'replyMessage'+comment_id
+        var replyForm = 'comment_form_reply' + comment_id
+        document.getElementById(replyMessage).className = "text-danger";
+        document.getElementById(replyMessage).innerHTML = "Oops! Something went wrong. Please try again.";
+        document.getElementById(replyForm).reset();
       }
     },
     error: function(data) {
-      document.getElementById("replyMessage").className = "text-danger";
-      document.getElementById("replyMessage").innerHTML = "Oops! Something is wrong. Please try again.";
-      document.getElementById("comment_form_reply").reset();
+      var replyMessage = 'replyMessage'+comment_id
+      var replyForm = 'comment_form_reply' + comment_id
+      document.getElementById(replyMessage).className = "text-danger";
+      document.getElementById(replyMessage).innerHTML = "Oops! Something went wrong. Please try again.";
+      document.getElementById(replyForm).reset();
     }
   });
-});
-
+}
   </script>
 
   {% endblock %}
