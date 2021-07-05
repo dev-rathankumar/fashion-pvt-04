@@ -96,5 +96,8 @@ urlpatterns = [
     path('blogs/comments/commentApproval/<int:pk>/', views.commentApproval, name='commentApproval'),
     path('blogs/comments/commentReplies/<int:pk>/', views.commentReplies, name='commentReplies'),
 
-
+    # Inquiries
+    path('contactInqs/', views.allContacts, name='allContacts'),
+    path('contactInqs/viewContact/<int:pk>/', views.viewContact, name='viewContact'),
+    path('contactInqs/deleteContact/<int:pk>/', views.deleteContact, name='deleteContact'),
 ]

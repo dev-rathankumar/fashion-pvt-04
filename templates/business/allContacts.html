@@ -1,7 +1,7 @@
 {% extends 'business/base.html' %}
 {% load static %}
 {% load humanize %}
-{% block title %} All Inquiries {% endblock %}
+{% block title %} All Contact form inquiries {% endblock %}
 {% block content %}
 
 <!-- ============================================================== -->
@@ -16,12 +16,12 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">All Inquiries</h4>
+            <h4 class="mb-0 font-size-18">All Contacts</h4>
 
             <div class="page-title-right">
               <ol class="breadcrumb m-0">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">Inquiries</a></li>
-                <li class="breadcrumb-item active">All Inquiries</li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Contacts</a></li>
+                <li class="breadcrumb-item active">All Contacts</li>
               </ol>
             </div>
 
@@ -34,7 +34,7 @@
         <div class="col-12">
           <div class="card">
 
-            {% if not inquiries %}
+            {% if not contacts %}
             <h2 class="text-center" style="padding:25px;">You do not have any inquiries yet</h2>
             {% else %}
             <div class="card-body">
@@ -54,9 +54,8 @@
                 <table class="table table-centered table-nowrap table-hover">
                   <thead class="thead-light">
                     <tr>
-                      <th>Customer Name</th>
-                      <th>Product Name</th>
-                      <th>Contact</th>
+                      <th>Name</th>
+                      <th>Email & Phone</th>
                       <th>Date</th>
                       <th>View</th>
                       <th>Action</th>
@@ -66,24 +65,21 @@
 
 
 
-                    {% for inquiry in inquiries %}
+                    {% for contact in contacts %}
                     <tr>
-                      <td><a href="{% url 'viewInquiry' inquiry.id %}">{{inquiry.name}}</a></td>
-                      <td>{{inquiry.product_name}}</td>
+                      <td>{{contact.name}}</td>
+                      <td><a href="mailto:{{contact.email}}">{{contact.email}}</a><br>
+                        <a href="tel:{{contact.phone}}">{{contact.phone}}</a></td>
                       <td>
-                        {{inquiry.email}}  <br>
-                        {{inquiry.phone}}
+                        {{contact.create_date}}
                       </td>
                       <td>
-                        {{inquiry.create_date}}
-                      </td>
-                      <td>
-                        <a href="{% url 'viewInquiry' inquiry.id %}" class="btn btn-primary">
+                        <a href="{% url 'viewContact' contact.id %}" class="btn btn-primary">
                           View Details
                         </a>
                       </td>
                       <td>
-                        <a href="{% url 'deleteInquiry' inquiry.id %}" onclick="return confirm('Are you sure you want to delete this inquiry?')" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i
+                        <a href="{% url 'deleteContact' contact.id %}" onclick="return confirm('Are you sure you want to delete this request?')" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i
                             class="mdi mdi-close font-size-18"></i></a>
                       </td>
                     </tr>
@@ -95,11 +91,11 @@
 
 
               <!-- Paginator Start -->
-              {% if inquiries.has_other_pages %}
+              {% if contacts.has_other_pages %}
               <ul class="pagination pagination-rounded justify-content-end mb-2">
-                {% if inquiries.has_previous %}
+                {% if contacts.has_previous %}
                 <li class="page-item">
-                  <a class="page-link" href="?page={{inquiries.previous_page_number}}" aria-label="Previous">
+                  <a class="page-link" href="?page={{contacts.previous_page_number}}" aria-label="Previous">
                     <i class="mdi mdi-chevron-left"></i>
                   </a>
                 </li>
@@ -110,17 +106,17 @@
                   </a>
                 </li>
                 {% endif %}
-                {% for i in inquiries.paginator.page_range %}
-                {% if inquiries.number == i %}
+                {% for i in contacts.paginator.page_range %}
+                {% if contacts.number == i %}
                 <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
                 {% else %}
                 <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
                 {% endif %}
                 {% endfor %}
 
-                {% if inquiries.has_next %}
+                {% if contacts.has_next %}
                 <li class="page-item">
-                  <a class="page-link" href="?page={{inquiries.next_page_number}}" aria-label="Next">
+                  <a class="page-link" href="?page={{contacts.next_page_number}}" aria-label="Next">
                     <i class="mdi mdi-chevron-right"></i>
                   </a>
                 </li>

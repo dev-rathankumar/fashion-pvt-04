@@ -34,7 +34,7 @@ import ast # for converting tax_data string to dict
 from django.template.loader import render_to_string
 from carts.models import TaxSetting, Tax
 from sitesettings.forms import HeaderForm
-from contacts.models import Inquiry
+from contacts.models import Inquiry, SiteContact
 from urllib.parse import urlparse
 from blogs.models import Blog, Comment
 from blogs.models import Category as BlogCategory
@@ -956,7 +956,7 @@ def setTax(request, business_id=None):
 @is_account_expired
 def allInquiries(request):
     inquiries = Inquiry.objects.filter(business__user=request.user).order_by('-create_date')
-    paginator = Paginator(inquiries, 10)
+    paginator = Paginator(inquiries, 2)
     page = request.GET.get('page')
     paged_inquiries = paginator.get_page(page)
     context = {
@@ -1346,3 +1346,41 @@ def commentReplies(request, pk=None):
     }
     return render(request, 'business/commentReplies.html', context)
 
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def allContacts(request):
+    contacts = SiteContact.objects.filter(business__user=request.user, is_otp_verified=True).order_by('-create_date')
+    paginator = Paginator(contacts, 10)
+    page = request.GET.get('page')
+    paged_contacts = paginator.get_page(page)
+    context = {
+        'contacts': paged_contacts,
+    }
+    return render(request, 'business/allContacts.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def viewContact(request, pk=None):
+    try:
+        contact = SiteContact.objects.get(pk=pk)
+    except SiteContact.DoesNotExist:
+        messages.error(request, 'Invalid request. Please try again')
+        return redirect('allContacts')
+    context = {
+        'contact': contact,
+    }
+    return render(request, 'business/viewContact.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def deleteContact(request, pk=None):
+    contact = get_object_or_404(SiteContact, pk=pk)
+    contact.delete()
+    messages.success(request, 'Contact request has been deleted successfully.')
+    return redirect('allContacts')
