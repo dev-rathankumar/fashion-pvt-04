@@ -20,12 +20,12 @@
   <div class="container">
     <div class="article">
       <!-- Article Image -->
-      <div class="article_featured-image"><img class="blur-up ls-is-cached lazyloaded" data-src="{{single_blog.featured_image.url}}" src="{{single_blog.featured_image.url}}" alt=""></div>
+      <div class="article_featured-image"><img class="blur-up ls-is-cached lazyloaded" data-src="{{single_blog.featured_image.url}}" src="{{single_blog.featured_image.url}}" alt="Blog Featured Image" style="width: 100%;"></div>
       <h1>{{single_blog.title}}</h1>
       <ul class="publish-detail">
         <li><i class="anm anm-user-al" aria-hidden="true"></i> {{single_blog.author}}</li>
         <li><i class="icon anm anm-clock-r"></i> <time>{{single_blog.created_on}}</time></li>
-        <li><i class="icon anm anm-comments-l"></i> <a href="#"> {{comments_count}} comments</a></li>
+        <li><i class="icon anm anm-comments-l"></i> <a href="#comment-section"> {{comments_count}} comments</a></li>
       </ul>
       <hr>
       <div class="rte">
@@ -98,18 +98,26 @@
         <h5>Please <span><u><a href="{% url 'userLogin' %}">login</a></u></span> to write a comment.</h5>
         {% endif %}
 
-        <br><br>
-  <h3>Latest Comments</h3><br>
-        {% if not single_blog.comments.all %}
-          No Comments Added..
+        
+        <section id="comment-section" style="padding-top: 50px;;">
+          <h3>Latest Comments</h3>
+          {% if not comments %}
+            <p>Be the first to comment on this blog.</p><br>
+        </section>
+  
         {% else %}
           {% for comment in comments %}
           <div class="comment">
-            <div class="comment__content">
-              <div class="comment__header">
-                <div class="comment__text"> {{comment.comment_body}}</div>
+            <div class="comment__content" >
+              <div class="comment__header" style="display: flex;">
+                <div>
+                  <img src="{{comment.user.profile_picture.url}}" alt="" width="30" height="30" style="border-radius:50px;">
+                </div>
+                <div class="ml-2">
+                  <div class="comment__text"> {{comment.comment_body}}</div>
                 <p class="text-muted">Posted by {{comment.user.name}} | {{comment.created_on}}</p>
                 <div class="comment__reply"><button class="btn reply-button" id="replybutton-{{comment.id}}">Reply</button></div>
+                </div>
               </div>
             </div>
             <br>
@@ -129,7 +137,7 @@
                 <!-- <form action="#" id="comment_form_reply" class="col-sm-12 col-md-6 col-lg-6 comment-form"> -->
                 <form action="#" id="comment_form_reply{{comment.id}}" onsubmit="replySubmit({{comment.id}});return false;" class="col-sm-12 col-md-6 col-lg-6 comment-form">
                   {% csrf_token %}
-                  <input type="hidden" name="comment_id" id="comment_id" value="{{comment.id}}">
+                  <input type="hidden" name="comment_id" id="comment_id{{comment.id}}" value="{{comment.id}}">
                   <h5>Write A Reply</h5>
                   <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12">
@@ -209,7 +217,8 @@ function replySubmit(comment_id){
   var id_comment_body = '#id_comment_body' +comment_id
   var comment_body = $(id_comment_body).val();
   var url = "{{single_blog.get_url}}"
-  var reply_id = $('#comment_id').val();
+  var re_id = '#comment_id'+comment_id
+  var reply_id = $(re_id).val();
   var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
 
   $.ajax({

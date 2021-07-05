@@ -92,8 +92,9 @@ urlpatterns = [
     path('blogs/editcategory/<int:pk>/', views.editBlogCategory, name='editBlogCategory'),
 
     #blog_commentspath('review-ratings/', views.allReviewRatings, name='allReviewRatings'),
-    path('comments/', views.allComments, name='allComments'),
-    path('comments/commentApproval/<int:pk>/', views.commentApproval, name='commentApproval'),
+    path('blogs/comments/', views.allComments, name='allComments'),
+    path('blogs/comments/commentApproval/<int:pk>/', views.commentApproval, name='commentApproval'),
+    path('blogs/comments/commentReplies/<int:pk>/', views.commentReplies, name='commentReplies'),
 
 
 ]

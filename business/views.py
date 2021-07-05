@@ -1307,7 +1307,7 @@ def editBlogCategory(request, pk=None):
 @is_account_expired
 def allComments(request):
     comments = Comment.objects.filter(reply=None).order_by('-created_on').annotate(number_of_replies=Count('replies')) # annotate the queryset
-    paginator = Paginator(comments, 50)
+    paginator = Paginator(comments, 3)
     page = request.GET.get('page')
     paged_comments = paginator.get_page(page)
     context = {
@@ -1330,3 +1330,19 @@ def commentApproval(request, pk=None):
         return HttpResponse('true')
     else:
         return HttpResponse('false')
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def commentReplies(request, pk=None):
+    single_comment = Comment.objects.get(pk=pk)
+    replies = single_comment.replies.order_by('-created_on')
+    paginator = Paginator(replies, 10)
+    page = request.GET.get('page')
+    paged_replies = paginator.get_page(page)
+    context = {
+        'replies': paged_replies,
+        'single_comment': single_comment,
+    }
+    return render(request, 'business/commentReplies.html', context)
+

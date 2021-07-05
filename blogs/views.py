@@ -16,10 +16,9 @@ def blog(request, slug=None):
     blogs =None
     paged_blogs=None
     blog_count =0
-    blogs = Blog.objects.filter(status=1).order_by('created_on')
     category = Category.objects.all()
 
-    blogs = Blog.objects.all().filter(status = 1).order_by('id')
+    blogs = Blog.objects.all().filter(status = 1).order_by('-id')
     recent_blogs = blogs.filter(status = 1).order_by('-id')[:2]
     paginator = Paginator(blogs, 8)
     page = request.GET.get('page')
