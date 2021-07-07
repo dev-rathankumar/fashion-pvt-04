@@ -298,60 +298,54 @@ def search(request):
         if keyword:
             products = products.filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword)) #8
 
-    # if 'min-price' in request.GET:
-    #     min_price = request.GET['min-price']
-    #     max_price = request.GET['max-price']
-    #     if max_price:
-    #         products = Product.objects.filter(price__gte=min_price, price__lte=max_price, is_active=True)
-    #         product_count = products.count()
+    else:
+        if 'price' in request.GET:
+            price = request.GET['price']
+            #return HttpResponse(value)
+            if price:
+                x = price.split('-')
+                min_price = x[0]
+                max_price = x[1]
+                # price = request.GET['price']
+                if min_price and max_price:
+                    products = products.filter(price__gte=min_price, price__lte=max_price) #6
+        
+        if 'min-custom-price' in request.GET:
+            min_custom_price = request.GET['min-custom-price']
+            max_custom_price = request.GET['max-custom-price']
 
-    if 'price' in request.GET:
-        price = request.GET['price']
-        #return HttpResponse(value)
-        if price:
-            x = price.split('-')
-            min_price = x[0]
-            max_price = x[1]
-            # price = request.GET['price']
-            if min_price and max_price:
-                products = products.filter(price__gte=min_price, price__lte=max_price) #6
+            if min_custom_price and max_custom_price:
+                products = products.filter(price__gte=min_custom_price, price__lte=max_custom_price)
+                product_count = products.count()
+            elif min_custom_price and max_custom_price =="":
+                max_custom_price = max_price
+                products = products.filter(price__gte=min_custom_price, price__lte=max_custom_price)
+                product_count = products.count()
 
-
-    if 'min-custom-price' in request.GET:
-        min_custom_price = request.GET['min-custom-price']
-        max_custom_price = request.GET['max-custom-price']
-
-        if min_custom_price and max_custom_price:
-            products = products.filter(price__gte=min_custom_price, price__lte=max_custom_price)
-            product_count = products.count()
-        elif min_custom_price and max_custom_price =="":
+            elif min_custom_price=="" and max_custom_price:
+                min_custom_price = 0
+                products = products.filter(price__gte=min_custom_price, price__lte=max_custom_price)
+                product_count = products.count()
+        else:
+            min_custom_price = 0
             max_custom_price = max_price
             products = products.filter(price__gte=min_custom_price, price__lte=max_custom_price)
             product_count = products.count()
+            print(products)
 
-        elif min_custom_price=="" and max_custom_price:
-            min_custom_price = 0
-            products = products.filter(price__gte=min_custom_price, price__lte=max_custom_price)
-            product_count = products.count()
-    else:
-        min_custom_price = 0
-        max_custom_price = max_price
-        products = products.filter(price__gte=min_custom_price, price__lte=max_custom_price)
-        product_count = products.count()
+        if 'size' in request.GET:
+            size = request.GET.getlist('size') # ['M', 'XL']
+            size_id = Size.objects.filter(name__in=size).values_list('id', flat=True)  # [2, 3, 4]
+            product = Variants.objects.filter(size__in=size_id).values_list('product', flat=True)  # [ 1, 2 ]
+            products = products.filter(id__in=product) # 4
 
+        if 'color' in request.GET:
+            color = request.GET.getlist('color')
+            color_id = Color.objects.filter(name__in=color).values_list('id', flat=True)  # [2, 3, 4]
+            product = Variants.objects.filter(color__in=color_id).values_list('product', flat=True)  # [ 1, 2 ]
+            products = products.filter(id__in=product) #3
 
-    if 'size' in request.GET:
-        size = request.GET.getlist('size') # ['M', 'XL']
-        size_id = Size.objects.filter(name__in=size).values_list('id', flat=True)  # [2, 3, 4]
-        product = Variants.objects.filter(size__in=size_id).values_list('product', flat=True)  # [ 1, 2 ]
-        products = products.filter(id__in=product) # 4
-
-    if 'color' in request.GET:
-        color = request.GET.getlist('color')
-        color_id = Color.objects.filter(name__in=color).values_list('id', flat=True)  # [2, 3, 4]
-        product = Variants.objects.filter(color__in=color_id).values_list('product', flat=True)  # [ 1, 2 ]
-        products = products.filter(id__in=product) #3
-
+    
     product_count = products.count()
     context = {
         'products': products,

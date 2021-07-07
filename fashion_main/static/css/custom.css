@@ -258,3 +258,12 @@ a.page-link{
 .comments-list__item{list-style-type: none!important;}
 
 .list-sidebar-products{margin-top: 15px;}
+
+input.inputNumber::-webkit-outer-spin-button,
+input.inputNumber::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number]{
+  -moz-appearance: textfield !important;
+}

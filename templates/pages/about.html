@@ -23,39 +23,47 @@ Your sub heading content goes here
 
             {% for content in aboutContents %}
                 {% if forloop.counter|divisibleby:2 %}
-                <div class="row d-flex align-items-center pt-2 pb-2">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 pl-5 pr-5">
-                        <h3><b>{{content.header}}</b></h3>
-                        <p>{{content.header_text | safe }}</p>
+                    {% if content.image %}
+                        <div class="row d-flex align-items-center pt-2 pb-2">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 pl-5 pr-5">
+                                <h3><b>{{content.header}}</b></h3>
+                                <p>{{content.header_text | safe }}</p>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 pt-4 pb-4">
+                                <img src="{{ content.image.url }}" alt=""/>
+                            </div>
+                        </div>
+                    {% else %}
+                    <div class="row align-items-center pt-2 pb-2">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 pl-5 pr-5">
+                            <h3><b>{{content.header}}</b></h3>
+                            <p>{{content.header_text | safe }}</p>
+                        </div>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 pt-4 pb-4">
-                        <img src="{{ content.image.url }}" alt=""/>
-                    </div>
-                </div>
+                    {% endif %}
                 {% else %}
-                <div class="row d-flex align-items-center">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 pt-2 pb-4">
-                        
-                        <img src="{{ content.image.url }}" alt=""/>
+                    {% if content.image %}
+                        <div class="row d-flex align-items-center">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 pt-2 pb-4">
+                                <img src="{{ content.image.url }}" alt=""/>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 pl-5 pr-5">
+                                <h3><b>{{content.header}}</b></h3>
+                                <p class="mb-4">{{content.header_text | safe }}</p>
+                            </div>
+                        </div>
+                    {% else %}
+                    <div class="row align-items-center pt-2 pb-2">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 pl-5 pr-5">
+                            <h3><b>{{content.header}}</b></h3>
+                            <p>{{content.header_text | safe }}</p>
+                        </div>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 pl-5 pr-5">
-                        <h3><b>{{content.header}}</b></h3>
-                        <p class="mb-4">{{content.header_text | safe }}</p>
-                    </div>
-                </div>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
 
-            <!-- <div class="row d-flex align-items-center">
-            	<div class="col-12 col-sm-12 col-md-6 col-lg-6 pt-2 pb-4">
-                	<img src="assets/images/the-founder.jpg" alt=""/>
-                </div>
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6 pl-5 pr-5">
-                	<h3><b>The Founder</b></h3>
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <a href="#" class="btn btn--secondary btn--large"> Read More </a>
-                </div>
-            </div> -->
+           
         	
            
 

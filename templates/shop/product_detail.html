@@ -450,7 +450,7 @@
             <div class="row">
               <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
                 <div class="spr-form clearfix">
-                  <form method="post" action="{% url 'submit_review' single_product.id %}" id="new-review-form" class="new-review-form">
+                  <form method="post" action="{% if user.is_authenticated %}{% url 'submit_review' single_product.id %}{% else %}#{% endif %}" id="new-review-form" class="new-review-form">
                     {% csrf_token %}
                     <h3 class="spr-form-title">Write Your Review</h3>
                     <fieldset class="spr-form-contact">
@@ -469,7 +469,7 @@
                           <input type="radio" id="rating2" name="rating" value="1" required /><label for="rating2" title="1"></label>
                           <input type="radio" id="rating1" name="rating" value="0.5" required /><label class="half" for="rating1" title="0.5"></label>
                         </div>
-  
+                      <p class="text-danger" id="ratingError"></p>
   
                       </div>
                     </fieldset>
@@ -505,9 +505,11 @@
                       </div>
                       <p id="invalidCodeRating" style="color: #e95144;"></p>
                       <p id="blankCaptchaErrorRating" style="color: #e95144;"></p>
-
-                      <input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Submit Review" onclick="return ValidCaptchaRating();">
+                      <p class="mb-1 font-italic text-muted">Please note, reviews must be approved before they are published</p>
+                      <input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Submit Review" onclick="checkforFields(); return ValidCaptchaRating();">
+                   
                     </div>
+                    
                         {% else %}
                         <p>You must purchase this product to write a review.</p>
                         {% endif %}
@@ -587,5 +589,20 @@
       return false;
     }
 });
+
+function checkforFields(){
+  var rating = $('input[name="rating"]:checked').val();
+  if( typeof rating === 'undefined' || rating === null ){
+    document.getElementById("ratingError").innerHTML = "Please select a rating star!";
+    return false;
+    }
+  }
+
+  $(document).ready(function() {
+    $("input[name$='rating']").click(function() {
+      $('#ratingError').empty();
+    });
+});
+
 </script>
 {% endblock %}
