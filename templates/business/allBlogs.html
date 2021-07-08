@@ -86,16 +86,9 @@
                         {% endif %}
                       </td>
                       <td>
-                        <!-- Button trigger modal -->
-                        {% if blog.status == 1 %}
-                        <a href="{{ blog.get_url }}" target="_blank" class="btn btn-primary btn-sm btn-rounded">
+                        <a href="{{ blog.get_url }}?preview=true{% if blog.status == 0 %}&draft=true{% endif %}" target="_blank" class="btn btn-primary btn-sm btn-rounded">
                           Preview
                         </a>
-                        {% else %}
-                        <a class="btn btn-primary btn-sm btn-rounded disabled">
-                          Preview
-                        </a>
-                        {% endif %}
                       </td>
                       <td>
                         <a href="{% url 'editBlog' blog.id %}" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>

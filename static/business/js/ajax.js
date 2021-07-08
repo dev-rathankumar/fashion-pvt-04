@@ -239,7 +239,7 @@ function approvalSwitch(comment_id) {
 function commentApproval(event, comment_id){
   $.ajax({
     type: 'GET',
-    url: '/business/comments/commentApproval/'+comment_id,
+    url: '/business/blogs/comments/commentApproval/'+comment_id,
     data: {
       event:event,
     },

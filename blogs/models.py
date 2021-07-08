@@ -42,8 +42,8 @@ STATUS = (
 
 class Blog(models.Model):
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200, unique=True)
-    slug = models.SlugField(max_length=200, unique=True)
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, unique=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     featured_image = models.ImageField(upload_to='blog/uploads/%Y/%m/%d')
     short_description = models.TextField(max_length=300)

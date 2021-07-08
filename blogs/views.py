@@ -1,3 +1,4 @@
+from accounts.models import Business
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render,get_object_or_404, redirect
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -54,7 +55,6 @@ def blog(request, slug=None):
     'category': category,
     'values' : request.GET,
     'recent_blogs' : recent_blogs,
-    
     }
 
     return render(request, 'blogs/blogs.html', context)
@@ -63,6 +63,17 @@ def blog(request, slug=None):
 def blog_detail(request, category_slug, blog_slug):
     try:
         single_blog = Blog.objects.get(category__slug=category_slug, slug=blog_slug)
+        # If the blog is set to draft, it will be unavailable for public
+        if single_blog.status == 0:
+            if request.user.is_authenticated:
+                if request.user.is_business == True:
+                    pass
+                else:
+                    # If the authenticated user is not the business user, redirect him to all blogs
+                    return redirect('blog')
+            else:
+                # If the user is not at all autheticated, redirect him to all blogs
+                return redirect('blog')
         comments = single_blog.comments.filter(is_active=True, reply=None)
         new_comment = None
         if request.method == 'POST':

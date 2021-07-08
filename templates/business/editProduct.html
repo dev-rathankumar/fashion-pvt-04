@@ -75,6 +75,17 @@
                   </div>
                 </div>
                 <div class="row">
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group">
+                      <label for="productname">Product Variation</label>
+                      {{ basicInfo_form.variant }}
+                    </div>
+                  </div>
+                </div>
+                <p id="price_stock_info" class="text-success"></p>
+
+
+                <div class="row" id="price_stock">
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
                       <label for="productname">Price</label>
@@ -87,15 +98,8 @@
                       {{ basicInfo_form.stock }}
                     </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="form-group">
-                      <label for="productname">Product Variation</label>
-                      {{ basicInfo_form.variant }}
-                    </div>
                   </div>
-                </div>
+                
                 <div class="row">
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
@@ -141,5 +145,40 @@
     </div> <!-- container-fluid -->
   </div>
   <!-- End Page-content -->
+
+  <script type="text/javascript">
+    var variant = document.getElementById("id_variant").value
+    var price = document.getElementById("id_price")
+    var stock = document.getElementById("id_stock")
+    if(variant == 'None'){
+      price.setAttribute('required', 'required');
+      stock.setAttribute('required', 'required');
+    }
+    function showDiv(select){
+      var price = document.getElementById("id_price")
+      var stock = document.getElementById("id_stock")
+       if(select.value=='None'){
+         document.getElementById('price_stock').style.display = "flex";
+         price.setAttribute('required', 'required');
+         stock.setAttribute('required', 'required');
+         document.getElementById('price_stock_info').innerHTML = "";
+
+       } else{
+         document.getElementById('price_stock').style.display = "none";
+         price.removeAttribute('required');
+         stock.removeAttribute('required');
+         document.getElementById('price_stock_info').innerHTML = "Price and Stock can be added with product variants"
+       }
+    }
+
+
+    // hide price stock div on load
+    $( document ).ready(function() {
+      var select = $( "#id_variant option:selected" ).text();
+      if(select != 'None'){
+        document.getElementById('price_stock').style.display = "none";
+      }
+    });
+</script>
 
   {% endblock %}

@@ -82,15 +82,16 @@
                           <div class="row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                               <div class="form-group">
-                                <img src="{{ blogs.featured_image.url }}" alt="" width="50">
+                                <img src="{{ blog.featured_image.url }}" alt="" width="300"><br><br>
                                 <label for="productname">Blog Image</label>
                                 {{ blogInfo_form.featured_image }}
                               </div>
                             </div>
                           </div>
+                          <p class="text-danger" id="descError"></p>
                           <a onclick="goBack();" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp; Go back</a>
                           
-                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-check"></i> SAVE</button>
+                <button type="submit" onclick="return checkforFields();" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-check"></i> SAVE</button>
                 
               </form>
             </div>
@@ -102,4 +103,18 @@
     </div> <!-- container-fluid -->
   </div>
   <!-- End Page-content -->
+  <script>
+    // Check for fields
+    function checkforFields(){
+      var desc = $("#cke_id_blog_body iframe").contents().find("body").text();
+      if(desc === ''){
+        document.getElementById("descError").innerHTML = "Description cannot be blank.";
+        return false;
+      }
+      else{
+        document.getElementById("descError").innerHTML = "";
+        return true;
+      }
+    }
+  </script>
   {% endblock %}

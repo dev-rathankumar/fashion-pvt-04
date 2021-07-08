@@ -96,7 +96,7 @@
 
         <li>
           <a href="javascript: void(0);" class="has-arrow waves-effect
-                    {% if '/blogs/' == request.path or '/editBlog/' in request.path %} active {% else %} {% endif %}">
+                    {% if '/blogs/' == request.path or '/editBlog/' in request.path or '/editcategory/' in request.path %} active {% else %} {% endif %}">
             <i class="bx bx-store"></i>
             <span key="t-ecommerce">Blogs</span>
           </a>
@@ -110,12 +110,12 @@
             </li>
             <li>
               <a href="javascript: void(0);" class="has-arrow waves-effect
-                        {% if '/categories/' == request.path or '/editCategory/' in request.path %} active {% else %} {% endif %}">
+                        {% if '/categories/' == request.path or '/editcategory/' in request.path %} active {% else %} {% endif %}">
                 <i class="bx bx-list-check"></i>
                 <span key="t-ecommerce">Categories</span>
               </a>
               <ul class="sub-menu" aria-expanded="false">
-                <li><a href="{% url 'allBlogsCategories' %}" key="t-products" {% if '/categories/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>All Categories</a></li>
+                <li><a href="{% url 'allBlogsCategories' %}" key="t-products" {% if '/categories/' == request.path or '/editcategory/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>All Categories</a></li>
                 <li><a href="{% url 'addBlogCategories'%}" key="t-product-detail" {% if '/addcategories/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Add Category</a></li>
               </ul>
             </li>
