@@ -35,7 +35,7 @@ class Product(models.Model):
     )
     business        = models.ForeignKey(Business, on_delete=models.CASCADE)
     product_name    = models.CharField(max_length=200)
-    slug            = models.SlugField(max_length=200, unique=True)
+    slug            = models.SlugField(max_length=200, unique=True, blank=True)
     description     = RichTextField()
     full_specification = RichTextField(blank=True, default='')
     price           = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null = True)

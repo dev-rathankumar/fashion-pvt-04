@@ -1,3 +1,4 @@
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth import get_user_model
@@ -343,6 +344,9 @@ def editProduct(request, pk=None):
     if request.method == 'POST':
         basicInfo_form = ProductForm(request.POST, request.FILES, instance=product)
         if basicInfo_form.is_valid():
+            product_name = basicInfo_form.cleaned_data['product_name']
+            makeSlug = product_name + str(pk)
+            product.slug = slugify(makeSlug)
             basicInfo_form.save()
             return redirect('/business/products/editProduct/'+str(pk)+'/editGallery/')
         else:
@@ -382,6 +386,8 @@ def editGallery(request, pk=None):
             return HttpResponse(formset.errors)
     else:
         formset = ProductGalleryFormSet(instance=product)
+        print(formset)
+        # print('gallery image count', len(formset))
     context = {
         'product' : product,
         'formset': formset,
@@ -395,6 +401,13 @@ def editGallery(request, pk=None):
 def editVariants(request, pk=None):
     product = get_object_or_404(Product, pk=pk)
     ProductVariantFormSet = inlineformset_factory(Product, Variants, form=ProductVariantForm, extra=1)
+
+    # Check if gellery image is 0, return back to edit gallery
+    chkGallery = ProductGallery.objects.filter(product=product)
+    if chkGallery.count() <= 0:
+        url = request.META.get('HTTP_REFERER')
+        messages.error(request, 'You have deleted the image. Add atleast one image in the gallery')
+        return HttpResponseRedirect(url)
 
     if request.method == 'POST':
         add_another = request.POST['add_another']
@@ -432,6 +445,7 @@ def editVariants(request, pk=None):
 @business_required(login_url="userLogin")
 @is_account_expired
 def addProduct(request):
+    url = request.META.get('HTTP_REFERER')
     if request.method == 'POST':
         basicInfo_form = ProductForm(request.POST, request.FILES)
         if basicInfo_form.is_valid():
@@ -440,14 +454,16 @@ def addProduct(request):
             product_name = basicInfo_form.cleaned_data['product_name']
             product = basicInfo_form.save(commit=False)
             product.business = business_name
-            product.slug = slugify(product_name)
             basicInfo_form.save()
             pk = product.id
+            makeSlug = product_name + str(pk)
+            product.slug = slugify(makeSlug)
+            product.save()
             return redirect('/business/products/editProduct/'+str(pk)+'/editGallery/')
         else:
             print(basicInfo_form.errors)
-            messages.error(request, 'Something went wrong!')
-            return redirect('allProducts')
+            messages.error(request, 'Something went wrong! Please try again.')
+            return HttpResponseRedirect(url)
     else:
         basicInfo_form = ProductForm()
     context = {

@@ -68,28 +68,33 @@
                         {% endfor %}
                       {% endif %}
                       {{ field.errors.as_ul }}
-                      <img src="{{ field.value.url }}" alt="" width="75">
+                     {% if field.value == None %}
+                      <input type="hidden" name="galleryEmpty" id="galleryEmpty" value="">
+                     {% endif %}
+                     <input type="hidden" name="galleryEmpty" id="galleryEmpty" value="pass">
+                      <img src="{{ field.value.url }}" width="75">
                       {{ field }}
                     </td>
                     {% endfor %}
                   </tr>
                   {% endfor %}
                 </table>
+                <p class="text-danger" id="chkGalleryError"></p>
                 <div class="row">
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <a onclick="goBack()" class="btn margin-15px-top btn-secondary" style="letter-spacing: 2px;"><i class="fa fa-arrow-left" aria-hidden="true"></i> BACK</a>
-                    <button type="submit" name="add_another" value="true" class="btn btn-success mr-1 waves-effect waves-light" style="letter-spacing: 2px;" formaction="{% url 'editGallery' product.id %}"><i class='fas fa-plus'></i>
+                    <button type="submit" onclick="return checkgallery();" name="add_another" value="true" class="btn btn-success mr-1 waves-effect waves-light" style="letter-spacing: 2px;" formaction="{% url 'editGallery' product.id %}"><i class='fas fa-plus'></i>
                       SAVE & ADD ANOTHER</button>
                   </div>
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     {% if product.price and product.stock %}
-                    <button type="submit" name="add_another" value="finish" class="btn btn-primary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;" formaction="{% url 'editGallery' product.id %}"><i class="fas fa-check"></i> FINISH
+                    <button type="submit" name="add_another" onclick="return checkgallery();" value="finish" class="btn btn-primary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;" formaction="{% url 'editGallery' product.id %}"><i class="fas fa-check"></i> FINISH
                       </button>
                     {% else %}
-                    <button type="submit" name="add_another" value="false" class="btn btn-primary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;" formaction="{% url 'editGallery' product.id %}">SAVE & CONTINUE
+                    <button type="submit" name="add_another" onclick="return checkgallery();" value="false" class="btn btn-primary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;" formaction="{% url 'editGallery' product.id %}">SAVE & CONTINUE
                       <i class="fas fa-arrow-right"></i></button>
                     {% endif %}
-                    <a href="{% url 'editVariants' product.id  %}" class="btn btn-secondary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;">SKIP <i class="fa fa-fast-forward"></i></a>
+                    <a href="{% url 'editVariants' product.id  %}" id="skipButton" class="btn btn-secondary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;">SKIP <i class="fa fa-fast-forward"></i></a>
                 
                   </div>
                 </div>
@@ -118,6 +123,30 @@
         deleteText: 'remove',
         prefix: 'gallery_formset'
     });
+
+    // Check for empty gallery
+    function checkgallery(){
+      var chkGallery = $('#galleryEmpty').val();
+      var titleValue = $('.file-caption-name').attr('title');
+      if(titleValue === undefined){
+        if(chkGallery === ''){
+        document.getElementById("chkGalleryError").innerHTML = "Add atleast one image in the gallery";
+        return false;
+        }
+        else{
+          document.getElementById("chkGalleryError").innerHTML = "";
+          return true;
+        }
+      }
+    }
+
+    $(document).ready(function() {
+      var chkGallery = $('#galleryEmpty').val();
+      if(chkGallery === ''){
+        document.getElementById("skipButton").style.display = "none";
+      }
+    });
+   
 </script>
 
   {% endblock %}

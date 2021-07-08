@@ -30,7 +30,7 @@
               <p class="card-title-desc">Fill all information below</p>
               {% include 'includes/_alerts.html' %}
 
-              <form method="POST" action="{% url 'addProduct' %}" enctype="multipart/form-data">
+              <form method="POST" action="{% url 'addProduct' %}" name="addProductForm" enctype="multipart/form-data">
                 {% csrf_token %}
 
 
@@ -39,6 +39,7 @@
                     <div class="form-group">
                       <label for="productname">Product Name</label>
                       {{ basicInfo_form.product_name }}
+                      
                     </div>
                   </div>
                 </div>
@@ -120,8 +121,8 @@
                     </div>
                   </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;">SAVE & CONTINUE <i class="fas fa-arrow-right"></i></button>
+                <p class="text-danger" id="descError"></p>
+                <button type="submit" onclick="return checkforFields();" class="btn btn-primary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;">SAVE & CONTINUE <i class="fas fa-arrow-right"></i></button>
               </form>
 
 
@@ -163,6 +164,19 @@
          stock.removeAttribute('required');
          document.getElementById('price_stock_info').innerHTML = "Price and Stock can be added with product variants"
        }
+    }
+
+    // Check for fields
+    function checkforFields(){
+      var desc = $("#cke_id_description iframe").contents().find("body").text();
+      if(desc === ''){
+        document.getElementById("descError").innerHTML = "Product Description cannot be blank.";
+        return false;
+      }
+      else{
+        document.getElementById("descError").innerHTML = "";
+        return true;
+      }
     }
     </script>
 

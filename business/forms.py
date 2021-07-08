@@ -97,7 +97,7 @@ class ProductGalleryForm(forms.ModelForm):
         "type": "file",
         "class": "file",
         # "data-browse-on-zone-click": "true",
-        "data-show-preview": "false"
+        "data-show-preview": "false",
     }))
     class Meta:
         model = ProductGallery
