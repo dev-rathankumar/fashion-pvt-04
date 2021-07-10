@@ -21,7 +21,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ['status', 'ordered']
     search_fields = ['order_number', 'first_name', 'last_name', 'phone', 'email']
     readonly_fields = ('payment','user', 'order_number', 'total', 'tax', 'ip', 'note')
-    list_per_page = 25
+    list_per_page = 100
     can_delete = False
     inlines = [OrderProductInline]
 
@@ -32,7 +32,7 @@ class OrderProductAdmin(admin.ModelAdmin):
 
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ['user', 'payment_method', 'payment_id', 'amount', 'status', 'created_at']
-    readonly_fields = ('user', 'payment_method', 'payment_id', 'amount', 'status', 'created_at')
+    readonly_fields = ('user', 'payment_id', 'amount', 'status', 'created_at')
     inlines = [OrderInline]
 
 

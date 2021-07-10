@@ -1,3 +1,5 @@
+from django.template.defaultfilters import lower
+from orders.forms import DDPaymentForm
 from sitesettings.models import Footer, Header
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail.message import EmailMessage
@@ -75,14 +77,6 @@ def payments(request):
 
     ShopCart.objects.filter(user_id=request.user.id).delete() # Clear & Delete shopcart
     request.session['cart_items'] = 0
-    # email_host_user = settings.EMAIL_HOST_USER
-    # send_mail(
-    #         'Thank you for your order!',
-    #         'Your order has been recieved.',
-    #         email_host_user,
-    #         [order.email],
-    #         fail_silently=False,
-    #     )
 
     current_site = get_current_site(request)
     business = Business.objects.get(domain_name=current_site.domain)
@@ -120,25 +114,10 @@ def payments(request):
         'payment_id': payment.payment_id,
     }
     return JsonResponse(data)
-    # return render(request, 'orders/order_complete.html', context)
-    # return JsonResponse('Payment submitted..', safe=False)
-    # return JsonResponse({'order_number':order.order_number})
-    # ordered_products_json = serializers.serialize('json', ordered_products, order)
-    # return HttpResponse(ordered_products_json, content_type='application/json')
-    # return JsonResponse(serializers.serialize('json', order), safe=False)
-    # return JsonResponse({
-    #     'status_code': 1,
-    #     'order_number':order.order_number,
-    #     'ordered_products': ordered_products,
-    #     'order': order,
-    #     'subtotal': subtotal,
-    #     'payment': payment,
-    # }, safe=False)
-    # return redirect('order_complete')
-    # return render(request, 'orders/order_complete.html', context)
 
 
 def orderproduct(request):
+    print('entered inside view')
     current_user = request.user
     shopcart = ShopCart.objects.filter(user_id=current_user.id)
     cart_count = shopcart.count()
@@ -160,7 +139,6 @@ def orderproduct(request):
 
     grand_total = Decimal(grand_total)
     tax = Decimal(tax)
-    print(type(grand_total))
 
     # get_tax = TaxSetting.objects.all()
     # tax_dict = {}
@@ -176,6 +154,7 @@ def orderproduct(request):
     if request.method == 'POST':
         form = OrderForm(request.POST)
         phone = request.POST['phone_number']
+        payment_method = request.POST['payment_method']
         if form.is_valid():
             # Send credit card info to bank and get the result.
             data = Order()
@@ -189,6 +168,7 @@ def orderproduct(request):
             data.state = form.cleaned_data['state']
             data.city = form.cleaned_data['city']
             data.pin_code = form.cleaned_data['pin_code']
+            data.payment_method = payment_method
             data.note = form.cleaned_data['note']
             data.user_id = current_user.id
             data.total = grand_total
@@ -206,9 +186,13 @@ def orderproduct(request):
             data.order_number = order_number
             data.save()
             request.session['order_number'] = order_number
+            request.session['payment_method'] = payment_method
             order = Order.objects.get(user=current_user, ordered=False, order_number=order_number)
+            dd_paymentForm = DDPaymentForm()
             context = {
                 'order' : order,
+                'payment_method': payment_method,
+                'dd_paymentForm': dd_paymentForm,
             }
             return render(request, 'orders/payments.html', context)
         else:
@@ -216,6 +200,92 @@ def orderproduct(request):
             return redirect('checkout')
     else:
         return redirect('checkout')
+
+
+
+def saveDDPayment(request):
+    order_num = request.session.get('order_number')
+    order = Order.objects.get(user=request.user, ordered=False, order_number=order_num)
+    if request.method == 'POST':
+        transDDForm = DDPaymentForm(request.POST, request.FILES)
+        if transDDForm.is_valid:
+            transDD = transDDForm.save(commit=False)
+            user_id = request.user.id
+            transDD.user_id = user_id
+            transDD.payment_method = lower(order.payment_method)
+            transDD.status = 'PENDING'
+            transDD.save()
+            payment = Payment.objects.get(id=transDD.id)
+
+            order.payment = payment
+            order.ordered = True
+            order.save()
+
+            # Move cart items to Order Products table
+            shopcart = ShopCart.objects.filter(user_id=request.user.id)
+            for item in shopcart:
+                orderproduct = OrderProduct()
+                orderproduct.order_id = order.id # Order Id
+                orderproduct.payment = order.payment
+                orderproduct.product_id = item.product_id
+                orderproduct.variant_id = item.variant.id
+                orderproduct.user_id = request.user.id
+                orderproduct.quantity = item.quantity
+                orderproduct.color = item.color
+                orderproduct.size = item.size
+                orderproduct.price = item.variant.price
+                orderproduct.amount = item.amount
+                orderproduct.status = "New"
+                orderproduct.ordered = True
+                orderproduct.save()
+
+                # Reduce quantity of sold products from the product db
+                product = Product.objects.get(id=item.product_id)
+                product.stock -= item.quantity
+                product.save()
+                print('variant_id', item.variant_id)
+                variants = Variants.objects.filter(id=item.variant_id)
+                for var in variants:
+                    print('variant quantiy', var.quantity)
+                    
+                    var.quantity -= item.quantity
+                    var.save()
+
+            ordered_products = OrderProduct.objects.filter(order_id=orderproduct.order_id)
+            order = Order.objects.get(order_number=order.order_number)
+            subtotal = 0
+            for i in ordered_products:
+                subtotal += i.variant.price * i.quantity
+
+            ShopCart.objects.filter(user_id=request.user.id).delete() # Clear & Delete shopcart
+            request.session['cart_items'] = 0
+
+            current_site = get_current_site(request)
+            business = Business.objects.get(domain_name=current_site.domain)
+            header = Header.objects.get(business=business)
+            footer = Footer.objects.get(business=business)
+            support_email = business.user.email
+            mail_subject = 'Thank you for your order!'
+            message = render_to_string('orders/order_placed_email.html', {
+                'order': order,
+                'business': business,
+                'header': header,
+                'footer': footer,
+                'support_email': support_email,
+                'ordered_products': ordered_products,
+                'domain': current_site.domain,
+                'subtotal': subtotal,
+                'payment': payment,
+                'direct_deposit': True,
+            })
+            to_email = order.user.email
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.content_subtype = "html"
+            email.send()
+            
+            return redirect('/order/order_complete?order_number='+order.order_number+'&payment_id='+payment.payment_id)
 
 
 def order_complete(request):

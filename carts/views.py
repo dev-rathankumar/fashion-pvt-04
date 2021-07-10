@@ -1,3 +1,4 @@
+from orders.models import Payment
 from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product
 from category.models import Category
@@ -274,6 +275,7 @@ def checkout(request):
     else:
         userinfo_form = BillingUserInfoForm(instance=current_user)
         customerinfo_form = BillingCustomerInfoForm()
+        
         context = {
             'userinfo_form': userinfo_form,
             'customerinfo_form': customerinfo_form,

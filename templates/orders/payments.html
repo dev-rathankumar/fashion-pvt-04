@@ -21,7 +21,7 @@
   <!--End Page Title with Image-->
   <div class="container">
 
-    <form method="POST" id="checkout_billing_form">
+    <form method="POST" id="checkout_billing_form" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="row billing-fields">
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 sm-margin-30px-bottom">
@@ -76,7 +76,11 @@
                   <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12">
                       <div class="card-body">
-                        <p class="card-text mb-0">PayPal</p>
+                        {% if payment_method == 'PayPal' %}
+                        <img src="{% static 'images/payment_gateways/paypal.png' %}" width="150" style="padding: 0 10px 0 10px;border: 1px solid #d2d2d2;">
+                        {% elif payment_method == 'Direct Deposit' %}
+                        <img src="{% static 'images/payment_gateways/direct.png' %}" width="150" style="padding: 0 10px 0 10px;border: 1px solid #d2d2d2;">
+                        {% endif %}
                       </div>
                     </div>
                   </div>
@@ -165,9 +169,53 @@
                         </div>
                       </div>
 
+                      {% if payment_method == 'Direct Deposit' %}
+                      </form>
+                      {% endif %}
+
+                      {% if payment_method == 'PayPal' %}
                       <div id="payPal-payment">
                         <div id="paypal-button-container"></div>
                       </div>
+                      {% elif payment_method == 'Direct Deposit' %}
+                      <br>
+                        <h5>Please make payment to below email address and submit the transaction details.</h5>
+                        
+                        <div class="jumbotron jumbotron-fluid" style="padding: 1rem;">
+                          <div class="container">
+                            <p class="lead">alaa.moftah@gmail.com</p>
+                          </div>
+                        </div>
+
+                        <div class="container">
+                          
+                            <div class="form-group">
+                              <label for="exampleFormControlFile1">Amount Paid</label>
+                              
+                              <input type="text" name="amount" maxlength="100" value="{{order.total}}" required id="id_amount" readonly style="background-color:#F7F7F7;cursor: not-allowed;">
+                             </div>
+                            <div class="form-group">
+                              <label for="exampleFormControlFile1">Transaction Detail</label>
+                              {{dd_paymentForm.payment_id}}
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleFormControlFile1">Date of Payment</label>
+                              {{dd_paymentForm.date_of_dd_payment}}
+                            </div>
+                            <div class="form-group rm_upload">
+                              <label for="exampleFormControlFile1">Attachment <span class="text-muted">(Optional)</span></label>
+                              {{dd_paymentForm.dd_attachment}}
+                            </div>
+                            <input type="hidden" name="url" id="url" value="{% url 'saveDDPayment' %}">
+                            <i class="text-muted" style="font-size: 12px;">Order will be confirmed after the payment is recieved.</i>
+                            <div class="form-group">
+                              <input type="submit" name="submit" id="submitTrans" formaction="{% url 'saveDDPayment' %}" value="Submit Transaction Details" class="btn w-100">
+                            </div>
+                      
+                        </div>
+                        
+                        
+                      {% endif %}
                     </div>
                   </div>
 

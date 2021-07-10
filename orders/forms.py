@@ -1,3 +1,4 @@
+from orders.models import Payment
 from django import forms
 from accounts.models import User, Customer
 
@@ -27,3 +28,17 @@ class BillingCustomerInfoForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ['address_line_1', 'address_line_2', 'city', 'pin_code', 'country', 'state']
+
+
+class DDPaymentForm(forms.ModelForm):
+    dd_attachment = forms.ImageField(required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+        "class": "file",
+        "type": "file",
+        "data-show-preview": "false"
+    }))
+    class Meta:
+        model = Payment
+        fields = ['amount', 'payment_id', 'date_of_dd_payment', 'dd_attachment']
+        widgets = {
+        'date_of_dd_payment': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'required':'required', 'type':'date'}),
+        }

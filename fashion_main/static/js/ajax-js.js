@@ -411,3 +411,30 @@ $.ajax({
 document.getElementById('id_country').required = true
 document.getElementById('id_state').required = true
 
+
+function saveDDPayment(){
+  var url = $('#url').val();
+  var paymentData = new FormData();
+  paymentData.append('amount', $("#id_amount").val());
+  paymentData.append('payment_id', $("#id_payment_id").val());
+  paymentData.append('date_of_payment', $("#id_date_of_dd_payment").val());
+  paymentData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val());
+  paymentData.append('img', $("#is_dd_attachment")[0].files[0]);
+  
+  
+  $.ajax({
+    url: url,
+    type:"post",
+    cache : false,
+    contentType : false,
+    processType : false,
+    data: paymentData,
+    success: function(data) {
+      alert(data);
+      return false;
+    }
+});
+  
+}
+
+

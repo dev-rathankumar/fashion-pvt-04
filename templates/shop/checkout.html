@@ -171,15 +171,33 @@
                         <h4>Grand Total</h4>
                       </td>
                       <td>
-                        <h4>$ <span id="grand_total">{{total | intcomma}}</span></h4>
+                        <h4>$<span id="grand_total">{{total | intcomma}}</span></h4>
                       </td>
 
                     </tr>
                   </tfoot>
                 </table>
               </div>
+
+              <!-- S E L E C T  P A Y M E N T  M E T H O D -->
+              <div class="table-responsive-sm order-table">
+                <h2 class="order-title mb-4">Select Payment Method</h2>
+                <div class="payment_options_dd_paypal">
+                  <label>
+                    <input type="radio" name="payment_method" value="PayPal" checked>
+                    <img src="{% static 'images/payment_gateways/paypal.png' %}" width="150" style="padding: 0 10px 0 10px;border: 1px solid #d2d2d2;">
+                  </label>
+                  
+                  <label>
+                    <input type="radio" name="payment_method" value="Direct Deposit">
+                    <img src="{% static 'images/payment_gateways/direct.png' %}" width="150" style="padding: 0 10px 0 10px;border: 1px solid #d2d2d2;">
+                  </label>
+                </div>
+               
+                
+              </div>
               <div class="order-button-payment">
-                <button class="btn btn--small-wide" value="Place order" type="submit">Place order</button>
+                <button class="btn btn--small-wide" onclick="return payMethodConfirm();" value="Place order" type="submit">Place order</button>
               </div>
             </div>
           </div>
@@ -193,15 +211,17 @@
 <!--End Page Wrapper-->
 <!--End Page Wrapper-->
 
-<!-- <script>
-  $(document).ready(function(){
-  $("#place_order").click(function(){
-    $("#place_order").css("display", "none");
-    $("#payPal-payment").slideDown("slow");
+<script>
+function payMethodConfirm(){
+  var payMethod = document.querySelector('input[name="payment_method"]:checked').value;
+  var retVal = confirm('You have selected '+payMethod+' as your preferred payment method.\nClick "OK" to continue.');
+  if (retVal == true){
+    return true;
+  }else{
     return false;
-  });
-});
-</script> -->
+  }
+}
+</script>
 
 
 

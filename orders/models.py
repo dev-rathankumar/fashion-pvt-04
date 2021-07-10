@@ -7,10 +7,16 @@ from smart_selects.db_fields import ChainedForeignKey
 
 
 class Payment(models.Model):
+    PAYMENT_METHOD = (
+        ('paypal', 'PayPal'),
+        ('direct deposit', 'Direct Deposit'),
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     payment_id = models.CharField(max_length=100)
-    payment_method = models.CharField(max_length=100)
+    payment_method = models.CharField(choices=PAYMENT_METHOD, max_length=100, default='paypal')
     amount = models.CharField(max_length=100)
+    date_of_dd_payment = models.DateField(blank=True, null=True)
+    dd_attachment = models.ImageField(upload_to='direct_deposit_attachments', blank=True, null=True)
     status = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -52,6 +58,7 @@ class Order(models.Model):
     total = models.FloatField()
     tax_data = models.JSONField(default=tax_data_default, blank=True, help_text = "Data format: {'tax_type':{'tax_value':'tax_amount'}}")
     tax = models.FloatField()
+    payment_method = models.CharField(max_length=25, default='PayPal')
     status = models.CharField(max_length=10, choices=STATUS, default='New')
     ip = models.CharField(blank=True, max_length=20)
     note = models.CharField(max_length=100, blank=True)
