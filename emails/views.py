@@ -154,5 +154,5 @@ def test_mail(request):
     except:
         email_settings.is_settings_verified = False
         email_settings.save()
-        messages.error(request, 'Could not send emails. Please check your email settings!')
+        messages.error(request, 'Your configuration seems to be Incorrect. Please check your email settings!')
         return redirect('email_settings')

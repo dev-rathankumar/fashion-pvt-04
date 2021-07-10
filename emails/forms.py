@@ -19,7 +19,8 @@ class EmailForm(forms.ModelForm):
 
 
 class BusinessEmailSettingForm(forms.ModelForm):
-    email_host_password = forms.CharField(widget=forms.PasswordInput())
+    
+    email_host_password = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete':'off', 'readonly': 'readonly', 'onfocus': "this.removeAttribute('readonly');"}))
     class Meta:
         model = BusinessEmailSetting
         fields = ['email_host', 'email_host_user', 'email_host_password', 'port', 'email_use_tls']

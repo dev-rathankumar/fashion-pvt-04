@@ -2,6 +2,7 @@ from django.db import models
 from accounts.models import User, Business
 from ckeditor.fields import RichTextField
 from django import forms
+#from django.contrib.auth.hashers import make_password
 
 # Create your models here.
 
@@ -41,3 +42,8 @@ class BusinessEmailSetting(models.Model):
 
     def __str__(self):
         return self.business.company_name
+
+    #def save(self, *args, **kwargs):
+        
+        #self.email_host_password = make_password(self.email_host_password)
+        #super(BusinessEmailSetting, self).save(*args, **kwargs)
