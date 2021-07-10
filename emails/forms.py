@@ -29,3 +29,4 @@ class BusinessEmailSettingForm(forms.ModelForm):
         super(BusinessEmailSettingForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
             self.fields[myField].widget.attrs['class'] = 'form-control'
+            self.fields[myField].widget.attrs['required'] = 'required'

@@ -12,7 +12,7 @@ class EmailAdmin(admin.ModelAdmin):
 
 class BusinessEmailSettingAdmin(admin.ModelAdmin):
     form = BusinessEmailSettingForm
-    list_display = ('business', 'email_host', 'email_host_user', 'updated_at')
+    list_display = ('business', 'email_host', 'email_host_user', 'is_settings_verified', 'updated_at')
 
     # if there's already an entry, do not allow adding
     def has_add_permission(self, request):

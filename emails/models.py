@@ -35,6 +35,7 @@ class BusinessEmailSetting(models.Model):
     email_host_password = models.CharField(max_length=50, blank=True)
     port = models.IntegerField(null=True, blank=True)
     email_use_tls = models.CharField(max_length=10, choices=USE_TLS_CHOICES, default='True')
+    is_settings_verified = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

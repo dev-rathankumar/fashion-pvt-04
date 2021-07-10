@@ -46,7 +46,7 @@ def send_email(request):
             header = Header.objects.get(business=business)
             support_email = business.user.email
             footer = get_object_or_404(Footer, business=business)
-            footer_credit = footer.footer_credit
+            footer_credit = footer.footer_text
             mail_subject = subject
             message = render_to_string('business/emails/email_template.html', {
                 'domain': current_site.domain,
@@ -72,6 +72,7 @@ def send_email(request):
             #     mail_subject, message, to=[to_email]
             # )
             email.content_subtype = "html"
+            
             if email.send():
                 email_obj.is_sent = True
                 email_obj.recipients = to_email
@@ -110,13 +111,48 @@ def email_settings(request):
     email_settings = get_object_or_404(BusinessEmailSetting, business__user=request.user)
     if request.method == "POST":
         form = BusinessEmailSettingForm(request.POST, instance=email_settings)
-        form.save()
-        messages.success(request, 'Settings applied successfully.')
-        return redirect('email_settings')
+        if form.is_valid:
+            host_email = request.POST['email_host_user']
+            request.session['to_email'] = host_email
+            form.save()
+            return redirect('test_mail')
+        #messages.success(request, 'Settings applied successfully.')
+        #return redirect('email_settings')
     else:
         form = BusinessEmailSettingForm(instance=email_settings)
     context = {
         'form': form,
+        'email_settings': email_settings,
         # 'background': background,
     }
     return render(request, 'business/emails/email_settings.html', context)
+
+def test_mail(request):
+    # Send email
+    current_site = get_current_site(request)
+    mail_subject = 'Test Connection'
+    message = 'This is a test email to verify your email configuration.'
+    to = request.session.get('to_email')
+    to_email = (to,)
+    # Get Email Connection
+    email_settings = BusinessEmailSetting.objects.get(business__user=request.user)
+    try:
+        with get_connection(
+            host=email_settings.email_host,
+            port=email_settings.port,
+            username=email_settings.email_host_user,
+            password=email_settings.email_host_password,
+            use_tls=email_settings.email_use_tls
+        ) as connection:
+            email = EmailMessage(mail_subject, message, to=to_email,
+                            connection=connection)
+        email.send()
+        email_settings.is_settings_verified = True
+        email_settings.save()
+        messages.success(request, 'Test email sent successfully. Your configuration is updated.')
+        return redirect('email_settings')
+    except:
+        email_settings.is_settings_verified = False
+        email_settings.save()
+        messages.error(request, 'Could not send emails. Please check your email settings!')
+        return redirect('email_settings')
