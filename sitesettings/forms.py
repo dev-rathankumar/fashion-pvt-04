@@ -89,6 +89,13 @@ class ContactPageForm(forms.ModelForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={
     }), label="Email")
 
+    phone_number = forms.CharField(widget=forms.TextInput(attrs={'type': 'number',
+        'maxlength': 12,
+        'oninput' : 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);',
+        'class': 'inputNumber',
+    }))
+
+
     class Meta:
         model = ContactPage
         fields = ['address_line_1', 'address_line_2', 'city', 'pin_code', 'country', 'state', 'phone_number', 'email', 'embed_google_map']

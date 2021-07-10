@@ -5,6 +5,11 @@ from accounts.models import User, Customer
 class BillingUserInfoForm(forms.ModelForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={
     }), label="Email")
+    phone_number = forms.CharField(widget=forms.TextInput(attrs={'type': 'number',
+        'maxlength': 12,
+        'oninput' : 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);',
+        'class': 'inputNumber',
+    }))
 
     class Meta:
         model = User

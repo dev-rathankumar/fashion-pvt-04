@@ -21,6 +21,12 @@ class UserForm(forms.ModelForm):
         # "data-browse-on-zone-click": "true",
         "data-show-preview": "false"
     }))
+    phone_number = forms.CharField(widget=forms.TextInput(attrs={'type': 'number',
+        'maxlength': 12,
+        'oninput' : 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);',
+        'class': 'inputNumber',
+    }))
+    
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'phone_number', 'gender', 'profile_picture']
@@ -38,6 +44,8 @@ class BusinessForm(forms.ModelForm):
         'value': 'True',
     }), initial=1)
     is_editing = forms.BooleanField(required=False,initial=True)
+    
+
     class Meta:
         model = Business
         fields = ['company_name', 'country', 'state', 'city', 'pin_code', 'address_line_1', 'address_line_2']

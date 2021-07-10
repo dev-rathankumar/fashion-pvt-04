@@ -348,12 +348,6 @@ def editProduct(request, pk=None):
             makeSlug = product_name + str(pk)
             product.slug = slugify(makeSlug)
             basicInfo_form.save()
-            variant = basicInfo_form.cleaned_data['variant']
-            if variant != 'None':
-                product.price = None
-                product.stock = None
-                product.is_active = False
-                product.save()
             return redirect('/business/products/editProduct/'+str(pk)+'/editGallery/')
         else:
             print(basicInfo_form.errors)
@@ -426,10 +420,6 @@ def editVariants(request, pk=None):
                 return redirect('/business/products/editProduct/'+str(pk)+'/editVariants/')
             else:
                 variants = Variants.objects.filter(product=product)
-                if variants.count() <= 0:
-                    url = request.META.get('HTTP_REFERER')
-                    messages.error(request, 'Add atleast one variation')
-                    return HttpResponseRedirect(url)
                 total_quantity = variants.aggregate(Sum('quantity'))['quantity__sum'] or 0
                 min_price = variants.aggregate(Min('price'))['price__min'] or 0.00
                 product.price = min_price
@@ -1200,21 +1190,17 @@ def addBlog(request):
     if request.method == 'POST':
         blogInfo_form = BlogForm(request.POST, request.FILES)
         if blogInfo_form.is_valid():
-            print('valid')
             current_user = request.user
             business_name = Business.objects.get(user=current_user)
             title  = blogInfo_form.cleaned_data['title']
             blog  = blogInfo_form.save(commit=False)
             blog.business = business_name
+            blog.slug = slugify(title)
             blog.author = current_user.name
             blogInfo_form.save()
-            makeSlug = title + str(blog.id)
-            blog.slug = slugify(makeSlug)
-            blog.save()
             messages.success(request, 'You have added a new blog!')
             return redirect('allBlogs')
         else:
-            print('invalid')
             print(blogInfo_form.errors)
             messages.error(request, 'Something went wrong!')
             return redirect('allBlogs')
@@ -1244,9 +1230,6 @@ def editBlog(request, pk=None):
     if request.method == 'POST':
         blogInfo_form = BlogForm(request.POST, request.FILES, instance=blog)
         if blogInfo_form.is_valid():
-            title  = blogInfo_form.cleaned_data['title']
-            makeSlug = title + str(pk)
-            blog.slug = slugify(makeSlug)
             blogInfo_form.save()
             messages.success(request, 'Blog has been updated.')
             return redirect('allBlogs')
@@ -1280,11 +1263,8 @@ def allBlogsCategories(request):
 def addBlogCategories(request):
     if request.method == 'POST':
         blogform = BlogCategoryForm(request.POST, request.FILES)
-        category_name = request.POST['category_name']
-        if BlogCategory.objects.filter(category_name__iexact=category_name).exists():
-            messages.error(request, 'Category "'+ category_name +'" already exists!')
-            return redirect('addBlogCategories')
         if blogform.is_valid():
+            category_name = blogform.cleaned_data['category_name']
             blogcategory = blogform.save(commit=False)
             blogcategory.slug = slugify(category_name)
             blogform.save()
