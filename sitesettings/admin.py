@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Header, Footer, ContactPage, Homepage, BannerImage, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent
-import admin_thumbnails
+from .models import Header, Footer, ContactPage, Homepage, BannerImage, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent, DirectDepositEmail
 
 
 class BannerImageInline(admin.TabularInline):
@@ -102,6 +101,10 @@ class TopbarAdmin(admin.ModelAdmin):
         return False
 
 
+class DirectDepositEmailAdmin(admin.ModelAdmin):
+    list_display = ['business', 'direct_deposit_email', 'is_enabled', 'modified_date']
+
+
 admin.site.register(Header, HeaderAdmin)
 admin.site.register(Footer)
 admin.site.register(ContactPage, ContactPageAdmin)
@@ -115,3 +118,4 @@ admin.site.register(Policy, PolicyAdmin)
 admin.site.register(TermsAndCondition, TermsAndConditionAdmin)
 admin.site.register(Topbar, TopbarAdmin)
 admin.site.register(AboutContent)
+admin.site.register(DirectDepositEmail, DirectDepositEmailAdmin)

@@ -1,6 +1,6 @@
 from django.template.defaultfilters import lower
 from orders.forms import DDPaymentForm
-from sitesettings.models import Footer, Header
+from sitesettings.models import DirectDepositEmail, Footer, Header
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail.message import EmailMessage
 from django.shortcuts import render, redirect
@@ -117,7 +117,6 @@ def payments(request):
 
 
 def orderproduct(request):
-    print('entered inside view')
     current_user = request.user
     shopcart = ShopCart.objects.filter(user_id=current_user.id)
     cart_count = shopcart.count()
@@ -155,6 +154,7 @@ def orderproduct(request):
         form = OrderForm(request.POST)
         phone = request.POST['phone_number']
         payment_method = request.POST['payment_method']
+
         if form.is_valid():
             # Send credit card info to bank and get the result.
             data = Order()
@@ -188,11 +188,20 @@ def orderproduct(request):
             request.session['order_number'] = order_number
             request.session['payment_method'] = payment_method
             order = Order.objects.get(user=current_user, ordered=False, order_number=order_number)
+                        
+            # render dd form
             dd_paymentForm = DDPaymentForm()
+            # get direct deposit email address
+            if payment_method == 'Direct Deposit':
+                dd = DirectDepositEmail.objects.get(business=biz_id)
+                ddEmail = dd.direct_deposit_email
+            else:
+                ddEmail = ''
             context = {
                 'order' : order,
                 'payment_method': payment_method,
                 'dd_paymentForm': dd_paymentForm,
+                'ddEmail': ddEmail,
             }
             return render(request, 'orders/payments.html', context)
         else:

@@ -1,7 +1,7 @@
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 from django.forms import inlineformset_factory
-from .models import Header, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent
+from .models import DirectDepositEmail, Header, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent
 
 
 
@@ -194,5 +194,17 @@ class TopbarForm(forms.ModelForm):
     # Give same CSS class to all the fields
     def __init__(self, *args, **kwargs):
         super(TopbarForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class DirectDepositEmailForm(forms.ModelForm):
+    class Meta:
+        model = DirectDepositEmail
+        fields = ['direct_deposit_email']
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(DirectDepositEmailForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
             self.fields[myField].widget.attrs['class'] = 'form-control'

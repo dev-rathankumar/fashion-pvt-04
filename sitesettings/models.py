@@ -202,3 +202,14 @@ class Topbar(models.Model):
 
     def __str__(self):
         return self.business.company_name
+
+
+class DirectDepositEmail(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    direct_deposit_email = models.EmailField(max_length=50, blank=True)
+    is_enabled = models.BooleanField(default=False)
+    created_date    = models.DateTimeField(auto_now_add=True)
+    modified_date   = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.direct_deposit_email

@@ -258,3 +258,42 @@ function commentApproval(event, comment_id){
     }
   });
 }
+
+
+// Payment Gateway Switch
+function ddSwitch() {
+  var ddSwitch = document.getElementById('ddSwitch');
+  var url = $('#ddurl').val();
+
+  if (ddSwitch.checked == true){
+    var event = Boolean(true);
+    ddToggleEnable(event, url);
+    document.getElementById("ddForm").style.display = "block";
+  } else {
+    var event = Boolean(false);
+    ddToggleEnable(event, url);
+    document.getElementById("ddForm").style.display = "none";
+  }
+}
+
+function ddToggleEnable(event, url){
+  $.ajax({
+    type: 'GET',
+    url: url,
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'enabled') {
+        document.getElementById('ddStatus').innerHTML = "Enabled";
+      }
+      else{
+        document.getElementById('ddStatus').innerHTML = "Disabled";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}

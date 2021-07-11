@@ -3,8 +3,8 @@ from pages.views import about
 from django.core.mail import message
 from products.models import ReviewRating
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import AboutContent, Header, Homepage, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
-from .forms import AboutContentForm, HeaderForm, BannerImageForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, TermsAndConditionForm, TopbarForm
+from .models import AboutContent, DirectDepositEmail, Header, Homepage, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
+from .forms import AboutContentForm, DirectDepositEmailForm, HeaderForm, BannerImageForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, TermsAndConditionForm, TopbarForm
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from accounts.models import Business
@@ -470,3 +470,41 @@ def editTermsConditions(request):
         'form': form,
     }
     return render(request, 'business/sitesettings/editTermsConditions.html', context)
+
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def paymentGateways(request):
+    business = Business.objects.get(user=request.user)
+    dd = get_object_or_404(DirectDepositEmail, business=business)
+
+    if request.method == 'POST':
+        ddform = DirectDepositEmailForm(request.POST, instance=dd)
+        if ddform.is_valid():
+            ddform.save()
+            messages.success(request, 'Email address for your Direct Deposit payment gateway is updated.')
+            return redirect('paymentGateways')
+    else:
+        ddform = DirectDepositEmailForm(instance=dd)
+    context = {
+        'ddform': ddform,
+        'dd': dd,
+    }
+    return render(request, 'business/sitesettings/paymentGateways.html', context)
+
+
+def paymentToggleEnable(request):
+    event = request.GET.get('event')
+    print(event)
+    business = Business.objects.get(user=request.user)
+    dd = get_object_or_404(DirectDepositEmail, business=business)
+    if event == 'true':
+        dd.is_enabled = True
+        dd.save()
+        result = 'enabled'
+    else:
+        dd.is_enabled = False
+        dd.save()
+        result = 'disabled'
+    return HttpResponse(result)

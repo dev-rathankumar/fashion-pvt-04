@@ -42,4 +42,8 @@ urlpatterns = [
     path('editPolicy/', views.editPolicy, name='editPolicy'),
     path('editTermsConditions/', views.editTermsConditions, name='editTermsConditions'),
 
+    path('paymentGateways/', views.paymentGateways, name='paymentGateways'),
+    path('paymentGateways/paymentToggleEnable/', views.paymentToggleEnable, name='paymentToggleEnable'),
+
+
 ]
