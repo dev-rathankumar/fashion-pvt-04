@@ -27,6 +27,16 @@
               <h2 class="order-title mb-4">Thank you for your order, {{order.user.first_name}}</h2>
 
               <p style="font-size:24px;text-align:right;">Order # <span style="font-size:48px;">{{order.order_number}}</span></p>
+              <p class="text-muted">Date: {{order.created_at}}</p>
+              {% if order.status == 'Cancelled' %}
+              <div class="alert alert-danger" role="alert">
+                This order was cancelled
+              </div>
+              {% elif order.status == 'On Hold' %}
+              <div class="alert alert-primary" role="alert">
+                This order is on hold. Please wait until we verify your payment.
+              </div>
+              {% endif %}
               <div class="table-responsive-sm order-table">
                 <div class="card">
                   <div class="card-header">
@@ -106,13 +116,13 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-2">
+                    <!-- <div class="col-md-2">
                       <div class="card-body">
                         <p class="card-text alert alert-{% if i.status == 'New' %}warning {% elif i.status == 'Accepted' %}primary {% elif i.status == 'Cancelled' %}danger {% elif i.status == 'Completed' %}success  {% endif %}" role="success"
                           style="font-weight:600;padding:5px;text-align: center;width:100px;">{{ i.status }}</p>
                       </div>
-                    </div>
-                    <div class="col-md-2">
+                    </div> -->
+                    <div class="col-md-4">
                       <div class="card-body">
                         <p class="card-text mb-0" style="font-weight:600;">${{ i.amount | intcomma }}</p>
                         <div class="cart__meta-text">
@@ -126,7 +136,9 @@
                   <div class="container">
                     <div class="row">
                       <div class="col text-right">
+                        {% if order.status == 'New' or order.status == 'Accepted' or order.status == 'Completed' %}
                         <img src="{% static 'business/images/paid.png' %}" alt="Paid" width="200">
+                        {% endif %}
                       </div>
 
                       <div class="col">

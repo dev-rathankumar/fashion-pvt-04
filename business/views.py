@@ -1,3 +1,4 @@
+from orders.views import orderproduct
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
@@ -117,7 +118,7 @@ def logout(request):
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
 def dashboard(request):
-    orders = Order.objects.filter(ordered=True)
+    orders = Order.objects.filter(Q(ordered=True) & ~Q(status='Cancelled'))
     orders_count = orders.count()
     revenue = 0
     for i in orders:
@@ -135,7 +136,7 @@ def dashboard(request):
 def biz_profile(request):
     current_user = request.user
     biz = Business.objects.get(user__id=current_user.id)
-    orders = Order.objects.filter(ordered=True)
+    orders = Order.objects.filter(Q(ordered=True) & ~Q(status='Cancelled'))
     orders_count = orders.count()
     revenue = 0
     for i in orders:
@@ -248,7 +249,7 @@ def biz_resetPassword(request):
 def editProfile(request, pk=None):
     user = get_object_or_404(User, pk=pk)
     business = get_object_or_404(Business, pk=pk)
-    orders = Order.objects.filter(ordered=True)
+    orders = Order.objects.filter(Q(ordered=True) & ~Q(status='Cancelled'))
 
     orders_count = orders.count()
     revenue = 0
@@ -561,7 +562,7 @@ def deleteCategory(request, pk=None):
 @is_account_expired
 def allOrders(request):
     orders = Order.objects.filter(ordered=True).order_by('-created_at')
-    paginator = Paginator(orders, 5)
+    paginator = Paginator(orders, 15)
     page = request.GET.get('page')
     paged_orders = paginator.get_page(page)
     context = {
@@ -595,11 +596,10 @@ def bizOrderDetail(request, pk=None):
 @business_required(login_url="userLogin")
 @is_account_expired
 def editOrder(request, pk=None):
+    url = request.META.get('HTTP_REFERER')
     order = get_object_or_404(Order, pk=pk)
-
     # Get ordered products
     try:
-        orders = Order.objects.get(pk=pk)
         ordered_products = OrderProduct.objects.filter(order__order_number=order.order_number)
         subtotal = 0
         for i in ordered_products:
@@ -613,13 +613,37 @@ def editOrder(request, pk=None):
             changed_status = form.cleaned_data['status']
             if changed_status != current_status:
                 # Send order update email
-                mail_subject = 'Your order has been '+changed_status
+                message = ''
+                if changed_status == 'New':
+                    message = 'Your order status has been set to New'
+                elif changed_status == 'On Hold':
+                    message = 'Your order is on Hold'
+                elif changed_status == 'Accepted':
+                    message = 'Congrats! Your order has been accepted'
+                elif changed_status == 'Completed':
+                    message = 'Thank you! Your order has been completed.'
+                elif changed_status == 'Cancelled':
+                    # Reduce quantity of sold products from the product db
+                    for item in ordered_products:
+                        product = Product.objects.get(id=item.product_id)
+                        product.stock += item.quantity
+                        product.save()
+                        variants = Variants.objects.filter(id=item.variant_id)
+                        for var in variants:
+                            var.quantity += item.quantity
+                            var.save()
+                    message = 'We are sorry! Your order has been cancelled.'
+                else:
+                    message = 'Your order has been set to '+changed_status
+
+                mail_subject = message
                 # current_site = get_current_site(request)
                 message = render_to_string('orders/order_status_email.html', {
                     'user': order.user,
                     # 'domain': current_site.domain,
                     'changed_status': changed_status,
                     'order': order,
+                    'message': message,
                 })
                 to_email = order.user.email
                 email = EmailMessage(
@@ -630,7 +654,7 @@ def editOrder(request, pk=None):
                 # print('Current status was '+current_status +', '+ 'new status is '+ changed_status)
             form.save()
             messages.success(request, 'Order has been updated.')
-            return redirect('allOrders')
+            return HttpResponseRedirect(url)
         else:
             print(form.errors)
 

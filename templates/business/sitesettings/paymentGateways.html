@@ -70,7 +70,7 @@
                           <span class="slider round"></span>
                           
                         </label>
-                        <span id="ddStatus">{% if dd.is_enabled %}Enabled{% else %}Disabled{% endif %}</span>
+                        <span id="ddStatus" style="position:relative;top:3px;">{% if dd.is_enabled %}Enabled{% else %}Disabled{% endif %}</span>
                     </div>
                   </div>
                   <div class="row p-3">
@@ -82,6 +82,7 @@
                       <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="form-group">
                           {{ ddform.as_p }}
+                          <span class="text-muted">Your customers will make a direct deposit payment to this email address.</span>
                         </div>
                       </div>
                     </div>

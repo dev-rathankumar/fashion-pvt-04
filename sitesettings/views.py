@@ -496,7 +496,6 @@ def paymentGateways(request):
 
 def paymentToggleEnable(request):
     event = request.GET.get('event')
-    print(event)
     business = Business.objects.get(user=request.user)
     dd = get_object_or_404(DirectDepositEmail, business=business)
     if event == 'true':

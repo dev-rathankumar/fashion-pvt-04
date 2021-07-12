@@ -60,6 +60,7 @@
                       <th>Contact</th>
                       <th>City</th>
                       <th>Total</th>
+                      <th>Payment</th>
                       <th>Status</th>
                       <th>Ordered Date</th>
                       <th>View Order</th>
@@ -72,7 +73,7 @@
 
                     {% for order in orders %}
                     <tr>
-                      <td><a href="{% url 'bizOrderDetail' order.order_number %}">{{ order.order_number }}</a></td>
+                      <td><a href="{% url 'bizOrderDetail' order.order_number %}"><b>{{ order.order_number }}</b></a></td>
                       <td>{{order.name}}</td>
                       <td>
                         {{order.phone}}<br>
@@ -85,10 +86,21 @@
                         ${{order.total}}
                       </td>
                       <td>
+                        {% if order.payment_method == 'Direct Deposit' %}
+                        <img src="{% static 'images/payment_gateways/direct.png' %}" width="120" style="padding: 0 10px 0 10px;border: 1px solid #d2d2d2;">
+                        {% else %}
+                        <img src="{% static 'images/payment_gateways/paypal.png' %}" width="120" style="padding: 0 10px 0 10px;border: 1px solid #d2d2d2;">
+                        {% endif %}
+                      </td>
+                      <td>
                         {% if order.status == 'New' %}
                         <span class="badge badge-pill badge-soft-success font-size-12 w-100">New</span>
                         {% elif order.status == 'Accepted' %}
                         <span class="badge badge-pill badge-soft-primary font-size-12 w-100">Accepted</span>
+                        {% elif order.status == 'On Hold' %}
+                        <span class="badge badge-pill badge-soft-info font-size-12 w-100">On Hold</span>
+                        {% elif order.status == 'Pending Payment' %}
+                        <span class="badge badge-pill badge-soft-secondary font-size-12 w-100">Pending Payment</span>
                         {% elif order.status == 'Completed' %}
                         <span class="badge badge-pill badge-soft-warning font-size-12 w-100">Completed</span>
                         {% elif order.status == 'Cancelled' %}

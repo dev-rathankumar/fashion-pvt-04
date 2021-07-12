@@ -253,3 +253,12 @@ a.btn.disabled{
 p.allCategories:hover, .table-hover tbody tr:hover{
   background-color: aliceblue !important;
   }
+.ddAttachmentModel{
+  cursor: pointer;
+}
+
+@media only screen  and (min-width : 1224px) {
+  #ddAttachmentModel .modal-dialog-centered{
+    max-width: 65% !important;
+  }
+  }

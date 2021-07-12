@@ -30,6 +30,7 @@ def tax_data_default():
 class Order(models.Model):
     STATUS = (
         ('New', 'New'),
+        ('On Hold', 'On Hold'),
         ('Accepted', 'Accepted'),
         ('Completed', 'Completed'),
         ('Cancelled', 'Cancelled'),
@@ -59,7 +60,7 @@ class Order(models.Model):
     tax_data = models.JSONField(default=tax_data_default, blank=True, help_text = "Data format: {'tax_type':{'tax_value':'tax_amount'}}")
     tax = models.FloatField()
     payment_method = models.CharField(max_length=25, default='PayPal')
-    status = models.CharField(max_length=10, choices=STATUS, default='New')
+    status = models.CharField(max_length=15, choices=STATUS, default='New')
     ip = models.CharField(blank=True, max_length=20)
     note = models.CharField(max_length=100, blank=True)
     ordered = models.BooleanField(default=False)
@@ -88,6 +89,7 @@ class OrderForm(ModelForm):
 class OrderProduct(models.Model):
     STATUS = (
         ('New', 'New'),
+        ('On Hold', 'On Hold'),
         ('Accepted', 'Accepted'),
         ('Cancelled', 'Cancelled'),
         ('Completed', 'Completed'),

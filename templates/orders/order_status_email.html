@@ -1,6 +1,7 @@
 {% autoescape off %}
 Hi {{ user.first_name }},
 
-Your order (#{{order.order_number}}) has been {{ changed_status }}.
+{{message}}
+Order# {{order.order_number}}
 
 {% endautoescape %}

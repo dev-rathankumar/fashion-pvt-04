@@ -169,6 +169,8 @@ def orderproduct(request):
             data.city = form.cleaned_data['city']
             data.pin_code = form.cleaned_data['pin_code']
             data.payment_method = payment_method
+            if payment_method == 'Direct Deposit':
+                data.status = 'On Hold'
             data.note = form.cleaned_data['note']
             data.user_id = current_user.id
             data.total = grand_total
@@ -244,7 +246,7 @@ def saveDDPayment(request):
                 orderproduct.size = item.size
                 orderproduct.price = item.variant.price
                 orderproduct.amount = item.amount
-                orderproduct.status = "New"
+                orderproduct.status = "On Hold"
                 orderproduct.ordered = True
                 orderproduct.save()
 
@@ -252,11 +254,8 @@ def saveDDPayment(request):
                 product = Product.objects.get(id=item.product_id)
                 product.stock -= item.quantity
                 product.save()
-                print('variant_id', item.variant_id)
                 variants = Variants.objects.filter(id=item.variant_id)
                 for var in variants:
-                    print('variant quantiy', var.quantity)
-                    
                     var.quantity -= item.quantity
                     var.save()
 
@@ -307,9 +306,7 @@ def order_complete(request):
         subtotal = 0
         for i in ordered_products:
             subtotal += i.variant.price * i.quantity
-
-        payment = Payment.objects.get(payment_id=transaction_id)
-        print(type(order.tax_data))
+        payment = Payment.objects.get(payment_id=transaction_id, pk=order.payment.id)
         context = {
             'order_number': order.order_number,
             'ordered_products': ordered_products,

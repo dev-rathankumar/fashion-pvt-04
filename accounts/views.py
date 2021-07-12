@@ -19,7 +19,7 @@ from .forms import UserForm
 
 from django.http import HttpResponse
 from urllib.parse import urlparse
-from sitesettings.models import Homepage, ParallaxBackground, Header, ContactPage, Footer, AboutPage, Policy, TermsAndCondition, Topbar
+from sitesettings.models import DirectDepositEmail, Homepage, ParallaxBackground, Header, ContactPage, Footer, AboutPage, Policy, TermsAndCondition, Topbar
 from emails.models import BusinessEmailSetting
 from datetime import date, datetime
 import time
@@ -432,6 +432,11 @@ def biz_password_reset(request):
             terms.heading = 'Terms & Conditions'
             terms.business = business
             terms.save()
+
+            # Automatically creating Direct deposit email entry
+            ddEmail = DirectDepositEmail()
+            ddEmail.business = business
+            ddEmail.save()
 
             mail_subject = 'Your Business Account is Activated'
             # message = 'Congratulations! Your business account has been activated.'

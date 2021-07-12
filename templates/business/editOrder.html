@@ -57,8 +57,16 @@
                         <br>
 
                         <div class="col-md-6 col-lg-6 col-sm-12">
+                          {% if order.status == 'Completed' %}
+                          <span class="badge badge-pill badge-soft-warning font-size-14 w-100 p-2">Completed</span>
+                          <span class="text-muted">This order has been completed.</span>
+                          {% elif order.status == 'Cancelled' %}
+                          <span class="badge badge-pill badge-soft-danger font-size-14 w-100 p-2">Cancelled</span>
+                          <span class="text-muted">This order has been cancelled.</span>
+                          {% else %}
                           <label>Order Status:</label>
                           {{form.status}}
+                          {% endif %}
                         </div>
                         <br>
                         <div class="table-responsive-sm order-table">
@@ -158,11 +166,57 @@
                             <div class="row">
                               <div class="col-md-12 col-lg-12 col-sm-12">
                                 <div class="card-body">
-                                  <p class="card-text mb-0">PayPal</p>
+                                  <p class="card-text mb-0">{{order.payment_method | upper}}</p>
                                 </div>
                               </div>
                             </div>
                           </div>
+
+                          {% if order.payment_method == 'Direct Deposit' %}
+                        <div class="card">
+                          <div class="card-header">
+                            <div class="row">
+                              <div class="col-12">
+                                <h5 class="m-0">Direct Deposit Payment Details</h5>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                              <div class="card-body">
+                                <p class="card-text mb-0">Amount Paid: ${{order.payment.amount}}</p>
+                                <p class="card-text mb-0">Transaction Detail: {{order.payment.payment_id}}</p>
+                                <p class="card-text mb-0">Date of Payment: {{order.payment.date_of_dd_payment}}</p>
+                                <p class="card-text mb-0">Attachment: <br> {% if order.payment.dd_attachment %}
+                                  <div >
+                                    <img src ="{{ order.payment.dd_attachment.url }}" width="100" data-toggle="modal" class="ddAttachmentModel" data-target="#ddAttachmentModel" /> <br>
+                                    <small class="text-muted"><i class="fa fa-search" aria-hidden="true"></i> Click to open</small>
+                                  </div>
+                                  <div class="modal fade" id="ddAttachmentModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLongTitle">Direct Deposit Payment Attachment</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <img src ="{{ order.payment.dd_attachment.url }}" style="width:100%" />
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                {% else %}NA{% endif %}</p>
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {% endif %}
 
                           <div class="card">
                             <div class="card-header">

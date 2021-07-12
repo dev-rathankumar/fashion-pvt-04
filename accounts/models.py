@@ -107,6 +107,19 @@ class User(AbstractBaseUser):
     def has_module_perms(self, add_label):
         return True
 
+    @property
+    def customer_id(self):
+        if self.is_customer:
+            cust = Customer.objects.get(pk=self.id)
+            return cust.customer_id
+        elif self.is_business:
+            cust = Business.objects.get(pk=self.id)
+            return cust.business_id
+        elif self.is_regional_manager:
+            cust = RegionalManager.objects.get(pk=self.id)
+            return cust.regional_manager_id
+
+
     # Concatenate first name and last name
     @property
     def name(self):

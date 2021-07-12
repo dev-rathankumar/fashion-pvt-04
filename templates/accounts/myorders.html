@@ -35,6 +35,7 @@
                       <th>Billing Name</th>
                       <th>Total</th>
                       <th>Purchased On</th>
+                      <th>Status</th>
                       <th>View Details</th>
                     </tr>
                   </thead>
@@ -45,6 +46,7 @@
                       <td>{{order.name}}</td>
                       <td>${{order.total}}</td>
                       <td>{{order.created_at | date:"M d, Y"}}</td>
+                      <td>{{order.status}}</td>
                       <td><a href="{% url 'orderDetail' order.order_number %}"><b>VIEW DETAILS</b></a></td>
                     </tr>
                   {% endfor %}
