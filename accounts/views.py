@@ -438,6 +438,13 @@ def biz_password_reset(request):
             ddEmail.business = business
             ddEmail.save()
 
+            # Automatically creating dashboard images entry
+            dashImage = DashboardImage()
+            dashImage.business = business
+            dashImage.business_landing_image = 'default/dashboard-landing-image.jpg'
+            dashImage.account_manager_landing_image = 'default/dashboard-landing-image.jpg'
+            dashImage.save()
+
             mail_subject = 'Your Business Account is Activated'
             # message = 'Congratulations! Your business account has been activated.'
             current_site = get_current_site(request)

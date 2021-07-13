@@ -310,3 +310,14 @@ class Customer(models.Model):
 
     def full_address(self):
         return f'{self.address_line_1} {self.address_line_2}'
+
+
+class DashboardImage(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    business_landing_image = models.ImageField(upload_to='accounts/%Y/%m/%d', default='default/dashboard-landing-image.png', blank=True)
+    account_manager_landing_image = models.ImageField(upload_to='accounts/%Y/%m/%d', default='default/dashboard-landing-image.png', blank=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.business.company_name

@@ -29,16 +29,14 @@
                 <div class="col-xl-8" style="margin:auto;">
                   {% include 'includes/_alerts.html' %}
                     <div class="card overflow-hidden">
-                        <div class="bg-soft-primary">
+                      <div class="card overflow-hidden">
+                        <div class="bg-soft-primary" style="background-image: url('{{dashboardimage.business_landing_image.url}}');background-size: cover;height: 300px;">
                             <div class="row">
-                                <div class="col-7">
+                                <div class="col-12">
                                     <div class="text-primary p-3">
-                                      <h5 class="text-primary">Hi, {{ user.name }}</h5>
-                                      <p>Welcome back!</p>
+                                        <h5 class="text-primary text-light">Hi, {{ user.name }}</h5>
+                                        <p class="text-light">Welcome back!</p>
                                     </div>
-                                </div>
-                                <div class="col-5 align-self-end">
-                                    <img src="{% static 'business/images/profile-img.png' %}" alt="" class="img-fluid">
                                 </div>
                             </div>
                         </div>

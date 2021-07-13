@@ -1,4 +1,4 @@
-from accounts.models import Business, User
+from accounts.models import Business, User, DashboardImage
 from urllib.parse import urlparse
 from sitesettings.models import Header, Homepage, Footer, Topbar
 from django.http import HttpResponse
@@ -46,3 +46,16 @@ def get_sitesettings(request):
         topbar = None
         company_name = None
     return dict(header=header, company_name=company_name, footer=footer, topbar=topbar)
+
+
+def get_dashboardImage(request):
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    try:
+        business = Business.objects.get(domain_name=domain)
+        dashboardimage = DashboardImage.objects.get(business=business)
+    except:
+        business = None
+        dashboardimage = None
+    return dict(dashboardimage=dashboardimage)
+    

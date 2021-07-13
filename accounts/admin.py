@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Customer, Country, State, Business, RegionalManager, TaxOnPlan
+from .models import User, Customer, Country, State, Business, RegionalManager, TaxOnPlan, DashboardImage
 from django.utils.html import format_html
 from django.db.models import Q
 
@@ -117,13 +117,24 @@ class RegionalManagerAdmin(admin.ModelAdmin):
         return False
 
 
-
 # State Admin
 class StateAdmin(admin.ModelAdmin):
     list_display = ('state_name', 'country')
     list_display_links = ('state_name',)
     list_filter = ('country',)
     search_fields = ('state_name',)
+
+
+class DashboardImageAdmin(admin.ModelAdmin):
+    list_display = ('business', 'modified_date')
+
+    # if there's already an entry, do not allow adding
+    def has_add_permission(self, request):
+        count = DashboardImage.objects.all().count()
+        if count == 0:
+          return True
+        return False
+
 
 
 # Register the models
@@ -133,3 +144,4 @@ admin.site.register(Country)
 admin.site.register(State, StateAdmin)
 admin.site.register(Business, BusinessAdmin)
 admin.site.register(RegionalManager, RegionalManagerAdmin)
+admin.site.register(DashboardImage, DashboardImageAdmin)
