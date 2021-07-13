@@ -213,3 +213,14 @@ class DirectDepositEmail(models.Model):
 
     def __str__(self):
         return self.direct_deposit_email
+
+
+class PaypalConfig(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    paypal_client_id = models.CharField(max_length=150, blank=True)
+    is_enabled = models.BooleanField(default=False)
+    created_date    = models.DateTimeField(auto_now_add=True)
+    modified_date   = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.paypal_client_id

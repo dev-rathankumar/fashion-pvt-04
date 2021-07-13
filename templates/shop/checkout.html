@@ -95,7 +95,6 @@
           <div class="your-order-payment">
             <div class="your-order">
               <h2 class="order-title mb-4">Your Order</h2>
-
               <div class="table-responsive-sm order-table">
                 <table class="bg-white table table-bordered table-hover text-center">
                   <thead>
@@ -183,11 +182,12 @@
               <div class="table-responsive-sm order-table">
                 <h2 class="order-title mb-4">Select Payment Method</h2>
                 <div class="payment_options_dd_paypal">
+                  {% if pp.is_enabled %}
                   <label>
                     <input type="radio" name="payment_method" value="PayPal" checked>
                     <img src="{% static 'images/payment_gateways/paypal.png' %}" width="150" style="padding: 0 10px 0 10px;border: 1px solid #d2d2d2;">
                   </label>
-                  
+                  {% endif %}
                   {% if dd.is_enabled %}
                   <label>
                     <input type="radio" name="payment_method" value="Direct Deposit">
@@ -195,12 +195,14 @@
                   </label>
                   {% endif %}
                 </div>
-               
-                
               </div>
+              {% if pp.is_enabled or dd.is_enabled %}
               <div class="order-button-payment">
                 <button class="btn btn--small-wide" onclick="return payMethodConfirm();" value="Place order" type="submit">Place order</button>
               </div>
+              {% else %}
+              <h4 class="text-danger">There are no payment options at the moment. Please come back later.</h4>
+              {% endif %}
             </div>
           </div>
         </div>

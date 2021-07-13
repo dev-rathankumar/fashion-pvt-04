@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Header, Footer, ContactPage, Homepage, BannerImage, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent, DirectDepositEmail
+from .models import Header, Footer, ContactPage, Homepage, BannerImage, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent, DirectDepositEmail, PaypalConfig
 
 
 class BannerImageInline(admin.TabularInline):
@@ -104,6 +104,9 @@ class TopbarAdmin(admin.ModelAdmin):
 class DirectDepositEmailAdmin(admin.ModelAdmin):
     list_display = ['business', 'direct_deposit_email', 'is_enabled', 'modified_date']
 
+class PaypalConfigAdmin(admin.ModelAdmin):
+    list_display = ['business', 'paypal_client_id', 'is_enabled', 'modified_date']
+
 
 admin.site.register(Header, HeaderAdmin)
 admin.site.register(Footer)
@@ -119,3 +122,5 @@ admin.site.register(TermsAndCondition, TermsAndConditionAdmin)
 admin.site.register(Topbar, TopbarAdmin)
 admin.site.register(AboutContent)
 admin.site.register(DirectDepositEmail, DirectDepositEmailAdmin)
+admin.site.register(PaypalConfig, PaypalConfigAdmin)
+

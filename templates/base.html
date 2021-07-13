@@ -23,7 +23,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
 
 <!-- PayPal Payments -->
-<script src="https://www.paypal.com/sdk/js?client-id=AeYRcJZnHmc5hiNpsPO3ndhukGSobIo6DO-CHfcB0rcuiAv5gBbzrBlbP6ev2ZX6Cl9EuotFoeSoLwRW&currency=USD"></script>
+{% if paypal_config %}
+<script src="https://www.paypal.com/sdk/js?client-id={{paypal_config.paypal_client_id}}&currency=USD"></script>
+{% endif %}
 <!-- faicons -->
 <link href="{% static 'faicon/css/faicon.css' %}" rel="stylesheet" />
 <script type="text/javascript" src="{% static 'faicon/js/list.min.js' %}"></script>

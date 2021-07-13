@@ -43,7 +43,8 @@ urlpatterns = [
     path('editTermsConditions/', views.editTermsConditions, name='editTermsConditions'),
 
     path('paymentGateways/', views.paymentGateways, name='paymentGateways'),
-    path('paymentGateways/paymentToggleEnable/', views.paymentToggleEnable, name='paymentToggleEnable'),
+    path('paymentGateways/ddToggleEnable/', views.ddToggleEnable, name='ddToggleEnable'),
+    path('paymentGateways/ppToggleEnable/', views.ppToggleEnable, name='ppToggleEnable'),
 
 
 ]

@@ -1,10 +1,11 @@
 import json
+from urllib.parse import urlparse
 from pages.views import about
 from django.core.mail import message
 from products.models import ReviewRating
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import AboutContent, DirectDepositEmail, Header, Homepage, BannerImage, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
-from .forms import AboutContentForm, DirectDepositEmailForm, HeaderForm, BannerImageForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, TermsAndConditionForm, TopbarForm
+from .models import AboutContent, DirectDepositEmail, Header, Homepage, BannerImage, PaypalConfig, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
+from .forms import AboutContentForm, DirectDepositEmailForm, HeaderForm, BannerImageForm, PaypalConfigForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, TermsAndConditionForm, TopbarForm
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from accounts.models import Business
@@ -478,6 +479,7 @@ def editTermsConditions(request):
 def paymentGateways(request):
     business = Business.objects.get(user=request.user)
     dd = get_object_or_404(DirectDepositEmail, business=business)
+    pp = get_object_or_404(PaypalConfig, business=business)
 
     if request.method == 'POST':
         ddform = DirectDepositEmailForm(request.POST, instance=dd)
@@ -487,14 +489,17 @@ def paymentGateways(request):
             return redirect('paymentGateways')
     else:
         ddform = DirectDepositEmailForm(instance=dd)
+        ppform = PaypalConfigForm(instance=pp)
     context = {
         'ddform': ddform,
         'dd': dd,
+        'ppform': ppform,
+        'pp': pp,
     }
     return render(request, 'business/sitesettings/paymentGateways.html', context)
 
 
-def paymentToggleEnable(request):
+def ddToggleEnable(request):
     event = request.GET.get('event')
     business = Business.objects.get(user=request.user)
     dd = get_object_or_404(DirectDepositEmail, business=business)
@@ -507,3 +512,21 @@ def paymentToggleEnable(request):
         dd.save()
         result = 'disabled'
     return HttpResponse(result)
+
+
+def ppToggleEnable(request):
+    event = request.GET.get('event')
+    business = Business.objects.get(user=request.user)
+    pp = get_object_or_404(PaypalConfig, business=business)
+    if event == 'true':
+        pp.is_enabled = True
+        pp.save()
+        result = 'enabled'
+    else:
+        pp.is_enabled = False
+        pp.save()
+        result = 'disabled'
+    return HttpResponse(result)
+
+
+

@@ -1,4 +1,4 @@
-from sitesettings.models import DirectDepositEmail
+from sitesettings.models import DirectDepositEmail, PaypalConfig
 from orders.models import Payment
 from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product
@@ -280,9 +280,11 @@ def checkout(request):
         domain = urlparse(url).netloc
         business = Business.objects.get(domain_name=domain)
         dd = DirectDepositEmail.objects.get(business=business)
+        pp = PaypalConfig.objects.get(business=business)
         context = {
             'userinfo_form': userinfo_form,
             'customerinfo_form': customerinfo_form,
             'dd': dd,
+            'pp': pp,
         }
         return render(request, 'shop/checkout.html', context)
