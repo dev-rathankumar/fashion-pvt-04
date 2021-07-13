@@ -76,7 +76,7 @@
                       </div>
                       <div class="col">
                         <input type="text" id="txtCaptcha" style="background-image:url({% static 'images/default-images/captcha-bg.jpg' %}); text-align:center; font-size:20px; border:none;
-     font-weight:bold; font-family:Modern" />
+     font-weight:bold; font-family:Modern"; />
                         <i class="fa fa-refresh" aria-hidden="true" onclick="DrawCaptcha();" style="font-size:24px;cursor:pointer;float:right;"></i>
                       </div>
                     </div>
@@ -116,14 +116,53 @@
                 <div class="ml-2">
                   <div class="comment__text"> {{comment.comment_body}}</div>
                 <p class="text-muted">Posted by {{comment.user.name}} | {{comment.created_on}}</p>
-                <div class="comment__reply"><button class="btn reply-button" id="replybutton-{{comment.id}}">Reply</button></div>
+                <div class="comment__reply"><button onclick="DrawReplyCaptcha({{comment.id}});" class="btn reply-button" id="replybutton-{{comment.id}}">Reply</button></div>
                 </div>
               </div>
             </div>
             <br>
+            <!-- C O M M E N T  R E P L Y -->
             <div class="comment__content replies" id="replies-{{comment.id}}" style="display: none;">
-              
-                {% for reply in comment.replies.all %}
+              {% if user.is_authenticated %}
+                <div class="formFeilds contact-form form-vertical pt-3" style="margin-left:5em;">
+                  <form action="#" id="comment_form_reply{{comment.id}}" onsubmit="replySubmit({{comment.id}});return false;" class="col-sm-12 col-md-6 col-lg-6 comment-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="comment_id" id="comment_id{{comment.id}}" value="{{comment.id}}">
+                    <h5>Write A Reply</h5>
+                    <div class="row">
+                      <div class="col-sm-12 col-md-12 col-lg-12">
+                        <textarea name="comment_body" cols="30" rows="10" required id="id_comment_body{{comment.id}}"></textarea>
+                      </div>
+                    </div><br>
+
+                    <!-- R E P L Y  C A P T C H A -->
+                    <div>
+                      <div class="container replyCaptcha" style="padding: 0px !important;">
+                        <div class="row">
+                          <div class="col">
+                            <input type="text" id="txtInputReply{{comment.id}}" placeholder="Enter Captcha" class="form-control" />
+                          </div>
+                          <div class="col">
+                            <input type="text" id="txtCaptchaReply{{comment.id}}" style="background-image:url({% static 'images/default-images/captcha-bg.jpg' %}); text-align:center; font-size:20px; border:none;font-weight:bold;font-family:Modern;" />
+                            <i class="fa fa-refresh" aria-hidden="true" onclick="DrawReplyCaptcha({{comment.id}});" style="font-size:24px;cursor:pointer;float:right;"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <p id="invalidCode_r{{comment.id}}" class="text-danger"></p>
+                      <p id="blankCaptchaError_r{{comment.id}}" class="text-danger"></p>
+                    </div>
+                    <!-- R E P L Y  C A P T C H A -->
+
+                    <input type="submit" value="Submit" class="btn btn-primary" onclick="return ValidCaptchaReply({{comment.id}});">
+                  </form>
+                  <h6 id="replyMessage{{comment.id}}" class="pt-2 ml-3"></h6>
+                </div>
+            {% else %}
+              <h5>Please <span><u><a href="{% url 'userLogin' %}">login</a></u></span> to write a reply.</h5>
+            {% endif %}
+          </div>
+          <!-- C O M M E N T  R E P L Y -->
+            {% for reply in comment.replies.all %}
                   {% if reply.is_active %}
                   <div class="comment__header mt-2 ml-5">
                     <div class="comment__text"><span>&mdash;</span> {{reply.comment_body}}</div>
@@ -131,30 +170,7 @@
                   </div><br>
                   {% endif %}
                 {% endfor %}
-
-                {% if user.is_authenticated %}
-              <div class="formFeilds contact-form form-vertical pt-3" style="margin-left:5em;">
-                <!-- <form action="#" id="comment_form_reply" class="col-sm-12 col-md-6 col-lg-6 comment-form"> -->
-                <form action="#" id="comment_form_reply{{comment.id}}" onsubmit="replySubmit({{comment.id}});return false;" class="col-sm-12 col-md-6 col-lg-6 comment-form">
-                  {% csrf_token %}
-                  <input type="hidden" name="comment_id" id="comment_id{{comment.id}}" value="{{comment.id}}">
-                  <h5>Write A Reply</h5>
-                  <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                      <!-- {{comment_form.comment_body}} -->
-                      <textarea name="comment_body" cols="30" rows="10" required id="id_comment_body{{comment.id}}"></textarea>
-                    </div>
-                  </div><br>
-                  
-                  <input type="submit" value="Submit" class="btn btn-primary">
-                </form>
-                <h6 id="replyMessage{{comment.id}}" class="pt-2 ml-3"></h6>
-              </div>
-              {% else %}
-              <h5>Please <span><u><a href="{% url 'userLogin' %}">login</a></u></span> to write a reply.</h5>
-        {% endif %}
-
-            </div>
+            
             <hr>
             {% endfor %}
 

@@ -438,3 +438,43 @@ function saveDDPayment(){
 }
 
 
+// B L O G  R E P L Y  C A P T C H A
+function DrawReplyCaptcha(comment_id)
+{
+   var a = Math.ceil(Math.random() * 9)+ '';
+   var b = Math.ceil(Math.random() * 9)+ '';
+   var c = Math.ceil(Math.random() * 9)+ '';
+   var d = Math.ceil(Math.random() * 9)+ '';
+   var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d;
+   txtCaptchaReply = 'txtCaptchaReply'+comment_id
+   document.getElementById(txtCaptchaReply).value = code
+}
+
+// Validate the Entered input aganist the generated security code function
+function ValidCaptchaReply(comment_id){
+   txtCaptchaReply = 'txtCaptchaReply'+comment_id
+   txtInputReply = 'txtInputReply'+comment_id
+   var str1 = removeSpaces(document.getElementById(txtCaptchaReply).value);
+   var str2 = removeSpaces(document.getElementById(txtInputReply).value);
+
+   var invalidCode_r = '#invalidCode_r'+comment_id
+   var blankCaptchaError_r = '#blankCaptchaError_r'+comment_id
+   if (str1 == str2)
+   {
+    $(invalidCode_r).html('');
+    $(blankCaptchaError_r).html('');
+     // pass
+   }
+   else if(str2 == ''){
+    $(invalidCode_r).html('');
+    $(blankCaptchaError_r).html('Please enter Captcha!');
+    return false;
+   }
+   else{
+     $(invalidCode_r).html('');
+     $(blankCaptchaError_r).html('Invalid verification code. Please enter the correct code to be able to submit.');
+    
+     DrawReplyCaptcha(comment_id);
+     return false;
+   }
+}
