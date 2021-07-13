@@ -93,13 +93,16 @@ About Us Page {% endblock %} {% block content %} {{ form.media.js }}
                     {% endif %}
                   {{ field.errors.as_ul }}
                     {% if form.image.value %}
+                    
                     <img src="{{ form.image.value.url }}" alt="" width="200" class="aboutImage">
+                    <span class="text-muted">&nbsp; 1900 x 871px</span>
                     {% endif %}
                    
               </table>
-                
-                <tr class="{% cycle row1 row2 %} formset_row">
+              
 
+                <tr class="{% cycle row1 row2 %} formset_row">
+                  
                   
                  
                   
