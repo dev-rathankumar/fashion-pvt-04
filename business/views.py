@@ -124,9 +124,18 @@ def dashboard(request):
     for i in orders:
         revenue += i.total
         revenue = round(revenue,2)
+    products = Product.objects.all()
+    products_count = products.count()
+    customers = User.objects.filter(is_customer=True, is_active=True)
+    customers_count = customers.count()
+    inquiries = Inquiry.objects.all()
+    inquiries_count = inquiries.count()
     context = {
         'orders_count': orders_count,
         'revenue': revenue,
+        'products_count': products_count,
+        'customers_count': customers_count,
+        'inquiries_count': inquiries_count,
     }
     return render(request, 'business/dashboard.html', context)
 
@@ -996,7 +1005,7 @@ def setTax(request, business_id=None):
 @is_account_expired
 def allInquiries(request):
     inquiries = Inquiry.objects.filter(business__user=request.user).order_by('-create_date')
-    paginator = Paginator(inquiries, 2)
+    paginator = Paginator(inquiries, 15)
     page = request.GET.get('page')
     paged_inquiries = paginator.get_page(page)
     context = {
