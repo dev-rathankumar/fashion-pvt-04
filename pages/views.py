@@ -23,8 +23,10 @@ def home(request):
 
     if business is None:
         return HttpResponse('<h3>Please assign a business to proceed!</h3>')
-
-    background = ParallaxBackground.objects.get(homepage__business=business)
+    try:
+        background = ParallaxBackground.objects.get(homepage__business=business)
+    except:
+        background= None
 
     new_arrival_products = Product.objects.filter(is_active=True).order_by('-created_date')
     context = {

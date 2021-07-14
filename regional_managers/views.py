@@ -67,16 +67,19 @@ def dashboard(request):
     url = request.build_absolute_uri()
     domain = urlparse(url).netloc
     account_manager = RegionalManager.objects.get(user=request.user)
-    business = Business.objects.get(domain_name=domain)
-    get_commission = PlanOrder.objects.filter(business=business, ordered=True)
-    total_commission = 0
-    for i in get_commission:
-        total_commission += i.account_manager_commission
-    context ={
-        'account_manager': account_manager,
-        'total_commission': total_commission,
-    }
-    return render(request, 'regional_managers/dashboard.html', context)
+    try:
+        business = Business.objects.get(domain_name=domain)
+        get_commission = PlanOrder.objects.filter(business=business, ordered=True)
+        total_commission = 0
+        for i in get_commission:
+            total_commission += i.account_manager_commission
+        context ={
+            'account_manager': account_manager,
+            'total_commission': total_commission,
+        }
+        return render(request, 'regional_managers/dashboard.html', context)
+    except:
+        return HttpResponse('<h4>Please wait until the business is assigned.</h4>')
 
 @login_required(login_url = 'userLogin')
 def logout(request):

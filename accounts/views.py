@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages, auth
-from .models import User, RegionalManager, Business, Customer
+from .models import DashboardImage, User, RegionalManager, Business, Customer
 from contacts.models import Inquiry
 from products.models import Product
 from orders.models import Order, OrderProduct
@@ -392,6 +392,12 @@ def biz_password_reset(request):
             email_setting = BusinessEmailSetting()
             email_setting.business = business
             email_setting.save()
+
+            # Automatically creating footer
+            header = Header()
+            header.business = business
+            header.site_title = 'Your Website Title Here'
+            header.save()
 
             # Automatically creating footer
             footer = Footer()
