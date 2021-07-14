@@ -21,7 +21,7 @@ def blog(request, slug=None):
 
     blogs = Blog.objects.all().filter(status = 1).order_by('-id')
     recent_blogs = blogs.filter(status = 1).order_by('-id')[:2]
-    paginator = Paginator(blogs, 8)
+    paginator = Paginator(blogs, 10)
     page = request.GET.get('page')
     paged_blogs = paginator.get_page(page)
     blog_count = blogs.count()
@@ -32,7 +32,7 @@ def blog(request, slug=None):
         categories = get_object_or_404(Category, slug=slug).get_descendants(include_self=True)
         recent_blogs = blogs.filter(status = 1).order_by('-id')[:2]
         cblogs = Blog.objects.filter(category__in=categories)
-        paginator = Paginator(cblogs, 8)
+        paginator = Paginator(cblogs, 10)
         page = request.GET.get('page')
         paged_blogs = paginator.get_page(page)
         blog_count = cblogs.count()
@@ -43,7 +43,7 @@ def blog(request, slug=None):
         if keyword:
             blogs = blogs.filter(Q(title__icontains=keyword) | Q(blog_body__icontains=keyword) | Q(short_description__icontains=keyword))
             recent_blogs = blogs.filter(status = 1).order_by('-id')[:2]
-            paginator = Paginator(blogs, 8)
+            paginator = Paginator(blogs, 10)
             page = request.GET.get('page')
             paged_blogs = paginator.get_page(page)
             blog_count = blogs.count()

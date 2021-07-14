@@ -111,11 +111,11 @@
 
 
               <!-- Paginator Start -->
-              {% if orders.has_other_pages %}
+              {% if reviewratings.has_other_pages %}
               <ul class="pagination pagination-rounded justify-content-end mb-2">
-                {% if orders.has_previous %}
+                {% if reviewratings.has_previous %}
                 <li class="page-item">
-                  <a class="page-link" href="?page={{orders.previous_page_number}}" aria-label="Previous">
+                  <a class="page-link" href="?page={{reviewratings.previous_page_number}}" aria-label="Previous">
                     <i class="mdi mdi-chevron-left"></i>
                   </a>
                 </li>
@@ -126,17 +126,17 @@
                   </a>
                 </li>
                 {% endif %}
-                {% for i in orders.paginator.page_range %}
-                {% if orders.number == i %}
+                {% for i in reviewratings.paginator.page_range %}
+                {% if reviewratings.number == i %}
                 <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
                 {% else %}
                 <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
                 {% endif %}
                 {% endfor %}
 
-                {% if orders.has_next %}
+                {% if reviewratings.has_next %}
                 <li class="page-item">
-                  <a class="page-link" href="?page={{orders.next_page_number}}" aria-label="Next">
+                  <a class="page-link" href="?page={{reviewratings.next_page_number}}" aria-label="Next">
                     <i class="mdi mdi-chevron-right"></i>
                   </a>
                 </li>

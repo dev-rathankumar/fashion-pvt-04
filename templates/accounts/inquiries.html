@@ -53,6 +53,46 @@
                 </div>
                 {% endif %}
               </div>
+              <!-- Paginator Start -->
+              {% if inquiries.has_other_pages %}
+              <ul class="pagination pagination-rounded justify-content-end mb-2">
+                {% if inquiries.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{inquiries.previous_page_number}}" aria-label="Previous">
+                    <i class="fa fa-angle-left"></i>
+                  </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" aria-label="Previous">
+                    <i class="fa fa-angle-left"></i>
+                  </a>
+                </li>
+                {% endif %}
+                {% for i in inquiries.paginator.page_range %}
+                {% if inquiries.number == i %}
+                <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                {% endif %}
+                {% endfor %}
+
+                {% if inquiries.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{inquiries.next_page_number}}" aria-label="Next">
+                    <i class="fa fa-angle-right"></i>
+                  </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" aria-label="Next">
+                    <i class="fa fa-angle-right"></i>
+                  </a>
+                </li>
+                {% endif %}
+              </ul>
+              {% endif %}
+              <!-- Paginator End -->
             </div>
 
           </div>

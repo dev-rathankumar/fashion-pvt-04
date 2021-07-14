@@ -47,7 +47,7 @@ def shop(request, slug=None):
 
         categories = get_object_or_404(Category, slug=slug).get_descendants(include_self=True)
         prods = Product.objects.filter(category__in=categories)
-        paginator = Paginator(prods, 8)
+        paginator = Paginator(prods, 16)
         page = request.GET.get('page')
         paged_products = paginator.get_page(page)
         # print(type(paged_products))
@@ -56,7 +56,7 @@ def shop(request, slug=None):
 
     else:
         products = Product.objects.all().filter(is_available=True, is_active=True).order_by('id')
-        paginator = Paginator(products, 8)
+        paginator = Paginator(products, 16)
         page = request.GET.get('page')
         paged_products = paginator.get_page(page)
         product_count = products.count()

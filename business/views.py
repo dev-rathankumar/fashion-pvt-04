@@ -336,7 +336,7 @@ def paymentSettings(request, pk=None):
 def allProducts(request):
     business = get_object_or_404(Business, pk=request.user.id)
     products = Product.objects.filter(business=business).order_by('-created_date')
-    paginator = Paginator(products, 10)
+    paginator = Paginator(products, 15)
     page = request.GET.get('page')
     paged_products = paginator.get_page(page)
 
@@ -924,7 +924,7 @@ def planHistoryDetail(request, pk=None):
 @is_account_expired
 def allCustomers(request):
     customers = Customer.objects.filter(user__is_customer=True).order_by('-created_date')
-    paginator = Paginator(customers, 10)
+    paginator = Paginator(customers, 15)
     page = request.GET.get('page')
     paged_customers = paginator.get_page(page)
     context = {
@@ -1044,7 +1044,7 @@ def deleteInquiry(request, pk=None):
 @is_account_expired
 def allReviewRatings(request):
     reviewratings = ReviewRating.objects.all().order_by('-create_at')
-    paginator = Paginator(reviewratings, 10)
+    paginator = Paginator(reviewratings, 15)
     page = request.GET.get('page')
     paged_reviewratings = paginator.get_page(page)
     context = {
@@ -1074,7 +1074,7 @@ def toggleApproval(request, pk=None):
 @is_account_expired
 def allColors(request):
     colors = Color.objects.all()
-    paginator = Paginator(colors, 5)
+    paginator = Paginator(colors, 25)
     page = request.GET.get('page')
     paged_colors = paginator.get_page(page)
     context = {
@@ -1088,8 +1088,11 @@ def allColors(request):
 @is_account_expired
 def allSizes(request):
     sizes = Size.objects.all()
+    paginator = Paginator(sizes, 25)
+    page = request.GET.get('page')
+    paged_sizes = paginator.get_page(page)
     context = {
-        'sizes': sizes,
+        'sizes': paged_sizes,
     }
     return render(request, 'business/allSizes.html', context)
 
@@ -1206,7 +1209,7 @@ login_required(login_url = 'userLogin')
 def allBlogs(request):
     business = get_object_or_404(Business, pk=request.user.id)
     blogs= Blog.objects.filter(business=business).order_by('-created_on')
-    paginator = Paginator(blogs, 10)
+    paginator = Paginator(blogs, 15)
     page = request.GET.get('page')
     paged_blogs = paginator.get_page(page)
 
@@ -1356,7 +1359,7 @@ def editBlogCategory(request, pk=None):
 @is_account_expired
 def allComments(request):
     comments = Comment.objects.filter(reply=None).order_by('-created_on').annotate(number_of_replies=Count('replies')) # annotate the queryset
-    paginator = Paginator(comments, 3)
+    paginator = Paginator(comments, 15)
     page = request.GET.get('page')
     paged_comments = paginator.get_page(page)
     context = {
@@ -1386,7 +1389,7 @@ def commentApproval(request, pk=None):
 def commentReplies(request, pk=None):
     single_comment = Comment.objects.get(pk=pk)
     replies = single_comment.replies.order_by('-created_on')
-    paginator = Paginator(replies, 10)
+    paginator = Paginator(replies, 15)
     page = request.GET.get('page')
     paged_replies = paginator.get_page(page)
     context = {
@@ -1401,7 +1404,7 @@ def commentReplies(request, pk=None):
 @is_account_expired
 def allContacts(request):
     contacts = SiteContact.objects.filter(business__user=request.user, is_otp_verified=True).order_by('-create_date')
-    paginator = Paginator(contacts, 10)
+    paginator = Paginator(contacts, 15)
     page = request.GET.get('page')
     paged_contacts = paginator.get_page(page)
     context = {

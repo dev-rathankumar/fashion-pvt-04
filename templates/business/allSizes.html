@@ -88,11 +88,11 @@
               </div>
 
               <!-- Paginator Start -->
-              {% if products.has_other_pages %}
+              {% if sizes.has_other_pages %}
               <ul class="pagination pagination-rounded justify-content-end mb-2">
-                {% if products.has_previous %}
+                {% if sizes.has_previous %}
                 <li class="page-item">
-                  <a class="page-link" href="?page={{products.previous_page_number}}" aria-label="Previous">
+                  <a class="page-link" href="?page={{sizes.previous_page_number}}" aria-label="Previous">
                     <i class="mdi mdi-chevron-left"></i>
                   </a>
                 </li>
@@ -103,17 +103,17 @@
                   </a>
                 </li>
                 {% endif %}
-                {% for i in products.paginator.page_range %}
-                {% if products.number == i %}
+                {% for i in sizes.paginator.page_range %}
+                {% if sizes.number == i %}
                 <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
                 {% else %}
                 <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
                 {% endif %}
                 {% endfor %}
 
-                {% if products.has_next %}
+                {% if sizes.has_next %}
                 <li class="page-item">
-                  <a class="page-link" href="?page={{products.next_page_number}}" aria-label="Next">
+                  <a class="page-link" href="?page={{sizes.next_page_number}}" aria-label="Next">
                     <i class="mdi mdi-chevron-right"></i>
                   </a>
                 </li>

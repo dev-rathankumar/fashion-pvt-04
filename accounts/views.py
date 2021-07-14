@@ -23,6 +23,7 @@ from sitesettings.models import DirectDepositEmail, Homepage, ParallaxBackground
 from emails.models import BusinessEmailSetting
 from datetime import date, datetime
 import time
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
 # Create your views here.
@@ -162,6 +163,7 @@ def userLogin(request):
 def userDashboard(request):
     user_inquiry = Inquiry.objects.order_by('-create_date').filter(user_id=request.user.id)
     inquiry_count = user_inquiry.count()
+
 
     orders = Order.objects.order_by('-created_at').filter(user_id=request.user.id, ordered=True)
     orders_count = orders.count()
@@ -474,9 +476,11 @@ def biz_password_reset(request):
 @login_required(login_url='/userLogin')
 def userInquiry(request):
     user_inquiry = Inquiry.objects.order_by('-create_date').filter(user_id=request.user.id)
-
+    paginator = Paginator(user_inquiry, 10)
+    page = request.GET.get('page')
+    paged_user_inquiry = paginator.get_page(page)
     context = {
-            'inquiries': user_inquiry,
+            'inquiries': paged_user_inquiry,
         }
     return render(request, 'accounts/inquiries.html', context)
 
@@ -508,8 +512,11 @@ def changeuserPassword(request):
 @login_required(login_url='/userLogin')
 def myOrders(request):
     orders = Order.objects.filter(user=request.user, ordered=True).order_by('-created_at')
+    paginator = Paginator(orders, 10)
+    page = request.GET.get('page')
+    paged_orders = paginator.get_page(page)
     context = {
-            'orders': orders,
+            'orders': paged_orders,
         }
     return render(request, 'accounts/myorders.html', context)
 

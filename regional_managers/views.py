@@ -18,6 +18,7 @@ from django import forms
 from urllib.parse import urlparse
 from orders.models import Order
 from plans.models import PlanOrder, Plan
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
 
@@ -274,6 +275,9 @@ def supplier(request):
 @regional_manager_required(login_url="userLogin")
 def bizPlanPurchaseHistory(request):
     plan_orders = PlanOrder.objects.filter(ordered=True).order_by('-created_at')
+    paginator = Paginator(plan_orders, 15)
+    page = request.GET.get('page')
+    paged_plan_orders = paginator.get_page(page)
     url = request.build_absolute_uri()
     domain = urlparse(url).netloc
     business = Business.objects.get(domain_name=domain)
@@ -288,7 +292,7 @@ def bizPlanPurchaseHistory(request):
     else:
         is_expired = True
     context = {
-        'plan_orders': plan_orders,
+        'plan_orders': paged_plan_orders,
         'account_expiry_date': account_expiry_date,
         'current_plan': current_plan,
         'is_expired': is_expired,
