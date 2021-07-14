@@ -126,15 +126,22 @@ class AboutContentForm(forms.ModelForm):
         "id": "id_image"
     }))
 
+    image_dimension = forms.CharField(label=(''), widget=forms.TextInput(attrs={
+        'readonly':'readonly',
+        'value': '600 x 300px'
+    })
+) 
     class Meta:
         model = AboutContent
-        fields = ['image', 'header', 'header_text']
+        fields = ['image_dimension', 'image', 'header', 'header_text']
 
     def __init__(self, *args, **kwargs):
         super(AboutContentForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
             if myField == 'image':
                 self.fields[myField].widget.attrs['class'] = 'form-control file'
+            elif myField == 'image_dimension':
+                self.fields[myField].widget.attrs['class'] = 'form-control imageDimension'
             else:
                 self.fields[myField].widget.attrs['class'] = 'form-control'
 

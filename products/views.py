@@ -13,8 +13,9 @@ from urllib.parse import urlparse
 from orders.models import OrderProduct
 
 from django.http import HttpResponse, HttpResponseRedirect
-
 import random
+from functools import reduce
+import operator
 
 
 # Create your views here.
@@ -29,17 +30,6 @@ def shop(request, slug=None):
         keyword = request.GET['keyword']
         if keyword:
             products = Product.objects.order_by('-created_date').filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword))
-
-    #if 'min-price' in request.GET:
-        #min_price = request.GET['min-price']
-        #max_price = request.GET['max-price']
-        #if max_price:
-            #products = Product.objects.filter(price__gte=min_price, price__lte=max_price)
-
-    # if 'price' in request.GET:
-    #     price = request.GET['price']
-    #     if price:
-    #         products = Product.objects.filter(price__iexact= price)
 
     if 'size' in request.GET:
         size = request.GET.getlist('size') # ['M', 'XL']
@@ -280,8 +270,6 @@ def wishlist_delete(request, id):
 def search(request):
     products = None
     product_count = 0
-
-
     products = Product.objects.filter(is_active=True).order_by('created_date') #10
     price_list = []
     for i in products:
@@ -290,13 +278,16 @@ def search(request):
             price_list.append(j.price)
     max_price = max(price_list)
 
-
     sizes = Size.objects.values_list('name', flat=True).distinct()
     colors = Color.objects.all()
     if 'keyword' in request.GET:
         keyword = request.GET['keyword']
         if keyword:
-            products = products.filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword)) #8
+            try:
+                categories = get_object_or_404(Category, slug=keyword).get_descendants(include_self=True)
+                products = Product.objects.filter(category__in=categories)
+            except:
+                products = products.filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword)) #8
 
     else:
         if 'price' in request.GET:

@@ -262,3 +262,14 @@ p.allCategories:hover, .table-hover tbody tr:hover{
     max-width: 65% !important;
   }
   }
+  .form-control.imageDimension{
+    border: none;
+    padding: 0px;
+    position: relative;
+    bottom: -15px;
+  }
+
+ .aboutTable [type="checkbox"]{
+    width: 25px;
+    height: 25px;
+  }

@@ -51,7 +51,7 @@ def about(request):
     if business is None:
         return HttpResponse('<h3>Please assign a business to proceed!</h3>')
     about_page = AboutPage.objects.get(business=business)
-    aboutContents = AboutContent.objects.filter(about_id=about_page)
+    aboutContents = AboutContent.objects.filter(about_id=about_page).order_by('created_date')
 
 
     context = {
