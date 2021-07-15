@@ -115,7 +115,6 @@ def product_detail(request, category_slug, product_slug):
             orderproduct = None
     else:
         orderproduct = None
-    print(orderproduct)
     context = {
         'single_product': single_product,
         'gallery': gallery,

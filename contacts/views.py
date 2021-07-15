@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from accounts.models import Business
 from .models import Inquiry
 from django.core.mail import send_mail
@@ -9,6 +10,7 @@ from datetime import timedelta
 from .models import SiteContact
 import random
 from django.http import HttpResponse
+from django.core.mail import EmailMessage
 
 
 
@@ -40,14 +42,16 @@ def inquiry(request):
         phone=phone, inq_message=inq_message)
 
         business_email = business.user.email
-        send_mail(
-                'New Product Inquiry',
-                'You have a new inquiry for the product ' + product_name + '.',
-                'rathan.kumar049@gmail.com',
-                [business_email],
-                fail_silently=False,
-            )
-
+        mail_subject = 'New Product Inquiry'
+        message = render_to_string('pages/product_inquiry_email.html', {
+                        'inquiry': inquiry,
+                        'product_name': product_name,
+                    })
+        to_email = business_email
+        email_send = EmailMessage(
+            mail_subject, message, to=[to_email]
+        )
+        email_send.send()
         inquiry.save()
         return HttpResponse('Your inquiry has been submitted. Our representative will get in touch with you soon.')
 
@@ -72,15 +76,19 @@ def contact(request):
         contact.save()
 
         business_name = str(business) # because we cannot pass Business directly.
-        email_body = 'Hi ' + name + ', ' + 'Your One Time Password for contacting ' + business_name + ' is ' + otp + '.'
 
-        send_mail(
-                'Your One Time Password is here',
-                email_body,
-                'rathan.kumar049@gmail.com',
-                [email],
-                fail_silently=False,
-            )
+        mail_subject = 'Your One Time Password is here'
+        message = render_to_string('pages/contact_form_otp_email.html', {
+            'business_name': business_name,
+            'name': name,
+            'otp': otp,
+        })
+    
+        to_email = email
+        email_send = EmailMessage(
+            mail_subject, message, to=[to_email]
+        )
+        email_send.send()
         contact.is_otp_sent = True
         contact.save()
         request.session['email'] = email
@@ -109,13 +117,16 @@ def verify_otp(request):
             return HttpResponse('Invalid OTP')
         else:
             if contact.otp == otp:
-                send_mail(
-                        'You have a new message from Website contact form',
-                        'Name:' + contact.name + '.' + 'Email:' + contact.email + '.' + 'Phone:' + contact.phone + '.' + 'Subject:' + contact.subject + '.' + 'Message:' + contact.contact_message + '.',
-                        'rathan.kumar049@gmail.com',
-                        [business_email],
-                        fail_silently=False,
-                    )
+                mail_subject = 'You have a new message from the website contact form'
+                message = render_to_string('pages/contact_form_email.html', {
+                    'contact': contact,
+                })
+            
+                to_email = business_email
+                email_send = EmailMessage(
+                    mail_subject, message, to=[to_email]
+                )
+                email_send.send()
                 contact.is_otp_verified = True
                 contact.save()
                 return HttpResponse('verified')
@@ -140,14 +151,18 @@ def resend_otp(request):
                 return HttpResponse('You have exceeded the maximum attempts of resending OTP. Please try different email address.')
             else:
                 business_name = contact.business
-                email_body = 'Hi ' + contact.name + ', ' + 'Your One Time Password for contacting ' + str(business_name) + ' is ' + contact.otp + '.'
-                send_mail(
-                        'Your One Time Password is here',
-                        email_body,
-                        'rathan.kumar049@gmail.com',
-                        [email],
-                        fail_silently=False,
-                    )
+                mail_subject = 'Your One Time Password is here'
+                message = render_to_string('pages/contact_form_otp_email.html', {
+                    'business_name': business_name,
+                    'name': contact.name,
+                    'otp': otp,
+                })
+            
+                to_email = email
+                email_send = EmailMessage(
+                    mail_subject, message, to=[to_email]
+                )
+                email_send.send()
                 contact.otp_resend_counter += 1
                 contact.save()
                 return HttpResponse('otp sent')

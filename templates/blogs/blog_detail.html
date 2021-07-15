@@ -164,9 +164,15 @@
           <!-- C O M M E N T  R E P L Y -->
             {% for reply in comment.replies.all %}
                   {% if reply.is_active %}
-                  <div class="comment__header mt-2 ml-5">
-                    <div class="comment__text"><span>&mdash;</span> {{reply.comment_body}}</div>
-                    <small class="ml-3 text-muted">Posted by {{reply.user.name}} | {{reply.created_on}}</small><br>
+                  <div class="comment__header mt-2 ml-5 d-flex">
+                    <div>
+                      <span>&mdash;</span>
+                      <img src="{{reply.user.profile_picture.url}}" alt="" width="30" height="30" style="border-radius:50px;">
+                    </div>
+                    <div>
+                    <div class="comment__text">&nbsp; {{reply.comment_body}}</div>
+                    <small class="text-muted">&nbsp; Posted by {{reply.user.name}} | {{reply.created_on}}</small><br>
+                  </div>
                   </div><br>
                   {% endif %}
                 {% endfor %}

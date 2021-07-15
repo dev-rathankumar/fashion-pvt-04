@@ -148,7 +148,7 @@ function ValidCaptchaInq(){
 }
 
 
-// Captcha verification inquiry
+// Captcha verification rating
 function DrawCaptchaRating()
 {
    var a = Math.ceil(Math.random() * 9)+ '';
@@ -475,6 +475,44 @@ function ValidCaptchaReply(comment_id){
      $(blankCaptchaError_r).html('Invalid verification code. Please enter the correct code to be able to submit.');
     
      DrawReplyCaptcha(comment_id);
+     return false;
+   }
+}
+
+
+
+// Captcha verification contact
+function DrawCaptchaContact()
+{
+   var a = Math.ceil(Math.random() * 9)+ '';
+   var b = Math.ceil(Math.random() * 9)+ '';
+   var c = Math.ceil(Math.random() * 9)+ '';
+   var d = Math.ceil(Math.random() * 9)+ '';
+   var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d;
+   document.getElementById("txtCaptcha").value = code
+}
+
+// Validate the Entered input aganist the generated security code function
+function ValidCaptchaContact(){
+   var str1 = removeSpaces(document.getElementById('txtCaptcha').value);
+   var str2 = removeSpaces(document.getElementById('txtInput').value);
+
+   if (str1 == str2)
+   {
+    $("#invalidCodeContact").html('');
+    $("#blankCaptchaErrorContact").html('');
+     // pass
+   }
+   else if(str2 == ''){
+    $("#invalidCodeContact").html('');
+    $("#blankCaptchaErrorContact").html('Please enter Captcha!');
+    return false;
+   }
+   else{
+     $("#blankCaptchaErrorContact").html('');
+     $("#invalidCodeContact").html('Invalid verification code. Please enter the correct code to be able to submit.');
+    
+     DrawCaptchaContact();
      return false;
    }
 }
