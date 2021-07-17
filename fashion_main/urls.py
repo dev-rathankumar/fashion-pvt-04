@@ -1,3 +1,4 @@
+import django
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
@@ -8,10 +9,17 @@ from accounts import views as AccountViews
 from newsletters import views as NewsletterViews
 from products import views as ProductViews
 from contacts import views as ContactViews
+from django.conf.urls.i18n import i18n_patterns
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+]
+
+
+urlpatterns += i18n_patterns (
+    path('i18n/', include('django.conf.urls.i18n')),
+    
     path('', include('pages.urls')),
 
 
@@ -94,4 +102,4 @@ urlpatterns = [
     path('blogs/', include('blogs.urls'))
 
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+ ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

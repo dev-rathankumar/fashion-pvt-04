@@ -6,10 +6,21 @@ from sitesettings.models import AboutContent, BannerImage, StoreFeature, Paralla
 from urllib.parse import urlparse
 
 from django.http import HttpResponse
+from django.utils.translation import gettext as _
 
 # Create your views here.
 def home(request):
     """Home Page"""
+    # Set the language session key manually
+    # user_language = 'es'
+    # translation.activate(user_language)
+    # request.session[translation.LANGUAGE_SESSION_KEY] = user_language
+
+    # if translation.LANGUAGE_SESSION_KEY in request.session:
+    #     del request.session[translation.LANGUAGE_SESSION_KEY]
+
+    title = _('Homepage')
+
     categories = Category.objects.filter(parent=None).order_by('created_date')[:3]
     banners = BannerImage.objects.all()
     features = StoreFeature.objects.all()
@@ -35,6 +46,7 @@ def home(request):
         'features': features,
         'background': background,
         'new_arrival_products': new_arrival_products,
+        'title': title,
     }
 
 

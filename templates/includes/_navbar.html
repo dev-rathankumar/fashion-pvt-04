@@ -1,8 +1,9 @@
 {% load static %}
+{% load i18n %}
 {% load mptt_tags %}
 <!--Header-->
 <header class="header animated d-flex align-items-center header-1">
-  <div class="container">
+  <div class="container-fluid">
         <div class="row">
           <!--Mobile Icons-->
           <div class="col-4 col-sm-4 col-md-4 d-block d-lg-none mobile-icons">
@@ -20,7 +21,7 @@
             </div>
             <!--Mobile Icons-->
             <!--Desktop Logo-->
-            <div class="logo col-4 col-sm-4 col-md-4 col-lg-2 align-self-center">
+            <div class="logo col-4 col-sm-4 col-md-4 col-lg-1 align-self-center">
                 <a href="{% url 'home' %}">
                   {% if header.site_logo %}
                     <img src="{{ header.site_logo.url }}" alt="{{ header.site_title }}" title="{{ header.site_title }}" />
@@ -32,14 +33,14 @@
             </div>
             <!--End Desktop Logo-->
 
-            <div class="col-1 col-sm-1 col-md-1 col-lg-6 align-self-center d-menu-col">
+            <div class="col-1 col-sm-1 col-md-1 col-lg-7 align-self-center d-menu-col">
                 <!--Desktop Menu-->
                 <nav class="grid__item" id="AccessibleNav">
                     <ul id="siteNav" class="site-nav medium center hidearrow">
-                        <li class="lvl1 parent megamenu mdropdown"><a href="{% url 'home' %}">Home <i class="anm anm-angle-down-l"></i></a></li>
-                        <li class="lvl1 parent dropdown"><a href="#">Categories <i class="anm anm-angle-down-l"></i></a>
+                        <li class="lvl1 parent megamenu mdropdown"><a href="{% url 'home' %}">{% trans 'Home' %} <i class="anm anm-angle-down-l"></i></a></li>
+                        <li class="lvl1 parent dropdown"><a href="#">{% trans 'Categories' %} <i class="anm anm-angle-down-l"></i></a>
                           <ul class="dropdown">
-                            <li class="site-nav"><a href="{% url 'shop' %}">All Products</a></li>
+                            <li class="site-nav"><a href="{% url 'shop' %}">{% trans 'All Products' %}</a></li>
                             {% recursetree category %}
                               <li><a href="{% url 'shop' %}category/{{ node.slug }}" class="site-nav">{{ node.category_name }} {% if not node.is_leaf_node %}<i class="anm anm-angle-right-l"></i>{% endif %}</a>
                                 {% if not node.is_leaf_node %}
@@ -51,16 +52,16 @@
                             {% endrecursetree %}
                           </ul>
                         </li>
-                    <li class="lvl1 parent megamenu"><a href="{% url 'shop' %}">Shop <i class="anm anm-angle-down-l"></i></a></li>
-                    <li class="lvl1 parent megamenu"><a href="{% url 'about' %}">About Us <i class="anm anm-angle-down-l"></i></a></li>
-                    <li class="lvl1 parent megamenu"><a href="{% url 'contact_page' %}">Contact Us <i class="anm anm-angle-down-l"></i></a></li>
-                    <li class="lvl1 parent megamenu"><a href="{% url 'blog' %}">Blogs <i class="anm anm-angle-down-l"></i></a></li>
+                    <li class="lvl1 parent megamenu"><a href="{% url 'shop' %}">{% trans 'Shop' %} <i class="anm anm-angle-down-l"></i></a></li>
+                    <li class="lvl1 parent megamenu"><a href="{% url 'about' %}">{% trans 'About Us' %} <i class="anm anm-angle-down-l"></i></a></li>
+                    <li class="lvl1 parent megamenu"><a href="{% url 'contact_page' %}">{% trans 'Contact Us' %} <i class="anm anm-angle-down-l"></i></a></li>
+                    <li class="lvl1 parent megamenu"><a href="{% url 'blog' %}">{% trans 'Blogs' %} <i class="anm anm-angle-down-l"></i></a></li>
 
                   </ul>
                 </nav>
                 <!--End Desktop Menu-->
             </div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-3 align-self-center icons-col text-right">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 align-self-center icons-col text-right">
               <!--Search-->
                 <div class="site-search iconset">
                     <i class="icon anm anm-search-l"></i>
@@ -164,8 +165,36 @@
                     </a>
                 </div>
                 <!--End Minicart Dropdown-->
+                <div class="language iconset">
+                  <!-- Language selection -->
+                  {% get_current_language as LANGUAGE_CODE  %}
+                  <form action="{% url 'set_language' %}" id="lang_form" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{redirect_to}}">
+                    <select name="language" id="select_lang" style="padding: 0 20px;">
+                      {% get_available_languages as LANGUAGES %}
+                      {% get_language_info_list for LANGUAGES as languages %}
+                      {% for language in languages %}
+                          <option value="{{language.code}}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                            {{language.name_local}} ({{language.code}})
+                          </option>
+                      {% endfor %}
+                    </select>
+                   
+                  </form>
+                  
+              
+                </div>
+                
             </div>
         </div>
     </div>
 </header>
 <!--End Header-->
+
+<script>
+  // Language selection
+$('#select_lang').change(function(){
+  $('#lang_form').submit();
+});
+</script>
