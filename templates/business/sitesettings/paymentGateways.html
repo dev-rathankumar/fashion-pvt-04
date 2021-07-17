@@ -46,9 +46,10 @@
                   </div>
                 </div>
 
-                <form method="POST" action="" enctype="multipart/form-data" id="ppForm" style="display: {% if pp.is_enabled %}block{% else %}none{% endif %};">
+                <form method="POST" action="{% url 'paymentGateways' %}" enctype="multipart/form-data" id="ppForm" style="display: {% if pp.is_enabled %}block{% else %}none{% endif %};">
                   {% csrf_token %}
                   <input type="hidden" name="url" id="ppurl" value="{% url 'ppToggleEnable' %}">
+                  <input type="hidden" name="gateway" value="paypal">
                   <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12">
                       <div class="form-group">
@@ -84,6 +85,7 @@
                   <form method="POST" action="{% url 'paymentGateways' %}" enctype="multipart/form-data" id="ddForm" style="display: {% if dd.is_enabled %}block{% else %}none{% endif %};">
                     {% csrf_token %}
                     <input type="hidden" name="url" id="ddurl" value="{% url 'ddToggleEnable' %}">
+                    <input type="hidden" name="gateway" value="directdeposit">
                     <div class="row">
                       <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="form-group">

@@ -22,7 +22,6 @@ class TaxData(models.Model):
             sort=True
         )
     tax_value = models.DecimalField(decimal_places=2, max_digits=4)
-    is_active = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):

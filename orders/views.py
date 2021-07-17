@@ -61,11 +61,8 @@ def payments(request):
         product = Product.objects.get(id=item.product_id)
         product.stock -= item.quantity
         product.save()
-        print('variant_id', item.variant_id)
         variants = Variants.objects.filter(id=item.variant_id)
         for var in variants:
-            print('variant quantiy', var.quantity)
-            
             var.quantity -= item.quantity
             var.save()
 
@@ -123,21 +120,22 @@ def orderproduct(request):
     if cart_count <= 0:
         return redirect('shop')
     # Calculate Grand Total
-    total=0
-    tax = 0
-    grand_total = 0
-    tax_percent = 0
-    for i in shopcart:
-        total += i.variant.price * i.quantity
+    # total=0
+    # tax = 0
+    # grand_total = 0
+    # tax_percent = 0
+    # for i in shopcart:
+    #     total += i.variant.price * i.quantity
 
     url = request.build_absolute_uri()
     domain = urlparse(url).netloc
     biz_id = Business.objects.get(domain_name=domain)
-    grand_total = request.session['grand_total']
-    tax = request.session['tx_amount']
+    # grand_total = request.session.get('grand_total')
+    # print(grand_total)
+    # tax = request.session['tx_amount']
 
-    grand_total = Decimal(grand_total)
-    tax = Decimal(tax)
+    # grand_total = Decimal(grand_total)
+    # tax = Decimal(tax)
 
     # get_tax = TaxSetting.objects.all()
     # tax_dict = {}
@@ -151,6 +149,8 @@ def orderproduct(request):
     # grand_total = round(float(total) + tax, 2)
 
     if request.method == 'POST':
+        grand_total = request.POST['grand_total']
+        tax = request.POST['tax']
         form = OrderForm(request.POST)
         phone = request.POST['phone_number']
         payment_method = request.POST['payment_method']
@@ -190,7 +190,7 @@ def orderproduct(request):
             request.session['order_number'] = order_number
             request.session['payment_method'] = payment_method
             order = Order.objects.get(user=current_user, ordered=False, order_number=order_number)
-                        
+
             # render dd form
             dd_paymentForm = DDPaymentForm()
             # get direct deposit email address
@@ -292,7 +292,7 @@ def saveDDPayment(request):
             )
             email.content_subtype = "html"
             email.send()
-            
+
             return redirect('/order/order_complete?order_number='+order.order_number+'&payment_id='+payment.payment_id)
 
 

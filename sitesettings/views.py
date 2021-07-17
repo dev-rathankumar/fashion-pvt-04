@@ -482,11 +482,19 @@ def paymentGateways(request):
     pp = get_object_or_404(PaypalConfig, business=business)
 
     if request.method == 'POST':
-        ddform = DirectDepositEmailForm(request.POST, instance=dd)
-        if ddform.is_valid():
-            ddform.save()
-            messages.success(request, 'Email address for your Direct Deposit payment gateway is updated.')
-            return redirect('paymentGateways')
+        gateway = request.POST['gateway']
+        if gateway == 'paypal':
+            ppform = PaypalConfigForm(request.POST, instance=pp)
+            if ppform.is_valid():
+                ppform.save()
+                messages.success(request, 'Your paypal client id is updated.')
+                return redirect('paymentGateways')
+        else:
+            ddform = DirectDepositEmailForm(request.POST, instance=dd)
+            if ddform.is_valid():
+                ddform.save()
+                messages.success(request, 'Email address for your Direct Deposit payment gateway is updated.')
+                return redirect('paymentGateways')
     else:
         ddform = DirectDepositEmailForm(instance=dd)
         ppform = PaypalConfigForm(instance=pp)

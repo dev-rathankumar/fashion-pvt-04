@@ -401,10 +401,11 @@ $.ajax({
       dataType: "json",
     },
     success: function( data ) {
-        console.log(data);
         document.getElementById("tax_percent").innerHTML = data.tax_percent;
         document.getElementById("tax_amount").innerHTML = data.tx_amount;
         document.getElementById("grand_total").innerHTML = data.grand_total;
+        document.getElementById("grand_total_hidden").value = data.grand_total;
+        document.getElementById("tax_hidden").value = data.tx_amount;
     }
 });
 });

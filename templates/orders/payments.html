@@ -180,7 +180,7 @@
                       {% elif payment_method == 'Direct Deposit' %}
                       <br>
                         <h5>Please make payment to below email address and submit the transaction details.</h5>
-                        
+
                         <div class="jumbotron jumbotron-fluid" style="padding: 1rem;">
                           <div class="container">
                             <p class="lead" style="font-size: 1rem;">{{ddEmail}}</p>
@@ -188,10 +188,10 @@
                         </div>
 
                         <div class="container">
-                          
+
                             <div class="form-group">
                               <label for="exampleFormControlFile1">Amount Paid</label>
-                              
+
                               <input type="text" name="amount" maxlength="100" value="{{order.total}}" required id="id_amount" readonly style="background-color:#F7F7F7;cursor: not-allowed;">
                              </div>
                             <div class="form-group">
@@ -211,10 +211,10 @@
                             <div class="form-group">
                               <input type="submit" name="submit" id="submitTrans" formaction="{% url 'saveDDPayment' %}" value="Submit Transaction Details" class="btn w-100">
                             </div>
-                      
+
                         </div>
-                        
-                        
+
+
                       {% endif %}
                     </div>
                   </div>

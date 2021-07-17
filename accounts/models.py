@@ -53,6 +53,34 @@ class MyAccountManager(BaseUserManager):
         user.is_staff = True
         user.is_superadmin = True
         user.save(using=self._db)
+        # Add country for the first time creation of superadmin
+        usr = User.objects.all().count()
+        if usr >= 1:
+            pass
+        else:
+            country = Country()
+            country.country_name = 'Canada'
+            country.save()
+            state_list = [
+                'Alberta (AB)',
+                'British Columbia (BC)',
+                'Manitoba (MB)',
+                'New Brunswick (NB)',
+                'Newfoundland and Labrador (NL)',
+                'Northwest Territories (NT)',
+                'Nova Scotia (NS)',
+                'Nunavut (NU)',
+                'Ontario (ON)',
+                'Prince Edward Island (PE)',
+                'Quebec (QC)',
+                'Saskatchewan (SK)',
+                'Yukon (YT)',
+                ]
+            for s in state_list:
+                state = State()
+                state.state_name = s
+                state.country_id = 1
+                state.save()
         return user
 
 

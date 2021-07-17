@@ -162,6 +162,7 @@
 
                       <td>
                         <span class="product-price">$<span id="tax_amount">0.00</span></span><br>
+                        <input type="hidden" id="tax_hidden" name="tax" value="0.00">
                       </td>
                     </tr>
 
@@ -171,6 +172,7 @@
                       </td>
                       <td>
                         <h4>$<span id="grand_total">{{total | intcomma}}</span></h4>
+                        <input type="hidden" id="grand_total_hidden" name="grand_total" value="{{total}}">
                       </td>
 
                     </tr>
@@ -190,7 +192,7 @@
                   {% endif %}
                   {% if dd.is_enabled %}
                   <label>
-                    <input type="radio" name="payment_method" value="Direct Deposit">
+                    <input type="radio" name="payment_method" value="Direct Deposit" {% if dd.is_enabled and not pp.is_enabled %}checked{% endif %}>
                     <img src="{% static 'images/payment_gateways/direct.png' %}" width="150" style="padding: 0 10px 0 10px;border: 1px solid #d2d2d2;">
                   </label>
                   {% endif %}
