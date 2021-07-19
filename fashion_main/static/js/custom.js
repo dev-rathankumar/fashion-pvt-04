@@ -1,6 +1,6 @@
 setTimeout(function() {
   $('#message').fadeOut('slow');
-}, 4000)
+}, 10000)
 
 $(document).ready(function() {
   $('#CustomerPassword').keyup(function() {

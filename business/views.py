@@ -1403,7 +1403,7 @@ def commentReplies(request, pk=None):
 @business_required(login_url="userLogin")
 @is_account_expired
 def allContacts(request):
-    contacts = SiteContact.objects.filter(business__user=request.user, is_otp_verified=True).order_by('-create_date')
+    contacts = SiteContact.objects.filter(business__user=request.user).order_by('-create_date')
     paginator = Paginator(contacts, 15)
     page = request.GET.get('page')
     paged_contacts = paginator.get_page(page)

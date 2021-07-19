@@ -18,11 +18,12 @@
       <h1>Contact Us</h1>
     </div>
     <div class="row">
+      {% include 'includes/_alerts.html' %}
       <div class="col-12 col-sm-12 col-md-8 col-lg-8 mb-4">
         <h2>Drop Us A Line</h2>
         <p>Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão. O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500 </p>
         <div class="formFeilds contact-form form-vertical">
-          <form method="post" id="contact_form" class="contact-form">
+          <form method="post" action="{% url 'contact' %}" class="contact-form">
             {% csrf_token %}
             <input type="hidden" name="business_id" id="business_id" value="{{business.business_id}}">
             {% if user.is_authenticated %}
@@ -94,44 +95,7 @@
           </form>
         </div>
 
-        <!-- OTP VERIFICATION -->
-        <div class="otp_form" id="contactOTP">
-          <form method="POST" id="contact_otp_form">
-            {% csrf_token %}
-            <h4>Please enter your OTP here.</h4>
-            <!-- <p id="countdown"></p> -->
-            <div class="row">
-              <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                <div class="form-group">
-                  <input required type="text" id="otp" name="otp" pattern="[0-9\-]*" placeholder="Enter OTP">
-                </div>
-              </div>
-              <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                <div class="row">
-                  <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                    <div class="form-group">
-                      <input type="submit" value="Verify" class="btn" id="otpsubmit" style="width:100%;">
-                    </div>
-                  </div>
-                  <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                    <div class="form-group">
-                      <a onclick="resendOTP()" value="Resend OTP" id="resendotp" class="btn" style="width:100%;background-color:#e95144;color:#ffffff">Resend OTP</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-            <div class="row">
-              <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                <p id="OTPsuccess" style="margin-top:10px;"></p>
-                <p id="OTPfailed" style="margin-top:10px;"></p>
-              </div>
-            </div>
-          </form>
-        </div>
-        <!-- OTP VERIFICATION END -->
+      
 
       </div>
 

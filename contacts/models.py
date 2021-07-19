@@ -36,12 +36,6 @@ class SiteContact(models.Model):
     phone = models.CharField(max_length=100, blank=True)
     subject = models.CharField(max_length=100)
     contact_message = models.TextField(blank=True)
-    otp = models.CharField(max_length=10, default='0')
-    is_otp_sent = models.BooleanField(default=False)
-    otp_updated_time = models.CharField(default=datetime.now, max_length=255)
-    is_otp_verified = models.BooleanField(default=False)
-    is_otp_expired = models.BooleanField(default=False)
-    otp_resend_counter = models.IntegerField(default=0)
     create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

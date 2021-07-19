@@ -9,7 +9,7 @@ class InquiryAdmin(admin.ModelAdmin):
 
 # Contact Admin
 class SiteContactAdmin(admin.ModelAdmin):
-    list_display = ('get_business_id', 'business', 'name', 'email', 'phone', 'is_otp_sent', 'is_otp_verified', 'is_otp_expired', 'otp_resend_counter', 'otp_updated_time', 'create_date')
+    list_display = ('get_business_id', 'business', 'name', 'email', 'phone', 'create_date')
     list_display_links = ('get_business_id', 'business', 'name', 'email', 'phone')
     search_fields = ('id', 'business__business_id', 'business', 'name', 'email', 'phone')
 

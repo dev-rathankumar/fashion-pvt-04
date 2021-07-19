@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from accounts.models import Business
 from .models import Inquiry
@@ -69,34 +70,23 @@ def contact(request):
         contact_message = request.POST['contact_message']
 
         business = Business.objects.get(business_id=business_id)
-
-        otp = str(random.randint(100000,999999))
         contact = SiteContact(business=business, user_id=user_id, name=name, email=email,
-        phone=phone, subject=subject, contact_message=contact_message, otp = otp)
+        phone=phone, subject=subject, contact_message=contact_message)
         contact.save()
-
-        business_name = str(business) # because we cannot pass Business directly.
-
-        mail_subject = 'Your One Time Password is here'
-        message = render_to_string('pages/contact_form_otp_email.html', {
-            'business_name': business_name,
-            'name': name,
-            'otp': otp,
+        mail_subject = 'You have a new message from the website contact form'
+        message = render_to_string('pages/contact_form_email.html', {
+            'contact': contact,
         })
-    
-        to_email = email
+        to_email = business.user.email
         email_send = EmailMessage(
             mail_subject, message, to=[to_email]
         )
         email_send.send()
-        contact.is_otp_sent = True
-        contact.save()
-        request.session['email'] = email
-        request.session['id'] = contact.id
-        request.session['business_email'] = business.user.email
-        return HttpResponse('otp sent')
+        messages.success(request, 'Your message has been submitted. We will get back to you soon.')
+        return redirect('contact_page')
     else:
-        return render(request, 'pages/contact.html')
+        messages.error(request, 'Something went wrong. Please try again.')
+        return redirect('contact_page')
 
 
 def verify_otp(request):
