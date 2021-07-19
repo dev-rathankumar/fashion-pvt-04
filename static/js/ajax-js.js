@@ -148,7 +148,7 @@ function ValidCaptchaInq(){
 }
 
 
-// Captcha verification inquiry
+// Captcha verification rating
 function DrawCaptchaRating()
 {
    var a = Math.ceil(Math.random() * 9)+ '';
@@ -401,13 +401,119 @@ $.ajax({
       dataType: "json",
     },
     success: function( data ) {
-        console.log(data);
         document.getElementById("tax_percent").innerHTML = data.tax_percent;
         document.getElementById("tax_amount").innerHTML = data.tx_amount;
         document.getElementById("grand_total").innerHTML = data.grand_total;
+        document.getElementById("grand_total_hidden").value = data.grand_total;
+        document.getElementById("tax_hidden").value = data.tx_amount;
     }
 });
 });
 document.getElementById('id_country').required = true
 document.getElementById('id_state').required = true
 
+
+function saveDDPayment(){
+  var url = $('#url').val();
+  var paymentData = new FormData();
+  paymentData.append('amount', $("#id_amount").val());
+  paymentData.append('payment_id', $("#id_payment_id").val());
+  paymentData.append('date_of_payment', $("#id_date_of_dd_payment").val());
+  paymentData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val());
+  paymentData.append('img', $("#is_dd_attachment")[0].files[0]);
+  
+  
+  $.ajax({
+    url: url,
+    type:"post",
+    cache : false,
+    contentType : false,
+    processType : false,
+    data: paymentData,
+    success: function(data) {
+      alert(data);
+      return false;
+    }
+});
+  
+}
+
+
+// B L O G  R E P L Y  C A P T C H A
+function DrawReplyCaptcha(comment_id)
+{
+   var a = Math.ceil(Math.random() * 9)+ '';
+   var b = Math.ceil(Math.random() * 9)+ '';
+   var c = Math.ceil(Math.random() * 9)+ '';
+   var d = Math.ceil(Math.random() * 9)+ '';
+   var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d;
+   txtCaptchaReply = 'txtCaptchaReply'+comment_id
+   document.getElementById(txtCaptchaReply).value = code
+}
+
+// Validate the Entered input aganist the generated security code function
+function ValidCaptchaReply(comment_id){
+   txtCaptchaReply = 'txtCaptchaReply'+comment_id
+   txtInputReply = 'txtInputReply'+comment_id
+   var str1 = removeSpaces(document.getElementById(txtCaptchaReply).value);
+   var str2 = removeSpaces(document.getElementById(txtInputReply).value);
+
+   var invalidCode_r = '#invalidCode_r'+comment_id
+   var blankCaptchaError_r = '#blankCaptchaError_r'+comment_id
+   if (str1 == str2)
+   {
+    $(invalidCode_r).html('');
+    $(blankCaptchaError_r).html('');
+     // pass
+   }
+   else if(str2 == ''){
+    $(invalidCode_r).html('');
+    $(blankCaptchaError_r).html('Please enter Captcha!');
+    return false;
+   }
+   else{
+     $(invalidCode_r).html('');
+     $(blankCaptchaError_r).html('Invalid verification code. Please enter the correct code to be able to submit.');
+    
+     DrawReplyCaptcha(comment_id);
+     return false;
+   }
+}
+
+
+
+// Captcha verification contact
+function DrawCaptchaContact()
+{
+   var a = Math.ceil(Math.random() * 9)+ '';
+   var b = Math.ceil(Math.random() * 9)+ '';
+   var c = Math.ceil(Math.random() * 9)+ '';
+   var d = Math.ceil(Math.random() * 9)+ '';
+   var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d;
+   document.getElementById("txtCaptcha").value = code
+}
+
+// Validate the Entered input aganist the generated security code function
+function ValidCaptchaContact(){
+   var str1 = removeSpaces(document.getElementById('txtCaptcha').value);
+   var str2 = removeSpaces(document.getElementById('txtInput').value);
+
+   if (str1 == str2)
+   {
+    $("#invalidCodeContact").html('');
+    $("#blankCaptchaErrorContact").html('');
+     // pass
+   }
+   else if(str2 == ''){
+    $("#invalidCodeContact").html('');
+    $("#blankCaptchaErrorContact").html('Please enter Captcha!');
+    return false;
+   }
+   else{
+     $("#blankCaptchaErrorContact").html('');
+     $("#invalidCodeContact").html('Invalid verification code. Please enter the correct code to be able to submit.');
+    
+     DrawCaptchaContact();
+     return false;
+   }
+}

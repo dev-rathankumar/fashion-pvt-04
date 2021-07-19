@@ -294,3 +294,6 @@ input[type=number]{
 .btn.btn-default.btn-secondary.fileinput-upload.fileinput-upload-button{
   display: none !important;
 }
+#siteNav a, select#select_lang{
+  font-size: 12px !important;
+}

@@ -1,6 +1,6 @@
 setTimeout(function() {
   $('#message').fadeOut('slow');
-}, 4000)
+}, 10000)
 
 $(document).ready(function() {
   $('#CustomerPassword').keyup(function() {
@@ -117,9 +117,3 @@ $(document).ready(function(){
   // $("#id_country").prop("required", true);
   $("#id_country").attr("required", "required");
 })
-
-$(document).ready(function(){
-  $('#reply-button').click(function(){
-    $('#replies').toggle();
-  })
-}

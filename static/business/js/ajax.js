@@ -258,3 +258,80 @@ function commentApproval(event, comment_id){
     }
   });
 }
+
+
+// Direct Deposit Switch
+function ddSwitch() {
+  var ddSwitch = document.getElementById('ddSwitch');
+  var url = $('#ddurl').val();
+  if (ddSwitch.checked == true){
+    var event = Boolean(true);
+    ddToggleEnable(event, url);
+    document.getElementById("ddForm").style.display = "block";
+  } else {
+    var event = Boolean(false);
+    ddToggleEnable(event, url);
+    document.getElementById("ddForm").style.display = "none";
+  }
+}
+
+function ddToggleEnable(event, url){
+  $.ajax({
+    type: 'GET',
+    url: url,
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'enabled') {
+        document.getElementById('ddStatus').innerHTML = "Enabled";
+      }
+      else{
+        document.getElementById('ddStatus').innerHTML = "Disabled";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}
+
+
+// PayPal Config Switch
+function ppSwitch() {
+  var ppSwitch = document.getElementById('ppSwitch');
+  var url = $('#ppurl').val();
+  if (ppSwitch.checked == true){
+    var event = Boolean(true);
+    ppToggleEnable(event, url);
+    document.getElementById("ppForm").style.display = "block";
+  } else {
+    var event = Boolean(false);
+    ppToggleEnable(event, url);
+    document.getElementById("ppForm").style.display = "none";
+  }
+}
+
+function ppToggleEnable(event, url){
+  $.ajax({
+    type: 'GET',
+    url: url,
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'enabled') {
+        
+        document.getElementById('ppStatus').innerHTML = "Enabled";
+      }
+      else{
+        document.getElementById('ppStatus').innerHTML = "Disabled";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}
