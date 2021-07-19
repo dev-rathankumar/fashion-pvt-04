@@ -96,7 +96,10 @@ class Footer(models.Model):
 )
 
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
-    footer_text = RichTextField(blank=True)
+    footer_text = models.CharField(max_length=500, blank=True)
+    hard_code_footer = models.CharField(max_length=100, default='Provided by', blank=True)
+    hard_code_branding = models.CharField(max_length=100, default='Altocan', blank=True)
+    hard_code_url = models.URLField(default='https://www.altocan.com/', blank=True)
     footer_align = models.CharField(max_length=10, choices=ALIGN, default='center')
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now=True)

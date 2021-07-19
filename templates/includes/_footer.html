@@ -119,9 +119,9 @@
       </ul> -->
       <div style="text-align:{{footer.footer_align}};">
         {% if footer is not None %}
-        {{footer.footer_text|safe}}
+        {{footer.footer_text}}. {{footer.hard_code_footer}} <span><a href="{{footer.hard_code_url}}" target="_blank"><u>{{footer.hard_code_branding}}</u></a></span>
         {% else %}
-        &copy; {% now "Y" %} {{company_name}}. All Rights Reserved.
+        &copy; {% now "Y" %} {{company_name}}. All Rights Reserved. Provided by <span><a href="https://www.altocan.com/" target="_blank">Altocan</a></span>
         {% endif %}
       </div>
     </div>
