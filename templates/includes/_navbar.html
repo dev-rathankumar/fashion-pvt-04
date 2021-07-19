@@ -69,15 +69,15 @@
                 <div class="search-drawer">
                   <div class="container">
                         <span class="closeSearch anm anm-times-l"></span>
-                        <h3 class="title">What are you looking for?</h3>
+                        <h3 class="title">{% trans 'What are you looking for?' %}</h3>
                         <div class="block block-search">
                             <div class="block block-content">
                                 <form action="{% url 'search' %}" class="form minisearch" id="header-search" method="GET">
-                                    <label for="search" class="label"><span>Search</span></label>
+                                    <label for="search" class="label"><span>{% trans 'Search' %}</span></label>
                                     <div class="control">
                                         <div class="searchField">
                                             <div class="input-box">
-                                                <input id="search" type="text" name="keyword" value="{{ values.keyword }}" placeholder="Search for products..." class="input-text" required>
+                                                <input id="search" type="text" name="keyword" value="{{ values.keyword }}" placeholder="{% trans 'Search for products' %}..." class="input-text" required>
                                                 <button type="submit" title="Search" class="action search"><i class="icon anm anm-search-l"></i></button>
                                             </div>
                                         </div>
@@ -103,14 +103,14 @@
                 {% if user.id is not None %}
                 <div class="customer-links">
 
-                    <p class="text-center">Welcome <strong>{{ user.name }}</strong></p>
+                    <p class="text-center">{% trans 'Welcome' %} <strong>{{ user.name }}</strong></p>
                     {% if user.is_business %}
-                    <p><a href="{% url 'biz_dashboard' %}" class="btn">Business Dashboard</a></p>
+                    <p><a href="{% url 'biz_dashboard' %}" class="btn">{% trans 'Business Dashboard' %}</a></p>
                     {% elif user.is_regional_manager %}
-                    <p><a href="{% url 'rm_dashboard' %}" class="btn">Account Manager</a></p>
+                    <p><a href="{% url 'rm_dashboard' %}" class="btn">{% trans 'Account Manager' %}</a></p>
                     {% endif %}
-                    <p><a href="{% url 'userDashboard' %}" class="btn">My Account</a></p>
-                    <p class="text-right"><span><a href="javascript:{document.getElementById('logout').submit()}" style="color:red;">Logout</a></span></p>
+                    <p><a href="{% url 'userDashboard' %}" class="btn">{% trans 'My Account' %}</a></p>
+                    <p class="text-right"><span><a href="javascript:{document.getElementById('logout').submit()}" style="color:red;">{% trans 'Logout' %}</a></span></p>
                     <form action="{% url 'logout' %}" id="logout" method="POST">
                       {% csrf_token %}
                       <input type="hidden">
@@ -119,9 +119,9 @@
                   </div>
                 {% else %}
                 <div class="customer-links">
-                  <p class="text-center">Welcome Guest!</p>
-                    <p><a href="{% url 'userLogin' %}" class="btn">Login</a></p>
-                      <p class="text-center">New User? <a href="{% url 'userRegister' %}" class="register">Create an Account</a></p>
+                  <p class="text-center">{% trans 'Welcome Guest' %}!</p>
+                    <p><a href="{% url 'userLogin' %}" class="btn">{% trans 'Login' %}</a></p>
+                      <p class="text-center">{% trans 'New User?' %} <a href="{% url 'userRegister' %}" class="register">{% trans 'Create an Account' %}</a></p>
 
                   </div>
                 {% endif %}

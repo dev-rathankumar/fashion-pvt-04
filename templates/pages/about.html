@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %} About Us {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'About Us' %} {% endblock %}
 {% block content %}
 {% load static %}
 <div id="page-content">
@@ -7,7 +8,7 @@
         <!--Breadcrumbs-->
         <div class="breadcrumbs-wrapper">
         	<div class="container">
-            	<div class="breadcrumbs"><a href="index.html" title="Back to the home page">Home</a> <span aria-hidden="true">|</span> <span>About Us</span></div>
+            	<div class="breadcrumbs"><a href="index.html" title="Back to the home page">{% trans 'Home' %}</a> <span aria-hidden="true">|</span> <span>{% trans 'About Us' %}</span></div>
             </div>
         </div>
         <!--End Breadcrumbs-->
@@ -17,7 +18,7 @@
         {% if about_page.sub_heading %}
             	<p class="mb-4">{{about_page.sub_heading | safe }}</p>
             {% else %}
-Your sub heading content goes here
+            {% trans 'Your sub heading content goes here' %}
             {% endif %}
             </div>
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-17 21:31+0530\n"
+"POT-Creation-Date: 2021-07-19 23:22+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,6 +22,46 @@ msgstr ""
 msgid "Homepage"
 msgstr "Page d'accueil"
 
+#: .\templates\blogs\blogs.html:12 .\templates\includes\_navbar.html:40
+#: .\templates\pages\about.html:11 .\templates\pages\contact.html:13
+#: .\templates\pages\home.html:3 .\templates\pages\home.html:14
+#: .\templates\shop\shop.html:13
+msgid "Home"
+msgstr "Domicile"
+
+#: .\templates\blogs\blogs.html:12 .\templates\blogs\blogs.html:17
+#: .\templates\includes\_navbar.html:58
+msgid "Blogs"
+msgstr "Blogues"
+
+#: .\templates\blogs\blogs.html:25 .\templates\includes\_navbar.html:76
+msgid "Search"
+msgstr "Rechercher"
+
+#: .\templates\blogs\blogs.html:32
+msgid "Search for blogs..."
+msgstr "Recherche de blogs..."
+
+#: .\templates\blogs\blogs.html:46
+msgid "Blog Category"
+msgstr "Catégorie de blog"
+
+#: .\templates\blogs\blogs.html:51
+msgid "All Blogs"
+msgstr "Tous les blogs"
+
+#: .\templates\blogs\blogs.html:62
+msgid "Recent Blog Posts"
+msgstr "Articles de blog récents"
+
+#: .\templates\blogs\blogs.html:121
+msgid "Read more"
+msgstr "Lire la suite"
+
+#: .\templates\blogs\blogs.html:127
+msgid "No blogs"
+msgstr "Pas de blog"
+
 #: .\templates\business\sitesettings\addIcon.html:60
 #: .\templates\business\sitesettings\editIcon.html:57
 msgid "Icon Picker"
@@ -32,11 +72,76 @@ msgstr "Sélecteur d'icônes"
 msgid "Filter by Style"
 msgstr "Filtrer par style"
 
-#: .\templates\includes\_navbar.html:40
-#, fuzzy
-#| msgid "Homepage"
-msgid "Home"
-msgstr "Domicile"
+#: .\templates\includes\_footer.html:20 .\templates\includes\_footer.html:24
+msgid "Phone"
+msgstr "Téléphoner"
+
+#: .\templates\includes\_footer.html:21 .\templates\includes\_footer.html:25
+#: .\templates\pages\contact.html:42
+msgid "Email"
+msgstr "E-mail"
+
+#: .\templates\includes\_footer.html:36
+msgid "Quick Shop"
+msgstr "Boutique rapide"
+
+#: .\templates\includes\_footer.html:45
+msgid "Important Links"
+msgstr "Liens importants"
+
+#: .\templates\includes\_footer.html:48 .\templates\includes\_navbar.html:112
+#: .\templates\pages\home.html:139
+msgid "My Account"
+msgstr "Mon compte"
+
+#: .\templates\includes\_footer.html:50 .\templates\includes\_navbar.html:123
+#: .\templates\pages\home.html:138
+msgid "Login"
+msgstr "Connexion"
+
+#: .\templates\includes\_footer.html:52
+msgid "About us"
+msgstr "À propos de nous"
+
+#: .\templates\includes\_footer.html:53 .\templates\includes\_navbar.html:57
+#: .\templates\pages\contact.html:13 .\templates\pages\contact.html:19
+#: .\templates\pages\home.html:146
+msgid "Contact Us"
+msgstr "Nous contacter"
+
+#: .\templates\includes\_footer.html:54
+msgid "Privacy policy"
+msgstr "Politique de confidentialité"
+
+#: .\templates\includes\_footer.html:55
+msgid "Terms"
+msgstr "termes"
+
+#: .\templates\includes\_footer.html:55
+msgid "condition"
+msgstr "état"
+
+#: .\templates\includes\_footer.html:64
+msgid "Newsletter"
+msgstr "Bulletin"
+
+#: .\templates\includes\_footer.html:65
+msgid "Enter your email to receive latest news and get discount coupons."
+msgstr ""
+"Entrez votre email pour recevoir les dernières nouvelles et obtenir des "
+"coupons de réduction."
+
+#: .\templates\includes\_footer.html:68
+msgid "Email address"
+msgstr "Adresse e-mail"
+
+#: .\templates\includes\_footer.html:77 .\templates\pages\contact.html:71
+msgid "Enter Captcha"
+msgstr "Entrez Captcha"
+
+#: .\templates\includes\_footer.html:99
+msgid "Subscribe"
+msgstr "S'abonner"
 
 #: .\templates\includes\_navbar.html:41
 msgid "Categories"
@@ -46,21 +151,623 @@ msgstr "Catégories"
 msgid "All Products"
 msgstr "Tous les produits"
 
-#: .\templates\includes\_navbar.html:55
+#: .\templates\includes\_navbar.html:55 .\templates\pages\home.html:46
+#: .\templates\shop\shop.html:3 .\templates\shop\shop.html:17
+#: .\templates\shop\shop.html:180
 msgid "Shop"
 msgstr "Boutique"
 
-#: .\templates\includes\_navbar.html:56
+#: .\templates\includes\_navbar.html:56 .\templates\pages\about.html:3
+#: .\templates\pages\about.html:11 .\templates\pages\home.html:140
+#: .\templates\pages\home.html:430
 msgid "About Us"
 msgstr "À propos de nous"
 
-#: .\templates\includes\_navbar.html:57
-msgid "Contact Us"
-msgstr "Nous contacter"
+#: .\templates\includes\_navbar.html:72
+msgid "What are you looking for?"
+msgstr "Qu'est-ce que tu cherches?"
 
-#: .\templates\includes\_navbar.html:58
-msgid "Blogs"
-msgstr "Blogues"
+#: .\templates\includes\_navbar.html:80
+msgid "Search for products"
+msgstr "Rechercher des produits"
+
+#: .\templates\includes\_navbar.html:106
+msgid "Welcome"
+msgstr "Bienvenu"
+
+#: .\templates\includes\_navbar.html:108
+msgid "Business Dashboard"
+msgstr "Tableau de bord d'entreprise"
+
+#: .\templates\includes\_navbar.html:110
+msgid "Account Manager"
+msgstr "Gestionnaire de compte"
+
+#: .\templates\includes\_navbar.html:113
+msgid "Logout"
+msgstr "Se déconnecter"
+
+#: .\templates\includes\_navbar.html:122
+msgid "Welcome Guest"
+msgstr "Bienvenue Invité"
+
+#: .\templates\includes\_navbar.html:124
+msgid "New User?"
+msgstr "Nouvel utilisateur?"
+
+#: .\templates\includes\_navbar.html:124
+msgid "Create an Account"
+msgstr "Créer un compte"
+
+#: .\templates\pages\about.html:21
+msgid "Your sub heading content goes here"
+msgstr "Le contenu de votre sous-titre va ici"
+
+#: .\templates\pages\contact.html:3
+msgid "Contact"
+msgstr "Contacter"
+
+#: .\templates\pages\contact.html:23
+msgid "Drop Us A Line"
+msgstr "Écrivez-nous"
+
+#: .\templates\pages\contact.html:24
+msgid " If you any query or feedback, please feel free to contact us"
+msgstr ""
+"Si vous avez des questions ou des commentaires, n'hésitez pas à nous "
+"contacter"
+
+#: .\templates\pages\contact.html:37
+msgid "Name"
+msgstr "Nom"
+
+#: .\templates\pages\contact.html:51
+msgid "Phone Number"
+msgstr "Numéro de téléphone"
+
+#: .\templates\pages\contact.html:56
+msgid "Subject"
+msgstr "Matière"
+
+#: .\templates\pages\contact.html:63
+msgid "Your Message"
+msgstr "Votre message"
+
+#: .\templates\pages\contact.html:87
+msgid "Send Message"
+msgstr "Envoyer le message"
+
+#: .\templates\pages\contact.html:102
+msgid "Please enter your OTP here."
+msgstr "Veuillez entrer votre OTP ici."
+
+#: .\templates\pages\contact.html:107
+msgid "Enter OTP"
+msgstr "Entrez OTP"
+
+#: .\templates\pages\contact.html:114
+msgid "Verify"
+msgstr "Vérifier"
+
+#: .\templates\pages\contact.html:119
+msgid "Resend OTP"
+msgstr "Renvoyer OTP"
+
+#: .\templates\pages\home.html:12
+msgid "Close Menu"
+msgstr "Fermer le menu"
+
+#: .\templates\pages\home.html:16 .\templates\pages\home.html:30
+msgid "Homepages"
+msgstr "Page d'accueil"
+
+#: .\templates\pages\home.html:18
+msgid "Home01"
+msgstr "Accueil01"
+
+#: .\templates\pages\home.html:19
+msgid "Home02"
+msgstr "Accueil02"
+
+#: .\templates\pages\home.html:20
+msgid "Home03"
+msgstr "Accueil03"
+
+#: .\templates\pages\home.html:21
+msgid "Home04"
+msgstr "Accueil04"
+
+#: .\templates\pages\home.html:22
+msgid "Home05"
+msgstr "Accueil05"
+
+#: .\templates\pages\home.html:23
+msgid "Home06"
+msgstr "Accueil06"
+
+#: .\templates\pages\home.html:24
+msgid "Home07"
+msgstr "Accueil07"
+
+#: .\templates\pages\home.html:25
+msgid "Home08"
+msgstr "Accueil08"
+
+#: .\templates\pages\home.html:26
+msgid "Home09"
+msgstr "Accueil09"
+
+#: .\templates\pages\home.html:27
+msgid "Medical"
+msgstr "Médical"
+
+#: .\templates\pages\home.html:32
+msgid "Home10"
+msgstr "Accueil10"
+
+#: .\templates\pages\home.html:33
+msgid "Home11"
+msgstr "Accueil11"
+
+#: .\templates\pages\home.html:34
+msgid "Home12"
+msgstr "Accueil12"
+
+#: .\templates\pages\home.html:35
+msgid "Home13"
+msgstr "Accueil13"
+
+#: .\templates\pages\home.html:36
+msgid "Home14"
+msgstr "Accueil14"
+
+#: .\templates\pages\home.html:37
+msgid "Home15"
+msgstr "Accueil15"
+
+#: .\templates\pages\home.html:38
+msgid "Home16"
+msgstr "Accueil16"
+
+#: .\templates\pages\home.html:39
+msgid "Home17"
+msgstr "Accueil17"
+
+#: .\templates\pages\home.html:40
+msgid "Home18"
+msgstr "Accueil18"
+
+#: .\templates\pages\home.html:41
+msgid "Pet Store"
+msgstr "Animalerie"
+
+#: .\templates\pages\home.html:48
+msgid "Category Page"
+msgstr "Page de catégorie"
+
+#: .\templates\pages\home.html:50
+msgid "2 Columns with style1"
+msgstr "2 colonnes avec style1"
+
+#: .\templates\pages\home.html:51
+msgid "3 Columns with style2"
+msgstr "3 colonnes avec style2"
+
+#: .\templates\pages\home.html:52
+msgid "4 Columns with style3"
+msgstr "4 colonnes avec style3"
+
+#: .\templates\pages\home.html:53
+msgid "5 Columns with style4"
+msgstr "5 colonnes avec style4"
+
+#: .\templates\pages\home.html:54
+msgid "6 Columns with Fullwidth"
+msgstr "6 colonnes avec pleine largeur"
+
+#: .\templates\pages\home.html:55
+msgid "7 Columns"
+msgstr "7 colonnes"
+
+#: .\templates\pages\home.html:56
+msgid "Category Empty"
+msgstr "Catégorie Vide"
+
+#: .\templates\pages\home.html:59 .\templates\pages\home.html:70
+msgid "Shop Page"
+msgstr "Boutique"
+
+#: .\templates\pages\home.html:61
+msgid "List View"
+msgstr "Affichage en liste"
+
+#: .\templates\pages\home.html:62
+msgid "Category Slideshow"
+msgstr "Diaporama de catégorie"
+
+#: .\templates\pages\home.html:63 .\templates\pages\home.html:165
+msgid "Left Sidebar"
+msgstr "Barre latérale de gauche"
+
+#: .\templates\pages\home.html:64 .\templates\pages\home.html:166
+msgid "Right Sidebar"
+msgstr "Barre latérale droite"
+
+#: .\templates\pages\home.html:65
+msgid "Fullwidth/No Sidebar"
+msgstr "Pleine largeur/Pas de barre latérale"
+
+#: .\templates\pages\home.html:66
+msgid "No Sidebar/No Filter"
+msgstr "Pas de barre latérale/pas de filtre"
+
+#: .\templates\pages\home.html:67
+msgid "With category description"
+msgstr "Avec description de la catégorie"
+
+#: .\templates\pages\home.html:72
+msgid "Simple Heading"
+msgstr "Titre simple"
+
+#: .\templates\pages\home.html:73
+msgid "Small Heading"
+msgstr "Petit titre"
+
+#: .\templates\pages\home.html:74
+msgid "Big Heading With Image"
+msgstr "Grand titre avec image"
+
+#: .\templates\pages\home.html:75
+msgid "Headings With Banner#1"
+msgstr "En-têtes avec bannière #1"
+
+#: .\templates\pages\home.html:76
+msgid "Headings With Banner#2"
+msgstr "En-têtes avec bannière #2"
+
+#: .\templates\pages\home.html:77
+msgid "Swatches Style"
+msgstr "Style d'échantillons"
+
+#: .\templates\pages\home.html:78
+msgid "Classic Pagination"
+msgstr "Pagination classique"
+
+#: .\templates\pages\home.html:81
+msgid "Shop Other Page"
+msgstr "Acheter une autre page"
+
+#: .\templates\pages\home.html:83
+msgid "My Wishlist"
+msgstr "Ma liste d'envies"
+
+#: .\templates\pages\home.html:84
+msgid "Cart Page Style1"
+msgstr "Style de page de panier1"
+
+#: .\templates\pages\home.html:85
+msgid "Cart Page Style2"
+msgstr "Style de page de panier2"
+
+#: .\templates\pages\home.html:86
+msgid "Checkout Page Style1"
+msgstr "Style de page de paiement1"
+
+#: .\templates\pages\home.html:87
+msgid "Checkout Page Style2"
+msgstr "Style de page de paiement2"
+
+#: .\templates\pages\home.html:88
+msgid "Compare Page Style1"
+msgstr "Comparer le style de page1"
+
+#: .\templates\pages\home.html:89
+msgid "Compare Page Style2"
+msgstr "Comparer le style de page2"
+
+#: .\templates\pages\home.html:94
+msgid "Product"
+msgstr "Produit"
+
+#: .\templates\pages\home.html:96
+msgid "Product Page"
+msgstr "Page du produit"
+
+#: .\templates\pages\home.html:98
+msgid "Product Layout1"
+msgstr "Présentation du produit1"
+
+#: .\templates\pages\home.html:99
+msgid "Product Layout2"
+msgstr "Présentation du produit2"
+
+#: .\templates\pages\home.html:100
+msgid "Product Layout3"
+msgstr "Présentation du produit3"
+
+#: .\templates\pages\home.html:101
+msgid "Product Layout4"
+msgstr "Présentation du produit4"
+
+#: .\templates\pages\home.html:102
+msgid "Product Layout5"
+msgstr "Présentation du produit5"
+
+#: .\templates\pages\home.html:103
+msgid "Product Layout6"
+msgstr "Présentation du produit6"
+
+#: .\templates\pages\home.html:104
+msgid "Product Layout7"
+msgstr "Présentation du produit7"
+
+#: .\templates\pages\home.html:105
+msgid "Product Accordian"
+msgstr "Produit Accordéon"
+
+#: .\templates\pages\home.html:106
+msgid "Product Tabs Left"
+msgstr "Onglets de produits à gauche"
+
+#: .\templates\pages\home.html:107
+msgid "Product Tabs Center"
+msgstr "Centre d'onglets de produits"
+
+#: .\templates\pages\home.html:110
+msgid "Product Page Types"
+msgstr "Types de pages de produits"
+
+#: .\templates\pages\home.html:112
+msgid "Standard Product"
+msgstr "Produit standard"
+
+#: .\templates\pages\home.html:113
+msgid "Variable Product"
+msgstr "Produit variable"
+
+#: .\templates\pages\home.html:114
+msgid "Grouped Product"
+msgstr "Produit groupé"
+
+#: .\templates\pages\home.html:115
+msgid "New Product"
+msgstr "Nouveau produit"
+
+#: .\templates\pages\home.html:116
+msgid "Sale Product"
+msgstr "Produit de vente"
+
+#: .\templates\pages\home.html:117
+msgid "Out Of Stock Product"
+msgstr "Produit en rupture de stock"
+
+#: .\templates\pages\home.html:118
+msgid "External / Affiliate Product"
+msgstr "Produit externe / affilié"
+
+#: .\templates\pages\home.html:119
+msgid "Variable Image"
+msgstr "Image variable"
+
+#: .\templates\pages\home.html:120
+msgid "Variable Select"
+msgstr "Sélection de variables"
+
+#: .\templates\pages\home.html:121
+msgid "360 Degree view"
+msgstr "Vue à 360 degrés"
+
+#: .\templates\pages\home.html:126
+msgid "Lookbook"
+msgstr "Lookbook"
+
+#: .\templates\pages\home.html:128 .\templates\pages\home.html:168
+msgid "2 Columns"
+msgstr "2 colonnes"
+
+#: .\templates\pages\home.html:129 .\templates\pages\home.html:169
+msgid "3 Columns"
+msgstr "3 colonnes"
+
+#: .\templates\pages\home.html:130 .\templates\pages\home.html:170
+msgid "4 Columns"
+msgstr "4 colonnes"
+
+#: .\templates\pages\home.html:131
+msgid "5 Columns + Fullwidth"
+msgstr "5 colonnes + pleine largeur"
+
+#: .\templates\pages\home.html:132
+msgid "Lookbook Shop"
+msgstr "Boutique de Lookbook"
+
+#: .\templates\pages\home.html:135
+msgid "Pages"
+msgstr "Pages"
+
+#: .\templates\pages\home.html:137
+msgid "Brands Page"
+msgstr "Page des marques"
+
+#: .\templates\pages\home.html:142
+msgid "About Us Style1"
+msgstr "À propos de nous Style1"
+
+#: .\templates\pages\home.html:143
+msgid "About Us Style2"
+msgstr "À propos de nous Style2"
+
+#: .\templates\pages\home.html:148
+msgid "Contact Us Style1"
+msgstr "Contactez-nous Style2"
+
+#: .\templates\pages\home.html:149
+msgid "Contact Us Style2"
+msgstr "Contactez-nous Style2"
+
+#: .\templates\pages\home.html:152
+msgid "FAQs "
+msgstr "FAQ"
+
+#: .\templates\pages\home.html:154
+msgid "FAQs Style1"
+msgstr "FAQ Style1"
+
+#: .\templates\pages\home.html:155
+msgid "FAQs Style2"
+msgstr "FAQ Style2"
+
+#: .\templates\pages\home.html:158
+msgid "CMS"
+msgstr "CMS"
+
+#: .\templates\pages\home.html:159
+msgid "Error 404"
+msgstr "Erreur 404"
+
+#: .\templates\pages\home.html:160
+msgid "Coming soon"
+msgstr "Bientôt disponible"
+
+#: .\templates\pages\home.html:163
+msgid "Blog"
+msgstr "Blog"
+
+#: .\templates\pages\home.html:167
+msgid "Fullwidth"
+msgstr "Pleine largeur"
+
+#: .\templates\pages\home.html:171
+msgid "Single Post"
+msgstr "Poste unique"
+
+#: .\templates\pages\home.html:216 .\templates\pages\home.html:234
+msgid "Your title goes here"
+msgstr "Votre titre va ici"
+
+#: .\templates\pages\home.html:218 .\templates\pages\home.html:236
+msgid "Your subtitle goes here"
+msgstr "Votre sous-titre va ici"
+
+#: .\templates\pages\home.html:220 .\templates\pages\home.html:238
+msgid "BUTTON"
+msgstr "BOUTON"
+
+#: .\templates\pages\home.html:275
+msgid "Call Us Anytime"
+msgstr "Appelez-nous à tout moment"
+
+#: .\templates\pages\home.html:275
+msgid "+1 (555) 555-5555"
+msgstr "+1 (555) 555-5555"
+
+#: .\templates\pages\home.html:282
+msgid "Free Shipping"
+msgstr "Livraison gratuite"
+
+#: .\templates\pages\home.html:282
+msgid "When you spend $100+"
+msgstr "Lorsque vous dépensez plus de 100 $"
+
+#: .\templates\pages\home.html:289
+msgid "Genuine Quality"
+msgstr "Qualité authentique"
+
+#: .\templates\pages\home.html:289
+msgid "All our products are Genuine"
+msgstr "Tous nos produits sont authentiques"
+
+#: .\templates\pages\home.html:296
+msgid "Secure Payments"
+msgstr "Paiements sécurisés"
+
+#: .\templates\pages\home.html:296
+msgid "We accept all major credit cards."
+msgstr "Nous acceptons toutes les principales cartes de crédit."
+
+#: .\templates\pages\home.html:313
+msgid "New Arrivals"
+msgstr "Nouvelles Arrivées"
+
+#: .\templates\pages\home.html:314
+msgid "Shop our new arrivals from established brands"
+msgstr "Achetez nos nouveautés de marques établies"
+
+#: .\templates\pages\home.html:331
+msgid "New Arrival"
+msgstr "Nouvelle arrivee"
+
+#: .\templates\pages\home.html:367 .\templates\shop\shop.html:205
+msgid "No products found"
+msgstr "Aucun produit trouvé"
+
+#: .\templates\pages\home.html:391
+msgid "Shop Now"
+msgstr "Achetez maintenant"
+
+#: .\templates\pages\home.html:425
+msgid "About your business"
+msgstr "À propos de votre entreprise"
+
+#: .\templates\shop\shop.html:15 .\templates\shop\shop.html:178
+msgid "Search Result"
+msgstr "Résultat de la recherche"
+
+#: .\templates\shop\shop.html:34
+msgid "Price"
+msgstr "Prix"
+
+#: .\templates\shop\shop.html:40
+msgid "Select Price Range"
+msgstr "Sélectionnez la gamme de prix"
+
+#: .\templates\shop\shop.html:41
+msgid "Below"
+msgstr "Au dessous de"
+
+#: .\templates\shop\shop.html:44
+msgid "Above"
+msgstr "Dessus"
+
+#: .\templates\shop\shop.html:54
+msgid "Min Price"
+msgstr "Prix ​​minimum"
+
+#: .\templates\shop\shop.html:57
+msgid "Max Price"
+msgstr "Prix ​​maximum"
+
+#: .\templates\shop\shop.html:69
+msgid "Size"
+msgstr "Taille"
+
+#: .\templates\shop\shop.html:82
+msgid "Color"
+msgstr "Couleur"
+
+#: .\templates\shop\shop.html:93
+msgid "filter"
+msgstr "filtre"
+
+#: .\templates\shop\shop.html:103
+msgid "Popular Products"
+msgstr "Produits populaires"
+
+#: .\templates\shop\shop.html:187
+msgid "Product Filters"
+msgstr "Filtres de produits"
+
+#: .\templates\shop\shop.html:195
+msgid "Total"
+msgstr "Le total"
+
+#: .\templates\shop\shop.html:195
+msgid "Products"
+msgstr "Des produits"
+
+#: .\templates\shop\shop.html:219
+msgid "Popular"
+msgstr "Populaire"
 
 #~ msgid "Let's translate this"
 #~ msgstr "inglesa"

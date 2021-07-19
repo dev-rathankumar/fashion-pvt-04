@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %} Contact {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'Contact' %} {% endblock %}
 
 {% block content %}
 {% load faicon %}
@@ -9,19 +10,19 @@
   <!--Breadcrumbs-->
   <div class="breadcrumbs-wrapper">
     <div class="container">
-      <div class="breadcrumbs"><a href="index.html" title="Back to the home page">Home</a> <span aria-hidden="true">|</span> <span>Contact Us</span></div>
+      <div class="breadcrumbs"><a href="index.html" title="Back to the home page">{% trans 'Home' %}</a> <span aria-hidden="true">|</span> <span>{% trans 'Contact Us' %}</span></div>
     </div>
   </div>
   <!--End Breadcrumbs-->
   <div class="container">
     <div class="page-title">
-      <h1>Contact Us</h1>
+      <h1>{% trans 'Contact Us' %}</h1>
     </div>
     <div class="row">
       {% include 'includes/_alerts.html' %}
       <div class="col-12 col-sm-12 col-md-8 col-lg-8 mb-4">
-        <h2>Drop Us A Line</h2>
-        <p>Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão. O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500 </p>
+        <h2>{% trans 'Drop Us A Line' %}</h2>
+        <p>{% trans ' If you any query or feedback, please feel free to contact us' %} </p>
         <div class="formFeilds contact-form form-vertical">
           <form method="post" action="{% url 'contact' %}" class="contact-form">
             {% csrf_token %}
@@ -34,12 +35,12 @@
             <div class="row">
               <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="form-group">
-                  <input type="text" id="name" name="name" placeholder="Name" value="" required>
+                  <input type="text" id="name" name="name" placeholder="{% trans 'Name' %}" value="" required>
                 </div>
               </div>
               <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="form-group">
-                  <input type="email" id="email" name="email" placeholder="Email" value="" required>
+                  <input type="email" id="email" name="email" placeholder="{% trans 'Email' %}" value="" required>
                 </div>
               </div>
             </div>
@@ -48,19 +49,19 @@
                 <div class="form-group">
                   <input required class="inputNumber" type="number" maxlength="12"
                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                   id="phone" name="phone" placeholder="Phone Number" value="">
+                   id="phone" name="phone" placeholder="{% trans 'Phone Number' %}" value="">
                 </div>
               </div>
               <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="form-group">
-                  <input required type="text" id="subject" name="subject" placeholder="Subject" value="">
+                  <input required type="text" id="subject" name="subject" placeholder="{% trans 'Subject' %}" value="">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="form-group">
-                  <textarea required rows="10" id="contact_message" name="contact_message" placeholder="Your Message"></textarea>
+                  <textarea required rows="10" id="contact_message" name="contact_message" placeholder="{% trans 'Your Message' %}"></textarea>
                 </div>
               </div>
             </div>
@@ -68,7 +69,7 @@
             <div class="container">
               <div class="row">
                 <div class="col pl-0">
-                    <input type="text" id="txtInput" placeholder="Enter Captcha" class="form-control"/>
+                    <input type="text" id="txtInput" placeholder="{% trans 'Enter Captcha' %}" class="form-control"/>
 
                 </div>
                 <div class="col pr-0">
@@ -84,7 +85,7 @@
            
             <div class="row">
               <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                <input type="submit" id='submit' class="btn" value="Send Message" onclick="return ValidCaptchaContact();">
+                <input type="submit" id='submit' class="btn" value="{% trans 'Send Message' %}" onclick="return ValidCaptchaContact();">
               </div>
             </div>
             <div class="row">

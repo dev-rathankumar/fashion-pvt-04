@@ -1,6 +1,7 @@
 {% load static %}
 {% load humanize %}
 {% load faicon %}
+{% load i18n %}
 <!--Footer-->
 <div class="footer footer-1">
   <div class="footer-top clearfix">
@@ -16,12 +17,12 @@
           <p class="mb-0">{{business.company_name}}</p>
           {% if contact_page.full_address %}
           <p class="mb-0">{{contact_page.full_address}}</p>
-          <p class="mb-0"><b>Phone</b>: <a href="tel:{{contact_page.phone_number}}">{{contact_page.phone_number}}</a></p>
-          <p class="mb-0"><b>Email</b>: <a href="mailto:{{contact_page.email}}">{{contact_page.email}}</a></p>
+          <p class="mb-0"><b>{% trans 'Phone' %}</b>: <a href="tel:{{contact_page.phone_number}}">{{contact_page.phone_number}}</a></p>
+          <p class="mb-0"><b>{% trans 'Email' %}</b>: <a href="mailto:{{contact_page.email}}">{{contact_page.email}}</a></p>
           {% else %}
           <p class="mb-0">{{business.full_address}}</p>
-          <p class="mb-0"><b>Phone</b>: {{business.user.phone_number}}</p>
-          <p class="mb-0"><b>Email</b>: <a href="mailto:{{business.user.email}}">{{business.user.email}}</a></p>
+          <p class="mb-0"><b>{% trans 'Phone' %}</b>: {{business.user.phone_number}}</p>
+          <p class="mb-0"><b>{% trans 'Email' %}</b>: <a href="mailto:{{business.user.email}}">{{business.user.email}}</a></p>
           {% endif %}
 
           <ul class="list--inline social-icons">
@@ -32,7 +33,7 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-2 col-lg-2 footer-links">
-          <h4 class="h4">Quick Shop</h4>
+          <h4 class="h4">{% trans 'Quick Shop' %}</h4>
           <ul>
             {% for i in quickshopCat %}
             <li><a href="{% url 'shop' %}category/{{ i.slug }}">{{i}}</a></li>
@@ -41,17 +42,17 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-2 col-lg-2 footer-links">
-          <h4 class="h4">Important Links</h4>
+          <h4 class="h4">{% trans 'Important Links' %}</h4>
           <ul>
             {% if user.id is not None %}
-            <li><a href="{% url 'userDashboard' %}">My Account</a></li>
+            <li><a href="{% url 'userDashboard' %}">{% trans 'My Account' %}</a></li>
             {% else %}
-            <li><a href="{% url 'userLogin' %}">Login</a></li>
+            <li><a href="{% url 'userLogin' %}">{% trans 'Login' %}</a></li>
             {% endif %}
-            <li><a href="{% url 'about' %}">About us</a></li>
-            <li><a href="{% url 'contact_page' %}">Contact Us</a></li>
-            <li><a href="{% url 'privacy_policy' %}">Privacy policy</a></li>
-            <li><a href="{% url 'terms_and_conditions' %}">Terms &amp; condition</a></li>
+            <li><a href="{% url 'about' %}">{% trans 'About us' %}</a></li>
+            <li><a href="{% url 'contact_page' %}">{% trans 'Contact Us' %}</a></li>
+            <li><a href="{% url 'privacy_policy' %}">{% trans 'Privacy policy' %}</a></li>
+            <li><a href="{% url 'terms_and_conditions' %}">{% trans 'Terms' %} &amp;{% trans 'condition' %} </a></li>
           </ul>
         </div>
 
@@ -60,11 +61,11 @@
             <div class="display-table-cell footer-newsletter">
               <form method="post" id="newsletterForm">
                 {% csrf_token %}
-                <label class="h4">Newsletter</label>
-                <p>Enter your email to receive latest news and get discount coupons.</p>
+                <label class="h4">{% trans 'Newsletter' %}</label>
+                <p>{% trans 'Enter your email to receive latest news and get discount coupons.' %}</p>
 
                 <div class="input-group">
-                  <input type="email" class="input-group__field newsletter-input" name="email" id="email" placeholder="Email address" required>
+                  <input type="email" class="input-group__field newsletter-input" name="email" id="email" placeholder="{% trans 'Email address' %}" required>
                   <!-- {{ form }} -->
 
                   <table>
@@ -73,7 +74,7 @@
                         <div class="container newsletterCaptcha" style="padding: 0px !important;">
                           <div class="row">
                             <div class="col">
-                              <input type="text" id="txtInput" placeholder="Enter Captcha" class="form-control" />
+                              <input type="text" id="txtInput" placeholder="{% trans 'Enter Captcha' %}" class="form-control" />
 
                             </div>
                             <div class="col">
@@ -95,7 +96,7 @@
                     </tr>
                   </table>
                   <span class="input-group__btn">
-                    <input type="submit" name="submit" value="Subscribe" id="Subscribe" class="btn newsletter__submit" onclick="return ValidCaptcha();">
+                    <input type="submit" name="submit" value="{% trans 'Subscribe' %}" id="Subscribe" class="btn newsletter__submit" onclick="return ValidCaptcha();">
                   </span>
                 </div>
                 <div id="subscriptionMessage"></div>
