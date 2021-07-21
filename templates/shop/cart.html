@@ -70,7 +70,13 @@
                 </div>
 
                 <div class="cart__meta-text">
-                  Color: {{ i.variant.color }}<br>Size: {{ i.variant.size }}<br>
+                  {% if i.variant.product.variant == 'Size' %}
+                  Size: {{ i.variant.size }}
+                  {% elif i.variant.product.variant == 'Color' %}
+                  Color: {{ i.variant.color }}
+                  {% else %}
+                  Color: {{ i.variant.color }}<br>Size: {{ i.variant.size }}
+                  {% endif %}<br>
                 </div>
               </td>
               <td class="cart__price-wrapper cart-flex-item">

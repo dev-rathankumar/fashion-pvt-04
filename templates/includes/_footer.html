@@ -158,7 +158,15 @@
               <div class="product-details">
 
                 <a class="product-title" href="{{ i.product.get_url }}">{{ i.variant.title }}</a>
-                <div class="variant-cart">{{ i.variant.color }} | {{ i.variant.size }}</div>
+                <div class="variant-cart">
+                  {% if i.variant.product.variant == 'Size'  %}
+                    {{ i.variant.size }}
+                  {% elif i.variant.product.variant == 'Color' %}
+                    {{ i.variant.color }}
+                  {% else %}
+                    {{ i.variant.color }} | {{ i.variant.size }}
+                  {% endif %}
+                </div>
                 <div>
                   <div>
                     <p>QTY: {{ i.quantity }}</p>

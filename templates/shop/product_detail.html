@@ -191,19 +191,29 @@
               <div id="appendHere">
                 <input type="hidden" name="size" id="size" value="{{ size_id }}">
                 <ul class="color-option">
-                  <li><span class="text-uppercase">Size:</span></li>
+                  <li><span class="text-uppercase" style="font-size:16px;font-weight:600;letter-spacing:1px;">Choose Size:</span></li> <br>
                   {% for rs in sizes %}
-                  <input type="radio" {% if variant.id == rs.id %} checked {% endif %} name="variantid" id="variantid" value="{{ rs.id }}" onchange="this.form.submit();">
+                  <input type="radio"
+                    {% if request.method == 'GET' %}
+                        {% if forloop.counter == 1 %}
+                        checked
+                        {% endif %}
+                    {% else %}
+                      {% if variant.id == rs.id %}
+                      checked
+                      {% endif %}
+                    {% endif %} name="variantid" value="{{ rs.id }}" onchange="this.form.submit();">
                   <li {% if variant.id == rs.id %} class="active" {% endif %}>
                     <a style=" color: #204d74;  width: 90px">
                       {{ rs.size }}
                     </a>
                   </li>
                   {% endfor %}
+                  
                 </ul>
               </div>
             </form>
-            <br><br>
+            
 
             {% elif product.variant == 'Color' %}
             <form method="post" action="?q=selectvariant" id="post-color">
@@ -266,7 +276,13 @@
               <input type="hidden" name="variantid" id="variantid" value="{{ variant.id }}">
               <div id="SelectedProduct">
                 <p><strong>Availability:</strong> {% if variant.quantity > 0  %} In Stock {% else %} Out of Stock {% endif %}</p>
-                <p><strong>Selected :</strong> Size : {{ variant.size }} Color : {{ variant.color }} </p>
+                {% if single_product.variant == 'Size' %}
+                  <p><strong>Selected :</strong> Size : {{ variant.size }} </p>
+                {% elif single_product.variant == 'Color' %}
+                  <p><strong>Selected :</strong> Color : {{ variant.color }} </p>
+                {% else %}
+                  <p><strong>Selected :</strong> Size : {{ variant.size }} | Color : {{ variant.color }} </p>
+                {% endif %}
                 <input class="input" name="size" type="hidden" value="{{ variant.size }}">
                 <input class="input" name="color" type="hidden" value="{{ variant.color }}">
                 <div class="qty-input">
@@ -276,6 +292,7 @@
                       <input class="input" name="quantity" type="number" value="1" min="1" max="{{ variant.quantity }}">
                     </div>
                   </div>
+                  <input type="hidden" name="variants" id="variants" value="{{single_product.variant}}">
                   <div class="product-form__item--submit">
                     {% if cart_count >= 1 %}
                     <button type="submit" {% if variant.quantity < 1  %} disabled {% endif %} class="btn product-form__cart-submit add-to-cart" style="width:49%;">
@@ -582,7 +599,8 @@
 <script>
   // variantid
   $('.add-to-cart').click(function() {
-   if($('#variantid').is(':checked')) {
+    var variants = $('#variants').val();
+   if($('#variantid').is(':checked') || variants == 'Size') {
     //  pass
     }
     else{

@@ -440,6 +440,12 @@ def editVariants(request, pk=None):
         else:
             return HttpResponse(formset.errors)
     else:
+        # Get the value of variant from the product model. Based on that show/hide color and size
+        command = ''
+        if product.variant == 'Color':
+            command = 'delete_size'
+        elif product.variant == 'Size':
+            command = 'delete_color'
         formset = ProductVariantFormSet(instance=product)
         gallery = ProductGallery.objects.filter(product=product)
 
@@ -447,6 +453,7 @@ def editVariants(request, pk=None):
         'product' : product,
         'formset': formset,
         'gallery': gallery,
+        'command': command,
     }
     return render(request, 'business/editVariants.html', context)
 
