@@ -1,9 +1,10 @@
+from emails.models import BusinessEmailSetting
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from accounts.models import Business
 from .models import Inquiry
-from django.core.mail import send_mail
+from django.core.mail import get_connection, send_mail
 from datetime import datetime
 import time
 from datetime import timedelta
@@ -49,12 +50,22 @@ def inquiry(request):
                         'product_name': product_name,
                     })
         to_email = business_email
-        email_send = EmailMessage(
-            mail_subject, message, to=[to_email]
-        )
+        # Get Email Connection
+        email_settings = BusinessEmailSetting.objects.get(business=business)
+        with get_connection(
+            host=email_settings.email_host,
+            port=email_settings.port,
+            username=email_settings.email_host_user,
+            password=email_settings.email_host_password,
+            use_tls=email_settings.email_use_tls
+        ) as connection:
+            email_send = EmailMessage(mail_subject, message, to=[to_email],
+                            connection=connection)
         email_send.send()
         inquiry.save()
         return HttpResponse('Your inquiry has been submitted. Our representative will get in touch with you soon.')
+    else:
+        return HttpResponse('GET method not allowed')
 
 
 

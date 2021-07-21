@@ -53,11 +53,12 @@ function updCart(id) {
 $(document).on('submit', '#newsletterForm', function(e) {
   e.preventDefault();
   var email = $('#email').val();
-  var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
-
+  var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val();
+  var url = $('#url').val();
+  
   $.ajax({
-    type: 'POST',
-    url: '/subscribe/',
+    url: url,
+    type: "POST",
     data: {
       email: email,
       csrfmiddlewaretoken: csrfmiddlewaretoken,
@@ -209,10 +210,11 @@ $(document).on('submit', '#inquiry-modal', function(e) {
   var phone = $('#phone').val();
   var inq_message = $('#inq_message').val();
   var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
+  var url = $('#url').val();
 
   $.ajax({
-    type: 'POST',
-    url: '/inquiry/',
+    method: 'POST',
+    url: url,
     data: {
       business_id: business_id,
       user_id: user_id,
@@ -490,13 +492,13 @@ function DrawCaptchaContact()
    var c = Math.ceil(Math.random() * 9)+ '';
    var d = Math.ceil(Math.random() * 9)+ '';
    var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d;
-   document.getElementById("txtCaptcha").value = code
+   document.getElementById("txtCaptchaContact").value = code
 }
 
 // Validate the Entered input aganist the generated security code function
 function ValidCaptchaContact(){
-   var str1 = removeSpaces(document.getElementById('txtCaptcha').value);
-   var str2 = removeSpaces(document.getElementById('txtInput').value);
+   var str1 = removeSpaces(document.getElementById('txtCaptchaContact').value);
+   var str2 = removeSpaces(document.getElementById('txtInputContact').value);
 
    if (str1 == str2)
    {

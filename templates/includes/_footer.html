@@ -59,7 +59,7 @@
         <div class="col-12 col-sm-12 col-md-5 col-lg-5 newsletter-col">
           <div class="display-table">
             <div class="display-table-cell footer-newsletter">
-              <form method="post" id="newsletterForm">
+              <form id="newsletterForm">
                 {% csrf_token %}
                 <label class="h4">{% trans 'Newsletter' %}</label>
                 <p>{% trans 'Enter your email to receive latest news and get discount coupons.' %}</p>
@@ -95,6 +95,7 @@
                       </td>
                     </tr>
                   </table>
+                  <input type="hidden" name="url" id="url" value="{% url 'subscribe' %}">
                   <span class="input-group__btn">
                     <input type="submit" name="submit" value="{% trans 'Subscribe' %}" id="Subscribe" class="btn newsletter__submit" onclick="return ValidCaptcha();">
                   </span>
