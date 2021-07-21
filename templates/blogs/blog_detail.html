@@ -3,6 +3,7 @@
 {% block title %} {{single_blog.title}} {% endblock %}
 {% block content %}
 {% load static %}
+{% load i18n %}
 
 
 
@@ -12,7 +13,7 @@
 
   <div class="breadcrumbs-wrapper">
     <div class="container">
-      <div class="breadcrumbs"><a href="{% url 'home' %}" title="Back to the home page">Home</a> <span aria-hidden="true">|</span> <span>{{single_blog.title}}</span></div>
+      <div class="breadcrumbs"><a href="{% url 'home' %}" title="Back to the home page">{% trans 'Home' %}</a> <span aria-hidden="true">|</span> <span>{{single_blog.title}}</span></div>
     </div>
   </div>
   <!--End Breadcrumbs-->
@@ -25,7 +26,7 @@
       <ul class="publish-detail">
         <li><i class="anm anm-user-al" aria-hidden="true"></i> {{single_blog.author}}</li>
         <li><i class="icon anm anm-clock-r"></i> <time>{{single_blog.created_on}}</time></li>
-        <li><i class="icon anm anm-comments-l"></i> <a href="#comment-section"> {{comments_count}} comments</a></li>
+        <li><i class="icon anm anm-comments-l"></i> <a href="#comment-section"> {{comments_count}} {% trans 'comments' %}</a></li>
       </ul>
       <hr>
       <div class="rte">
@@ -34,19 +35,19 @@
       <hr>
       <div class="social-sharing">
         <a target="_blank" href="#" class="btn-link btn--share share-facebook" title="Share on Facebook">
-          <i class="fa fa-facebook-square" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">Share</span>
+          <i class="fa fa-facebook-square" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Share' %}</span>
         </a>
         <a target="_blank" href="#" class="btn-link btn--share share-twitter" title="Tweet on Twitter">
-          <i class="fa fa-twitter" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">Tweet</span>
+          <i class="fa fa-twitter" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Tweet' %}</span>
         </a>
         <a href="#" title="Share on google+" class="btn-link btn--share">
-          <i class="fa fa-google-plus" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">Google+</span>
+          <i class="fa fa-google-plus" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Google' %}+</span>
         </a>
         <a target="_blank" href="#" class="btn-link btn--share share-pinterest" title="Pin on Pinterest">
-          <i class="fa fa-pinterest" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">Pin it</span>
+          <i class="fa fa-pinterest" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Pin it' %}</span>
         </a>
         <a href="#" class="btn-link btn--share share-pinterest" title="Share by Email" target="_blank">
-          <i class="fa fa-envelope" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">Email</span>
+          <i class="fa fa-envelope" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Email' %}</span>
         </a>
       </div>
 
@@ -58,7 +59,7 @@
 
           <form action="#" id="comment_form" class="comment-form">
             {% csrf_token %}
-            <h2>Write A Comment</h2>
+            <h2>{% trans 'Write A Comment' %}</h2>
             <div class="row">
               <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                 {{comment_form.as_p}}
@@ -66,12 +67,12 @@
             </div>
             <div class="row">
               <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                <p class="fine-print"><i>Please note, comments must be approved before they are published</i></p>
+                <p class="fine-print"><i>{% trans 'Please note, comments must be approved before they are published' %}</i></p>
                 <div>
                   <div class="container newsletterCaptcha" style="padding: 0px !important;">
                     <div class="row">
                       <div class="col">
-                        <input type="text" id="txtInput" placeholder="Enter Captcha" class="form-control" />
+                        <input type="text" id="txtInput" placeholder="{% trans 'Enter Captcha' %}" class="form-control" />
 
                       </div>
                       <div class="col">
@@ -86,7 +87,7 @@
                   <p id="blankCaptchaError" class="text-danger"></p>
                 </div>
                 
-                <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-danger" onclick="return ValidCaptcha();">
+                <input type="submit" name="submit" id="submit" value="{% trans 'Submit' %}" class="btn btn-danger" onclick="return ValidCaptcha();">
               </div>
             </div>
             <br>
@@ -100,9 +101,9 @@
 
         
         <section id="comment-section" style="padding-top: 50px;;">
-          <h3>Latest Comments</h3>
+          <h3>{% trans 'Latest Comments' %}</h3>
           {% if not comments %}
-            <p>Be the first to comment on this blog.</p><br>
+            <p>{% trans 'Be the first to comment on this blog.' %}</p><br>
         </section>
   
         {% else %}
@@ -115,8 +116,8 @@
                 </div>
                 <div class="ml-2">
                   <div class="comment__text"> {{comment.comment_body}}</div>
-                <p class="text-muted">Posted by {{comment.user.name}} | {{comment.created_on}}</p>
-                <div class="comment__reply"><button onclick="DrawReplyCaptcha({{comment.id}});" class="btn reply-button" id="replybutton-{{comment.id}}">Reply</button></div>
+                <p class="text-muted">{% trans 'Posted by' %} {{comment.user.name}} | {{comment.created_on}}</p>
+                <div class="comment__reply"><button onclick="DrawReplyCaptcha({{comment.id}});" class="btn reply-button" id="replybutton-{{comment.id}}">{% trans 'Reply' %}</button></div>
                 </div>
               </div>
             </div>
@@ -128,7 +129,7 @@
                   <form action="#" id="comment_form_reply{{comment.id}}" onsubmit="replySubmit({{comment.id}});return false;" class="col-sm-12 col-md-6 col-lg-6 comment-form">
                     {% csrf_token %}
                     <input type="hidden" name="comment_id" id="comment_id{{comment.id}}" value="{{comment.id}}">
-                    <h5>Write A Reply</h5>
+                    <h5>{% trans 'Write A Reply' %}</h5>
                     <div class="row">
                       <div class="col-sm-12 col-md-12 col-lg-12">
                         <textarea name="comment_body" cols="30" rows="10" required id="id_comment_body{{comment.id}}"></textarea>
@@ -153,7 +154,7 @@
                     </div>
                     <!-- R E P L Y  C A P T C H A -->
 
-                    <input type="submit" value="Submit" class="btn btn-primary" onclick="return ValidCaptchaReply({{comment.id}});">
+                    <input type="submit" value="{% trans 'Submit' %}" class="btn btn-primary" onclick="return ValidCaptchaReply({{comment.id}});">
                   </form>
                   <h6 id="replyMessage{{comment.id}}" class="pt-2 ml-3"></h6>
                 </div>

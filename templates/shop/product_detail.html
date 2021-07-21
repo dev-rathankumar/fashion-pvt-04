@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load i18n %}
 {% block title %} {{single_product.product_name}} {% endblock %}
 {% block content %}
 {% load static %}
@@ -10,7 +10,7 @@
   <!--Breadcrumbs-->
   <div class="breadcrumbs-wrapper">
     <div class="container">
-      <div class="breadcrumbs"><a href="{% url 'home' %}" title="Back to the home page">Home</a> <span aria-hidden="true">|</span> <span>{{single_product.product_name}}</span></div>
+      <div class="breadcrumbs"><a href="{% url 'home' %}" title="Back to the home page">{% trans 'Home' %}</a> <span aria-hidden="true">|</span> <span>{{single_product.product_name}}</span></div>
     </div>
   </div>
   <div class="container">
@@ -41,7 +41,7 @@
                 <div class="product-buttons">
                   <a href="#" class="btn prlightbox" title="Zoom">
                     <i class="icon anm anm-expand-l-arrows" aria-hidden="true"></i>
-                    <span class="tooltip-label">Zoom Image</span>
+                    <span class="tooltip-label">{% trans 'Zoom Image' %}</span>
                   </a>
                 </div>
               </div>
@@ -53,21 +53,21 @@
               </div>
 
               <div class="social-sharing">
-                <span class="label">Share:</span>
+                <span class="label">{% trans 'Share' %}:</span>
                 <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" class="btn btn--small btn--secondary btn--share share-facebook" title="Share on Facebook">
-                  <i class="anm anm-facebook-f" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">Facebook</span>
+                  <i class="anm anm-facebook-f" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Facebook' %}</span>
                 </a>
                 <a target="_blank" href="https://www.linkedin.com/cws/share?url={{ request.build_absolute_uri }}" class="btn btn--small btn--secondary btn--share share-twitter" title="Tweet on Twitter">
-                  <i class="fa fa-twitter" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">Tweet</span>
+                  <i class="fa fa-twitter" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Tweet' %}</span>
                 </a>
                 <a href="#" title="Share on google+" class="btn btn--small btn--secondary btn--share">
-                  <i class="fa fa-google-plus" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">Google+</span>
+                  <i class="fa fa-google-plus" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Google' %}+</span>
                 </a>
                 <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-pinterest" title="Pin on Pinterest">
-                  <i class="fa fa-pinterest" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">Pin it</span>
+                  <i class="fa fa-pinterest" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Pin it' %}</span>
                 </a>
                 <a href="#" class="btn btn--small btn--secondary btn--share share-pinterest" title="Share by Email" target="_blank">
-                  <i class="fa fa-envelope" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">Email</span>
+                  <i class="fa fa-envelope" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Email' %}</span>
                 </a>
               </div>
             </div>
@@ -84,13 +84,13 @@
                     <i class="font-13 fa fa-star{% if single_product.avaregereview < 2.5 %}-o{% elif single_product.avaregereview >= 2.5 and single_product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
                     <i class="font-13 fa fa-star{% if single_product.avaregereview < 3.5 %}-o{% elif single_product.avaregereview >= 3.5 and single_product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
                     <i class="font-13 fa fa-star{% if single_product.avaregereview < 4.5 %}-o{% elif single_product.avaregereview >= 4.5 and single_product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
-                    <span>{{ single_product.countreview}} reviews </span>
+                    <span>{{ single_product.countreview}}{% trans 'reviews' %}  </span>
                   </span>
                 </div>
                 {% if single_product.stock <= 0 %}
 
                 {% else %}
-                <div class="product-stock"> <span class="instock ">In Stock</span> </div>
+                <div class="product-stock"> <span class="instock ">{% trans 'In Stock' %}</span> </div>
                 {% endif %}
               </div>
 
@@ -114,10 +114,10 @@
 
 
             {% if single_product.stock == 0 %}
-            <div id="quantity_message">Sorry! This product is not available at the moment.</div>
+            <div id="quantity_message">{% trans 'Sorry! This product is not available at the moment.' %}</div>
             {% endif %}
             {% if single_product.stock > 0 and single_product.stock <= 10 %}
-            <div id="quantity_message">Hurry! Only <span class="items">{{single_product.stock}}</span> left in stock.</div>
+            <div id="quantity_message">Hurry! Only <span class="items">{{single_product.stock}}</span> {% trans 'left in stock.' %}</div>
             {% endif %}
 
             <!-- A J A X   C A L L -->
@@ -150,7 +150,7 @@
               <div class="product-form__item">
                 <form method="POST" id="post-form">
                   <input type="hidden" name="productid" id="productid" value="{{ single_product.id }}">
-                  <span class="text-uppercase">Size :</span>
+                  <span class="text-uppercase">{% trans 'Size' %} :</span>
                   {% csrf_token %}
                   <select name="size" id="size">
                     {% for rs in sizes %}
@@ -165,7 +165,7 @@
                 <div id="appendHere">
                   <input type="hidden" name="size" id="size" value="{{ size_id }}">
                   <ul class="color-option">
-                    <li><span class="text-uppercase">Color:</span></li>
+                    <li><span class="text-uppercase">{% trans 'Color' %}:</span></li>
                     {% for rs in colors %}
                     <label class="var_color">
                       <input type="radio" {% if variant.id == rs.id %} checked {% endif %} name="variantid" id="variantid" required="required" value="{{ rs.id }}" onchange="this.form.submit();">
@@ -221,7 +221,7 @@
               <div id="appendHere">
                 <input type="hidden" name="size" id="size" value="{{ size_id }}">
                 <ul class="color-option">
-                  <li><span class="text-uppercase">Color:</span></li>
+                  <li><span class="text-uppercase">{% trans 'Color' %}:</span></li>
                   {% for rs in colors %}
                   <input type="radio" {% if variant.id == rs.id %} checked {% endif %} name="variantid" id="variantid" value="{{ rs.id }}" onchange="this.form.submit();">
                   <li {% if variant.id == rs.id %} class="active" {% endif %}>
@@ -239,12 +239,12 @@
 
             <p id="selectVariantError" class="text-danger"></p>
             <p class="infolinks">
-              <a class="wishlist add-to-wishlist" href="javascript:{document.getElementById('add-wishlist').submit()}" title="Add to Wishlist"><i class="icon anm anm-heart" aria-hidden="true" style="color:red;"></i> <span>Add to Wishlist</span></a>
+              <a class="wishlist add-to-wishlist" href="javascript:{document.getElementById('add-wishlist').submit()}" title="Add to Wishlist"><i class="icon anm anm-heart" aria-hidden="true" style="color:red;"></i> <span>{% trans 'Add to Wishlist' %}</span></a>
 
               {% if is_added_to_compare %}
-              <a class="wishlist add-to-wishlist" href="{% url 'compare_products' %}" title="Show Comparison"><i class="fa fa-eye" aria-hidden="true"></i> <u><span>Show Comparison</span></u></a>
+              <a class="wishlist add-to-wishlist" href="{% url 'compare_products' %}" title="Show Comparison"><i class="fa fa-eye" aria-hidden="true"></i> <u><span>{% trans 'Show Comparison' %}</span></u></a>
               {% else %}
-              <a class="wishlist add-to-wishlist" href="javascript:{document.getElementById('add-compare').submit()}" title="Add to Compare"><i class="icon anm anm-sync-ar" aria-hidden="true"></i> <span>Add to Compare</span></a>
+              <a class="wishlist add-to-wishlist" href="javascript:{document.getElementById('add-compare').submit()}" title="Add to Compare"><i class="icon anm anm-sync-ar" aria-hidden="true"></i> <span>{% trans 'Add to Compare' %}</span></a>
               {% endif %}
 
             </p>
@@ -288,7 +288,7 @@
                 <div class="qty-input">
                   <div class="wrapQtyBtn">
                     <div class="qtyField">
-                      <span class="text-uppercase">QTY: </span>
+                      <span class="text-uppercase">{% trans 'QTY' %}: </span>
                       <input class="input" name="quantity" type="number" value="1" min="1" max="{{ variant.quantity }}">
                     </div>
                   </div>
@@ -296,15 +296,15 @@
                   <div class="product-form__item--submit">
                     {% if cart_count >= 1 %}
                     <button type="submit" {% if variant.quantity < 1  %} disabled {% endif %} class="btn product-form__cart-submit add-to-cart" style="width:49%;">
-                      <i class="fa fa-shopping-cart"></i><span> Add to cart</span>
+                      <i class="fa fa-shopping-cart"></i><span> {% trans 'Add to cart' %}</span>
                     </button>
                     <!-- <br><br> -->
                     <a href="{% url 'shopcart' %}" class="btn product-form__cart-submit" style="background:#e95144;width:49%;">
-                      <i class="fa fa-eye"></i><span> View Cart</span>
+                      <i class="fa fa-eye"></i><span> {% trans 'View Cart' %}</span>
                     </a>
                     {% else %}
                     <button type="submit" {% if variant.quantity < 1  %} disabled {% endif %} class="btn product-form__cart-submit add-to-cart">
-                      <i class="fa fa-shopping-cart"></i><span> Add to cart</span>
+                      <i class="fa fa-shopping-cart"></i><span> {% trans 'Add to cart' %}</span>
                     </button>
                     {% endif %}
                   </div>
@@ -316,21 +316,21 @@
 
             {% if single_product.stock <= 0 %}
             <div class="buy-it-btn">
-              <button type="button" class="btn btn-danger" disabled="disabled">Out of Stock</button>
+              <button type="button" class="btn btn-danger" disabled="disabled">{% trans 'Out of Stock' %}</button>
             </div>
             {% else %}
             <div class="product-action clearfix">
               <div class="product-form__item--submit" style="padding-left:0px;">
                 <a href="{% url 'add_cart' single_product.id %}" name="add" class="btn product-form__cart-submit" style="color:#fff !important;">
-                  Add to cart
+                  {% trans 'Add to cart' %}
                 </a>
               </div>
               <div class="agree-check">
                 <input type="checkbox" name="tearm" id="prTearm" class="checkbox" value="tearm" required>
-                <label for="prTearm"><span class="checkbox"></span> I agree with the terms and conditions</label>
+                <label for="prTearm"><span class="checkbox"></span> {% trans 'I agree with the terms and conditions' %}</label>
               </div>
               <div class="buy-it-btn">
-                <button type="button" class="btn" disabled="disabled">Buy it now</button>
+                <button type="button" class="btn" disabled="disabled">{% trans 'Buy it now' %}</button>
               </div>
             </div>
             {% endif %}
@@ -346,7 +346,7 @@
 <br><br>
             <!-- Inquiry modal -->
             <button type="button" onclick="DrawCaptchaInq()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="width:100%;">
-              Send an Inquiry
+              {% trans 'Send an Inquiry' %} 
             </button>
 
             <!-- Modal -->
@@ -354,7 +354,7 @@
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">SEND AN INQUIRY</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">{% trans 'SEND AN INQUIRY' %}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -372,7 +372,7 @@
                       {% endif %}
 
                       <input type="hidden" name="product_id" id="product_id" value="{{single_product.id}}">
-                      <h5>Please fill below form to inquire about this product.</h5>
+                      <h5>{% trans 'Please fill below form to inquire about this product.' %}</h5>
                       <p id="blankCaptchaErrorInq" style="color: #e95144;"></p>
                       <div class="form-group">
                         <input type="text" name="product_name" id="product_name" class="form-control" value="{{ single_product.product_name }}" readonly>
@@ -380,26 +380,26 @@
                       <div class="form-group">
                         <div class="row">
                           <div class="col">
-                            <input type="text" name="first_name" id="first_name" class="form-control" placeholder="First Name" {% if user.is_authenticated %} value="{{user.first_name}}" {% endif %} required>
+                            <input type="text" name="first_name" id="first_name" class="form-control" placeholder="{% trans 'First Name' %}" {% if user.is_authenticated %} value="{{user.first_name}}" {% endif %} required>
                           </div>
                           <div class="col">
-                            <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last Name" {% if user.is_authenticated %} value="{{user.last_name}}" {% endif %} required>
+                            <input type="text" name="last_name" id="last_name" class="form-control" placeholder="{% trans 'Last Name' %}" {% if user.is_authenticated %} value="{{user.last_name}}" {% endif %} required>
                           </div>
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="row">
                           <div class="col">
-                            <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" {% if user.is_authenticated %} value="{{user.email}}" {% endif %} required>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="{% trans 'Email Address' %}" {% if user.is_authenticated %} value="{{user.email}}" {% endif %} required>
                           </div>
                           <div class="col">
-                            <input type="number" name="phone" id="phone" class="inputNumber"  maxlength="12"oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" placeholder="Phone Number (optional)" class="form-control">
+                            <input type="number" name="phone" id="phone" class="inputNumber"  maxlength="12"oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" placeholder="{% trans 'Phone Number (optional)' %}" class="form-control">
                           </div>
                         </div>
                       </div>
 
                       <div class="form-group">
-                        <textarea name="message" id="inq_message" class="form-control" placeholder="Enter your message here" required></textarea>
+                        <textarea name="message" id="inq_message" class="form-control" placeholder="{% trans 'Enter your message here' %}" required></textarea>
                       </div>
                       <hr>
 
@@ -410,7 +410,7 @@
                              
                               <div class="row">
                                 <div class="col pl-0">
-                                    <input type="text" id="txtInputInq" placeholder="Enter Captcha" class="form-control"/>
+                                    <input type="text" id="txtInputInq" placeholder="{% trans 'Enter Captcha' %}" class="form-control"/>
 
                                 </div>
                                 <div class="col pr-0">
@@ -439,7 +439,7 @@
                   <div class="modal-footer">
                     <p id="inquiry_success"></p>
                     <p id="captcha_message"></p>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
                   </div>
                 </div>
               </div>
@@ -452,7 +452,7 @@
     <div class="container" >
       <div class="row" style="margin-top: 50px;">
         <div class="col-md-12">
-          <h3>PRODUCT DETAILS</h3>
+          <h3>{% trans 'PRODUCT DETAILS' %}</h3>
           <div style="margin-top: 20px;">
             <div class="product-description rte">
               {{single_product.full_specification | safe}}
@@ -463,17 +463,17 @@
 
       <div class="row" style="margin-top: 50px;">
         <div class="col-md-12">
-          <h3>REVIEWS</h3>
+          <h3>{% trans 'REVIEWS' %}</h3>
           <div id="tab2" class="tab-content">
             <div class="row">
               <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
                 <div class="spr-form clearfix">
                   <form method="post" action="{% if user.is_authenticated %}{% url 'submit_review' single_product.id %}{% else %}#{% endif %}" id="new-review-form" class="new-review-form">
                     {% csrf_token %}
-                    <h3 class="spr-form-title">Write Your Review</h3>
+                    <h3 class="spr-form-title">{% trans 'Write Your Review' %}</h3>
                     <fieldset class="spr-form-contact">
                       <div class="spr-form-review-rating">
-                        <p class="spr-form-label">How do you rate this product?<span class="required">*</span></p>
+                        <p class="spr-form-label">{% trans 'How do you rate this product?' %}<span class="required">*</span></p>
                         <!-- Rating -->
                         <div class="rate">
                           <input type="radio" id="rating10" name="rating" value="5" required /><label for="rating10" title="5"></label>
@@ -493,7 +493,7 @@
                     </fieldset>
                     <fieldset class="spr-form-review">
                       <div class="spr-form-review-title">
-                        <p class="spr-form-label" for="review">Review Title</p>
+                        <p class="spr-form-label" for="review">{% trans 'Review Title' %}</p>
                         <input class="spr-form-input spr-form-input-text " id="subject" type="text" name="subject" required >
                       </div>
   
@@ -511,7 +511,7 @@
                       <div class="container">
                         <div class="row">
                           <div class="col pl-0">
-                              <input type="text" id="txtInputRating" placeholder="Enter Captcha" class="form-control"/>
+                              <input type="text" id="txtInputRating" placeholder="{% trans 'Enter Captcha' %}" class="form-control"/>
 
                           </div>
                           <div class="col pr-0">
@@ -523,16 +523,16 @@
                       </div>
                       <p id="invalidCodeRating" style="color: #e95144;"></p>
                       <p id="blankCaptchaErrorRating" style="color: #e95144;"></p>
-                      <p class="mb-1 font-italic text-muted">Please note, reviews must be approved before they are published</p>
+                      <p class="mb-1 font-italic text-muted">{% trans 'Please note, reviews must be approved before they are published' %}</p>
                       <input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Submit Review" onclick="checkforFields(); return ValidCaptchaRating();">
                    
                     </div>
                     
                         {% else %}
-                        <p>You must purchase this product to write a review.</p>
+                        <p>{% trans 'You must purchase this product to write a review.' %}</p>
                         {% endif %}
                     {% else %}
-                    <p>You must be logged in to post a review. <span><a href="{% url 'userLogin' %}"><u>Login now</u></a></span></p>
+                    <p>{% trans 'You must be logged in to post a review.' %} <span><a href="{% url 'userLogin' %}"><u>{% trans 'Login now' %}</u></a></span></p>
   
                     {% endif %}
                   </form>
@@ -541,7 +541,7 @@
   
               <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="spr-reviews">
-                  <h3 class="spr-form-title">Customer Reviews ( <span class="product-review spr-starratings spr-review-header-starratings">
+                  <h3 class="spr-form-title">{% trans 'Customer Reviews' %} ( <span class="product-review spr-starratings spr-review-header-starratings">
                       <span class="reviewLink">
                         <i class="font-13 fa fa-star{% if single_product.avaregereview < 0.5 %}-o{% elif single_product.avaregereview >= 0.5 and single_product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
                         <i class="font-13 fa fa-star{% if single_product.avaregereview < 1.5 %}-o{% elif single_product.avaregereview >= 1.5 and single_product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
@@ -550,10 +550,10 @@
                         <i class="font-13 fa fa-star{% if single_product.avaregereview < 4.5 %}-o{% elif single_product.avaregereview >= 4.5 and single_product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
                       </span>
                       {{ single_product.avaregereview}}/{{ single_product.countreview}}
-                    </span> <span style="font-size:14px; text-transform:lowercase;">reviews</span> )</h3>
+                    </span> <span style="font-size:14px; text-transform:lowercase;">{% trans 'reviews' %}</span> )</h3>
   
                   {% if not reviews %}
-                  <h6 style="margin-top:30px;">Be the first to review this product.</h6>
+                  <h6 style="margin-top:30px;">{% trans 'Be the first to review this product.' %}</h6>
                   {% else %}
   
                   <div class="review-inner">
@@ -572,7 +572,7 @@
                         </span>
   
                         <h3 class="spr-review-header-title">{{review.subject}}</h3>
-                        <span class="spr-review-header-byline"><strong>{{review.user.name}}</strong> on <strong>{{review.update_at}}</strong></span>
+                        <span class="spr-review-header-byline"><strong>{{review.user.name}}</strong> {% trans 'on' %} <strong>{{review.update_at}}</strong></span>
                       </div>
                       <div class="spr-review-content">
                         <p class="spr-review-content-body">{{ review.review }}</p>
@@ -604,7 +604,7 @@
     //  pass
     }
     else{
-      document.getElementById("selectVariantError").innerHTML = "Please choose color!";
+      document.getElementById("selectVariantError").innerHTML = "{% trans 'Please choose color!' %}";
       return false;
     }
 });
@@ -612,7 +612,7 @@
 function checkforFields(){
   var rating = $('input[name="rating"]:checked').val();
   if( typeof rating === 'undefined' || rating === null ){
-    document.getElementById("ratingError").innerHTML = "Please select a rating star!";
+    document.getElementById("ratingError").innerHTML = "{% trans 'Please select a rating star!' %}";
     return false;
     }
   }

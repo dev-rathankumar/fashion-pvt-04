@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-
-{% block title %} My Wishlist {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'My Wishlist' %} {% endblock %}
 {% block content %}
 {% load humanize %}
 <div id="page-content">
@@ -14,15 +14,15 @@
   <!--End Breadcrumbs-->
   <!--Page Title with Image-->
   <div class="page-title">
-    <h1>My Wishlist</h1>
+    <h1>{% trans 'My Wishlist' %}</h1>
   </div>
   <!--End Page Title with Image-->
   {% include 'includes/_alerts.html' %}
   {% if not wishlist %}
-    <h2 class="text-center">Your Wishlist is Empty</h2>
+    <h2 class="text-center">{% trans 'Your Wishlist is Empty' %}</h2>
     <br>
     <div class="text-center">
-      <a href="{% url 'shop' %}" class="btn btn-primary">Add products</a>
+      <a href="{% url 'shop' %}" class="btn btn-primary">{% trans 'Add products' %}</a>
     </div>
 {% else %}
   <div class="container">
@@ -35,11 +35,11 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th class="product-name text-center alt-font">Remove</th>
-                <th class="product-price text-center alt-font">Product Image</th>
-                <th class="product-name alt-font">Product</th>
-                <th class="product-price text-center alt-font">Price</th>
-                <th class="stock-status text-center alt-font">Status</th>
+                <th class="product-name text-center alt-font">{% trans 'Remove' %}</th>
+                <th class="product-price text-center alt-font">{% trans 'Product Image' %}</th>
+                <th class="product-name alt-font">{% trans 'Product' %}</th>
+                <th class="product-price text-center alt-font">{% trans 'Price' %}</th>
+                <th class="stock-status text-center alt-font">{% trans 'Status' %}</th>
                 <th class="product-subtotal text-center alt-font"></th>
               </tr>
             </thead>
@@ -65,9 +65,9 @@
                 <td class="product-price text-center"><span class="amount">${{ wish.variant.price | intcomma }}</span></td>
                 <td class="stock text-center">
                   {% if wish.variant.quantity > 0  %}
-                  <span class="in-stock">in stock</span>
+                  <span class="in-stock">{% trans 'in stock' %}</span>
                   {% else %}
-                  <span class="in-stock" style="color:red;">Out of Stock</span>
+                  <span class="in-stock" style="color:red;">{% trans 'Out of Stock' %}</span>
                   {% endif %}
                 </td>
                 <td class="stock text-center">
@@ -81,7 +81,7 @@
                     <div class="qty-input">
                       <div class="product-form__item--submit">
                         <button type="submit" {% if wish.variant.quantity < 1  %} disabled {% endif %} class="btn product-form__cart-submit add-to-cart">
-                          <span> Add to cart</span>
+                          <span> {% trans 'Add to cart' %}</span>
                         </button>
                       </div>
                     </div>

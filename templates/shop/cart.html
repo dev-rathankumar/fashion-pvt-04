@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %} Your Shopping Cart {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'Your Shopping Cart' %} {% endblock %}
 {% block content %}
 {% load static %}
 {% load humanize %}
@@ -9,7 +10,7 @@
   <!--Breadcrumbs-->
   <div class="breadcrumbs-wrapper">
     <div class="container">
-      <div class="breadcrumbs"><a href="{% url 'home' %}" title="Back to the home page">Home</a> <span aria-hidden="true">|</span> <span>Your Cart</span></div>
+      <div class="breadcrumbs"><a href="{% url 'home' %}" title="Back to the home page">{% trans 'Home' %}</a> <span aria-hidden="true">|</span> <span>{% trans 'Your Cart' %}</span></div>
     </div>
   </div>
   <!--End Breadcrumbs-->
@@ -18,7 +19,7 @@
     {% include 'includes/_alerts.html' %}
   </div>
   <div class="page-title">
-    <h1>Your Cart</h1>
+    <h1>{% trans 'Your Cart' %}</h1>
   </div>
   <!--End Page Title with Image-->
 
@@ -26,10 +27,10 @@
 
 
     {% if not shopcart %}
-      <h2 class="text-center">Your Shopping Cart is Empty</h2>
+      <h2 class="text-center">{% trans 'Your Shopping Cart is Empty' %}</h2>
     	<br>
     	<div class="text-center">
-    		<a href="{% url 'shop' %}" class="btn btn-primary">Continue Shopping</a>
+    		<a href="{% url 'shop' %}" class="btn btn-primary">{% trans 'Continue Shopping' %}</a>
     	</div>
     {% else %}
 
@@ -40,10 +41,10 @@
         <table>
           <thead class="cart__row cart__header">
             <tr>
-              <th colspan="2" class="text-center">Product</th>
-              <th class="text-center">Price</th>
-              <th class="text-center">Quantity</th>
-              <th class="text-right">Total</th>
+              <th colspan="2" class="text-center">{% trans 'Product' %}</th>
+              <th class="text-center">{% trans 'Price' %}</th>
+              <th class="text-center">{% trans 'Quantity' %}</th>
+              <th class="text-right">{% trans 'Total' %}</th>
               <th class="action">&nbsp;</th>
             </tr>
           </thead>
@@ -124,7 +125,7 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="3" class="text-left"><a href="{% url 'shop' %}" class="btn--link cart-continue"><i class="icon icon-arrow-circle-left"></i> Continue shopping</a></td>
+              <td colspan="3" class="text-left"><a href="{% url 'shop' %}" class="btn--link cart-continue"><i class="icon icon-arrow-circle-left"></i> {% trans 'Continue shopping' %}</a></td>
             </tr>
           </tfoot>
         </table>
@@ -156,7 +157,7 @@
           </div> -->
           <!-- Grand Total -->
           <div class="row">
-            <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Total</strong></span>
+            <span class="col-12 col-sm-6 cart__subtotal-title"><strong>{% trans 'Total' %}</strong></span>
             <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money">${{total | intcomma}}</span></span>
           </div>
           
@@ -167,8 +168,8 @@
               I agree with the terms and conditions</label>
           </p> -->
           <br>
-          <p class="text-muted">Tax (if any) will be calculated in the checkout page.</p>
-          <input type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" value="Proceed To Checkout">
+          <p class="text-muted">{% trans 'Tax (if any) will be calculated in the checkout page.' %}</p>
+          <input type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" value="{% trans 'Proceed To Checkout' %}">
           <div class="paymnet-img"><img src="{% static 'images/payment-img.jpg' %}" alt="Payment"></div>
         </div>
       </form>
