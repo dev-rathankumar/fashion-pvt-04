@@ -13,7 +13,7 @@ from .models import Tax, ShopCart, TaxSetting
 
 
 class ShopCartAdmin(admin.ModelAdmin):
-    list_display = ['product','user','quantity','price','amount', 'size', 'color' ]
+    list_display = ['product','user','quantity','price','amount', 'size', 'color', 'created_at' ]
     list_filter = ['user']
 
 

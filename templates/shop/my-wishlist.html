@@ -60,7 +60,13 @@
                 </td>
                 <td class="product-name">
                   <h4 class="no-margin"><a href="{{ wish.product.get_url }}">{{ wish.variant.title }}</a></h4>
-                  <span><small>{{ wish.variant.color }} | {{ wish.variant.size }}</small></span>
+                  <span><small>{% if wish.variant.product.variant == 'Size' %}
+                    Size: {{ wish.variant.size }}
+                    {% elif wish.variant.product.variant == 'Color' %}
+                    Color: {{ wish.variant.color }}
+                    {% else %}
+                    Color: {{ wish.variant.color }} | Size: {{ wish.variant.size }}
+                    {% endif %}</small></span>
                 </td>
                 <td class="product-price text-center"><span class="amount">${{ wish.variant.price | intcomma }}</span></td>
                 <td class="stock text-center">

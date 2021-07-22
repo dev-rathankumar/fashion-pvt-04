@@ -156,7 +156,8 @@ def addtoshopcart(request,product_id):
                 data = ShopCart()
                 data.user_id = current_user.id
                 data.product_id =id
-                data.variant_id = variantid
+                if product.variant != 'None':
+                    data.variant_id = variantid
                 data.quantity = form.cleaned_data['quantity']
                 data.save()
         messages.success(request, message)
@@ -228,14 +229,17 @@ def delete_itemfromcart(request, product_id):
 def shopcart(request):
     category = Category.objects.all()
     current_user = request.user  # Access User Session information
-    shopcart = ShopCart.objects.filter(user_id=current_user.id)
+    shopcart = ShopCart.objects.filter(user_id=current_user.id).order_by('created_at')
 
     total=0
     # tax = 0
     # grand_total = 0
     # tax_percent = 0
     for i in shopcart:
-        total += i.variant.price * i.quantity
+        if i.product.variant != 'None':
+            total += i.variant.price * i.quantity
+        else:
+            total += i.product.price * i.quantity
 
     # url = request.build_absolute_uri()
     # domain = urlparse(url).netloc

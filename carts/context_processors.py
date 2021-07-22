@@ -35,7 +35,10 @@ def shopcart_context(request):
     # grand_total = 0
     # tax_percent = 0
     for i in shopcart:
-        total += i.variant.price * i.quantity
+        if i.product.variant != 'None':
+            total += i.variant.price * i.quantity
+        else:
+            total += i.product.price * i.quantity
 
     url = request.build_absolute_uri()
     domain = urlparse(url).netloc

@@ -442,10 +442,19 @@ def editVariants(request, pk=None):
     else:
         # Get the value of variant from the product model. Based on that show/hide color and size
         command = ''
+        message1 = ''
+        message2 = ''
         if product.variant == 'Color':
             command = 'delete_size'
+            message1 = 'Product with only Color variant.'
+            message2 = 'Add Size too.'
         elif product.variant == 'Size':
             command = 'delete_color'
+            message1 = 'Product with only Size variant.'
+            message2 = 'Add Color too.'
+        elif product.variant == 'Size-Color':
+            message1 = 'Product with Size and Color variant.'
+            message2 = 'Change Variants.'
         formset = ProductVariantFormSet(instance=product)
         gallery = ProductGallery.objects.filter(product=product)
 
@@ -454,6 +463,8 @@ def editVariants(request, pk=None):
         'formset': formset,
         'gallery': gallery,
         'command': command,
+        'message1': message1,
+        'message2': message2,
     }
     return render(request, 'business/editVariants.html', context)
 
@@ -598,7 +609,10 @@ def bizOrderDetail(request, pk=None):
         return redirect('allOrders')
     subtotal = 0
     for i in ordered_products:
-        subtotal += i.variant.price * i.quantity
+        if i.product.variant == 'None':
+            subtotal += i.product.price * i.quantity
+        else:
+            subtotal += i.variant.price * i.quantity
 
     context = {
         'ordered_products': ordered_products,
@@ -619,7 +633,10 @@ def editOrder(request, pk=None):
         ordered_products = OrderProduct.objects.filter(order__order_number=order.order_number)
         subtotal = 0
         for i in ordered_products:
-            subtotal += i.variant.price * i.quantity
+            if i.product.variant == 'None':
+                subtotal += i.product.price * i.quantity
+            else:
+                subtotal += i.variant.price * i.quantity
     except Order.DoesNotExist:
         return redirect('allOrders')
     current_status = order.status

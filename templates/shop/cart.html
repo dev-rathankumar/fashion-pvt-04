@@ -65,23 +65,37 @@
                 {% endif %}
               </td>
 
-              <td class="cart__meta small--text-left cart-flex-item">
+              <td class="cart__meta small--text-left cart-flex-item" style="width: 300px;">
                 <div class="list-view-item__title">
-                  <a href="{{ i.product.get_url }}">{{ i.variant.title }}</a>
+                  <a href="{{ i.product.get_url }}">
+                    {% if i.product.variant != 'None' %}
+                    {{ i.variant.title }}
+                    {% else %}
+                    {{ i.product.product_name }}
+                    {% endif %}
+                  </a>
                 </div>
 
                 <div class="cart__meta-text">
-                  {% if i.variant.product.variant == 'Size' %}
-                  Size: {{ i.variant.size }}
-                  {% elif i.variant.product.variant == 'Color' %}
-                  Color: {{ i.variant.color }}
-                  {% else %}
-                  Color: {{ i.variant.color }}<br>Size: {{ i.variant.size }}
-                  {% endif %}<br>
+                  {% if i.product.variant != 'None' %}
+                    {% if i.variant.product.variant == 'Size' %}
+                      Size: {{ i.variant.size }}
+                      {% elif i.variant.product.variant == 'Color' %}
+                      Color: {{ i.variant.color }}
+                      {% else %}
+                      Color: {{ i.variant.color }}<br>Size: {{ i.variant.size }}
+                    {% endif %}
+                  {% endif %}
+                  <br>
                 </div>
               </td>
               <td class="cart__price-wrapper cart-flex-item">
-                <span class="money">$ {{ i.variant.price | intcomma }} </span>
+                <span class="money">$ {% if i.product.variant != 'None' %}
+                  {{ i.variant.price | intcomma }}
+                {% else %}
+                {{ i.product.price | intcomma }}
+                {% endif %}
+              </span>
               </td>
 
               <td class="cart__update-wrapper cart-flex-item text-right">

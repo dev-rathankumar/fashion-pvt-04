@@ -12,7 +12,10 @@ def taxByState(request):
         total=0
         shopcart = ShopCart.objects.filter(user_id=request.user.id)
         for i in shopcart:
-            total += i.variant.price * i.quantity
+            if i.product.variant == 'None':
+                total += i.product.price * i.quantity
+            else:
+                total += i.variant.price * i.quantity
         try:
             state = State.objects.get(pk=state_id)
             tax_percent = TaxData.objects.get(state=state)

@@ -84,7 +84,7 @@
                     <i class="font-13 fa fa-star{% if single_product.avaregereview < 2.5 %}-o{% elif single_product.avaregereview >= 2.5 and single_product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
                     <i class="font-13 fa fa-star{% if single_product.avaregereview < 3.5 %}-o{% elif single_product.avaregereview >= 3.5 and single_product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
                     <i class="font-13 fa fa-star{% if single_product.avaregereview < 4.5 %}-o{% elif single_product.avaregereview >= 4.5 and single_product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
-                    <span>{{ single_product.countreview}}{% trans 'reviews' %}  </span>
+                    <span>{{ single_product.countreview}} {% trans 'reviews' %}  </span>
                   </span>
                 </div>
                 {% if single_product.stock <= 0 %}
@@ -98,7 +98,7 @@
               <p class="product-single__price product-single__price-product-template">
                 <span class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
                   <span id="ProductPrice-product-template">
-                    {% if  product.variant != 'None'   %}
+                    {% if  single_product.variant != 'None'   %}
                     <span class="money">$ {{variant.price}}</span>
                     {% else %}
                     <span class="money">$ {{single_product.price}}</span>
@@ -145,12 +145,13 @@
               });
             </script>
 
+            <!-- S I Z E   A N D   C O L O R   V A R I A N T  -->
             {% if single_product.variant == 'Size-Color' %}
             <div class="swatch clearfix swatch-1 option2" data-option-index="1">
-              <div class="product-form__item">
+              <div class="product-form__item p-0">
                 <form method="POST" id="post-form">
                   <input type="hidden" name="productid" id="productid" value="{{ single_product.id }}">
-                  <span class="text-uppercase">{% trans 'Size' %} :</span>
+                  <span class="text-uppercase" style="font-size:16px;font-weight:600;letter-spacing:1px;">{% trans 'Choose Size' %}</span> <br>
                   {% csrf_token %}
                   <select name="size" id="size">
                     {% for rs in sizes %}
@@ -165,14 +166,19 @@
                 <div id="appendHere">
                   <input type="hidden" name="size" id="size" value="{{ size_id }}">
                   <ul class="color-option">
-                    <li><span class="text-uppercase">{% trans 'Color' %}:</span></li>
+                    <li><span class="text-uppercase" style="font-size:16px;font-weight:600;letter-spacing:1px;">{% trans 'Choose Color' %}</span></li> <br>
                     {% for rs in colors %}
                     <label class="var_color">
-                      <input type="radio" {% if variant.id == rs.id %} checked {% endif %} name="variantid" id="variantid" required="required" value="{{ rs.id }}" onchange="this.form.submit();">
+                      <input type="radio" 
+                      {% if request.method == 'POST' %}
+                      {% if variant.id == rs.id %}
+                      checked
+                      {% endif %}
+                    {% endif %} name="variantid" id="variantid" required="required" value="{{ rs.id }}" onchange="this.form.submit();">
                       <li {% if variant.id == rs.id %} class="active" {% endif %}>
-                        <p style="color: #D9D9D9; text-shadow: 1px 1px #000000; width: 60px;margin-bottom: 5px;margin-left: 0;">
-                          ${{ rs.price }}
-                          <!-- {{ rs.color }} -->
+                        <p style="color: #2d2c2c; width: 60px;font-size: 12px;margin-bottom: 5px;margin-left: 0;">
+                          <!-- ${{ rs.price }} -->
+                          {{ rs.color }}
                         </p>
                         <img src="{{ rs.image }}" style="height: 50px">
                       </li>
@@ -185,6 +191,7 @@
             </div>
 
 
+            <!-- S I Z E  V A R I A N T -->
             {% elif single_product.variant == 'Size' %}
             <form method="post" action="?q=selectvariant" id="post-color">
               {% csrf_token %}
@@ -194,11 +201,7 @@
                   <li><span class="text-uppercase" style="font-size:16px;font-weight:600;letter-spacing:1px;">Choose Size:</span></li> <br>
                   {% for rs in sizes %}
                   <input type="radio"
-                    {% if request.method == 'GET' %}
-                        {% if forloop.counter == 1 %}
-                        checked
-                        {% endif %}
-                    {% else %}
+                    {% if request.method == 'POST' %}
                       {% if variant.id == rs.id %}
                       checked
                       {% endif %}
@@ -215,31 +218,43 @@
             </form>
             
 
-            {% elif product.variant == 'Color' %}
+            <!-- C O L O R  V A R I A N T  -->
+            {% elif single_product.variant == 'Color' %}
             <form method="post" action="?q=selectvariant" id="post-color">
               {% csrf_token %}
               <div id="appendHere">
                 <input type="hidden" name="size" id="size" value="{{ size_id }}">
                 <ul class="color-option">
-                  <li><span class="text-uppercase">{% trans 'Color' %}:</span></li>
+                  <li><span class="text-uppercase" style="font-size:16px;font-weight:600;letter-spacing:1px;">{% trans 'choose color' %}:</span></li> <br>
                   {% for rs in colors %}
-                  <input type="radio" {% if variant.id == rs.id %} checked {% endif %} name="variantid" id="variantid" value="{{ rs.id }}" onchange="this.form.submit();">
-                  <li {% if variant.id == rs.id %} class="active" {% endif %}>
-                    <a style="background-color:{{ rs.color.code }}; color: #D9D9D9; text-shadow: 1px 1px #000000; width: 90px">
-                      ${{ rs.price }} {{ rs.color }}
-                    </a>
-                    <img src="{{ rs.image }}" style="height: 50px">
-                  </li>
-                  {% endfor %}
+                    <label class="var_color">
+                      <input type="radio"
+                      {% if request.method == 'POST' %}
+                      {% if variant.id == rs.id %}
+                      checked
+                      {% endif %}
+                    {% endif %} name="variantid" id="variantid" required="required" value="{{ rs.id }}" onchange="this.form.submit();">
+                      <li {% if variant.id == rs.id %} class="active" {% endif %}>
+                        <p style="color: #2d2c2c;font-size: 12px; width: 60px;margin-bottom: 5px;margin-left: 0;">
+                          <!-- ${{ rs.price }} -->
+                          {{ rs.color }}
+                        </p>
+                        <img src="{{ rs.image }}" style="height: 50px">
+                      </li>
+                      
+                    </label>
+                    {% endfor %}
                 </ul>
               </div>
             </form>
+            
             {% endif %}
 
-
+            <!-- Select Variant Error -->
             <p id="selectVariantError" class="text-danger"></p>
+
             <p class="infolinks">
-              <a class="wishlist add-to-wishlist" href="javascript:{document.getElementById('add-wishlist').submit()}" title="Add to Wishlist"><i class="icon anm anm-heart" aria-hidden="true" style="color:red;"></i> <span>{% trans 'Add to Wishlist' %}</span></a>
+              <a class="wishlist add-to-wishlist" onclick="return addWishlist();" href="javascript:{document.getElementById('add-wishlist').submit()}" title="Add to Wishlist"><i class="icon anm anm-heart" aria-hidden="true" style="color:red;"></i> <span>{% trans 'Add to Wishlist' %}</span></a>
 
               {% if is_added_to_compare %}
               <a class="wishlist add-to-wishlist" href="{% url 'compare_products' %}" title="Show Comparison"><i class="fa fa-eye" aria-hidden="true"></i> <u><span>{% trans 'Show Comparison' %}</span></u></a>
@@ -275,15 +290,27 @@
               <input type="hidden" name="command" id="command" value="add">
               <input type="hidden" name="variantid" id="variantid" value="{{ variant.id }}">
               <div id="SelectedProduct">
-                <p><strong>Availability:</strong> {% if variant.quantity > 0  %} In Stock {% else %} Out of Stock {% endif %}</p>
-                {% if single_product.variant == 'Size' %}
+                <p><strong>Availability:</strong>
+                  {% if single_product.variant != 'None' %}
+                    {% if variant.quantity > 0  %} In Stock
+                    {% else %} 
+                    Out of Stock 
+                    {% endif %}
+                  {% else %}
+                  {% if single_product.stock > 0  %} In Stock 
+                    {% else %} 
+                    Out of Stock 
+                    {% endif %}
+                  {% endif %}</p>
+                <!-- {% if single_product.variant == 'Size' %}
                   <p><strong>Selected :</strong> Size : {{ variant.size }} </p>
                 {% elif single_product.variant == 'Color' %}
                   <p><strong>Selected :</strong> Color : {{ variant.color }} </p>
                 {% else %}
                   <p><strong>Selected :</strong> Size : {{ variant.size }} | Color : {{ variant.color }} </p>
-                {% endif %}
+                {% endif %} -->
                 <input class="input" name="size" type="hidden" value="{{ variant.size }}">
+                
                 <input class="input" name="color" type="hidden" value="{{ variant.color }}">
                 <div class="qty-input">
                   <div class="wrapQtyBtn">
@@ -295,7 +322,7 @@
                   <input type="hidden" name="variants" id="variants" value="{{single_product.variant}}">
                   <div class="product-form__item--submit">
                     {% if cart_count >= 1 %}
-                    <button type="submit" {% if variant.quantity < 1  %} disabled {% endif %} class="btn product-form__cart-submit add-to-cart" style="width:49%;">
+                    <button type="submit" {% if variant.quantity < 1  %} disabled {% endif %} id="add_to_cart_btn" class="btn product-form__cart-submit add-to-cart" style="width:49%;">
                       <i class="fa fa-shopping-cart"></i><span> {% trans 'Add to cart' %}</span>
                     </button>
                     <!-- <br><br> -->
@@ -303,7 +330,7 @@
                       <i class="fa fa-eye"></i><span> {% trans 'View Cart' %}</span>
                     </a>
                     {% else %}
-                    <button type="submit" {% if variant.quantity < 1  %} disabled {% endif %} class="btn product-form__cart-submit add-to-cart">
+                    <button type="submit" {% if variant.quantity < 1  %} disabled {% endif %} id="add_to_cart_btn" class="btn product-form__cart-submit add-to-cart">
                       <i class="fa fa-shopping-cart"></i><span> {% trans 'Add to cart' %}</span>
                     </button>
                     {% endif %}
@@ -597,17 +624,28 @@
 </div>
 
 <script>
-  // variantid
-  $('.add-to-cart').click(function() {
-    var variants = $('#variants').val();
-   if($('#variantid').is(':checked') || variants == 'Size') {
-    //  pass
-    }
-    else{
-      document.getElementById("selectVariantError").innerHTML = "{% trans 'Please choose color!' %}";
-      return false;
-    }
-});
+
+function addWishlist(){
+  var variant = $("#variants").val()
+      if(variant == 'Size'){
+          if (!$("input[name='variantid']:checked").val()) {
+          document.getElementById("selectVariantError").innerHTML = "{% trans 'Please choose size' %}";
+          return false;
+        }
+      }
+      else if(variant == 'Color'){
+        if (!$("input[name='variantid']:checked").val()) {
+          document.getElementById("selectVariantError").innerHTML = "{% trans 'Please choose color' %}";
+          return false;
+        }
+      }
+      else if(variant == 'Size-Color'){
+        if(!$("input[name='variantid']:checked").val()) {
+          document.getElementById("selectVariantError").innerHTML = "{% trans 'Please choose color' %}";
+            return false;
+          }
+      }
+}
 
 function checkforFields(){
   var rating = $('input[name="rating"]:checked').val();
@@ -621,6 +659,31 @@ function checkforFields(){
     $("input[name$='rating']").click(function() {
       $('#ratingError').empty();
     });
+
+
+    $('#add_to_cart_btn').click(function() {
+      var variant = $("#variants").val()
+      if(variant == 'Size'){
+          if (!$("input[name='variantid']:checked").val()) {
+          document.getElementById("selectVariantError").innerHTML = "{% trans 'Please choose size' %}";
+          return false;
+        }
+      }
+      else if(variant == 'Color'){
+        if (!$("input[name='variantid']:checked").val()) {
+          document.getElementById("selectVariantError").innerHTML = "{% trans 'Please choose color' %}";
+          return false;
+        }
+      }
+      else if(variant == 'Size-Color'){
+        if(!$("input[name='variantid']:checked").val()) {
+          document.getElementById("selectVariantError").innerHTML = "{% trans 'Please choose color' %}";
+            return false;
+          }
+      }
+    
+  });
+  
 });
 
 </script>

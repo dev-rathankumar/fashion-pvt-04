@@ -87,15 +87,16 @@
                       SAVE & ADD ANOTHER</button>
                   </div>
                   <div class="col-md-6 col-lg-6 col-sm-12">
-                    {% if product.price and product.stock %}
+                    {% if product.variant == 'None' %}
                     <button type="submit" name="add_another" onclick="return checkgallery();" value="finish" class="btn btn-primary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;" formaction="{% url 'editGallery' product.id %}"><i class="fas fa-check"></i> FINISH
                       </button>
                     {% else %}
                     <button type="submit" name="add_another" onclick="return checkgallery();" value="false" class="btn btn-primary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;" formaction="{% url 'editGallery' product.id %}">SAVE & CONTINUE
                       <i class="fas fa-arrow-right"></i></button>
                     {% endif %}
+                    {% if product.variant != 'None' %}
                     <a href="{% url 'editVariants' product.id  %}" id="skipButton" class="btn btn-secondary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;">SKIP <i class="fa fa-fast-forward"></i></a>
-                
+                    {% endif %}
                   </div>
                 </div>
                 

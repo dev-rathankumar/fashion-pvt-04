@@ -46,12 +46,15 @@ def payments(request):
         orderproduct.order_id = order.id # Order Id
         orderproduct.payment = payment
         orderproduct.product_id = item.product_id
-        orderproduct.variant_id = item.variant.id
+        if item.product.variant != 'None':
+            orderproduct.variant_id = item.variant.id
+            orderproduct.color = item.color
+            orderproduct.size = item.size
+            orderproduct.price = item.variant.price
+        else:
+            orderproduct.price = item.product.price
         orderproduct.user_id = request.user.id
         orderproduct.quantity = item.quantity
-        orderproduct.color = item.color
-        orderproduct.size = item.size
-        orderproduct.price = item.variant.price
         orderproduct.amount = item.amount
         orderproduct.status = "New"
         orderproduct.ordered = True
@@ -70,7 +73,10 @@ def payments(request):
     order = Order.objects.get(order_number=order.order_number)
     subtotal = 0
     for i in ordered_products:
-        subtotal += i.variant.price * i.quantity
+        if i.product.variant == 'None':
+            subtotal += i.product.price * i.quantity
+        else:
+            subtotal += i.variant.price * i.quantity
 
     ShopCart.objects.filter(user_id=request.user.id).delete() # Clear & Delete shopcart
     request.session['cart_items'] = 0
@@ -239,12 +245,15 @@ def saveDDPayment(request):
                 orderproduct.order_id = order.id # Order Id
                 orderproduct.payment = order.payment
                 orderproduct.product_id = item.product_id
-                orderproduct.variant_id = item.variant.id
+                if item.product.variant != 'None':
+                    orderproduct.variant_id = item.variant.id
+                    orderproduct.color = item.color
+                    orderproduct.size = item.size
+                    orderproduct.price = item.variant.price
+                else:
+                    orderproduct.price = item.product.price
                 orderproduct.user_id = request.user.id
                 orderproduct.quantity = item.quantity
-                orderproduct.color = item.color
-                orderproduct.size = item.size
-                orderproduct.price = item.variant.price
                 orderproduct.amount = item.amount
                 orderproduct.status = "On Hold"
                 orderproduct.ordered = True
@@ -263,7 +272,10 @@ def saveDDPayment(request):
             order = Order.objects.get(order_number=order.order_number)
             subtotal = 0
             for i in ordered_products:
-                subtotal += i.variant.price * i.quantity
+                if i.product.variant == 'None':
+                    subtotal += i.product.price * i.quantity
+                else:
+                    subtotal += i.variant.price * i.quantity
 
             ShopCart.objects.filter(user_id=request.user.id).delete() # Clear & Delete shopcart
             request.session['cart_items'] = 0
@@ -305,7 +317,10 @@ def order_complete(request):
         ordered_products = OrderProduct.objects.filter(order_id=order.id)
         subtotal = 0
         for i in ordered_products:
-            subtotal += i.variant.price * i.quantity
+            if i.product.variant == 'None':
+                    subtotal += i.product.price * i.quantity
+            else:
+                subtotal += i.variant.price * i.quantity
         payment = Payment.objects.get(payment_id=transaction_id, pk=order.payment.id)
         context = {
             'order_number': order.order_number,

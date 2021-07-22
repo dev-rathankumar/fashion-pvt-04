@@ -69,11 +69,31 @@
                         </tr>
                         {% for item in ordered_products %}
                         <tr>
-                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> {{ item.variant.title }}
-                            <p style="font-size: 10px;">{{item.color}} | {{item.size}}</p>
+                          <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;">
+                            {% if item.product.variant != 'None' %}
+                            {{ item.variant.title }}
+                            {% else %}
+                            {{ item.product.product_name }}
+                            {% endif %}
+                           <p style="font-size: 10px;" class="text-muted">
+                            {% if item.product.variant != 'None' %}
+                            {% if item.variant.product.variant == 'Size' %}
+                              Size: {{ item.variant.size }}
+                              {% elif item.variant.product.variant == 'Color' %}
+                              Color: {{ item.variant.color }}
+                              {% else %}
+                              Color: {{ item.variant.color }} | Size: {{ item.variant.size }}
+                              {% endif %}
+                            {% endif %}</p>
                           </td>
                           <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"><span class="cart__meta-text"
-                              style="font-size:10px !important;">( ${{ item.variant.price }} ) </span> x {{ item.quantity }} </td>
+                              style="font-size:10px !important;">
+                              {% if item.product.variant != 'None' %}
+                              ${{ item.variant.price | intcomma }}
+                              {% else %}
+                              ${{item.product.price | intcomma}}
+                              {% endif %}
+                            </span> x {{ item.quantity }} </td>
                           <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 15px; padding: 5px 10px;"> ${{ item.amount }} </td>
                         </tr>
                         {% endfor %}

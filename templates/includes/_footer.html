@@ -157,14 +157,22 @@
               {% endif %}
               <div class="product-details">
 
-                <a class="product-title" href="{{ i.product.get_url }}">{{ i.variant.title }}</a>
+                <a class="product-title" href="{{ i.product.get_url }}">
+                  {% if i.product.variant != 'None' %}
+                    {{ i.variant.title }}
+                    {% else %}
+                    {{ i.product.product_name }}
+                    {% endif %}
+                </a>
                 <div class="variant-cart">
-                  {% if i.variant.product.variant == 'Size'  %}
-                    {{ i.variant.size }}
-                  {% elif i.variant.product.variant == 'Color' %}
-                    {{ i.variant.color }}
-                  {% else %}
-                    {{ i.variant.color }} | {{ i.variant.size }}
+                  {% if i.product.variant != 'None' %}
+                    {% if i.variant.product.variant == 'Size'  %}
+                      {{ i.variant.size }}
+                    {% elif i.variant.product.variant == 'Color' %}
+                      {{ i.variant.color }}
+                    {% else %}
+                      {{ i.variant.color }} | {{ i.variant.size }}
+                    {% endif %}
                   {% endif %}
                 </div>
                 <div>
@@ -174,7 +182,11 @@
                 </div>
                 <div class="priceRow">
                   <div class="product-price">
-                    <span class="money">${{ i.varamount | intcomma }} <small style="color:#777;">(${{i.variant.price}} each)</small></span>
+                    <span class="money">${{ i.varamount | intcomma }} <small style="color:#777;">({% if i.product.variant != 'None' %}
+                      ${{ i.variant.price | intcomma }}
+                      {% else %}
+                      ${{i.product.price | intcomma}}
+                      {% endif %} each)</small></span>
                   </div>
                 </div>
               </div>

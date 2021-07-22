@@ -10,6 +10,8 @@ class ShopCart(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     variant = models.ForeignKey(Variants, on_delete=models.CASCADE,blank=True, null=True) # relation with varinat
     quantity = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.product.product_name
@@ -28,11 +30,19 @@ class ShopCart(models.Model):
 
     @property
     def amount(self):
-        return (self.quantity * self.variant.price)
+        product = Product.objects.get(pk=self.product.id)
+        if product.variant != 'None':
+            return (self.quantity * self.variant.price)
+        else:
+            return (self.quantity * self.product.price)
 
     @property
     def varamount(self):
-        return (self.quantity * self.variant.price)
+        product = Product.objects.get(pk=self.product.id)
+        if product.variant != 'None':
+            return (self.quantity * self.variant.price)
+        else:
+            return (self.quantity * product.price)
 
 
 class ShopCartForm(ModelForm):

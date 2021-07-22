@@ -121,12 +121,32 @@
                         </a>
                         {% endif %}
                       </td>
-                      <td class="text-left"><a href="{{ i.product.get_url }}">{{ i.variant.title }}</a>
+                      <td class="text-left"><a href="{{ i.product.get_url }}">
+                        {% if i.product.variant != 'None' %}
+                        {{ i.variant.title }}
+                        {% else %}
+                        {{ i.product.product_name }}
+                        {% endif %}
+                      </a>
                         <div class="cart__meta-text">
-                          {% trans 'Color' %}: {{ i.variant.color }} | {% trans 'Size' %}: {{ i.variant.size }}<br>
+                          {% if i.product.variant != 'None' %}
+                            {% if i.variant.product.variant == 'Size' %}
+                            Size: {{ i.variant.size }}
+                            {% elif i.variant.product.variant == 'Color' %}
+                            Color: {{ i.variant.color }}
+                            {% else %}
+                            Color: {{ i.variant.color }} | Size: {{ i.variant.size }}
+                            {% endif %}
+                          {% endif %}<br>
                         </div>
                       </td>
-                      <td>${{ i.variant.price | intcomma }}</td>
+                      <td>
+                        {% if i.product.variant != 'None' %}
+                        ${{ i.variant.price | intcomma }}
+                        {% else %}
+                        ${{i.product.price | intcomma}}
+                        {% endif %}
+                      </td>
                       <td>{{ i.quantity }}</td>
                       <td>${{ i.varamount | intcomma }}</td>
                     </tr>
@@ -185,24 +205,28 @@
               <div class="table-responsive-sm order-table">
                 <h2 class="order-title mb-4">{% trans 'Select Payment Method' %}</h2>
                 <div class="payment_options_dd_paypal">
-                  {% if pp.is_enabled %}
+                  {% if pp.is_enabled and pp.paypal_client_id %}
                   <label>
                     <input type="radio" name="payment_method" value="PayPal" checked>
                     <img src="{% static 'images/payment_gateways/paypal.png' %}" width="150" style="padding: 0 10px 0 10px;border: 1px solid #d2d2d2;">
                   </label>
                   {% endif %}
-                  {% if dd.is_enabled %}
+                  {% if dd.is_enabled and dd.direct_deposit_email %}
                   <label>
-                    <input type="radio" name="payment_method" value="Direct Deposit" {% if dd.is_enabled and not pp.is_enabled %}checked{% endif %}>
+                    <input type="radio" name="payment_method" value="Direct Deposit" {% if dd.is_enabled and not pp.is_enabled or not pp.paypal_client_id %}checked{% endif %}>
                     <img src="{% static 'images/payment_gateways/direct.png' %}" width="150" style="padding: 0 10px 0 10px;border: 1px solid #d2d2d2;">
                   </label>
                   {% endif %}
                 </div>
               </div>
               {% if pp.is_enabled or dd.is_enabled %}
+              {% if pp.paypal_client_id or dd.direct_deposit_email %}
               <div class="order-button-payment">
                 <button class="btn btn--small-wide" onclick="return payMethodConfirm();" value="Place order" type="submit">{% trans 'Place order' %}</button>
               </div>
+              {% else %}
+              <h4 class="text-danger">{% trans 'There are no payment options at the moment. Please come back later.' %}</h4>
+              {% endif %}
               {% else %}
               <h4 class="text-danger">{% trans 'There are no payment options at the moment. Please come back later.' %}</h4>
               {% endif %}
