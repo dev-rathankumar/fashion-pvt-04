@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %} Make Payment {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'Make Payment' %} {% endblock %}
 {% block content %}
 {% load static %}
 {% load humanize %}
@@ -10,13 +11,13 @@
   <!--Breadcrumbs-->
   <div class="breadcrumbs-wrapper">
     <div class="container">
-      <div class="breadcrumbs"><a href="{% url 'shopcart' %}" title="Back to cart page">Cart</a> <span aria-hidden="true">|</span> <a href="{% url 'checkout' %}" title="Back to checkout page">Checkout</a><span aria-hidden="true">|</span> <span aria-hidden="true">Complete Order</span></div>
+      <div class="breadcrumbs"><a href="{% url 'shopcart' %}" title="Back to cart page">{% trans 'Cart' %}</a> <span aria-hidden="true">|</span> <a href="{% url 'checkout' %}" title="Back to checkout page">{% trans 'Checkout' %}</a><span aria-hidden="true">|</span> <span aria-hidden="true">{% trans 'Complete Order' %}</span></div>
     </div>
   </div>
   <!--End Breadcrumbs-->
   <!--Page Title with Image-->
   <div class="page-title">
-    <h1>complete order</h1>
+    <h1>{% trans 'complete order' %}</h1>
   </div>
   <!--End Page Title with Image-->
   <div class="container">
@@ -28,7 +29,7 @@
           <div class="create-ac-content bg-light-gray padding-20px-all">
 
             <div class="your-order">
-              <h2 class="order-title mb-4">Review Your Order and Pay</h2>
+              <h2 class="order-title mb-4">{% trans 'Review Your Order and Pay' %}</h2>
 
               <div class="table-responsive-sm order-table">
 
@@ -36,10 +37,10 @@
                   <div class="card-header">
                     <div class="row">
                       <div class="col-8">
-                        <h5 class="m-0">Shipping Address</h5>
+                        <h5 class="m-0">{% trans 'Shipping Address' %}</h5>
                       </div>
                       <div class="col-4">
-                        <a href="{% url 'checkout' %}" class="float-right"><i class="fa fa-edit"></i> Edit</a>
+                        <a href="{% url 'checkout' %}" class="float-right"><i class="fa fa-edit"></i>{% trans 'Edit' %} </a>
                       </div>
                     </div>
                   </div>
@@ -66,10 +67,10 @@
                   <div class="card-header">
                     <div class="row">
                       <div class="col-8">
-                        <h5 class="m-0">Payment method</h5>
+                        <h5 class="m-0">{% trans 'Payment method' %}</h5>
                       </div>
                       <div class="col-4">
-                        <a href="{% url 'checkout' %}" class="float-right"><i class="fa fa-edit"></i> Edit</a>
+                        <a href="{% url 'checkout' %}" class="float-right"><i class="fa fa-edit"></i> {% trans 'Edit' %}</a>
                       </div>
                     </div>
                   </div>
@@ -90,10 +91,10 @@
                   <div class="card-header">
                     <div class="row">
                       <div class="col-8">
-                        <h5 class="m-0">Review Products</h5>
+                        <h5 class="m-0">{% trans 'Review Products' %}</h5>
                       </div>
                       <div class="col-4">
-                        <a href="{% url 'shopcart' %}" class="float-right"><i class="fa fa-edit"></i> Edit</a>
+                        <a href="{% url 'shopcart' %}" class="float-right"><i class="fa fa-edit"></i> {% trans 'Edit' %}</a>
                       </div>
                     </div>
                   </div>
@@ -112,10 +113,10 @@
                       <div class="card-body">
                         <a class="card-text mb-0" href="{{ i.product.get_url }}" style="font-weight:600;">{{ i.variant.title }}</a>
                         <div class="cart__meta-text">
-                          Color: {{ i.variant.color }} | Size: {{ i.variant.size }}<br>
+                          {% trans 'Color' %}: {{ i.variant.color }} |{% trans 'Size' %} : {{ i.variant.size }}<br>
                         </div>
                         <div class="cart__meta-text">
-                          Qty: {{ i.quantity }}
+                          {% trans 'Qty' %}: {{ i.quantity }}
                         </div>
                       </div>
                     </div>
@@ -123,7 +124,7 @@
                       <div class="card-body">
                         <p class="card-text mb-0" style="font-weight:600;">${{ i.varamount | intcomma }}</p>
                         <div class="cart__meta-text">
-                          (${{ i.variant.price | intcomma }} each)
+                          (${{ i.variant.price | intcomma }} {% trans 'each' %})
                         </div>
                       </div>
                     </div>
@@ -141,14 +142,14 @@
           <div class="your-order-payment">
 
             <div class="your-payment">
-              <h2 class="payment-title mb-3">make payment</h2>
+              <h2 class="payment-title mb-3">{% trans 'make payment' %}</h2>
               <div class="payment-method">
                 <div class="payment-accordion">
                   <div id="accordion" class="payment-section">
                     <div class="card mb-2">
                       <div class="card-header">
                         <div class="row">
-                          <span class="col-12 col-sm-6 cart__subtotal-title">Subtotal</span>
+                          <span class="col-12 col-sm-6 cart__subtotal-title">{% trans 'Subtotal' %}</span>
                           <span class="col-12 col-sm-6 cart__subtotal-title text-right"><span class="money">${{total | intcomma}}</span></span>
                         </div>
                         <!-- <div class="row">
@@ -160,11 +161,11 @@
                           {% endfor %}
                         </div> -->
                         <div class="row">
-                          <span class="col-12 col-sm-6 cart__subtotal-title">Tax</span>
+                          <span class="col-12 col-sm-6 cart__subtotal-title">{% trans 'Tax' %}</span>
                           <span class="col-12 col-sm-6 cart__subtotal-title text-right"><span class="money">${{order.tax | intcomma}}</span></span>
                         </div>
                         <div class="row">
-                          <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Grand Total</strong></span>
+                          <span class="col-12 col-sm-6 cart__subtotal-title"><strong>{% trans 'Grand Total' %}</strong></span>
                           <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money">${{order.total | intcomma}}</span></span>
                         </div>
                       </div>
@@ -179,7 +180,7 @@
                       </div>
                       {% elif payment_method == 'Direct Deposit' %}
                       <br>
-                        <h5>Please make payment to below email address and submit the transaction details.</h5>
+                        <h5>{% trans 'Please make payment to below email address and submit the transaction details.' %}</h5>
 
                         <div class="jumbotron jumbotron-fluid" style="padding: 1rem;">
                           <div class="container">
@@ -190,24 +191,24 @@
                         <div class="container">
 
                             <div class="form-group">
-                              <label for="exampleFormControlFile1">Amount Paid</label>
+                              <label for="exampleFormControlFile1">{% trans 'Amount Paid' %}</label>
 
                               <input type="text" name="amount" maxlength="100" value="{{order.total}}" required id="id_amount" readonly style="background-color:#F7F7F7;cursor: not-allowed;">
                              </div>
                             <div class="form-group">
-                              <label for="exampleFormControlFile1">Transaction Detail</label>
+                              <label for="exampleFormControlFile1">{% trans 'Transaction Detail' %}</label>
                               {{dd_paymentForm.payment_id}}
                             </div>
                             <div class="form-group">
-                              <label for="exampleFormControlFile1">Date of Payment</label>
+                              <label for="exampleFormControlFile1">{% trans 'Date of Payment' %}</label>
                               {{dd_paymentForm.date_of_dd_payment}}
                             </div>
                             <div class="form-group rm_upload">
-                              <label for="exampleFormControlFile1">Attachment <span class="text-muted">(Optional)</span></label>
+                              <label for="exampleFormControlFile1">{% trans 'Attachment' %} <span class="text-muted">{% trans '(Optional)' %}</span></label>
                               {{dd_paymentForm.dd_attachment}}
                             </div>
                             <input type="hidden" name="url" id="url" value="{% url 'saveDDPayment' %}">
-                            <i class="text-muted" style="font-size: 12px;">Order will be confirmed after the payment is recieved.</i>
+                            <i class="text-muted" style="font-size: 12px;">{% trans 'Order will be confirmed after the payment is recieved.' %}</i>
                             <div class="form-group">
                               <input type="submit" name="submit" id="submitTrans" formaction="{% url 'saveDDPayment' %}" value="Submit Transaction Details" class="btn w-100">
                             </div>
@@ -226,10 +227,10 @@
             <div id="payment-processing-message" style="margin-top:20px;">
               <h4 class="text-center">
                 <i class="fa fa-spinner fa-spin" style="font-size:20px;"></i>
-                <span>Please wait...</span>
+                <span>{% trans 'Please wait' %}...</span>
               </h4>
-              <p class="mb-0 text-center" style="font-weight:600;">We are processing your payment.</p>
-              <p class="mb-0 text-center">This may take a few seconds, please be patient...</p>
+              <p class="mb-0 text-center" style="font-weight:600;">{% trans 'We are processing your payment.' %}</p>
+              <p class="mb-0 text-center">{% trans 'This may take a few seconds, please be patient' %}...</p>
             </div>
 
           </div>

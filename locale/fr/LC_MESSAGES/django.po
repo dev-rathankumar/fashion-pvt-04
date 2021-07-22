@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-22 00:19+0530\n"
+"POT-Creation-Date: 2021-07-22 15:58+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,8 +137,8 @@ msgstr ""
 "publiés"
 
 #: .\templates\blogs\blog_detail.html:75 .\templates\includes\_footer.html:77
-#: .\templates\pages\contact.html:72 .\templates\shop\product_detail.html:396
-#: .\templates\shop\product_detail.html:496
+#: .\templates\pages\contact.html:72 .\templates\shop\product_detail.html:413
+#: .\templates\shop\product_detail.html:514
 msgid "Enter Captcha"
 msgstr "Entrez Captcha"
 
@@ -263,7 +263,7 @@ msgstr ""
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-#: .\templates\includes\_footer.html:99
+#: .\templates\includes\_footer.html:100
 msgid "Subscribe"
 msgstr "S'abonner"
 
@@ -322,6 +322,127 @@ msgstr "Nouvel utilisateur?"
 #: .\templates\includes\_navbar.html:124
 msgid "Create an Account"
 msgstr "Créer un compte"
+
+#: .\templates\orders\payments.html:3
+msgid "Make Payment"
+msgstr "Effectuer le paiement"
+
+#: .\templates\orders\payments.html:14 .\templates\shop\checkout.html:15
+msgid "Cart"
+msgstr "Chariot"
+
+#: .\templates\orders\payments.html:14 .\templates\shop\checkout.html:3
+#: .\templates\shop\checkout.html:15 .\templates\shop\checkout.html:21
+msgid "Checkout"
+msgstr "Vérifier"
+
+#: .\templates\orders\payments.html:14
+msgid "Complete Order"
+msgstr "Complétez la commande"
+
+#: .\templates\orders\payments.html:20
+msgid "complete order"
+msgstr "Complétez la commande"
+
+#: .\templates\orders\payments.html:32
+msgid "Review Your Order and Pay"
+msgstr "Vérifiez votre commande et payez"
+
+#: .\templates\orders\payments.html:40
+msgid "Shipping Address"
+msgstr "adresse de livraison"
+
+#: .\templates\orders\payments.html:43 .\templates\orders\payments.html:73
+#: .\templates\orders\payments.html:97
+msgid "Edit"
+msgstr "Éditer"
+
+#: .\templates\orders\payments.html:70
+msgid "Payment method"
+msgstr "Mode de paiement"
+
+#: .\templates\orders\payments.html:94
+msgid "Review Products"
+msgstr "Examiner les produits"
+
+#: .\templates\orders\payments.html:116 .\templates\shop\checkout.html:126
+#: .\templates\shop\product_detail.html:168
+#: .\templates\shop\product_detail.html:224 .\templates\shop\shop.html:82
+msgid "Color"
+msgstr "Couleur"
+
+#: .\templates\orders\payments.html:116 .\templates\shop\checkout.html:126
+#: .\templates\shop\product_detail.html:153 .\templates\shop\shop.html:69
+msgid "Size"
+msgstr "Taille"
+
+#: .\templates\orders\payments.html:119 .\templates\shop\checkout.html:106
+msgid "Qty"
+msgstr "Qté"
+
+#: .\templates\orders\payments.html:127
+msgid "each"
+msgstr "chaque"
+
+#: .\templates\orders\payments.html:145
+msgid "make payment"
+msgstr "effectuer le paiement"
+
+#: .\templates\orders\payments.html:152 .\templates\shop\checkout.html:107
+msgid "Subtotal"
+msgstr "Total"
+
+#: .\templates\orders\payments.html:164 .\templates\shop\checkout.html:161
+msgid "Tax"
+msgstr "Impôt"
+
+#: .\templates\orders\payments.html:168 .\templates\shop\checkout.html:172
+msgid "Grand Total"
+msgstr "Total"
+
+#: .\templates\orders\payments.html:183
+msgid ""
+"Please make payment to below email address and submit the transaction "
+"details."
+msgstr ""
+"Veuillez effectuer le paiement à l'adresse e-mail ci-dessous et soumettre "
+"les détails de la transaction."
+
+#: .\templates\orders\payments.html:194
+msgid "Amount Paid"
+msgstr "Le montant payé"
+
+#: .\templates\orders\payments.html:199
+msgid "Transaction Detail"
+msgstr "Détails de la transaction"
+
+#: .\templates\orders\payments.html:203
+msgid "Date of Payment"
+msgstr "Date de règlement"
+
+#: .\templates\orders\payments.html:207
+msgid "Attachment"
+msgstr "Attachement"
+
+#: .\templates\orders\payments.html:207
+msgid "(Optional)"
+msgstr "(Optionnel)"
+
+#: .\templates\orders\payments.html:211
+msgid "Order will be confirmed after the payment is recieved."
+msgstr "La commande sera confirmée après réception du paiement."
+
+#: .\templates\orders\payments.html:230
+msgid "Please wait"
+msgstr "S'il vous plaît, attendez"
+
+#: .\templates\orders\payments.html:232
+msgid "We are processing your payment."
+msgstr "Nous traitons votre paiement."
+
+#: .\templates\orders\payments.html:233
+msgid "This may take a few seconds, please be patient"
+msgstr "Cela peut prendre quelques secondes, soyez patient"
 
 #: .\templates\pages\about.html:21
 msgid "Your sub heading content goes here"
@@ -835,7 +956,8 @@ msgstr "Votre panier est vide"
 msgid "Continue Shopping"
 msgstr "Continuer vos achats"
 
-#: .\templates\shop\cart.html:45 .\templates\shop\compare_products.html:53
+#: .\templates\shop\cart.html:45 .\templates\shop\checkout.html:105
+#: .\templates\shop\compare_products.html:53
 #: .\templates\shop\my-wishlist.html:41 .\templates\shop\shop.html:34
 msgid "Price"
 msgstr "Prix"
@@ -844,33 +966,92 @@ msgstr "Prix"
 msgid "Quantity"
 msgstr "Quantité"
 
-#: .\templates\shop\cart.html:47 .\templates\shop\cart.html:154
+#: .\templates\shop\cart.html:47 .\templates\shop\cart.html:160
 #: .\templates\shop\shop.html:195
 msgid "Total"
 msgstr "Le total"
 
-#: .\templates\shop\cart.html:74 .\templates\shop\product_detail.html:168
-#: .\templates\shop\product_detail.html:214
-#: .\templates\shop\product_detail.html:269 .\templates\shop\shop.html:82
-msgid "Color"
-msgstr "Couleur"
-
-#: .\templates\shop\cart.html:74 .\templates\shop\product_detail.html:153
-#: .\templates\shop\product_detail.html:269 .\templates\shop\shop.html:69
-msgid "Size"
-msgstr "Taille"
-
-#: .\templates\shop\cart.html:122
+#: .\templates\shop\cart.html:128
 msgid "Continue shopping"
 msgstr "Continuer vos achats"
 
-#: .\templates\shop\cart.html:165
+#: .\templates\shop\cart.html:171
 msgid "Tax (if any) will be calculated in the checkout page."
 msgstr "La taxe (le cas échéant) sera calculée sur la page de paiement."
 
-#: .\templates\shop\cart.html:166
+#: .\templates\shop\cart.html:172
 msgid "Proceed To Checkout"
 msgstr "Passer à la caisse"
+
+#: .\templates\shop\checkout.html:31
+msgid "Billing details"
+msgstr "Détails de la facturation"
+
+#: .\templates\shop\checkout.html:34 .\templates\shop\product_detail.html:383
+msgid "First Name"
+msgstr "Prénom"
+
+#: .\templates\shop\checkout.html:38 .\templates\shop\product_detail.html:386
+msgid "Last Name"
+msgstr "Nom de famille"
+
+#: .\templates\shop\checkout.html:44
+msgid "E-Mail"
+msgstr "E-mail"
+
+#: .\templates\shop\checkout.html:48
+msgid "Telephone"
+msgstr "Téléphone"
+
+#: .\templates\shop\checkout.html:57 .\templates\shop\checkout.html:61
+msgid "Address Line"
+msgstr "Ligne d'adresse"
+
+#: .\templates\shop\checkout.html:67
+msgid "City"
+msgstr "Ville"
+
+#: .\templates\shop\checkout.html:71
+msgid "Pin Code"
+msgstr "Code PIN"
+
+#: .\templates\shop\checkout.html:77
+msgid "Country"
+msgstr "Pays"
+
+#: .\templates\shop\checkout.html:81
+msgid "State"
+msgstr "État"
+
+#: .\templates\shop\checkout.html:87
+msgid "Order Notes"
+msgstr "Notes d'ordre"
+
+#: .\templates\shop\checkout.html:98
+msgid "Your Order"
+msgstr "Vos commandes"
+
+#: .\templates\shop\checkout.html:103 .\templates\shop\my-wishlist.html:39
+msgid "Product Image"
+msgstr "Image du produit"
+
+#: .\templates\shop\checkout.html:104
+msgid "Product Name"
+msgstr "Nom du produit"
+
+#: .\templates\shop\checkout.html:186
+msgid "Select Payment Method"
+msgstr "Sélectionnez le mode de paiement"
+
+#: .\templates\shop\checkout.html:204
+msgid "Place order"
+msgstr "Passer la commande"
+
+#: .\templates\shop\checkout.html:207
+msgid "There are no payment options at the moment. Please come back later."
+msgstr ""
+"Il n'y a pas d'options de paiement pour le moment. Merci de revenir plus "
+"tard."
 
 #: .\templates\shop\compare_products.html:3
 #: .\templates\shop\compare_products.html:16
@@ -899,22 +1080,19 @@ msgid "Product Description"
 msgstr "Description du produit"
 
 #: .\templates\shop\compare_products.html:63
-#: .\templates\shop\product_detail.html:268
 msgid "Availability"
 msgstr "Disponibilité"
 
 #: .\templates\shop\compare_products.html:66
 #: .\templates\shop\compare_products.html:77
 #: .\templates\shop\my-wishlist.html:70
-#: .\templates\shop\product_detail.html:268
-#: .\templates\shop\product_detail.html:302
+#: .\templates\shop\product_detail.html:319
 msgid "Out of Stock"
 msgstr "En rupture de stock"
 
 #: .\templates\shop\compare_products.html:68
 #: .\templates\shop\compare_products.html:79
 #: .\templates\shop\product_detail.html:93
-#: .\templates\shop\product_detail.html:268
 msgid "In Stock"
 msgstr "En stock"
 
@@ -937,10 +1115,6 @@ msgstr "Supprimer"
 msgid "Your Wishlist is Empty"
 msgstr "Votre liste de voeux est vide"
 
-#: .\templates\shop\my-wishlist.html:39
-msgid "Product Image"
-msgstr "Image du produit"
-
 #: .\templates\shop\my-wishlist.html:42
 msgid "Status"
 msgstr "Statut"
@@ -950,9 +1124,9 @@ msgid "in stock"
 msgstr "En stock"
 
 #: .\templates\shop\my-wishlist.html:84
-#: .\templates\shop\product_detail.html:282
-#: .\templates\shop\product_detail.html:290
-#: .\templates\shop\product_detail.html:308
+#: .\templates\shop\product_detail.html:299
+#: .\templates\shop\product_detail.html:307
+#: .\templates\shop\product_detail.html:325
 msgid "Add to cart"
 msgstr "Ajouter au panier"
 
@@ -965,7 +1139,7 @@ msgid "Facebook"
 msgstr "Facebook"
 
 #: .\templates\shop\product_detail.html:87
-#: .\templates\shop\product_detail.html:535
+#: .\templates\shop\product_detail.html:553
 msgid "reviews"
 msgstr "Commentaires"
 
@@ -977,136 +1151,124 @@ msgstr "Pardon! Ce produit n'est pas disponible pour le moment."
 msgid "left in stock."
 msgstr "en stock."
 
-#: .\templates\shop\product_detail.html:194
-msgid "SIZE"
-msgstr "TAILLE"
-
-#: .\templates\shop\product_detail.html:232
+#: .\templates\shop\product_detail.html:242
 msgid "Add to Wishlist"
 msgstr "Ajouter à la liste de souhaits"
 
-#: .\templates\shop\product_detail.html:235
+#: .\templates\shop\product_detail.html:245
 msgid "Show Comparison"
 msgstr "Afficher la comparaison"
 
-#: .\templates\shop\product_detail.html:237
+#: .\templates\shop\product_detail.html:247
 msgid "Add to Compare"
 msgstr "ajouter pour comparer"
 
-#: .\templates\shop\product_detail.html:269
-msgid "Selected"
-msgstr "Choisi"
-
-#: .\templates\shop\product_detail.html:275
+#: .\templates\shop\product_detail.html:291
 msgid "QTY"
 msgstr "QTÉ"
 
-#: .\templates\shop\product_detail.html:286
+#: .\templates\shop\product_detail.html:303
 msgid "View Cart"
 msgstr "Voir le panier"
 
-#: .\templates\shop\product_detail.html:313
+#: .\templates\shop\product_detail.html:330
 msgid "I agree with the terms and conditions"
 msgstr "Je suis d'accord avec les termes et conditions"
 
-#: .\templates\shop\product_detail.html:316
+#: .\templates\shop\product_detail.html:333
 msgid "Buy it now"
 msgstr "Achetez-le maintenant"
 
-#: .\templates\shop\product_detail.html:332
+#: .\templates\shop\product_detail.html:349
 msgid "Send an Inquiry"
 msgstr "Envoyer une demande"
 
-#: .\templates\shop\product_detail.html:340
+#: .\templates\shop\product_detail.html:357
 msgid "SEND AN INQUIRY"
 msgstr "ENVOYER UNE DEMANDE"
 
-#: .\templates\shop\product_detail.html:358
+#: .\templates\shop\product_detail.html:375
 msgid "Please fill below form to inquire about this product."
 msgstr ""
 "Veuillez remplir le formulaire ci-dessous pour vous renseigner sur ce "
 "produit."
 
-#: .\templates\shop\product_detail.html:366
-msgid "First Name"
-msgstr "Prénom"
-
-#: .\templates\shop\product_detail.html:369
-msgid "Last Name"
-msgstr "Nom de famille"
-
-#: .\templates\shop\product_detail.html:376
+#: .\templates\shop\product_detail.html:393
 #, fuzzy
 #| msgid "Email address"
 msgid "Email Address"
 msgstr "Adresse e-mail"
 
-#: .\templates\shop\product_detail.html:379
+#: .\templates\shop\product_detail.html:396
 msgid "Phone Number (optional)"
 msgstr "Numéro de téléphone (facultatif)"
 
-#: .\templates\shop\product_detail.html:385
+#: .\templates\shop\product_detail.html:402
 msgid "Enter your message here"
 msgstr "Entrez votre message ici"
 
-#: .\templates\shop\product_detail.html:424
+#: .\templates\shop\product_detail.html:442
 msgid "Close"
 msgstr "Fermer"
 
-#: .\templates\shop\product_detail.html:437
+#: .\templates\shop\product_detail.html:455
 msgid "PRODUCT DETAILS"
 msgstr "DÉTAILS DU PRODUIT"
 
-#: .\templates\shop\product_detail.html:448
+#: .\templates\shop\product_detail.html:466
 msgid "REVIEWS"
 msgstr "COMMENTAIRES"
 
-#: .\templates\shop\product_detail.html:455
+#: .\templates\shop\product_detail.html:473
 msgid "Write Your Review"
 msgstr "Donnez votre avis"
 
-#: .\templates\shop\product_detail.html:458
+#: .\templates\shop\product_detail.html:476
 msgid "How do you rate this product?"
 msgstr "Comment notez vous ce produit?"
 
-#: .\templates\shop\product_detail.html:478
+#: .\templates\shop\product_detail.html:496
 msgid "Review Title"
 msgstr "Titre du commentaire"
 
-#: .\templates\shop\product_detail.html:508
+#: .\templates\shop\product_detail.html:501
+msgid "Review"
+msgstr "Revoir"
+
+#: .\templates\shop\product_detail.html:526
 msgid "Please note, reviews must be approved before they are published"
 msgstr ""
 "Veuillez noter que les avis doivent être approuvés avant d'être publiés"
 
-#: .\templates\shop\product_detail.html:514
+#: .\templates\shop\product_detail.html:532
 msgid "You must purchase this product to write a review."
 msgstr "Vous devez acheter ce produit pour écrire un avis."
 
-#: .\templates\shop\product_detail.html:517
+#: .\templates\shop\product_detail.html:535
 msgid "You must be logged in to post a review."
 msgstr "Vous devez être connecté pour poster un avis."
 
-#: .\templates\shop\product_detail.html:517
+#: .\templates\shop\product_detail.html:535
 msgid "Login now"
 msgstr "Connecte-toi maintenant"
 
-#: .\templates\shop\product_detail.html:526
+#: .\templates\shop\product_detail.html:544
 msgid "Customer Reviews"
 msgstr "Avis des clients"
 
-#: .\templates\shop\product_detail.html:538
+#: .\templates\shop\product_detail.html:556
 msgid "Be the first to review this product."
 msgstr "Soyez le premier a tester ce produit."
 
-#: .\templates\shop\product_detail.html:557
+#: .\templates\shop\product_detail.html:575
 msgid "on"
 msgstr "au"
 
-#: .\templates\shop\product_detail.html:588
+#: .\templates\shop\product_detail.html:607
 msgid "Please choose color!"
 msgstr "Veuillez choisir la couleur!"
 
-#: .\templates\shop\product_detail.html:596
+#: .\templates\shop\product_detail.html:615
 msgid "Please select a rating star!"
 msgstr "Veuillez sélectionner une étoile de notation !"
 
@@ -1153,6 +1315,12 @@ msgstr "Des produits"
 #: .\templates\shop\shop.html:219
 msgid "Popular"
 msgstr "Populaire"
+
+#~ msgid "SIZE"
+#~ msgstr "TAILLE"
+
+#~ msgid "Selected"
+#~ msgstr "Choisi"
 
 #~ msgid "Enter OTP"
 #~ msgstr "Entrez OTP"
