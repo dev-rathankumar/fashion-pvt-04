@@ -52,6 +52,7 @@ def inquiry(request):
         to_email = business_email
         # Get Email Connection
         email_settings = BusinessEmailSetting.objects.get(business=business)
+        from_email = email_settings.email_host_user
         with get_connection(
             host=email_settings.email_host,
             port=email_settings.port,
@@ -59,7 +60,7 @@ def inquiry(request):
             password=email_settings.email_host_password,
             use_tls=email_settings.email_use_tls
         ) as connection:
-            email_send = EmailMessage(mail_subject, message, to=[to_email],
+            email_send = EmailMessage(mail_subject, message, from_email, to=[to_email],
                             connection=connection)
         email_send.send()
         inquiry.save()

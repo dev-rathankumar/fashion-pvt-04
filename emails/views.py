@@ -59,6 +59,7 @@ def send_email(request):
             to_email = to_address
             # Get Email Connection
             email_settings = BusinessEmailSetting.objects.get(business__user=request.user)
+            from_email = email_settings.email_host_user
             with get_connection(
                 host=email_settings.email_host,
                 port=email_settings.port,
@@ -66,7 +67,7 @@ def send_email(request):
                 password=email_settings.email_host_password,
                 use_tls=email_settings.email_use_tls
             ) as connection:
-                email = EmailMessage(mail_subject, message, to=to_email,
+                email = EmailMessage(mail_subject, message, from_email, to=to_email,
                              connection=connection)
             # email = EmailMessage(
             #     mail_subject, message, to=[to_email]
@@ -115,6 +116,9 @@ def email_settings(request):
             host_email = request.POST['email_host_user']
             request.session['to_email'] = host_email
             form.save()
+            email_settings = BusinessEmailSetting.objects.get(business__user=request.user)
+            print('email_settings===>', email_settings)
+            print('email addr==>', email_settings.email_host_user)
             return redirect('test_mail')
         #messages.success(request, 'Settings applied successfully.')
         #return redirect('email_settings')
@@ -129,13 +133,14 @@ def email_settings(request):
 
 def test_mail(request):
     # Send email
-    current_site = get_current_site(request)
+    print('reached 1')
     mail_subject = 'Test Connection'
     message = 'This is a test email to verify your email configuration.'
     to = request.session.get('to_email')
     to_email = (to,)
     # Get Email Connection
     email_settings = BusinessEmailSetting.objects.get(business__user=request.user)
+    from_email = email_settings.email_host_user
     try:
         with get_connection(
             host=email_settings.email_host,
@@ -144,7 +149,7 @@ def test_mail(request):
             password=email_settings.email_host_password,
             use_tls=email_settings.email_use_tls
         ) as connection:
-            email = EmailMessage(mail_subject, message, to=to_email,
+            email = EmailMessage(mail_subject, message, from_email, to=to_email,
                             connection=connection)
         email.send()
         email_settings.is_settings_verified = True

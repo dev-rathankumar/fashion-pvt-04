@@ -226,3 +226,6 @@ CKEDITOR_CONFIGS = {
         'height': 200,
     },
 }
+
+# Default from email address
+DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER')

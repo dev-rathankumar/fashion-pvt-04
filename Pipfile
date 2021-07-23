@@ -27,6 +27,7 @@ django-formset-js = "*"
 django-authtools = "*"
 django-colorfield = "*"
 django-faicon = "*"
+django-constance = {extras = ["redis"], version = "*"}
 
 [requires]
 python_version = "3.8"
