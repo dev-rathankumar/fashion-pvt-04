@@ -1,5 +1,6 @@
-{% extends 'business/base.html' %} {% load static %} {% block title %} Edit
-About Us Page {% endblock %} {% block content %} {{ form.media.js }}
+{% extends 'business/base.html' %} {% load static %} {% block title %} 
+{% load i18n %}
+{% trans 'Edit About Us Page' %} {% endblock %} {% block content %} {{ form.media.js }}
 
 <!-- ============================================================== -->
 <!-- Start right Content here -->
@@ -18,7 +19,7 @@ About Us Page {% endblock %} {% block content %} {{ form.media.js }}
               justify-content-between
             "
           >
-            <h4 class="mb-0 font-size-18">Edit About Us Page</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Edit About Us Page' %}</h4>
           </div>
         </div>
       </div>
@@ -28,7 +29,7 @@ About Us Page {% endblock %} {% block content %} {{ form.media.js }}
         <div class="col-12">
           <div class="card container">
             <div class="card-body">
-              <h4 class="card-title">Edit About Us Page</h4>
+              <h4 class="card-title">{% trans 'Edit About Us Page' %}</h4>
 
               <form
                 method="POST"
@@ -39,7 +40,7 @@ About Us Page {% endblock %} {% block content %} {{ form.media.js }}
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="logo">Heading</label>
+                      <label for="logo">{% trans 'Heading' %}</label>
                       {{ about_form.heading }}
                     </div>
                   </div>
@@ -48,7 +49,7 @@ About Us Page {% endblock %} {% block content %} {{ form.media.js }}
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label>Sub Heading</label>
+                      <label>{% trans 'Sub Heading' %}</label>
                       {{ about_form.sub_heading }}
                     </div>
                   </div>
@@ -63,7 +64,7 @@ About Us Page {% endblock %} {% block content %} {{ form.media.js }}
                   class="btn btn-primary mr-1 waves-effect waves-light"
                   style="letter-spacing: 2px"
                 >
-                  <i class="fas fa-save"></i> SAVE
+                  <i class="fas fa-save"></i> {% trans 'SAVE' %}
                 </button>
               </form>
               <br />
@@ -72,7 +73,7 @@ About Us Page {% endblock %} {% block content %} {{ form.media.js }}
               <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12">
                   <div class="form-group">
-                    <h2>About Us Page</h2>
+                    <h2>{% trans 'About Us Page' %}</h2>
                   </div>
                 </div>
               </div>
@@ -118,7 +119,7 @@ About Us Page {% endblock %} {% block content %} {{ form.media.js }}
                   class="btn btn-primary mr-1 waves-effect waves-light"
                   style="letter-spacing: 2px"
                 >
-                  <i class="fas fa-save"></i> SAVE
+                  <i class="fas fa-save"></i> {% trans 'SAVE' %}
                 </button>
                 <button
                 type="submit"
@@ -126,7 +127,7 @@ About Us Page {% endblock %} {% block content %} {{ form.media.js }}
                   class="btn btn-success mr-1 waves-effect waves-light"
                   style="letter-spacing: 2px"
                 >
-                  <i class="fas fa-plus"></i> ADD ANOTHER SECTION
+                  <i class="fas fa-plus"></i> {% trans 'ADD ANOTHER SECTION' %}
                 </button>
             
                 

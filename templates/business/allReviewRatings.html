@@ -1,7 +1,8 @@
 {% extends 'business/base.html' %}
 {% load static %}
+{% load i18n %}
 {% load humanize %}
-{% block title %} All Ratings & Reviews {% endblock %}
+{% block title %} {% trans 'All Ratings & Reviews' %} {% endblock %}
 {% block content %}
 
 <!-- ============================================================== -->
@@ -16,12 +17,12 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">All Ratings & Reviews</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'All Ratings & Reviews' %}</h4>
 
             <div class="page-title-right">
               <ol class="breadcrumb m-0">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">Ratings & Reviews</a></li>
-                <li class="breadcrumb-item active">All Ratings & Reviews</li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">{% trans 'Ratings & Reviews' %}</a></li>
+                <li class="breadcrumb-item active">{% trans 'All Ratings & Reviews' %}</li>
               </ol>
             </div>
 
@@ -35,14 +36,14 @@
           <div class="card">
 
             {% if not reviewratings %}
-            <h2 class="text-center" style="padding:25px;">You do not have any ratings yet</h2>
+            <h2 class="text-center" style="padding:25px;">{% trans 'You do not have any ratings yet' %}</h2>
             {% else %}
             <div class="card-body">
               <div class="row mb-2">
                 <div class="col-sm-4">
                   <div class="search-box mr-2 mb-2 d-inline-block">
                     <div class="position-relative">
-                      <input type="text" id="myInput" class="form-control" placeholder="Search...">
+                      <input type="text" id="myInput" class="form-control" placeholder="{% trans 'Search' %}...">
                       <i class="bx bx-search-alt search-icon"></i>
                     </div>
                   </div>
@@ -54,11 +55,11 @@
                 <table class="table table-centered table-nowrap table-hover">
                   <thead class="thead-light">
                     <tr>
-                      <th>Customer Name</th>
-                      <th>Product Name</th>
-                      <th>Rating & Reviews</th>
-                      <th>Date</th>
-                      <th>Approval</th>
+                      <th>{% trans 'Customer Name' %}</th>
+                      <th>{% trans 'Product Name' %}</th>
+                      <th>{% trans 'Rating & Reviews' %}</th>
+                      <th>{% trans 'Date' %}</th>
+                      <th>{% trans 'Approval' %}</th>
                       <!-- <th>Action</th> -->
                     </tr>
                   </thead>
@@ -91,7 +92,7 @@
                       </td>
                       <td>
 
-                        <p id="reviewstatus-{{rating.id}}">{% if rating.status %}Approved{% else %}Pending{% endif %}</p>
+                        <p id="reviewstatus-{{rating.id}}">{% if rating.status %}{% trans 'Approved' %}{% else %}{% trans 'Pending' %}{% endif %}</p>
                         <label class="switch">
                           <!-- <input type="hidden" name="rating_id" id="rating_id-{{rating.id}}" value="{{rating.id}}"> -->
                           <input type="checkbox" id="approvalSwitch-{{rating.id}}" {% if rating.status %} checked {% else %} {% endif %} onclick="approvalSwitch({{rating.id}})">

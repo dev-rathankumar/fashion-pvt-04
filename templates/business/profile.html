@@ -1,5 +1,6 @@
 {% extends 'business/base.html' %}
-{% load static %}
+{% load i18n %}
+{% load static %} 
 {% block title %} Profile {% endblock %}
 
 {% block content %}
@@ -16,7 +17,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0 font-size-18">Profile</h4>
+                        <h4 class="mb-0 font-size-18">{% trans 'Profile' %}</h4>
 
 
 
@@ -33,8 +34,8 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="text-primary p-3">
-                                            <h5 class="text-primary text-light">Hi, {{ user.name }}</h5>
-                                            <p class="text-light">Welcome back!</p>
+                                            <h5 class="text-primary text-light">{% trans 'Hi' %}, {{ user.name }}</h5>
+                                            <p class="text-light">{% trans 'Welcome back!' %}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -46,7 +47,7 @@
                                         <img src="{{ user.profile_picture.url }}" alt="" class="img-thumbnail rounded-circle">
                                     </div>
                                     <h5 class="font-size-15 text-truncate">{{ user.name }}</h5>
-                                    <p class="text-muted mb-0 text-truncate">Business Account</p>
+                                    <p class="text-muted mb-0 text-truncate">{% trans 'Business Account' %}</p>
                                 </div>
 
                                 <div class="col-sm-8">
@@ -55,15 +56,15 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <h5 class="font-size-15">{{orders_count}}</h5>
-                                                <p class="text-muted mb-0">Orders</p>
+                                                <p class="text-muted mb-0">{% trans 'Orders' %}</p>
                                             </div>
                                             <div class="col-6">
                                                 <h5 class="font-size-15">${{revenue}}</h5>
-                                                <p class="text-muted mb-0">Revenue</p>
+                                                <p class="text-muted mb-0">{% trans 'Revenue' %}</p>
                                             </div>
                                         </div>
                                         <div class="mt-4">
-                                            <a href="{% url 'biz_dashboard' %}" class="btn btn-primary waves-effect waves-light btn-sm"><i class="mdi mdi-arrow-left ml-1"></i> Dashboard</a>
+                                            <a href="{% url 'biz_dashboard' %}" class="btn btn-primary waves-effect waves-light btn-sm"><i class="mdi mdi-arrow-left ml-1"></i> {% trans 'Dashboard' %}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -74,44 +75,44 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title mb-4">Personal Information</h4>
+                            <h4 class="card-title mb-4">{% trans 'Personal Information' %}</h4>
 
                             <div class="table-responsive">
                                 <table class="table table-nowrap mb-0">
                                     <tbody>
                                         <tr>
-                                            <th scope="row">Full Name :</th>
+                                            <th scope="row">{% trans 'Full Name' %} :</th>
                                             <td>{{ user.name }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Company Name :</th>
+                                            <th scope="row">{% trans 'Company Name' %} :</th>
                                             <td>{{ biz.company_name }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Mobile :</th>
+                                            <th scope="row">{% trans 'Mobile' %} :</th>
                                             <td>{{ user.phone_number }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">E-mail :</th>
+                                            <th scope="row">{% trans 'E-mail' %} :</th>
                                             <td>{{ user.email }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Location :</th>
+                                            <th scope="row">{% trans 'Location' %} :</th>
                                             <td>{{ biz.address_line_1 }}, {{ biz.address_line_2 }} {{ biz.city }} <br>
                                             {{ biz.state }}, {{ biz.country }} - {{ biz.pin_code }}</td>
 
                                         </tr>
                                         <tr>
-                                            <th scope="row">Date of Join :</th>
+                                            <th scope="row">{% trans 'Date of Join' %} :</th>
                                             <td>{{ user.date_joined }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Account Expiry Date :</th>
+                                            <th scope="row">{% trans 'Account Expiry Date' %} :</th>
                                             <td>{{ biz.account_expiry_date }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <a href="{% url 'editProfile' user.pk %}" class="btn margin-15px-top btn-primary"><i class="fas fa-edit"></i> Edit</a>
+                                <a href="{% url 'editProfile' user.pk %}" class="btn margin-15px-top btn-primary"><i class="fas fa-edit"></i> {% trans 'Edit' %}</a>
                             </div>
                         </div>
                     </div>

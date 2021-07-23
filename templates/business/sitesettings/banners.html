@@ -1,4 +1,5 @@
 {% extends 'business/base.html' %}
+{% load i18n %}
 {% load static %}
 {% block title %} All Banners {% endblock %}
 
@@ -16,7 +17,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">All Banners</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'All Banners' %}</h4>
 
 
 
@@ -30,9 +31,9 @@
           <div class="card">
 
             {% if not banners %}
-            <h2 class="text-center" style="padding:25px;">You do not have any banners</h2>
+            <h2 class="text-center" style="padding:25px;">{% trans 'You do not have any banners' %}</h2>
             <div class="text-sm-center" style="padding-bottom:25px;">
-              <a href="{% url 'addBanner' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Banner</a>
+              <a href="{% url 'addBanner' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i>{% trans 'Add New Banner' %} </a>
             </div>
             {% else %}
             <div class="card-body">
@@ -40,14 +41,14 @@
                 <div class="col-sm-4">
                   <div class="search-box mr-2 mb-2 d-inline-block">
                     <div class="position-relative">
-                      <input type="text" class="form-control" id="myInput" placeholder="Search...">
+                      <input type="text" class="form-control" id="myInput" placeholder="{% trans 'Search' %}...">
                       <i class="bx bx-search-alt search-icon"></i>
                     </div>
                   </div>
                 </div>
                 <div class="col-sm-8">
                   <div class="text-sm-right">
-                    <a href="{% url 'addBanner' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Banner</a>
+                    <a href="{% url 'addBanner' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i>{% trans 'Add New Banner' %} </a>
                   </div>
                 </div><!-- end col-->
               </div>
@@ -63,14 +64,14 @@
                           <label class="custom-control-label" for="customCheck1">&nbsp;</label>
                         </div>
                       </th> -->
-                      <th>Banner Image</th>
-                      <th>Title</th>
-                      <th>Sub Title</th>
-                      <th>Button Name</th>
-                      <th>Button Color</th>
-                      <th>Content Alignment</th>
-                      <th>Preview</th>
-                      <th>Action</th>
+                      <th>{% trans 'Banner Image' %}</th>
+                      <th>{% trans 'Title' %}</th>
+                      <th>{% trans 'Sub Title' %}</th>
+                      <th>{% trans 'Button Name' %}</th>
+                      <th>{% trans 'Button Color' %}</th>
+                      <th>{% trans 'Content Alignment' %}</th>
+                      <th>{% trans 'Preview' %}</th>
+                      <th>{% trans 'Action' %}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -107,7 +108,7 @@
                       </td>
                       <td>
                         <a href="http://{{domain}}/" target="_blank" class="btn btn-primary btn-sm btn-rounded">
-                          Preview
+                          {% trans 'Preview' %}
                         </a>
                       </td>
 

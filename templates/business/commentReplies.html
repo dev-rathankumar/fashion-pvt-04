@@ -1,8 +1,9 @@
 
 {% extends 'business/base.html' %}
 {% load static %}
+{% load i18n %}
 {% load humanize %}
-{% block title %} Replies  {% endblock %}
+{% block title %} {% trans 'Replies' %}  {% endblock %}
 {% block content %}
 
 <!-- ============================================================== -->
@@ -17,12 +18,12 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h5 class="mb-0 font-size-18">All replies to "{{single_comment.comment_body}}"</h5>
+            <h5 class="mb-0 font-size-18">{% trans 'All replies to ' %}"{{single_comment.comment_body}}"</h5>
 
             <div class="page-title-right">
               <ol class="breadcrumb m-0">
-                <li class="breadcrumb-item"><a href="{% url 'allComments' %}">Comments</a></li>
-                <li class="breadcrumb-item active">Replies</li>
+                <li class="breadcrumb-item"><a href="{% url 'allComments' %}">{% trans 'Comments' %}</a></li>
+                <li class="breadcrumb-item active">{% trans 'Replies' %}</li>
               </ol>
             </div>
 
@@ -36,14 +37,14 @@
           <div class="card">
 
             {% if not replies %}
-            <h2 class="text-center" style="padding:25px;">There's no reply to this comment yet.</h2>
+            <h2 class="text-center" style="padding:25px;">{% trans 'There is no reply to this comment yet.' %}</h2>
             {% else %}
             <div class="card-body">
               <div class="row mb-2">
                 <div class="col-sm-4">
                   <div class="search-box mr-2 mb-2 d-inline-block">
                     <div class="position-relative">
-                      <input type="text" id="myInput" class="form-control" placeholder="Search...">
+                      <input type="text" id="myInput" class="form-control" placeholder="{% trans 'Search' %}...">
                       <i class="bx bx-search-alt search-icon"></i>
                     </div>
                   </div>
@@ -54,11 +55,11 @@
                 <table class="table table-centered table-hover">
                   <thead class="thead-light">
                     <tr>
-                      <th>Customer</th>
-                      <th>Blog</th>
-                      <th>Reply</th>
-                      <th>Date</th>
-                      <th>Approval</th>
+                      <th>{% trans 'Customer' %}</th>
+                      <th>{% trans 'Blog' %}</th>
+                      <th>{% trans 'Reply' %}</th>
+                      <th>{% trans 'Date' %}</th>
+                      <th>{% trans 'Approval' %}</th>
                     </tr>
                   </thead>
                   <tbody id="myTable">
@@ -75,7 +76,7 @@
                         {{reply.created_on}}
                       </td>
                       <td>
-                        <p id="commentstatus-{{reply.id}}">{% if reply.is_active %}Approved{% else %}Pending{% endif %}</p>
+                        <p id="commentstatus-{{reply.id}}">{% if reply.is_active %}{% trans 'Approved' %}{% else %}{% trans 'Pending' %}{% endif %}</p>
                         <label class="switch">
                           <input type="checkbox" id="approvalSwitch-{{reply.id}}"
                           {% if reply.is_active %} checked {% else %} {% endif %} onclick="approvalSwitch({{reply.id}})">
@@ -88,7 +89,7 @@
                   </tbody>
                 </table>
               </div>
-              <a onclick="goBack();" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp; Back</a>
+              <a onclick="goBack();" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp; {% trans 'Back' %}</a>
             <!-- Paginator Start -->
             {% if replies.has_other_pages %}
             <ul class="pagination pagination-rounded justify-content-end mb-2">

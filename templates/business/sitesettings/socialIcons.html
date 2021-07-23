@@ -1,6 +1,7 @@
 {% extends 'business/base.html' %}
+{% load i18n %}
 {% load static %}
-{% block title %} Social Icons {% endblock %}
+{% block title %} {% trans 'Social Icons' %} {% endblock %}
 
 {% block content %}
 {% load faicon %}
@@ -19,7 +20,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Social Icons</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Social Icons' %}</h4>
           </div>
         </div>
       </div>
@@ -30,9 +31,9 @@
           <div class="card">
 
             {% if not social_icons %}
-            <h2 class="text-center" style="padding:25px;">You have not added any Social Icons yet</h2>
+            <h2 class="text-center" style="padding:25px;">{% trans 'You have not added any Social Icons yet' %}</h2>
             <div class="text-sm-center" style="padding-bottom:25px;">
-              <a href="{% url 'addIcon' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Icon</a>
+              <a href="{% url 'addIcon' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i>{% trans 'Add New Icon' %} </a>
             </div>
             {% else %}
             <div class="card-body">
@@ -40,14 +41,14 @@
                 <div class="col-sm-4">
                   <div class="search-box mr-2 mb-2 d-inline-block">
                     <div class="position-relative">
-                      <input type="text" class="form-control" id="myInput" placeholder="Search...">
+                      <input type="text" class="form-control" id="myInput" placeholder="{% trans 'Search' %}...">
                       <i class="bx bx-search-alt search-icon"></i>
                     </div>
                   </div>
                 </div>
                 <div class="col-sm-8">
                   <div class="text-sm-right">
-                    <a href="{% url 'addIcon' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Social Icon</a>
+                    <a href="{% url 'addIcon' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> {% trans 'Add New Social Icon' %}</a>
                   </div>
                 </div><!-- end col-->
               </div>
@@ -63,11 +64,11 @@
                           <label class="custom-control-label" for="customCheck1">&nbsp;</label>
                         </div>
                       </th> -->
-                      <th>Social Media Name</th>
-                      <th>Icon</th>
-                      <th>Link</th>
-                      <th>Updated At</th>
-                      <th>Action</th>
+                      <th>{% trans 'Social Media Name' %}</th>
+                      <th>{% trans 'Icon' %}</th>
+                      <th>{% trans 'Link' %}</th>
+                      <th>{% trans 'Updated At' %}</th>
+                      <th>{% trans 'Action' %}</th>
                     </tr>
                   </thead>
                   <tbody id="myTable">

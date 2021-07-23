@@ -1,6 +1,7 @@
 {% extends 'business/base.html' %}
 {% load static %}
-{% block title %} Privacy Policy {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'Privacy Policy' %} {% endblock %}
 
 {% block content %}
 {{ form.media.js }}
@@ -17,7 +18,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Edit Privacy Policy</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Edit Privacy Policy' %}</h4>
           </div>
         </div>
 
@@ -28,14 +29,14 @@
         <div class="col-12">
           <div class="card container">
             <div class="card-body">
-              <h4 class="card-title">Edit Privacy Policy</h4>
+              <h4 class="card-title">{% trans 'Edit Privacy Policy' %}</h4>
 
               <form method="POST" action="{% url 'editPolicy' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="logo">Heading</label>
+                      <label for="logo">{% trans 'Heading' %}</label>
                       {{ form.heading }}
                     </div>
                   </div>
@@ -44,15 +45,15 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label>Policy</label>
+                      <label>{% trans 'Policy' %}</label>
                       {{ form.content }}
                     </div>
                   </div>
                 </div>
 
                 <br>
-                <a onclick="goBack()" class="btn margin-15px-top btn-secondary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
-                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i> SAVE</button>
+                <a onclick="goBack()" class="btn margin-15px-top btn-secondary"><i class="fa fa-arrow-left" aria-hidden="true"></i>{% trans 'Back' %} </a>
+                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i> {% trans 'SAVE' %}</button>
               </form>
               <br>
               <div style="width:300px;">

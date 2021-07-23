@@ -1,8 +1,9 @@
 
 {% extends 'business/base.html' %}
 {% load static %}
+{% load i18n %}
 {% load humanize %}
-{% block title %} AllComments {% endblock %}
+{% block title %} {% trans 'All Comments' %} {% endblock %}
 {% block content %}
 
 <!-- ============================================================== -->
@@ -17,12 +18,12 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">All Comments</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'All Comments' %}</h4>
 
             <div class="page-title-right">
               <ol class="breadcrumb m-0">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">Comments</a></li>
-                <li class="breadcrumb-item active">All Comments</li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">{% trans 'Comments' %}</a></li>
+                <li class="breadcrumb-item active">{% trans 'All Comments' %}</li>
               </ol>
             </div>
 
@@ -36,14 +37,14 @@
           <div class="card">
 
             {% if not comments %}
-            <h2 class="text-center" style="padding:25px;">You do not have any comments  yet</h2>
+            <h2 class="text-center" style="padding:25px;">{% trans 'You do not have any comments  yet' %}</h2>
             {% else %}
             <div class="card-body">
               <div class="row mb-2">
                 <div class="col-sm-4">
                   <div class="search-box mr-2 mb-2 d-inline-block">
                     <div class="position-relative">
-                      <input type="text" id="myInput" class="form-control" placeholder="Search...">
+                      <input type="text" id="myInput" class="form-control" placeholder="{% trans 'Search' %}...">
                       <i class="bx bx-search-alt search-icon"></i>
                     </div>
                   </div>
@@ -54,12 +55,12 @@
                 <table class="table table-centered table-hover">
                   <thead class="thead-light">
                     <tr>
-                      <th>Customers</th>
-                      <th>Blogs</th>
-                      <th>Comments</th>
-                      <th>Replies</th>
-                      <th>Date</th>
-                      <th>Approval</th>
+                      <th>{% trans 'Customers' %}</th>
+                      <th>{% trans 'Blogs' %}</th>
+                      <th>{% trans 'Comments' %}</th>
+                      <th>{% trans 'Replies' %}</th>
+                      <th>{% trans 'Date' %}</th>
+                      <th>{% trans 'Approval' %}</th>
 
                     </tr>
                   </thead>
@@ -78,12 +79,12 @@
                       <td style="max-width:200px;">
                           {{comment.comment_body}}
                       </td>
-                      <td><a href="{% url 'commentReplies' comment.id %}"> {{comment.number_of_replies}} replies</a></td>
+                      <td><a href="{% url 'commentReplies' comment.id %}"> {{comment.number_of_replies}} {% trans 'replies' %}</a></td>
                       <td>
                         {{comment.created_on}}
                       </td>
                       <td>
-                        <p id="commentstatus-{{comment.id}}">{% if comment.is_active %}Approved{% else %}Pending{% endif %}</p>
+                        <p id="commentstatus-{{comment.id}}">{% if comment.is_active %}{% trans 'Approved' %}{% else %}{% trans 'Pending' %}{% endif %}</p>
                         <label class="switch">
                           <input type="checkbox" id="approvalSwitch-{{comment.id}}"
                           {% if comment.is_active %} checked {% else %} {% endif %} onclick="approvalSwitch({{comment.id}})">

@@ -1,6 +1,7 @@
 {% extends 'business/base.html' %}
+{% load i18n %}
 {% load static %}
-{% block title %} Dashboard {% endblock %}
+{% block title %} {% trans 'Dashboard' %} {% endblock %}
 
 {% block content %}
 
@@ -17,28 +18,28 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                                    <h4 class="mb-0 font-size-18">Dashboard</h4>
+                                    <h4 class="mb-0 font-size-18">{% trans 'Dashboard' %}</h4>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="dropdown float-right">
                                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="letter-spacing: 2px;">
-                                        <i class="bx bxs-cog align-middle mr-1"></i> QUICK LINKS
+                                        <i class="bx bxs-cog align-middle mr-1"></i> {% trans 'QUICK LINKS' %}
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="text-muted dropdown-item disabled">YOUR STORE</a>
+                                        <a class="text-muted dropdown-item disabled">{% trans 'YOUR STORE' %}</a>
                                         <div class="dropdown-divider"></div>
-                                        <a href="{% url 'allCategories' %}" class="dropdown-item" key="t-products" {% if '/categories/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Categories</a>
-                                        <a href="{% url 'allProducts' %}" class="dropdown-item" key="t-products" {% if '/products/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Products</a>
-                                        <a href="/business/orders" class="dropdown-item" {% if 'orders' in request.path or 'editOrder' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Orders</a>
+                                        <a href="{% url 'allCategories' %}" class="dropdown-item" key="t-products" {% if '/categories/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Categories' %}</a>
+                                        <a href="{% url 'allProducts' %}" class="dropdown-item" key="t-products" {% if '/products/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Products' %}</a>
+                                        <a href="/business/orders" class="dropdown-item" {% if 'orders' in request.path or 'editOrder' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Orders' %}</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="text-muted dropdown-item disabled">SETTINGS</a>
+                                        <a class="text-muted dropdown-item disabled">{% trans 'SETTINGS' %}</a>
                                         <div class="dropdown-divider"></div>
-                                        <a href="{% url 'topbarEdit' %}" class="dropdown-item" key="t-products" {% if '/site_settings/topbarEdit/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Topbar</a>
-                                        <a href="{% url 'header' %}" class="dropdown-item" key="t-products" {% if '/site_settings/header/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Header</a>
-                                        <a href="{% url 'footerEdit' %}" class="dropdown-item" key="t-products" {% if '/site_settings/footerEdit/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Footer</a>
-                                        <a href="{% url 'banners' %}" class="dropdown-item" key="t-products" {% if '/site_settings/banners/' in request.path or '/site_settings/banners/editBanner' in request.path %} class="waves-effect active" {% else %} class="waves-effect"{% endif %}>Banners</a>
-                                        <a href="{% url 'paymentGateways' %}" class="dropdown-item" key="t-products" {% if '/site_settings/paymentGateways/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>Payment Gateways</a>
+                                        <a href="{% url 'topbarEdit' %}" class="dropdown-item" key="t-products" {% if '/site_settings/topbarEdit/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Topbar' %}</a>
+                                        <a href="{% url 'header' %}" class="dropdown-item" key="t-products" {% if '/site_settings/header/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Header' %}</a>
+                                        <a href="{% url 'footerEdit' %}" class="dropdown-item" key="t-products" {% if '/site_settings/footerEdit/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Footer' %}</a>
+                                        <a href="{% url 'banners' %}" class="dropdown-item" key="t-products" {% if '/site_settings/banners/' in request.path or '/site_settings/banners/editBanner' in request.path %} class="waves-effect active" {% else %} class="waves-effect"{% endif %}>{% trans 'Banners' %}</a>
+                                        <a href="{% url 'paymentGateways' %}" class="dropdown-item" key="t-products" {% if '/site_settings/paymentGateways/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Payment Gateways' %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -54,8 +55,8 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="text-primary p-3">
-                                                    <h5 class="text-primary text-light">Hi, {{ user.name }}</h5>
-                                                    <p class="text-light">Welcome back!</p>
+                                                    <h5 class="text-primary text-light">{% trans 'Hi' %}, {{ user.name }}</h5>
+                                                    <p class="text-light">{% trans 'Welcome back!' %}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -67,7 +68,7 @@
                                                     <img src="{{ user.profile_picture.url }}" alt="" class="img-thumbnail rounded-circle">
                                                 </div>
                                                 <h5 class="font-size-15 text-truncate">{{ user.name }}</h5>
-                                                <p class="text-muted mb-0 text-truncate">Business Account</p>
+                                                <p class="text-muted mb-0 text-truncate">{% trans 'Business Account' %}</p>
                                             </div>
 
                                             <div class="col-sm-8">
@@ -76,15 +77,15 @@
                                                     <div class="row">
                                                         <div class="col-6">
                                                             <h5 class="font-size-15"><a href="{% url 'allOrders' %}">{{orders_count}}</a></h5>
-                                                            <p class="text-muted mb-0"><a href="{% url 'allOrders' %}">Orders</a></p>
+                                                            <p class="text-muted mb-0"><a href="{% url 'allOrders' %}">{% trans 'Orders' %}</a></p>
                                                         </div>
                                                         <div class="col-6">
                                                             <h5 class="font-size-15">${{revenue}}</h5>
-                                                            <p class="text-muted mb-0">Revenue</p>
+                                                            <p class="text-muted mb-0">{% trans 'Revenue' %}</p>
                                                         </div>
                                                     </div>
                                                     <div class="mt-4">
-                                                        <a href="{% url 'biz_profile' %}" class="btn btn-primary waves-effect waves-light btn-sm">View Profile <i class="mdi mdi-arrow-right ml-1"></i></a>
+                                                        <a href="{% url 'biz_profile' %}" class="btn btn-primary waves-effect waves-light btn-sm">{% trans 'View Profile' %} <i class="mdi mdi-arrow-right ml-1"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -104,7 +105,7 @@
                                             <div class="card-body">
                                                 <div class="media">
                                                     <div class="media-body">
-                                                        <p class="text-muted font-weight-medium"><a href="{% url 'allProducts' %}">Products</a></p>
+                                                        <p class="text-muted font-weight-medium"><a href="{% url 'allProducts' %}">{% trans 'Products' %}</a></p>
                                                         <h4 class="mb-0"><a href="{% url 'allProducts' %}">{{products_count}}</a></h4>
                                                     </div>
 
@@ -122,7 +123,7 @@
                                             <div class="card-body">
                                                 <div class="media">
                                                     <div class="media-body">
-                                                        <p class="text-muted font-weight-medium"><a href="{% url 'allCustomers' %}">Customers</a></p>
+                                                        <p class="text-muted font-weight-medium"><a href="{% url 'allCustomers' %}">{% trans 'Customers' %}</a></p>
                                                         <h4 class="mb-0"><a href="{% url 'allCustomers' %}">{{customers_count}}</a></h4>
                                                     </div>
 
@@ -140,7 +141,7 @@
                                             <div class="card-body">
                                                 <div class="media">
                                                     <div class="media-body">
-                                                        <p class="text-muted font-weight-medium"><a href="{% url 'allInquiries' %}">Inquiries</a></p>
+                                                        <p class="text-muted font-weight-medium"><a href="{% url 'allInquiries' %}">{% trans 'Inquiries' %}</a></p>
                                                         <h4 class="mb-0"><a href="{% url 'allInquiries' %}">{{inquiries_count}}</a></h4>
                                                     </div>
 

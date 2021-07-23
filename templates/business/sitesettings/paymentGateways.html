@@ -1,6 +1,7 @@
 {% extends 'business/base.html' %}
+{% load i18n %}
 {% load static %}
-{% block title %} Payment Gateways Settings {% endblock %}
+{% block title %} {% trans 'Payment Gateways Settings' %} {% endblock %}
 
 {% block content %}
 
@@ -18,7 +19,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Payment Gateways</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Payment Gateways' %}</h4>
           </div>
         </div>
       </div>
@@ -35,14 +36,14 @@
                 <div class="col-md-6 col-lg-6 col-sm-12 bg-light">
                 <div class="row p-3">
                   <div class="col-md-6 col-lg-6 col-sm-12">
-                      <h5>PAYPAL</h5>
+                      <h5>{% trans 'PAYPAL' %}</h5>
                   </div>
                   <div class="col-md-6 col-lg-6 col-sm-12">
                       <label class="switch">
                         <input type="checkbox" id="ppSwitch" {% if pp.is_enabled %} checked {% else %} {% endif %} onclick="ppSwitch()">
                         <span class="slider round"></span>
                       </label>
-                      <span id="ppStatus" style="position:relative;top:3px;">{% if dd.is_enabled %}Enabled{% else %}Disabled{% endif %}</span>
+                      <span id="ppStatus" style="position:relative;top:3px;">{% if dd.is_enabled %}{% trans 'Enabled' %}{% else %}{% trans 'Disabled' %}{% endif %}</span>
                   </div>
                 </div>
 
@@ -54,13 +55,13 @@
                     <div class="col-md-12 col-lg-12 col-sm-12">
                       <div class="form-group">
                         {{ ppform.as_p }}
-                        <span class="text-muted">Client ID is a combination of long strings and numbers that is used to connect your application with PayPal Payment gateway. <span><a href="https://developer.paypal.com/docs/api-basics/manage-apps/" target="_blank">Read about how to get the Client ID</a></span>.</span>
+                        <span class="text-muted">{% trans 'Client ID is a combination of long strings and numbers that is used to connect your application with PayPal Payment gateway.' %} <span><a href="https://developer.paypal.com/docs/api-basics/manage-apps/" target="_blank">Read about how to get the Client ID</a></span>.</span>
                       </div>
                     </div>
                   </div>
   
                 <br>
-                  <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i> SAVE</button>
+                  <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i>{% trans 'SAVE' %} </button>
                 </form>
                 </div>
                  <!-- P A Y P A L -->
@@ -69,7 +70,7 @@
                 <div class="col-md-6 col-lg-6 col-sm-12 bg-white">
                   <div class="row p-3">
                     <div class="col-md-6 col-lg-6 col-sm-12">
-                        <h5>DIRECT DEPOSIT</h5>
+                        <h5>{% trans 'DIRECT DEPOSIT' %}</h5>
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12">
                         <label class="switch">
@@ -77,7 +78,7 @@
                           <span class="slider round"></span>
                           
                         </label>
-                        <span id="ddStatus" style="position:relative;top:3px;">{% if dd.is_enabled %}Enabled{% else %}Disabled{% endif %}</span>
+                        <span id="ddStatus" style="position:relative;top:3px;">{% if dd.is_enabled %}{% trans 'Enabled' %}{% else %}{% trans 'Disabled' %}{% endif %}</span>
                     </div>
                   </div>
                   <div class="row p-3">
@@ -90,12 +91,12 @@
                       <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="form-group">
                           {{ ddform.as_p }}
-                          <span class="text-muted">Your customers will make a direct deposit payment to this email address.</span>
+                          <span class="text-muted">{% trans 'Your customers will make a direct deposit payment to this email address.' %}</span>
                         </div>
                       </div>
                     </div>
                   <br>
-                    <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i> SAVE</button>
+                    <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i> {% trans 'SAVE' %}</button>
                   </form>
                 </div>
                 </div>

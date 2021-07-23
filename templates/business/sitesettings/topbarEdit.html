@@ -1,6 +1,7 @@
 {% extends 'business/base.html' %}
+{% load i18n %}
 {% load static %}
-{% block title %} Topbar Settings {% endblock %}
+{% block title %} {% trans 'Topbar Settings' %} {% endblock %}
 
 {% block content %}
 
@@ -18,7 +19,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Topbar</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Topbar' %}</h4>
           </div>
         </div>
       </div>
@@ -30,11 +31,11 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-2 col-lg-2 col-sm-6">
-                  <h4 class="card-title">Topbar</h4>
+                  <h4 class="card-title">{% trans 'Topbar' %}</h4>
                 </div>
                 <div class="col-md-2 col-lg-2 col-sm-6">
                   <span>
-                    <h5 id="topbarStatus">{% if topbar.is_enabled %}Enabled{% else %}Disabled{% endif %}</h5>
+                    <h5 id="topbarStatus">{% if topbar.is_enabled %}{% trans 'Enabled' %}{% else %}{% trans 'Disabled' %}{% endif %}</h5>
                     <label class="switch">
                       <input type="checkbox" id="topbarSwitch" {% if topbar.is_enabled %} checked {% else %} {% endif %} onclick="topbarSwitch()">
                       <span class="slider round"></span>
@@ -59,7 +60,7 @@
                 </div>
 
               <br>
-                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i> SAVE</button>
+                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i> {% trans 'SAVE' %}</button>
               </form>
               <br>
               <div>

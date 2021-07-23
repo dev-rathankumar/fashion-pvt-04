@@ -1,6 +1,7 @@
 {% extends 'business/base.html' %}
 {% load static %}
-{% block title %} All Blogs {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'All Blogs' %} {% endblock %}
 
 {% block content %}
 
@@ -14,11 +15,11 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">All Blogs</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'All Blogs' %}</h4>
             <div class="page-title-right">
               <ol class="breadcrumb m-0">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">Blogs</a></li>
-                <li class="breadcrumb-item active">All Blogs</li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">{% trans 'Blogs' %}</a></li>
+                <li class="breadcrumb-item active">{% trans 'All Blogs' %}</li>
               </ol>
             </div>
           </div>
@@ -30,9 +31,9 @@
         <div class="col-12">
           <div class="card">
             {% if not blogs %}
-            <h2 class="text-center" style="padding:25px;">You do not have any blogs.</h2>
+            <h2 class="text-center" style="padding:25px;">{% trans 'You do not have any blogs.' %}</h2>
             <div class="text-sm-center" style="padding-bottom:25px;">
-              <a href="{% url 'addBlog' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Blog</a>
+              <a href="{% url 'addBlog' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i>{% trans 'Add New Blog' %} </a>
             </div>
             {% else %}
             <div class="card-body">
@@ -40,14 +41,14 @@
                 <div class="col-sm-4">
                   <div class="search-box mr-2 mb-2 d-inline-block">
                     <div class="position-relative">
-                      <input type="text" id="myInput" class="form-control" placeholder="Search...">
+                      <input type="text" id="myInput" class="form-control" placeholder="{% trans 'Search' %}...">
                       <i class="bx bx-search-alt search-icon"></i>
                     </div>
                   </div>
                 </div>
                 <div class="col-sm-8">
                   <div class="text-sm-right">
-                    <a href="{% url 'addBlog' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Blog</a>
+                    <a href="{% url 'addBlog' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> {% trans 'Add New Blog' %}</a>
                   </div>
                 </div><!-- end col-->
               </div>
@@ -56,13 +57,13 @@
                 <table class="table table-centered table-nowrap table-hover">
                   <thead class="thead-light">
                     <tr>
-                      <th>Featured Image</th>
-                      <th style="max-width:300px;">Title</th>
-                      <th>Author</th>
-                      <th> Category</th>
-                      <th>Status</th>
-                      <th>Preview</th>
-                      <th>Action</th>
+                      <th>{% trans 'Featured Image' %}</th>
+                      <th style="max-width:300px;">{% trans 'Title' %}</th>
+                      <th>{% trans 'Author' %}</th>
+                      <th>{% trans 'Category' %} </th>
+                      <th>{% trans 'Status' %}</th>
+                      <th>{% trans 'Preview' %}</th>
+                      <th>{% trans 'Action' %}</th>
                     </tr>
                   </thead>
                   <tbody id="myTable">
@@ -80,14 +81,14 @@
                       </td>
                       <td>
                         {% if blog.status == 1 %}
-                        <span class="badge badge-pill badge-soft-success font-size-12">Published</span>
+                        <span class="badge badge-pill badge-soft-success font-size-12">{% trans 'Published' %}</span>
                         {% else %}
-                        <span class="badge badge-pill badge-soft-danger font-size-12">Draft</span>
+                        <span class="badge badge-pill badge-soft-danger font-size-12">{% trans 'Draft' %}</span>
                         {% endif %}
                       </td>
                       <td>
                         <a href="{{ blog.get_url }}?preview=true{% if blog.status == 0 %}&draft=true{% endif %}" target="_blank" class="btn btn-primary btn-sm btn-rounded">
-                          Preview
+                          {% trans 'Preview' %} 
                         </a>
                       </td>
                       <td>

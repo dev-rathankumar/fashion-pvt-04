@@ -1,6 +1,7 @@
 {% extends 'business/base.html' %}
+{% load i18n %}
 {% load static %}
-{% block title %} Footer Settings {% endblock %}
+{% block title %} {% trans 'Footer Settings' %} {% endblock %}
 
 {% block content %}
 
@@ -18,7 +19,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Footer</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Footer' %}</h4>
           </div>
         </div>
       </div>
@@ -28,7 +29,7 @@
         <div class="col-12">
           <div class="card container">
             <div class="card-body">
-              <h4 class="card-title">Footer Copyright</h4>
+              <h4 class="card-title">{% trans 'Footer Copyright' %}</h4>
 
 
               <form method="POST" action="{% url 'footerEdit' %}" enctype="multipart/form-data">
@@ -45,7 +46,7 @@
   
 
               <br>
-                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i> SAVE</button>
+                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i> {% trans 'SAVE' %}</button>
               </form>
               <br>
               <div>

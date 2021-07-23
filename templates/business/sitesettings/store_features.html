@@ -1,6 +1,7 @@
 {% extends 'business/base.html' %}
 {% load static %}
-{% block title %} Store Features {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'Store Feature' %}s {% endblock %}
 
 {% block content %}
 
@@ -16,7 +17,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Store Features ({{features_count}}/4)</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Store Features' %} ({{features_count}}/4)</h4>
 
 
 
@@ -30,7 +31,7 @@
           <div class="card">
 
             {% if not store_features %}
-            <h2 class="text-center" style="padding:25px;">You have not added any store features</h2>
+            <h2 class="text-center" style="padding:25px;">{% trans 'You have not added any store features' %}</h2>
             <div class="text-sm-center" style="padding-bottom:25px;">
               <a href="{% url 'addFeature' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Feature</a>
             </div>
@@ -40,7 +41,7 @@
                 <div class="col-sm-4">
                   <div class="search-box mr-2 mb-2 d-inline-block">
                     <div class="position-relative">
-                      <input type="text" class="form-control" id="myInput" placeholder="Search...">
+                      <input type="text" class="form-control" id="myInput" placeholder="{% trans 'Search' %}...">
                       <i class="bx bx-search-alt search-icon"></i>
                     </div>
                   </div>
@@ -51,7 +52,7 @@
                     {% if features_count >= 4 %}
 
                     {% else %}
-                    <a href="{% url 'addFeature' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Feature</a>
+                    <a href="{% url 'addFeature' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> {% trans 'Add New Feature' %}</a>
                     {% endif %}
                   </div>
                 </div><!-- end col-->
@@ -68,12 +69,12 @@
                           <label class="custom-control-label" for="customCheck1">&nbsp;</label>
                         </div>
                       </th> -->
-                      <th>Icon</th>
-                      <th>Title</th>
-                      <th>Sub Title</th>
-                      <th>Feature URL</th>
-                      <th>Preview</th>
-                      <th>Action</th>
+                      <th>{% trans 'Icon' %}</th>
+                      <th>{% trans 'Title' %}</th>
+                      <th>{% trans 'Sub Title' %}</th>
+                      <th>{% trans 'Feature URL' %}</th>
+                      <th>{% trans 'Preview' %}</th>
+                      <th>{% trans 'Action' %}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -101,7 +102,7 @@
 
                       <td>
                         <a href="http://{{domain}}/" target="_blank" class="btn btn-primary btn-sm btn-rounded">
-                          Preview
+                          {% trans 'Preview' %}
                         </a>
                       </td>
 

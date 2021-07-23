@@ -1,6 +1,7 @@
 {% extends 'business/base.html' %}
 {% load static %}
-{% block title %} Add Category {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'Add Category' %} {% endblock %}
 
 {% block content %}
 
@@ -16,7 +17,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Add Category</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Add Category' %}</h4>
           </div>
         </div>
       </div>
@@ -29,7 +30,7 @@
 
             <div class="card-body">
               <div class="text-sm-right">
-                <a href="{% url 'addProduct' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Product</a>
+                <a href="{% url 'addProduct' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> {% trans 'Add New Product' %}</a>
               </div>
               {% include 'includes/_alerts.html' %}
 
@@ -40,7 +41,7 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Category Name</label>
+                      <label for="productname">{% trans 'Category Name' %}</label>
                       {{ form.category_name }}
                     </div>
                   </div>
@@ -48,7 +49,7 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="parent">Subcategory <small>(Optional)</small> <span><small>By default, this will be added as a main category.</small></span></label>
+                      <label for="parent">{% trans 'Subcategory' %} <small>{% trans '(Optional)' %}</small> <span><small>{% trans 'By default, this will be added as a main category.' %}</small></span></label>
                       {{ form.parent }}
                     </div>
                   </div>
@@ -56,7 +57,7 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Category Image<span class="text-muted">&nbsp; 30 x 30px</span></label>
+                      <label for="productname">{% trans 'Category Image' %}<span class="text-muted">&nbsp; 30 x 30px</span></label>
                       {{ form.cat_image }}
                     </div>
                   </div>
@@ -64,14 +65,14 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Category Description <small>(Optional)</small></label>
+                      <label for="productname">{% trans 'Category Description' %} <small>{% trans '(Optional)' %}</small></label>
                       {{ form.description }}
                     </div>
                   </div>
                 </div>
 
 
-                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="float: left;letter-spacing: 2px;"><i class="fas fa-check"></i> SAVE</button>
+                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="float: left;letter-spacing: 2px;"><i class="fas fa-check"></i> {% trans 'SAVE' %}</button>
               </form>
             </div>
           </div>

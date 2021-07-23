@@ -1,6 +1,7 @@
 {% extends 'business/base.html' %}
+{% load i18n %}
 {% load static %}
-{% block title %} Edit Contact Us {% endblock %}
+{% block title %} {% trans 'Edit Contact Us' %} {% endblock %}
 
 {% block content %}
 {{ form.media.js }}
@@ -17,7 +18,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Edit Contact Us Page</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Edit Contact Us Page' %}</h4>
 
 
 
@@ -31,20 +32,20 @@
         <div class="col-12">
           <div class="card container">
             <div class="card-body">
-              <h4 class="card-title">Edit Contact Us Page</h4>
+              <h4 class="card-title">{% trans 'Edit Contact Us Page' %}</h4>
 
               <form method="POST" action="{% url 'contactUs' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row">
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
-                      <label for="logo">Address Line 1</label>
+                      <label for="logo">{% trans 'Address Line' %} 1</label>
                       {{ form.address_line_1 }}
                     </div>
                   </div>
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
-                      <label for="logo">Address Line 2</label>
+                      <label for="logo">{% trans 'Address Line' %} 2</label>
                       {{ form.address_line_2 }}
                     </div>
                   </div>
@@ -53,13 +54,13 @@
                 <div class="row">
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
-                      <label for="sitetitle">City</label>
+                      <label for="sitetitle">{% trans 'City' %}</label>
                       {{ form.city }}
                     </div>
                   </div>
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
-                      <label for="favicon">Pincode</label>
+                      <label for="favicon">{% trans 'Pincode' %}</label>
                       {{ form.pin_code }}
                     </div>
                   </div>
@@ -67,13 +68,13 @@
                 <div class="row">
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
-                      <label for="sitetitle">Country</label>
+                      <label for="sitetitle">{% trans 'Country' %}</label>
                       {{ form.country }}
                     </div>
                   </div>
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
-                      <label for="favicon">State</label>
+                      <label for="favicon">{% trans 'State' %}</label>
                       {{ form.state }}
                     </div>
                   </div>
@@ -81,13 +82,13 @@
                 <div class="row">
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
-                      <label for="favicon">Phone Number</label>
+                      <label for="favicon">{% trans 'Phone Number' %}</label>
                       {{ form.phone_number }}
                     </div>
                   </div>
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
-                      <label for="favicon">Email</label>
+                      <label for="favicon">{% trans 'Email' %}</label>
                       {{ form.email }}
                     </div>
                   </div>
@@ -95,14 +96,14 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="favicon">Embed Google Map</label>
+                      <label for="favicon">{% trans 'Embed Google Map' %}</label>
                       {{ form.embed_google_map }}
-                      <small>Goto <span><a href="https://www.google.com/maps" target="_blank">Google Maps</a></span> > select your location > click on Share > select 'Embed a map' > COPY HTML and paste it inside above field. <span><a href="{% static 'business/images/googlemap-embed-demo.png' %}" target="_blank">See Example</a></span></small>
+                      <small>Goto <span><a href="https://www.google.com/maps" target="_blank">{% trans 'Google Maps' %}</a></span> > {% trans ' select your location > click on Share > select Embed a map > COPY HTML and paste it inside above field. ' %}<span><a href="{% static 'business/images/googlemap-embed-demo.png' %}" target="_blank">{% trans 'See Example' %}</a></span></small>
                     </div>
                   </div>
                 </div><br>
-                <a onclick="goBack()" class="btn margin-15px-top btn-secondary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
-                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i> SAVE</button>
+                <a onclick="goBack()" class="btn margin-15px-top btn-secondary"><i class="fa fa-arrow-left" aria-hidden="true"></i> {% trans 'Back' %}</a>
+                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i> {% trans 'SAVE' %}</button>
               </form>
               <br>
               <div style="width:300px;">
