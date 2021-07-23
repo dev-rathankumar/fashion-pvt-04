@@ -1,6 +1,7 @@
 {% extends 'business/base.html' %}
 {% load static %}
-{% block title %} Edit Product {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'Edit Product' %} {% endblock %}
 
 {% block content %}
 
@@ -16,12 +17,12 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Add Product</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Add Product' %}</h4>
 
             <div class="page-title-right">
               <ol class="breadcrumb m-0">
                 <li class="breadcrumb-item"><a href="javascript: void(0);">{{product.product_name}}</a></li>
-                <li class="breadcrumb-item active">Edit Product</li>
+                <li class="breadcrumb-item active">{% trans 'Edit Product' %}</li>
               </ol>
             </div>
 
@@ -34,8 +35,8 @@
         <div class="col-12">
           <div class="card container">
             <div class="card-body">
-              <h4 class="card-title">Product Information</h4>
-              <p class="card-title-desc">Fill all information below</p>
+              <h4 class="card-title">{% trans 'Product Information' %}</h4>
+              <p class="card-title-desc">{% trans 'Fill all information below' %}</p>
               {% include 'includes/_alerts.html' %}
 
               <form method="POST" action="{% url 'editProduct' product.id %}" enctype="multipart/form-data">
@@ -45,7 +46,7 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Product Name</label>
+                      <label for="productname">{% trans 'Product Name' %}</label>
                       {{ basicInfo_form.product_name }}
                     </div>
                   </div>
@@ -53,7 +54,7 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Category</label>
+                      <label for="productname">{% trans 'Category' %}</label>
                       {{ basicInfo_form.category }}
                     </div>
                   </div>
@@ -61,7 +62,7 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Product Description</label>
+                      <label for="productname">{% trans 'Product Description' %}</label>
                       {{ basicInfo_form.description }}
                     </div>
                   </div>
@@ -69,7 +70,7 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Full Specification</label>
+                      <label for="productname">{% trans 'Full Specification' %}</label>
                       {{ basicInfo_form.full_specification }}
                     </div>
                   </div>
@@ -77,7 +78,7 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Product Variation</label>
+                      <label for="productname">{% trans 'Product Variation' %}</label>
                       {{ basicInfo_form.variant }}
                     </div>
                   </div>
@@ -88,13 +89,13 @@
                 <div class="row" id="price_stock">
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Price</label>
+                      <label for="productname">{% trans 'Price' %}</label>
                       {{ basicInfo_form.price }}
                     </div>
                   </div>
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Stock</label>
+                      <label for="productname">{% trans 'Stock' %}</label>
                       {{ basicInfo_form.stock }}
                     </div>
                   </div>
@@ -104,7 +105,7 @@
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
                       <img src="{{ product.image.url }}" alt="" width="50">
-                      <label for="productname">Primary Product Image<span class="text-muted">&nbsp; 500 x 500px</span></label>
+                      <label for="productname">{% trans 'Primary Product Image' %}<span class="text-muted">&nbsp; 500 x 500px</span></label>
                       <br><span>Change</span>
                       {{ basicInfo_form.image }}
                     </div>
@@ -112,8 +113,8 @@
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
                       <img src="{{ product.image_2.url }}" alt="" width="50">
-                      <label for="productname">Secondary Product Image<span class="text-muted">&nbsp; 500 x 500px</span></label>
-                      <br><span>Change</span>
+                      <label for="productname">{% trans 'Secondary Product Image' %}<span class="text-muted">&nbsp; 500 x 500px</span></label>
+                      <br><span>{% trans 'Change' %}</span>
                       {{ basicInfo_form.image_2 }}
                     </div>
                   </div>
@@ -122,13 +123,13 @@
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
 
-                      <div>{{ basicInfo_form.is_popular }}<span for="is popular" style="margin-left:10px;">Set this product as Popular Product?</span></div>
+                      <div>{{ basicInfo_form.is_popular }}<span for="is popular" style="margin-left:10px;">{% trans 'Set this product as Popular Product?' %}</span></div>
                     </div>
                   </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;">SAVE & CONTINUE <i class="fas fa-arrow-right"></i></button>
-                <a href="{% url 'editGallery' product.id  %}" class="btn btn-secondary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;">SKIP <i class="fa fa-fast-forward"></i></a>
+                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;">{% trans 'SAVE' %} & {% trans 'CONTINUE' %} <i class="fas fa-arrow-right"></i></button>
+                <a href="{% url 'editGallery' product.id  %}" class="btn btn-secondary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;">{% trans 'SKIP' %} <i class="fa fa-fast-forward"></i></a>
               </form>
 
 

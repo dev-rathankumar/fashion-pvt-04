@@ -1,6 +1,7 @@
 {% extends 'business/base.html' %}
 {% load static %}
-{% block title %} Variant Sizes {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'Variant Sizes' %} {% endblock %}
 
 {% block content %}
 
@@ -16,7 +17,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Variant Sizes</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Variant Sizes' %}</h4>
 
 
 
@@ -39,14 +40,14 @@
                 <div class="col-sm-4">
                   <div class="search-box mr-2 mb-2 d-inline-block">
                     <div class="position-relative">
-                      <input type="text" id="myInput" class="form-control" id="myInput" placeholder="Search...">
+                      <input type="text" id="myInput" class="form-control" id="myInput" placeholder="{% trans 'Search' %}...">
                       <i class="bx bx-search-alt search-icon"></i>
                     </div>
                   </div>
                 </div>
                 <div class="col-sm-8">
                   <div class="text-sm-right">
-                    <a href="{% url 'addSize' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add Size</a>
+                    <a href="{% url 'addSize' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> {% trans 'Add Size' %}</a>
                   </div>
                 </div><!-- end col-->
               </div>
@@ -62,8 +63,8 @@
                           <label class="custom-control-label" for="customCheck1">&nbsp;</label>
                         </div>
                       </th> -->
-                      <th>Size</th>
-                      <th>Action</th>
+                      <th>{% trans 'Size' %}</th>
+                      <th>{% trans 'Action' %}</th>
                     </tr>
                   </thead>
                   <tbody id="myTable">

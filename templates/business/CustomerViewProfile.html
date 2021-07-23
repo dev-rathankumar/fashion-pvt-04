@@ -1,7 +1,8 @@
 {% extends 'business/base.html' %}
 {% load static %}
+{% load i18n %}
 {% load humanize %}
-{% block title %} Customer Details {% endblock %}
+{% block title %} {% trans 'Customer Details' %} {% endblock %}
 {% block content %}
 
 <!-- ============================================================== -->
@@ -16,7 +17,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Customer Profile</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Customer Profile' %}</h4>
           </div>
         </div>
       </div>
@@ -41,14 +42,14 @@
                       </div><br>
 
 
-                      <p style="margin-bottom:0;">Registered Date: {{customer.user.date_joined}}</p>
+                      <p style="margin-bottom:0;">{% trans 'Registered Date' %}: {{customer.user.date_joined}}</p>
                       <div class="table-responsive-sm order-table">
 
                         <div class="card">
                           <div class="card-header">
                             <div class="row">
                               <div class="col-12">
-                                <h5 class="m-0">Customer ID: <strong style="letter-spacing: 2px;">{{customer.customer_id }}</strong> <span><small class="m-0" style="float:right;margin-bottom:0;">Last login: {{customer.user.last_login}}</small></span></h5>
+                                <h5 class="m-0">{% trans 'Customer ID' %}: <strong style="letter-spacing: 2px;">{{customer.customer_id }}</strong> <span><small class="m-0" style="float:right;margin-bottom:0;">{% trans 'Last login' %}: {{customer.user.last_login}}</small></span></h5>
 
                               </div>
                             </div>
@@ -70,7 +71,7 @@
                             </div>
                             <div class="col-md-6 col-lg-6 col-sm-12">
                               <div class="card-body">
-                                <p class="card-text mb-0">Gender: {{customer.user.gender | capfirst}}</p>
+                                <p class="card-text mb-0">{% trans 'Gender' %}: {{customer.user.gender | capfirst}}</p>
                                 <p class="card-text mb-0"><a href="mailto:{{customer.user.email}}">{{customer.user.email}}</a></p>
                                 <p class="card-text mb-0"><a href="tel:{{customer.user.phone_number}}">{{customer.user.phone_number}}</a></p>
                               </div>
@@ -90,7 +91,7 @@
 
               </div>
 
-              <button onclick="goBack();" class="btn btn-primary"><i class="fas fa-arrow-left"></i>&nbsp Go back</button>
+              <button onclick="goBack();" class="btn btn-primary"><i class="fas fa-arrow-left"></i>&nbsp{% trans 'Go back' %} </button>
             </div>
           </div>
 

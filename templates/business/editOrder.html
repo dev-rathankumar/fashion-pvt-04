@@ -1,7 +1,8 @@
 {% extends 'business/base.html' %}
 {% load static %}
+{% load i18n %}
 {% load humanize %}
-{% block title %} Edit Order {% endblock %}
+{% block title %}{% trans 'Edit Order' %}  {% endblock %}
 
 {% block content %}
 
@@ -17,12 +18,12 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Edit Order</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Edit Order' %}</h4>
 
             <div class="page-title-right">
               <ol class="breadcrumb m-0">
                 <li class="breadcrumb-item"><a href="javascript: void(0);">{{product.product_name}}</a></li>
-                <li class="breadcrumb-item active">Edit Product</li>
+                <li class="breadcrumb-item active">{% trans 'Edit Product' %}</li>
               </ol>
             </div>
 
@@ -47,24 +48,24 @@
 
                       <div class="your-order">
                         <div>
-                          <h2 class="order-title mb-4">Order # <span>{{order.order_number}}</span></h2>
+                          <h2 class="order-title mb-4">{% trans 'Order' %} # <span>{{order.order_number}}</span></h2>
                           <p style="float:right;">{{order.created_at}}</p>
                         </div>
 
-                        <p style="margin-bottom:0;">Name: {{order.user.name}}</p>
-                        <p style="margin-bottom:0;">Customer ID: {{order.user.customer.customer_id}}</p>
-                        <p style="margin-bottom:0;">Transaction ID: <span>{{order.payment.payment_id}}</span></p>
+                        <p style="margin-bottom:0;">{% trans 'Name' %}: {{order.user.name}}</p>
+                        <p style="margin-bottom:0;">{% trans 'Customer ID' %}: {{order.user.customer.customer_id}}</p>
+                        <p style="margin-bottom:0;">{% trans 'Transaction ID' %}: <span>{{order.payment.payment_id}}</span></p>
                         <br>
 
                         <div class="col-md-6 col-lg-6 col-sm-12">
                           {% if order.status == 'Completed' %}
-                          <span class="badge badge-pill badge-soft-warning font-size-14 w-100 p-2">Completed</span>
-                          <span class="text-muted">This order has been completed.</span>
+                          <span class="badge badge-pill badge-soft-warning font-size-14 w-100 p-2">{% trans 'Completed' %}</span>
+                          <span class="text-muted">{% trans 'This order has been completed.' %}</span>
                           {% elif order.status == 'Cancelled' %}
-                          <span class="badge badge-pill badge-soft-danger font-size-14 w-100 p-2">Cancelled</span>
-                          <span class="text-muted">This order has been cancelled.</span>
+                          <span class="badge badge-pill badge-soft-danger font-size-14 w-100 p-2">{% trans 'Cancelled' %}</span>
+                          <span class="text-muted">{% trans 'This order has been cancelled.' %}</span>
                           {% else %}
-                          <label>Order Status:</label>
+                          <label>{% trans 'Order Status' %}:</label>
                           {{form.status}}
                           {% endif %}
                         </div>
@@ -75,7 +76,7 @@
                             <div class="card-header">
                               <div class="row">
                                 <div class="col-12">
-                                  <h5 class="m-0">Shipping Address</h5>
+                                  <h5 class="m-0">{% trans 'Shipping Address' %}</h5>
                                 </div>
                               </div>
                             </div>
@@ -85,13 +86,13 @@
                             <div class="row">
                               <div class="col-md-6 col-lg-6 col-sm-12">
                                 <div class="card-body">
-                                  <label for="first_name">First Name</label>
+                                  <label for="first_name">{% trans 'First Name' %}</label>
                                   {{form.first_name}}
                                 </div>
                               </div>
                               <div class="col-md-6 col-lg-6 col-sm-12">
                                 <div class="card-body">
-                                  <label for="last_name">Last Name</label>
+                                  <label for="last_name">{% trans 'Last Name' %}</label>
                                   {{form.last_name}}
                                 </div>
                               </div>
@@ -99,13 +100,13 @@
                             <div class="row">
                               <div class="col-md-6 col-lg-6 col-sm-12">
                                 <div class="card-body">
-                                  <label for="phone">Phone Number</label>
+                                  <label for="phone">{% trans 'Phone Number' %}</label>
                                   {{form.phone}}
                                 </div>
                               </div>
                               <div class="col-md-6 col-lg-6 col-sm-12">
                                 <div class="card-body">
-                                  <label for="email">Email Address</label>
+                                  <label for="email">{% trans 'Email Address' %}</label>
                                   {{form.email}}
                                 </div>
                               </div>
@@ -113,13 +114,13 @@
                             <div class="row">
                               <div class="col-md-6 col-lg-6 col-sm-12">
                                 <div class="card-body">
-                                  <label for="address_line_1">Address Line 1</label>
+                                  <label for="address_line_1">{% trans 'Address Line' %} 1</label>
                                   {{form.address_line_1}}
                                 </div>
                               </div>
                               <div class="col-md-6 col-lg-6 col-sm-12">
                                 <div class="card-body">
-                                  <label for="address_line_2">Address Line 2</label>
+                                  <label for="address_line_2">{% trans 'Address Line' %} 2</label>
                                   {{form.address_line_2}}
                                 </div>
                               </div>
@@ -127,13 +128,13 @@
                             <div class="row">
                               <div class="col-md-6 col-lg-6 col-sm-12">
                                 <div class="card-body">
-                                  <label for="state">State</label>
+                                  <label for="state">{% trans 'State' %}</label>
                                   {{form.state}}
                                 </div>
                               </div>
                               <div class="col-md-6 col-lg-6 col-sm-12">
                                 <div class="card-body">
-                                  <label for="country">Country</label>
+                                  <label for="country">{% trans 'Country' %}</label>
                                   {{form.country}}
                                 </div>
                               </div>
@@ -141,13 +142,13 @@
                             <div class="row">
                               <div class="col-md-6 col-lg-6 col-sm-12">
                                 <div class="card-body">
-                                  <label for="pin_code">Pin Code</label>
+                                  <label for="pin_code">{% trans 'Pin Code' %}</label>
                                   {{form.pin_code}}
                                 </div>
                               </div>
                               <div class="col-md-6 col-lg-6 col-sm-12">
                                 <div class="card-body">
-                                  <label for="note">Order Note</label>
+                                  <label for="note">{% trans 'Order Note' %}</label>
                                   {{form.note}}
                                 </div>
                               </div>
@@ -159,7 +160,7 @@
                             <div class="card-header">
                               <div class="row">
                                 <div class="col-12">
-                                  <h5 class="m-0">Payment method</h5>
+                                  <h5 class="m-0">{% trans 'Payment method' %}</h5>
                                 </div>
                               </div>
                             </div>
@@ -177,17 +178,17 @@
                           <div class="card-header">
                             <div class="row">
                               <div class="col-12">
-                                <h5 class="m-0">Direct Deposit Payment Details</h5>
+                                <h5 class="m-0">{% trans 'Direct Deposit Payment Details' %}</h5>
                               </div>
                             </div>
                           </div>
                           <div class="row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                               <div class="card-body">
-                                <p class="card-text mb-0">Amount Paid: ${{order.payment.amount}}</p>
-                                <p class="card-text mb-0">Transaction Detail: {{order.payment.payment_id}}</p>
-                                <p class="card-text mb-0">Date of Payment: {{order.payment.date_of_dd_payment}}</p>
-                                <p class="card-text mb-0">Attachment: <br> {% if order.payment.dd_attachment %}
+                                <p class="card-text mb-0">{% trans 'Amount Paid' %}: ${{order.payment.amount}}</p>
+                                <p class="card-text mb-0">{% trans 'Transaction Detail' %}: {{order.payment.payment_id}}</p>
+                                <p class="card-text mb-0">{% trans 'Date of Payment' %}: {{order.payment.date_of_dd_payment}}</p>
+                                <p class="card-text mb-0">{% trans 'Attachment' %}: <br> {% if order.payment.dd_attachment %}
                                   <div >
                                     <img src ="{{ order.payment.dd_attachment.url }}" width="100" data-toggle="modal" class="ddAttachmentModel" data-target="#ddAttachmentModel" /> <br>
                                     <small class="text-muted"><i class="fa fa-search" aria-hidden="true"></i> Click to open</small>
@@ -222,7 +223,7 @@
                             <div class="card-header">
                               <div class="row">
                                 <div class="col-12">
-                                  <h5 class="m-0">Ordered Products</h5>
+                                  <h5 class="m-0">{% trans 'Ordered Products' %}</h5>
                                 </div>
                               </div>
                             </div>
@@ -296,8 +297,8 @@
                   </div>
 
                 </div>
-                <a onclick="goBack();" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp Go back</a>
-                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-edit"></i> Update</button>
+                <a onclick="goBack();" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp {% trans 'Go back' %}</a>
+                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-edit"></i> {% trans 'Update' %}</button>
               </form>
 
 

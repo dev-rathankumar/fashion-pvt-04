@@ -1,6 +1,7 @@
 {% extends 'business/base.html' %}
 {% load static %}
-{% block title %} Add Product {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'Add Product' %} {% endblock %}
 
 {% block content %}
 
@@ -16,7 +17,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Add Product</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Add Product' %}</h4>
           </div>
         </div>
       </div>
@@ -26,8 +27,8 @@
         <div class="col-12">
           <div class="card container">
             <div class="card-body">
-              <h4 class="card-title">Product Information</h4>
-              <p class="card-title-desc">Fill all information below</p>
+              <h4 class="card-title">{% trans 'Product Information' %}</h4>
+              <p class="card-title-desc">{% trans 'Fill all information below' %}</p>
               {% include 'includes/_alerts.html' %}
 
               <form method="POST" action="{% url 'addProduct' %}" name="addProductForm" enctype="multipart/form-data">
@@ -37,7 +38,7 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Product Name</label>
+                      <label for="productname">{% trans 'Product Name' %}</label>
                       {{ basicInfo_form.product_name }}
                       
                     </div>
@@ -46,7 +47,7 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Category <span><small><a href="{% url 'addCategory' %}">&nbsp;&nbsp;Add New Category</a></small></span></label>
+                      <label for="productname">{% trans 'Category' %} <span><small><a href="{% url 'addCategory' %}">&nbsp;&nbsp;{% trans 'Add New Category' %}</a></small></span></label>
                       {{ basicInfo_form.category }}
                     </div>
                   </div>
@@ -54,7 +55,7 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Product Description</label>
+                      <label for="productname">{% trans 'Product Description' %}</label>
                       {{ basicInfo_form.description }}
                     </div>
                   </div>
@@ -62,7 +63,7 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Full Specification</label>
+                      <label for="productname">{% trans 'Full Specification' %}</label>
                       {{ basicInfo_form.full_specification }}
                     </div>
                   </div>
@@ -71,7 +72,7 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Product Variation</label>
+                      <label for="productname">{% trans 'Product Variation' %}</label>
                       {{ basicInfo_form.variant }}
                     </div>
                   </div>
@@ -82,13 +83,13 @@
                 <div class="row" id="price_stock">
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Price</label>
+                      <label for="productname">{% trans 'Price' %}</label>
                       {{ basicInfo_form.price }}
                     </div>
                   </div>
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
-                      <label for="productname">Stock</label>
+                      <label for="productname">{% trans 'Stock' %}</label>
                       {{ basicInfo_form.stock }}
                     </div>
                   </div>
@@ -99,7 +100,7 @@
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
                       <img src="{{ product.image.url }}" alt="" width="50">
-                      <label for="productname">Primary Product Image <span class="text-muted">&nbsp; 500 x 500px</span></label>
+                      <label for="productname">{% trans 'Primary Product Image' %} <span class="text-muted">&nbsp; 500 x 500px</span></label>
 
                       {{ basicInfo_form.image }}
                     </div>
@@ -107,7 +108,7 @@
                   <div class="col-md-6 col-lg-6 col-sm-12">
                     <div class="form-group">
                       <img src="{{ product.image_2.url }}" alt="" width="50">
-                      <label for="productname">Secondary Product Image <span class="text-muted">&nbsp; 500 x 500px</span></label>
+                      <label for="productname">{% trans 'Secondary Product Image' %} <span class="text-muted">&nbsp; 500 x 500px</span></label>
 
                       {{ basicInfo_form.image_2 }}
                     </div>
@@ -117,12 +118,12 @@
                   <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
 
-                      <div>{{ basicInfo_form.is_popular }}<span for="is popular" style="margin-left:10px;">Set this product as Popular Product?</span></div>
+                      <div>{{ basicInfo_form.is_popular }}<span for="is popular" style="margin-left:10px;">{% trans 'Set this product as Popular Product?' %}</span></div>
                     </div>
                   </div>
                 </div>
                 <p class="text-danger" id="descError"></p>
-                <button type="submit" onclick="return checkforFields();" class="btn btn-primary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;">SAVE & CONTINUE <i class="fas fa-arrow-right"></i></button>
+                <button type="submit" onclick="return checkforFields();" class="btn btn-primary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;">{% trans 'SAVE' %} & {% trans 'CONTINUE' %} <i class="fas fa-arrow-right"></i></button>
               </form>
 
 

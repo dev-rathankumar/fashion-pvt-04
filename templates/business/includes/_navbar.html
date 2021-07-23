@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <header id="page-topbar">
   <div class="navbar-header">
     <div class="d-flex">
@@ -42,7 +43,7 @@
 
     {% if account_expiry %}
     <div class="d-flex text-danger">
-      <h5 class="text-danger">Your account is expired. Please <span><a href="{% url 'plans' %}" class="text-danger" style="text-decoration: underline !important;">activate your account</a></span> to resume the service.</h5>
+      <h5 class="text-danger">{% trans 'Your account is expired.' %} {% trans 'Please' %} <span><a href="{% url 'plans' %}" class="text-danger" style="text-decoration: underline !important;">{% trans 'activate your account' %}</a></span> {% trans 'to resume the service.' %}</h5>
     </div>
     {% endif %}
 
@@ -51,7 +52,7 @@
 
 
       <div class="dropdown d-inline-block">
-        <a href="http://{{domain}}/" target="_blank" style="color:black;">VIEW SITE</a>
+        <a href="http://{{domain}}/" target="_blank" style="color:black;">{% trans 'VIEW SITE' %}</a>
         <button type="button" class="btn header-item waves-effect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="visibility:hidden;">
           <img id="header-lang-img" src="{% static 'business/images/flags/us.jpg' %}" alt="Header Language" height="16">
         </button>
@@ -88,10 +89,10 @@
         </button>
         <div class="dropdown-menu dropdown-menu-right">
           <!-- item-->
-          <a class="dropdown-item" href="{% url 'biz_profile' %}"><i class="bx bx-user font-size-16 align-middle mr-1"></i> <span key="t-profile">Profile</span></a>
-          <a class="dropdown-item d-block" href="{% url 'biz_changePassword' %}"><i class="fa fa-key" aria-hidden="true" fa-16x></i> <span key="t-settings">Change Password</span></a>
+          <a class="dropdown-item" href="{% url 'biz_profile' %}"><i class="bx bx-user font-size-16 align-middle mr-1"></i> <span key="t-profile">{% trans 'Profile' %}</span></a>
+          <a class="dropdown-item d-block" href="{% url 'biz_changePassword' %}"><i class="fa fa-key" aria-hidden="true" fa-16x></i> <span key="t-settings">{% trans 'Change Password' %}</span></a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item text-danger" href="javascript:{document.getElementById('biz_logout_header').submit()}"><i class="bx bx-power-off font-size-16 align-middle mr-1 text-danger"></i> <span key="t-logout">Logout</span></a>
+          <a class="dropdown-item text-danger" href="javascript:{document.getElementById('biz_logout_header').submit()}"><i class="bx bx-power-off font-size-16 align-middle mr-1 text-danger"></i> <span key="t-logout">{% trans 'Logout' %}</span></a>
           <form action="{% url 'biz_logout' %}" id="biz_logout_header" method="POST">
             {% csrf_token %}
             <input type="hidden">

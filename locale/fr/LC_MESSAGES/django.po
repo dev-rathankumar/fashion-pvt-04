@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-23 15:00+0530\n"
+"POT-Creation-Date: 2021-07-23 23:15+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,6 +75,7 @@ msgid "Edit profile"
 msgstr "Editer le profil"
 
 #: .\templates\accounts\includes\_sidebar.html:9
+#: .\templates\business\includes\_navbar.html:93
 msgid "Change Password"
 msgstr "Changer le mot de passe"
 
@@ -185,12 +186,18 @@ msgid "Blogs"
 msgstr "Blogues"
 
 #: .\templates\blogs\blogs.html:25 .\templates\business\allBlogs.html:44
+#: .\templates\business\allColors.html:43
 #: .\templates\business\allComments.html:47
 #: .\templates\business\allContacts.html:46
 #: .\templates\business\allCustomers.html:46
 #: .\templates\business\allInquiries.html:46
+#: .\templates\business\allOrders.html:47
+#: .\templates\business\allProducts.html:49
 #: .\templates\business\allReviewRatings.html:46
+#: .\templates\business\allSizes.html:43
 #: .\templates\business\commentReplies.html:47
+#: .\templates\business\emails\emails.html:44
+#: .\templates\business\planPurchaseHistory.html:47
 #: .\templates\business\sitesettings\banners.html:44
 #: .\templates\business\sitesettings\socialIcons.html:44
 #: .\templates\business\sitesettings\store_features.html:44
@@ -224,37 +231,92 @@ msgstr "Lire la suite"
 msgid "No blogs"
 msgstr "Pas de blog"
 
+#: .\templates\business\CustomerViewProfile.html:5
+msgid "Customer Details"
+msgstr "Détails du client"
+
+#: .\templates\business\CustomerViewProfile.html:20
+msgid "Customer Profile"
+msgstr "Profil client"
+
+#: .\templates\business\CustomerViewProfile.html:45
+#: .\templates\business\allCustomers.html:64
+msgid "Registered Date"
+msgstr "Date d'enregistrement"
+
+#: .\templates\business\CustomerViewProfile.html:52
+#: .\templates\business\allCustomers.html:58
+#: .\templates\business\editOrder.html:56
+#: .\templates\business\viewOrder.html:45
+msgid "Customer ID"
+msgstr " Client ID"
+
+#: .\templates\business\CustomerViewProfile.html:52
+msgid "Last login"
+msgstr "Dernière connexion"
+
+#: .\templates\business\CustomerViewProfile.html:74
+#: .\templates\business\allCustomers.html:63
+msgid "Gender"
+msgstr "Le genre"
+
+#: .\templates\business\CustomerViewProfile.html:94
+#: .\templates\business\addBlog.html:88
+#: .\templates\business\addBlogCategory.html:62
+#: .\templates\business\editBlog.html:93
+#: .\templates\business\editBlogCategory.html:54
+#: .\templates\business\editOrder.html:300
+#: .\templates\business\emails\email_detail.html:77
+#: .\templates\business\planHistoryDetail.html:91
+#: .\templates\business\viewInquiry.html:73
+#: .\templates\business\viewOrder.html:242
+msgid "Go back"
+msgstr "Retourner"
+
 #: .\templates\business\addBlog.html:4 .\templates\business\addBlog.html:20
 #: .\templates\business\includes\_sidebar.html:107
 msgid "Add Blog"
 msgstr "Ajouter un blog"
 
-#: .\templates\business\addBlog.html:30
+#: .\templates\business\addBlog.html:30 .\templates\business\editBlog.html:38
 msgid "Blog Information"
 msgstr "Informations sur le blog"
 
 #: .\templates\business\addBlog.html:31
+#: .\templates\business\addProduct.html:31
+#: .\templates\business\editBlog.html:39
+#: .\templates\business\editProduct.html:39
 #: .\templates\business\sitesettings\headerEdit.html:33
 msgid "Fill all information below"
 msgstr "Remplissez toutes les informations ci-dessous"
 
 #: .\templates\business\addBlog.html:41 .\templates\business\allBlogs.html:61
+#: .\templates\business\editBlog.html:46
 #: .\templates\business\sitesettings\banners.html:68
+#: .\templates\business\sitesettings\editBanner.html:58
+#: .\templates\business\sitesettings\editStoreFeature.html:56
 #: .\templates\business\sitesettings\headerEdit.html:41
 #: .\templates\business\sitesettings\homepage_background.html:62
 #: .\templates\business\sitesettings\store_features.html:73
 msgid "Title"
 msgstr "Titre"
 
-#: .\templates\business\addBlog.html:49 .\templates\business\allBlogs.html:63
+#: .\templates\business\addBlog.html:49
+#: .\templates\business\addProduct.html:50
+#: .\templates\business\allBlogs.html:63
+#: .\templates\business\allProducts.html:77
+#: .\templates\business\editBlog.html:54
+#: .\templates\business\editProduct.html:57
 msgid "Category"
 msgstr "Catégorie"
 
 #: .\templates\business\addBlog.html:49
+#: .\templates\business\addProduct.html:50
 #: .\templates\business\allBlogsCategories.html:35
 #: .\templates\business\allBlogsCategories.html:47
 #: .\templates\business\allCategories.html:42
 #: .\templates\business\allCategories.html:54
+#: .\templates\business\editBlog.html:54
 msgid "Add New Category"
 msgstr "Ajouter une nouvelle catégorie"
 
@@ -268,6 +330,12 @@ msgid "Description"
 msgstr "La description "
 
 #: .\templates\business\addBlog.html:73 .\templates\business\allBlogs.html:64
+#: .\templates\business\allOrders.html:65
+#: .\templates\business\allProducts.html:79
+#: .\templates\business\editBlog.html:78
+#: .\templates\business\emails\email_detail.html:40
+#: .\templates\business\emails\emails.html:69
+#: .\templates\business\planHistoryDetail.html:64
 #: .\templates\shop\my-wishlist.html:42
 msgid "Status"
 msgstr "Statut"
@@ -276,18 +344,23 @@ msgstr "Statut"
 msgid "Featured Image"
 msgstr "L'image sélectionnée"
 
-#: .\templates\business\addBlog.html:88
-#: .\templates\business\addBlogCategory.html:62
-msgid "Go back"
-msgstr "Retourner"
-
 #: .\templates\business\addBlog.html:89
 #: .\templates\business\addBlogCategory.html:63
 #: .\templates\business\addCategory.html:75
+#: .\templates\business\addProduct.html:126
+#: .\templates\business\editBlog.html:95
+#: .\templates\business\editBlogCategory.html:55
+#: .\templates\business\editCategory.html:76
+#: .\templates\business\editColor.html:61
+#: .\templates\business\editProduct.html:131
+#: .\templates\business\editSize.html:54
 #: .\templates\business\sitesettings\aboutUs.html:67
 #: .\templates\business\sitesettings\aboutUs.html:122
 #: .\templates\business\sitesettings\contactUs.html:106
+#: .\templates\business\sitesettings\editBanner.html:98
+#: .\templates\business\sitesettings\editIcon.html:90
 #: .\templates\business\sitesettings\editPolicy.html:56
+#: .\templates\business\sitesettings\editStoreFeature.html:74
 #: .\templates\business\sitesettings\editTermsConditions.html:59
 #: .\templates\business\sitesettings\footerEdit.html:49
 #: .\templates\business\sitesettings\headerEdit.html:71
@@ -314,11 +387,15 @@ msgstr "Ajouter un nouveau blog"
 
 #: .\templates\business\addBlogCategory.html:40
 #: .\templates\business\addCategory.html:44
+#: .\templates\business\editBlogCategory.html:33
+#: .\templates\business\editCategory.html:38
 msgid "Category Name"
 msgstr "Nom de catégorie"
 
 #: .\templates\business\addBlogCategory.html:48
 #: .\templates\business\addCategory.html:52
+#: .\templates\business\editBlogCategory.html:41
+#: .\templates\business\editCategory.html:46
 msgid "Subcategory"
 msgstr "Sous-catégorie"
 
@@ -326,27 +403,109 @@ msgstr "Sous-catégorie"
 #: .\templates\business\addBlogCategory.html:57
 #: .\templates\business\addCategory.html:52
 #: .\templates\business\addCategory.html:68
+#: .\templates\business\editBlogCategory.html:41
+#: .\templates\business\editBlogCategory.html:49
+#: .\templates\business\editCategory.html:46
+#: .\templates\business\editCategory.html:69
 #: .\templates\orders\payments.html:225
 msgid "(Optional)"
 msgstr "(Optionnel)"
 
 #: .\templates\business\addBlogCategory.html:49
 #: .\templates\business\addCategory.html:52
+#: .\templates\business\editBlogCategory.html:41
 msgid "By default, this will be added as a main category."
 msgstr "Par défaut, cela sera ajouté en tant que catégorie principale."
 
 #: .\templates\business\addBlogCategory.html:57
 #: .\templates\business\addCategory.html:68
+#: .\templates\business\editBlogCategory.html:49
+#: .\templates\business\editCategory.html:69
 msgid "Category Description"
 msgstr "description de la catégorie"
 
 #: .\templates\business\addCategory.html:33
+#: .\templates\business\allProducts.html:41
+#: .\templates\business\allProducts.html:56
 msgid "Add New Product"
 msgstr "Ajouter un nouveau produit"
 
 #: .\templates\business\addCategory.html:60
+#: .\templates\business\editCategory.html:61
 msgid "Category Image"
 msgstr "Image de la catégorie"
+
+#: .\templates\business\addProduct.html:4
+#: .\templates\business\addProduct.html:20
+#: .\templates\business\editProduct.html:20
+#: .\templates\business\includes\_sidebar.html:95
+msgid "Add Product"
+msgstr "Ajouter un produit"
+
+#: .\templates\business\addProduct.html:30
+#: .\templates\business\editProduct.html:38
+msgid "Product Information"
+msgstr "Information produit"
+
+#: .\templates\business\addProduct.html:41
+#: .\templates\business\allInquiries.html:59
+#: .\templates\business\allProducts.html:73
+#: .\templates\business\allReviewRatings.html:59
+#: .\templates\business\editProduct.html:49
+#: .\templates\business\viewInquiry.html:50 .\templates\shop\checkout.html:104
+msgid "Product Name"
+msgstr "Nom du produit"
+
+#: .\templates\business\addProduct.html:58
+#: .\templates\business\editProduct.html:65
+#: .\templates\shop\compare_products.html:43
+msgid "Product Description"
+msgstr "Description du produit"
+
+#: .\templates\business\addProduct.html:66
+#: .\templates\business\editProduct.html:73
+msgid "Full Specification"
+msgstr "Spécification complète"
+
+#: .\templates\business\addProduct.html:75
+#: .\templates\business\editProduct.html:81
+msgid "Product Variation"
+msgstr "Variante de produit"
+
+#: .\templates\business\addProduct.html:86
+#: .\templates\business\allProducts.html:74
+#: .\templates\business\editProduct.html:92 .\templates\shop\cart.html:45
+#: .\templates\shop\checkout.html:105
+#: .\templates\shop\compare_products.html:53
+#: .\templates\shop\my-wishlist.html:41 .\templates\shop\shop.html:34
+msgid "Price"
+msgstr "Prix"
+
+#: .\templates\business\addProduct.html:92
+#: .\templates\business\allProducts.html:75
+#: .\templates\business\editProduct.html:98
+msgid "Stock"
+msgstr "Stocker"
+
+#: .\templates\business\addProduct.html:103
+#: .\templates\business\editProduct.html:108
+msgid "Primary Product Image"
+msgstr "Image principale du produit"
+
+#: .\templates\business\addProduct.html:111
+#: .\templates\business\editProduct.html:116
+msgid "Secondary Product Image"
+msgstr "Image du produit secondaire"
+
+#: .\templates\business\addProduct.html:121
+#: .\templates\business\editProduct.html:126
+msgid "Set this product as Popular Product?"
+msgstr "Définir ce produit comme produit populaire ?"
+
+#: .\templates\business\addProduct.html:126
+#: .\templates\business\editProduct.html:131
+msgid "CONTINUE"
+msgstr "CONTINUEZ"
 
 #: .\templates\business\allBlogs.html:34
 msgid "You do not have any blogs."
@@ -357,6 +516,9 @@ msgid "Author"
 msgstr "Auteur"
 
 #: .\templates\business\allBlogs.html:65 .\templates\business\allBlogs.html:91
+#: .\templates\business\allProducts.html:80
+#: .\templates\business\allProducts.html:123
+#: .\templates\business\allProducts.html:127
 #: .\templates\business\sitesettings\banners.html:73
 #: .\templates\business\sitesettings\banners.html:111
 #: .\templates\business\sitesettings\store_features.html:76
@@ -365,8 +527,12 @@ msgid "Preview"
 msgstr "Aperçu"
 
 #: .\templates\business\allBlogs.html:66
+#: .\templates\business\allColors.html:68
 #: .\templates\business\allContacts.html:62
 #: .\templates\business\allInquiries.html:63
+#: .\templates\business\allOrders.html:68
+#: .\templates\business\allProducts.html:81
+#: .\templates\business\allSizes.html:67
 #: .\templates\business\sitesettings\banners.html:74
 #: .\templates\business\sitesettings\socialIcons.html:71
 #: .\templates\business\sitesettings\store_features.html:77
@@ -410,6 +576,26 @@ msgstr "toutes catégories"
 msgid "You do not have any category"
 msgstr "Vous n'avez aucune catégorie"
 
+#: .\templates\business\allColors.html:4
+#: .\templates\business\allColors.html:20
+msgid "Variant Colors"
+msgstr "Couleurs variantes"
+
+#: .\templates\business\allColors.html:35
+#: .\templates\business\allColors.html:50
+msgid "Add Color"
+msgstr "Ajouter de la couleur"
+
+#: .\templates\business\allColors.html:66
+#: .\templates\business\allProducts.html:100 .\templates\shop\shop.html:82
+msgid "Color"
+msgstr "Couleur"
+
+#: .\templates\business\allColors.html:67
+#: .\templates\business\editColor.html:51
+msgid "Color Code"
+msgstr "Code couleur"
+
 #: .\templates\business\allComments.html:6
 #: .\templates\business\allComments.html:21
 #: .\templates\business\allComments.html:26
@@ -445,6 +631,8 @@ msgstr "Réponses"
 #: .\templates\business\allInquiries.html:61
 #: .\templates\business\allReviewRatings.html:61
 #: .\templates\business\commentReplies.html:61
+#: .\templates\business\emails\emails.html:70
+#: .\templates\business\planPurchaseHistory.html:63
 msgid "Date"
 msgstr "Date"
 
@@ -489,7 +677,10 @@ msgid "You do not have any inquiries yet"
 msgstr "Vous n'avez pas encore de demande"
 
 #: .\templates\business\allContacts.html:58
-#: .\templates\business\allCustomers.html:60 .\templates\pages\contact.html:38
+#: .\templates\business\allCustomers.html:60
+#: .\templates\business\allOrders.html:60
+#: .\templates\business\editOrder.html:55
+#: .\templates\business\viewOrder.html:44 .\templates\pages\contact.html:38
 msgid "Name"
 msgstr "Nom"
 
@@ -504,6 +695,10 @@ msgstr "Vue"
 
 #: .\templates\business\allContacts.html:79
 #: .\templates\business\allInquiries.html:83
+#: .\templates\business\emails\emails.html:71
+#: .\templates\business\emails\emails.html:89
+#: .\templates\business\planPurchaseHistory.html:64
+#: .\templates\business\planPurchaseHistory.html:84
 msgid "View Details"
 msgstr "Voir les détails"
 
@@ -517,16 +712,13 @@ msgstr "Les clients"
 msgid "You do not have any customers yet"
 msgstr "Vous n'avez pas encore de clients"
 
-#: .\templates\business\allCustomers.html:58
-msgid "Customer ID"
-msgstr " Client ID"
-
 #: .\templates\business\allCustomers.html:59
 msgid "Profile Picture"
 msgstr "Image de profil"
 
 #: .\templates\business\allCustomers.html:61
-#: .\templates\business\allInquiries.html:60 .\templates\pages\contact.html:3
+#: .\templates\business\allInquiries.html:60
+#: .\templates\business\allOrders.html:61 .\templates\pages\contact.html:3
 msgid "Contact"
 msgstr "Contacter"
 
@@ -534,15 +726,8 @@ msgstr "Contacter"
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: .\templates\business\allCustomers.html:63
-msgid "Gender"
-msgstr "Le genre"
-
-#: .\templates\business\allCustomers.html:64
-msgid "Registered Date"
-msgstr "Date d'enregistrement"
-
 #: .\templates\business\allCustomers.html:65
+#: .\templates\business\includes\_navbar.html:92
 #: .\templates\business\includes\_sidebar.html:26
 #: .\templates\business\profile.html:20
 msgid "Profile"
@@ -564,11 +749,146 @@ msgstr "Toutes les demandes"
 msgid "Customer Name"
 msgstr " Nom du client"
 
-#: .\templates\business\allInquiries.html:59
-#: .\templates\business\allReviewRatings.html:59
-#: .\templates\shop\checkout.html:104
-msgid "Product Name"
-msgstr "Nom du produit"
+#: .\templates\business\allOrders.html:5
+#: .\templates\business\includes\_sidebar.html:188
+msgid "Manage Orders"
+msgstr "Gérer les commandes"
+
+#: .\templates\business\allOrders.html:21
+#: .\templates\business\allOrders.html:26
+msgid "All Orders"
+msgstr "Tous les ordres"
+
+#: .\templates\business\allOrders.html:25
+#: .\templates\business\dashboard.html:34
+#: .\templates\business\dashboard.html:80 .\templates\business\profile.html:59
+msgid "Orders"
+msgstr "Ordres"
+
+#: .\templates\business\allOrders.html:40
+msgid "You did not recieve any orders yet"
+msgstr "Vous n'avez pas encore reçu de commandes"
+
+#: .\templates\business\allOrders.html:59
+#: .\templates\business\planPurchaseHistory.html:60
+msgid "Order Number"
+msgstr "Numéro de commande"
+
+#: .\templates\business\allOrders.html:62
+#: .\templates\business\sitesettings\contactUs.html:57
+#: .\templates\shop\checkout.html:67
+msgid "City"
+msgstr "Ville"
+
+#: .\templates\business\allOrders.html:63
+#: .\templates\business\planHistoryDetail.html:73
+#: .\templates\business\planPurchaseHistory.html:62
+#: .\templates\shop\cart.html:47 .\templates\shop\cart.html:174
+#: .\templates\shop\shop.html:195
+msgid "Total"
+msgstr "Le total"
+
+#: .\templates\business\allOrders.html:64
+msgid "Payment"
+msgstr "Paiement"
+
+#: .\templates\business\allOrders.html:66
+msgid "Ordered Date"
+msgstr "Date de commande"
+
+#: .\templates\business\allOrders.html:67
+#: .\templates\business\allOrders.html:118
+msgid "View Order"
+msgstr "Voir l'ordre"
+
+#: .\templates\business\allOrders.html:98
+#: .\templates\business\viewOrder.html:50
+msgid "New"
+msgstr "Nouveau"
+
+#: .\templates\business\allOrders.html:100
+#: .\templates\business\viewOrder.html:52
+msgid "Accepted"
+msgstr "Accepté"
+
+#: .\templates\business\allOrders.html:102
+msgid "On Hold"
+msgstr "En attente"
+
+#: .\templates\business\allOrders.html:104
+msgid "Pending Payment"
+msgstr "En attente de paiement"
+
+#: .\templates\business\allOrders.html:106
+#: .\templates\business\editOrder.html:62
+#: .\templates\business\viewOrder.html:54
+msgid "Completed"
+msgstr "Terminé"
+
+#: .\templates\business\allOrders.html:108
+#: .\templates\business\editOrder.html:65
+#: .\templates\business\viewOrder.html:56
+msgid "Cancelled"
+msgstr "Annulé"
+
+#: .\templates\business\allProducts.html:4
+#: .\templates\business\allProducts.html:20
+#: .\templates\business\allProducts.html:25
+#: .\templates\business\includes\_sidebar.html:94
+#: .\templates\includes\_navbar.html:43
+msgid "All Products"
+msgstr "Tous les produits"
+
+#: .\templates\business\allProducts.html:24
+#: .\templates\business\dashboard.html:33
+#: .\templates\business\dashboard.html:108
+#: .\templates\business\includes\_sidebar.html:91
+#: .\templates\shop\shop.html:195
+msgid "Products"
+msgstr "Des produits"
+
+#: .\templates\business\allProducts.html:39
+msgid "You do not have any products"
+msgstr "Vous n'avez aucun produit"
+
+#: .\templates\business\allProducts.html:72
+msgid "Image"
+msgstr "Image"
+
+#: .\templates\business\allProducts.html:76
+msgid "Variants"
+msgstr "Variantes"
+
+#: .\templates\business\allProducts.html:78
+#: .\templates\shop\compare_products.html:63
+msgid "Availability"
+msgstr "Disponibilité"
+
+#: .\templates\business\allProducts.html:100
+#: .\templates\business\allSizes.html:66 .\templates\business\editSize.html:42
+#: .\templates\shop\shop.html:69
+msgid "Size"
+msgstr "Taille"
+
+#: .\templates\business\allProducts.html:107
+#: .\templates\shop\compare_products.html:66
+#: .\templates\shop\compare_products.html:77
+#: .\templates\shop\my-wishlist.html:76
+#: .\templates\shop\product_detail.html:346
+msgid "Out of Stock"
+msgstr "En rupture de stock"
+
+#: .\templates\business\allProducts.html:109
+msgid "Available"
+msgstr "Disponible"
+
+#: .\templates\business\allProducts.html:114
+msgid "Active"
+msgstr "Active"
+
+#: .\templates\business\allProducts.html:116
+msgid "Inactive"
+msgstr "Inactive"
 
 #: .\templates\business\allReviewRatings.html:5
 #: .\templates\business\allReviewRatings.html:20
@@ -589,6 +909,14 @@ msgstr "Vous n'avez pas encore d'évaluations"
 msgid "Rating & Reviews"
 msgstr "Évaluation et commentaires"
 
+#: .\templates\business\allSizes.html:4 .\templates\business\allSizes.html:20
+msgid "Variant Sizes"
+msgstr "Variantes de tailles"
+
+#: .\templates\business\allSizes.html:50
+msgid "Add Size"
+msgstr "Ajouter une taille"
+
 #: .\templates\business\commentReplies.html:21
 msgid "All replies to "
 msgstr "Toutes les réponses à"
@@ -606,10 +934,15 @@ msgid "Blog"
 msgstr "Blog"
 
 #: .\templates\business\commentReplies.html:92
+#: .\templates\business\editColor.html:60
+#: .\templates\business\editSize.html:53
 #: .\templates\business\sitesettings\contactUs.html:105
+#: .\templates\business\sitesettings\editBanner.html:97
 #: .\templates\business\sitesettings\editPolicy.html:55
+#: .\templates\business\sitesettings\editStoreFeature.html:73
 #: .\templates\business\sitesettings\editTermsConditions.html:58
 #: .\templates\business\sitesettings\homepage_background.html:101
+#: .\templates\business\viewContact.html:73
 msgid "Back"
 msgstr "Arrière"
 
@@ -620,18 +953,6 @@ msgstr "LIENS RAPIDES"
 #: .\templates\business\dashboard.html:30
 msgid "YOUR STORE"
 msgstr "VOTRE MAGASIN"
-
-#: .\templates\business\dashboard.html:33
-#: .\templates\business\dashboard.html:108
-#: .\templates\business\includes\_sidebar.html:91
-#: .\templates\shop\shop.html:195
-msgid "Products"
-msgstr "Des produits"
-
-#: .\templates\business\dashboard.html:34
-#: .\templates\business\dashboard.html:80 .\templates\business\profile.html:59
-msgid "Orders"
-msgstr "Ordres"
 
 #: .\templates\business\dashboard.html:36
 msgid "SETTINGS"
@@ -681,6 +1002,323 @@ msgstr "Compte d'entreprise"
 #: .\templates\business\dashboard.html:84 .\templates\business\profile.html:63
 msgid "Revenue"
 msgstr "Revenu"
+
+#: .\templates\business\editBlog.html:4 .\templates\business\editBlog.html:20
+#: .\templates\business\editBlog.html:25
+msgid "Edit Blog"
+msgstr "Modifier le blog"
+
+#: .\templates\business\editBlog.html:62
+msgid "Short Description"
+msgstr "brève description"
+
+#: .\templates\business\editBlog.html:70
+msgid "Full Description"
+msgstr "Description complète"
+
+#: .\templates\business\editBlog.html:87
+msgid "Blog Image"
+msgstr "Blog Image"
+
+#: .\templates\business\editBlogCategory.html:4
+#: .\templates\business\editBlogCategory.html:16
+#: .\templates\business\editCategory.html:4
+#: .\templates\business\editCategory.html:20
+msgid "Edit Category"
+msgstr "Modifier la catégorie"
+
+#: .\templates\business\editColor.html:4
+#: .\templates\business\editColor.html:20
+msgid "Edit Color"
+msgstr "Modifier la couleur"
+
+#: .\templates\business\editColor.html:42
+msgid "Color Name"
+msgstr "Nom de la couleur"
+
+#: .\templates\business\editOrder.html:5
+#: .\templates\business\editOrder.html:21
+#: .\templates\business\viewOrder.html:243
+msgid "Edit Order"
+msgstr "Modifier la commande"
+
+#: .\templates\business\editOrder.html:26
+#: .\templates\business\editProduct.html:4
+#: .\templates\business\editProduct.html:25
+msgid "Edit Product"
+msgstr "Modifier le produit"
+
+#: .\templates\business\editOrder.html:51
+#: .\templates\business\planHistoryDetail.html:52
+#: .\templates\business\viewOrder.html:40
+msgid "Order"
+msgstr "Ordre"
+
+#: .\templates\business\editOrder.html:57
+#: .\templates\business\planHistoryDetail.html:62
+#: .\templates\business\planPurchaseHistory.html:61
+#: .\templates\business\viewOrder.html:46
+msgid "Transaction ID"
+msgstr "identifiant de transaction"
+
+#: .\templates\business\editOrder.html:63
+msgid "This order has been completed."
+msgstr "Cette commande est terminée.."
+
+#: .\templates\business\editOrder.html:66
+msgid "This order has been cancelled."
+msgstr "Cette commande a été annulée."
+
+#: .\templates\business\editOrder.html:68
+#: .\templates\business\viewOrder.html:48
+msgid "Order Status"
+msgstr "Statut de la commande"
+
+#: .\templates\business\editOrder.html:79
+#: .\templates\business\viewOrder.html:70 .\templates\orders\payments.html:40
+msgid "Shipping Address"
+msgstr "adresse de livraison"
+
+#: .\templates\business\editOrder.html:89 .\templates\shop\checkout.html:34
+#: .\templates\shop\product_detail.html:410
+msgid "First Name"
+msgstr "Prénom"
+
+#: .\templates\business\editOrder.html:95 .\templates\shop\checkout.html:38
+#: .\templates\shop\product_detail.html:413
+msgid "Last Name"
+msgstr "Nom de famille"
+
+#: .\templates\business\editOrder.html:103
+#: .\templates\business\sitesettings\contactUs.html:85
+#: .\templates\pages\contact.html:52
+msgid "Phone Number"
+msgstr "Numéro de téléphone"
+
+#: .\templates\business\editOrder.html:109
+#: .\templates\shop\product_detail.html:420
+msgid "Email Address"
+msgstr "Adresse e-mail"
+
+#: .\templates\business\editOrder.html:117
+#: .\templates\business\editOrder.html:123
+#: .\templates\business\sitesettings\contactUs.html:42
+#: .\templates\business\sitesettings\contactUs.html:48
+#: .\templates\shop\checkout.html:57 .\templates\shop\checkout.html:61
+msgid "Address Line"
+msgstr "Ligne d'adresse"
+
+#: .\templates\business\editOrder.html:131
+#: .\templates\business\sitesettings\contactUs.html:77
+#: .\templates\shop\checkout.html:81
+msgid "State"
+msgstr "État"
+
+#: .\templates\business\editOrder.html:137
+#: .\templates\business\sitesettings\contactUs.html:71
+#: .\templates\shop\checkout.html:77
+msgid "Country"
+msgstr "De campagne"
+
+#: .\templates\business\editOrder.html:145 .\templates\shop\checkout.html:71
+msgid "Pin Code"
+msgstr "Code PIN"
+
+#: .\templates\business\editOrder.html:151
+msgid "Order Note"
+msgstr "Note de commande"
+
+#: .\templates\business\editOrder.html:163
+#: .\templates\business\planHistoryDetail.html:63
+#: .\templates\business\viewOrder.html:97 .\templates\orders\payments.html:70
+msgid "Payment method"
+msgstr "Mode de paiement"
+
+#: .\templates\business\editOrder.html:181
+#: .\templates\business\viewOrder.html:114
+msgid "Direct Deposit Payment Details"
+msgstr "Détails du paiement par dépôt direct"
+
+#: .\templates\business\editOrder.html:188
+#: .\templates\business\viewOrder.html:121
+#: .\templates\orders\payments.html:212
+msgid "Amount Paid"
+msgstr "Le montant payé"
+
+#: .\templates\business\editOrder.html:189
+#: .\templates\business\viewOrder.html:122
+#: .\templates\orders\payments.html:217
+msgid "Transaction Detail"
+msgstr "Détails de la transaction"
+
+#: .\templates\business\editOrder.html:190
+#: .\templates\business\viewOrder.html:123
+#: .\templates\orders\payments.html:221
+msgid "Date of Payment"
+msgstr "Date de règlement"
+
+#: .\templates\business\editOrder.html:191
+#: .\templates\business\viewOrder.html:124
+#: .\templates\orders\payments.html:225
+msgid "Attachment"
+msgstr "Attachement"
+
+#: .\templates\business\editOrder.html:226
+#: .\templates\business\viewOrder.html:160
+msgid "Ordered Products"
+msgstr "Produits commandés"
+
+#: .\templates\business\editOrder.html:301
+msgid "Update"
+msgstr "Mettre à jour"
+
+#: .\templates\business\editProduct.html:117
+msgid "Change"
+msgstr "Changement"
+
+#: .\templates\business\editProduct.html:132
+msgid "SKIP"
+msgstr "SAUTER"
+
+#: .\templates\business\editSize.html:4 .\templates\business\editSize.html:20
+msgid "Edit Size"
+msgstr "Modifier la taille"
+
+#: .\templates\business\emails\email_detail.html:5
+msgid "Email Details"
+msgstr "Détails de l'e-mail"
+
+#: .\templates\business\emails\email_detail.html:20
+msgid "Email Detail"
+msgstr "Détails de l'e-mail"
+
+#: .\templates\business\emails\email_detail.html:40
+#: .\templates\business\emails\emails.html:84
+msgid "Sent"
+msgstr "Expédié"
+
+#: .\templates\business\emails\email_detail.html:40
+#: .\templates\business\emails\emails.html:84
+msgid "Failed"
+msgstr "Échoué"
+
+#: .\templates\business\emails\email_detail.html:41
+msgid "Recipients"
+msgstr "Destinataires"
+
+#: .\templates\business\emails\email_detail.html:48
+#: .\templates\business\emails\emails.html:68
+#: .\templates\business\emails\send_email.html:40
+#: .\templates\business\viewContact.html:50 .\templates\pages\contact.html:57
+msgid "Subject"
+msgstr "Matière"
+
+#: .\templates\business\emails\email_settings.html:4
+#: .\templates\business\emails\email_settings.html:20
+#: .\templates\business\emails\email_settings.html:31
+#: .\templates\business\includes\_sidebar.html:154
+msgid "Email Settings"
+msgstr "Paramètres de messagerie"
+
+#: .\templates\business\emails\email_settings.html:37
+msgid "Your email configuration is invalid."
+msgstr "Votre configuration de messagerie n'est pas valide."
+
+#: .\templates\business\emails\email_settings.html:39
+msgid "Your email configuration is verified."
+msgstr "Votre configuration de messagerie est vérifiée."
+
+#: .\templates\business\emails\email_settings.html:51
+msgid "Save and Test Connection"
+msgstr "Enregistrer et tester la connexion"
+
+#: .\templates\business\emails\email_settings.html:57
+msgid "Troubleshooting steps"
+msgstr "Étapes de dépannage"
+
+#: .\templates\business\emails\email_settings.html:59
+msgid "Make sure your email address and password are correct."
+msgstr ""
+"Assurez-vous que votre adresse e-mail et votre mot de passe sont corrects."
+
+#: .\templates\business\emails\email_settings.html:60
+msgid "Make sure your host is correct."
+msgstr "Assurez-vous que votre hôte est correct."
+
+#: .\templates\business\emails\email_settings.html:61
+msgid "Make sure the Port number is correct."
+msgstr "Assurez-vous que le numéro de port est correct."
+
+#: .\templates\business\emails\email_settings.html:62
+msgid "If you are using Gmail, please turn ON"
+msgstr "Si vous utilisez Gmail, veuillez activer"
+
+#: .\templates\business\emails\emails.html:4
+#: .\templates\business\emails\emails.html:20
+#: .\templates\business\includes\_sidebar.html:149
+msgid "Emails"
+msgstr "Courriels"
+
+#: .\templates\business\emails\emails.html:34
+msgid "You have not sent any emails yet"
+msgstr "Vous n'avez pas encore envoyé d'e-mails"
+
+#: .\templates\business\emails\emails.html:36
+msgid "Write An Email"
+msgstr "Écrire un e-mail"
+
+#: .\templates\business\emails\emails.html:51
+#: .\templates\business\includes\_sidebar.html:153
+msgid "Send New Email"
+msgstr "Envoyer un nouvel e-mail"
+
+#: .\templates\business\emails\send_email.html:4
+msgid "Send an Email"
+msgstr "Envoyer un e-mail"
+
+#: .\templates\business\emails\send_email.html:20
+#: .\templates\business\emails\send_email.html:33
+msgid "Send An Email"
+msgstr "Envoyer un e-mail"
+
+#: .\templates\business\emails\send_email.html:49
+msgid "Email Body"
+msgstr "Corps de l'e-mail"
+
+#: .\templates\business\emails\send_email.html:55
+msgid "SEND"
+msgstr "ENVOYER"
+
+#: .\templates\business\emails\send_email.html:68
+msgid "Subscribers"
+msgstr "Les abonnés"
+
+#: .\templates\business\includes\_navbar.html:46
+#: .\templates\business\plans.html:22
+msgid "Your account is expired."
+msgstr "Votre compte a expiré."
+
+#: .\templates\business\includes\_navbar.html:46
+msgid "Please"
+msgstr "S'il te plaît"
+
+#: .\templates\business\includes\_navbar.html:46
+msgid "activate your account"
+msgstr "activez votre compte"
+
+#: .\templates\business\includes\_navbar.html:46
+msgid "to resume the service."
+msgstr "pour reprendre le service."
+
+#: .\templates\business\includes\_navbar.html:55
+msgid "VIEW SITE"
+msgstr "VOIR LE SITE"
+
+#: .\templates\business\includes\_navbar.html:95
+#: .\templates\business\includes\_sidebar.html:212
+#: .\templates\includes\_navbar.html:113
+msgid "Logout"
+msgstr "Se déconnecter"
 
 #: .\templates\business\includes\_sidebar.html:13
 msgid "Menu"
@@ -747,16 +1385,9 @@ msgstr "Couleurs"
 msgid "Sizes"
 msgstr "Tailles"
 
-#: .\templates\business\includes\_sidebar.html:94
-#: .\templates\includes\_navbar.html:43
-msgid "All Products"
-msgstr "Tous les produits"
-
-#: .\templates\business\includes\_sidebar.html:95
-msgid "Add Product"
-msgstr "Ajouter un produit"
-
 #: .\templates\business\includes\_sidebar.html:129
+#: .\templates\business\paymentSettings.html:4
+#: .\templates\business\paymentSettings.html:20
 msgid "Payment Settings"
 msgstr "Paramètres de paiement"
 
@@ -767,6 +1398,7 @@ msgstr "Abonnement (Forfaits)"
 
 #: .\templates\business\includes\_sidebar.html:139
 #: .\templates\business\includes\_sidebar.html:203
+#: .\templates\business\planPurchaseHistory.html:33
 msgid "Buy/Renew"
 msgstr "Acheter/Renouveler"
 
@@ -775,34 +1407,115 @@ msgstr "Acheter/Renouveler"
 msgid "Purchase History"
 msgstr "Historique d'achat"
 
-#: .\templates\business\includes\_sidebar.html:149
-msgid "Emails"
-msgstr "Courriels"
-
 #: .\templates\business\includes\_sidebar.html:152
 msgid "All Emails"
 msgstr "Tous les e-mails"
-
-#: .\templates\business\includes\_sidebar.html:153
-msgid "Send New Email"
-msgstr "Envoyer un nouvel e-mail"
-
-#: .\templates\business\includes\_sidebar.html:154
-msgid "Email Settings"
-msgstr "Paramètres de messagerie"
 
 #: .\templates\business\includes\_sidebar.html:181
 msgid "Contact Us Inbox"
 msgstr "Contactez-nous"
 
-#: .\templates\business\includes\_sidebar.html:188
-msgid "Manage Orders"
-msgstr "Gérer les commandes"
+#: .\templates\business\paymentSettings.html:37
+msgid "Set Your Preferred Payment Method"
+msgstr "Définissez votre mode de paiement préféré"
 
-#: .\templates\business\includes\_sidebar.html:212
-#: .\templates\includes\_navbar.html:113
-msgid "Logout"
-msgstr "Se déconnecter"
+#: .\templates\business\paymentSettings.html:44
+msgid "Preferred Payment Method"
+msgstr "Méthode de paiement préférée"
+
+#: .\templates\business\paymentSettings.html:50
+msgid "PayPal Address"
+msgstr "Adresse PayPal"
+
+#: .\templates\business\paymentSettings.html:59
+msgid "Bank Name"
+msgstr "Nom de banque"
+
+#: .\templates\business\paymentSettings.html:63
+msgid "Account Name"
+msgstr "Nom du compte"
+
+#: .\templates\business\paymentSettings.html:70
+msgid "Account Number"
+msgstr "Numéro de compte"
+
+#: .\templates\business\paymentSettings.html:74
+msgid "Bank Code"
+msgstr "Code bancaire"
+
+#: .\templates\business\paymentSettings.html:81
+msgid "Save"
+msgstr "sauver"
+
+#: .\templates\business\planHistoryDetail.html:5
+#: .\templates\business\planHistoryDetail.html:20
+msgid "Purchase Details"
+msgstr "Détails d'achat"
+
+#: .\templates\business\planHistoryDetail.html:45
+msgid "Purchased on"
+msgstr "Acheté le"
+
+#: .\templates\business\planHistoryDetail.html:61
+#: .\templates\business\planPurchaseHistory.html:59
+msgid "Plan"
+msgstr "Planifier"
+
+#: .\templates\business\planHistoryDetail.html:71
+#: .\templates\orders\payments.html:170 .\templates\shop\checkout.html:107
+msgid "Subtotal"
+msgstr "Total"
+
+#: .\templates\business\planHistoryDetail.html:72
+#: .\templates\orders\payments.html:182 .\templates\shop\checkout.html:181
+msgid "Tax"
+msgstr "Impôt"
+
+#: .\templates\business\planPurchaseHistory.html:5
+#: .\templates\business\planPurchaseHistory.html:20
+msgid "Plan Purchase History"
+msgstr "Historique des achats de forfait"
+
+#: .\templates\business\planPurchaseHistory.html:32
+msgid ""
+"Your subscription is expired. Please renew it to continue using the website"
+msgstr ""
+"Votre abonnement a expiré. Veuillez le renouveler pour continuer à utiliser "
+"le site Web"
+
+#: .\templates\business\planPurchaseHistory.html:36
+#: .\templates\business\plans.html:25
+msgid "You are currently on"
+msgstr "Vous êtes actuellement sur"
+
+#: .\templates\business\planPurchaseHistory.html:36
+#: .\templates\business\plans.html:25
+msgid "plan"
+msgstr "planifier"
+
+#: .\templates\business\planPurchaseHistory.html:36
+msgid "Your subscription will be expired on"
+msgstr "Votre abonnement expirera le"
+
+#: .\templates\business\planPurchaseHistory.html:38
+msgid "No history found."
+msgstr "Aucun historique trouvé."
+
+#: .\templates\business\plans.html:4
+msgid "Plans"
+msgstr "Des plans"
+
+#: .\templates\business\plans.html:23
+msgid "Expired on"
+msgstr "A expiré le"
+
+#: .\templates\business\plans.html:26
+msgid "Your account will be expired on"
+msgstr "Votre compte expirera le"
+
+#: .\templates\business\plans.html:52
+msgid "Purchase Now"
+msgstr "Acheter maintenant"
 
 #: .\templates\business\profile.html:78
 msgid "Personal Information"
@@ -866,12 +1579,12 @@ msgid "ADD ANOTHER SECTION"
 msgstr "AJOUTER UNE AUTRE SECTION"
 
 #: .\templates\business\sitesettings\addIcon.html:60
-#: .\templates\business\sitesettings\editIcon.html:57
+#: .\templates\business\sitesettings\editIcon.html:58
 msgid "Icon Picker"
 msgstr "Sélecteur d'icônes"
 
 #: .\templates\business\sitesettings\addIcon.html:65
-#: .\templates\business\sitesettings\editIcon.html:62
+#: .\templates\business\sitesettings\editIcon.html:63
 msgid "Filter by Style"
 msgstr "Filtrer par style"
 
@@ -889,25 +1602,31 @@ msgid "Add New Banner"
 msgstr "Ajouter une nouvelle bannière"
 
 #: .\templates\business\sitesettings\banners.html:67
+#: .\templates\business\sitesettings\editBanner.html:42
 msgid "Banner Image"
 msgstr "Image de la bannière"
 
 #: .\templates\business\sitesettings\banners.html:69
+#: .\templates\business\sitesettings\editBanner.html:64
+#: .\templates\business\sitesettings\editStoreFeature.html:62
 #: .\templates\business\sitesettings\store_features.html:74
 msgid "Sub Title"
 msgstr "Sous-titre"
 
 #: .\templates\business\sitesettings\banners.html:70
+#: .\templates\business\sitesettings\editBanner.html:72
 #: .\templates\business\sitesettings\homepage_background.html:76
 msgid "Button Name"
 msgstr "Nom du bouton"
 
 #: .\templates\business\sitesettings\banners.html:71
+#: .\templates\business\sitesettings\editBanner.html:86
 #: .\templates\business\sitesettings\homepage_background.html:90
 msgid "Button Color"
 msgstr "Couleur du bouton"
 
 #: .\templates\business\sitesettings\banners.html:72
+#: .\templates\business\sitesettings\editBanner.html:92
 #: .\templates\business\sitesettings\homepage_background.html:96
 msgid "Content Alignment"
 msgstr "Alignement du contenu"
@@ -921,35 +1640,9 @@ msgstr "Modifier Contactez-nous"
 msgid "Edit Contact Us Page"
 msgstr "Modifier la page Contactez-nous"
 
-#: .\templates\business\sitesettings\contactUs.html:42
-#: .\templates\business\sitesettings\contactUs.html:48
-#: .\templates\shop\checkout.html:57 .\templates\shop\checkout.html:61
-msgid "Address Line"
-msgstr "Ligne d'adresse"
-
-#: .\templates\business\sitesettings\contactUs.html:57
-#: .\templates\shop\checkout.html:67
-msgid "City"
-msgstr "Ville"
-
 #: .\templates\business\sitesettings\contactUs.html:63
 msgid "Pincode"
 msgstr "Code PIN"
-
-#: .\templates\business\sitesettings\contactUs.html:71
-#: .\templates\shop\checkout.html:77
-msgid "Country"
-msgstr "De campagne"
-
-#: .\templates\business\sitesettings\contactUs.html:77
-#: .\templates\shop\checkout.html:81
-msgid "State"
-msgstr "État"
-
-#: .\templates\business\sitesettings\contactUs.html:85
-#: .\templates\pages\contact.html:52
-msgid "Phone Number"
-msgstr "Numéro de téléphone"
 
 #: .\templates\business\sitesettings\contactUs.html:99
 msgid "Embed Google Map"
@@ -972,6 +1665,40 @@ msgstr ""
 msgid "See Example"
 msgstr "Voir l'exemple"
 
+#: .\templates\business\sitesettings\editBanner.html:4
+#: .\templates\business\sitesettings\homepage_background.html:4
+msgid "Banner Settings"
+msgstr "Paramètres de la bannière"
+
+#: .\templates\business\sitesettings\editBanner.html:20
+#: .\templates\business\sitesettings\editBanner.html:34
+msgid "Edit Banner"
+msgstr "Modifier la bannière"
+
+#: .\templates\business\sitesettings\editBanner.html:78
+#: .\templates\business\sitesettings\homepage_background.html:82
+msgid "Button Link"
+msgstr "Lien de bouton"
+
+#: .\templates\business\sitesettings\editIcon.html:4
+#: .\templates\business\sitesettings\editIcon.html:22
+#: .\templates\business\sitesettings\editIcon.html:33
+msgid "Edit Social Media Link"
+msgstr "Modifier le lien vers les réseaux sociaux"
+
+#: .\templates\business\sitesettings\editIcon.html:41
+#: .\templates\business\sitesettings\socialIcons.html:67
+msgid "Social Media Name"
+msgstr "Nom des médias sociaux"
+
+#: .\templates\business\sitesettings\editIcon.html:50
+msgid "Choose Icon"
+msgstr "Choisissez l'icône"
+
+#: .\templates\business\sitesettings\editIcon.html:84
+msgid "Enter Link"
+msgstr "Entrer le lien"
+
 #: .\templates\business\sitesettings\editPolicy.html:21
 #: .\templates\business\sitesettings\editPolicy.html:32
 msgid "Edit Privacy Policy"
@@ -980,6 +1707,24 @@ msgstr "Modifier la politique de confidentialité"
 #: .\templates\business\sitesettings\editPolicy.html:48
 msgid "Policy"
 msgstr "Politique"
+
+#: .\templates\business\sitesettings\editStoreFeature.html:4
+msgid "Edit Store Feature"
+msgstr "Modifier la fonctionnalité de magasin"
+
+#: .\templates\business\sitesettings\editStoreFeature.html:20
+#: .\templates\business\sitesettings\editStoreFeature.html:34
+msgid "Add Feature"
+msgstr "Ajouter une fonctionnalité"
+
+#: .\templates\business\sitesettings\editStoreFeature.html:41
+msgid "Feature Icon"
+msgstr "Icône de fonctionnalité"
+
+#: .\templates\business\sitesettings\editStoreFeature.html:68
+#: .\templates\business\sitesettings\store_features.html:75
+msgid "Feature URL"
+msgstr "URL de la fonction d'icône"
 
 #: .\templates\business\sitesettings\editTermsConditions.html:21
 #: .\templates\business\sitesettings\editTermsConditions.html:35
@@ -1016,10 +1761,6 @@ msgstr "Icône de favori"
 msgid "You have not set your site favicon"
 msgstr "Vous n'avez pas défini le favicon de votre site"
 
-#: .\templates\business\sitesettings\homepage_background.html:4
-msgid "Banner Settings"
-msgstr "Paramètres de la bannière"
-
 #: .\templates\business\sitesettings\homepage_background.html:20
 msgid "Manage Homepage Background Image"
 msgstr "Gérer l'image d'arrière-plan de la page d'accueil"
@@ -1031,10 +1772,6 @@ msgstr "Définir l'arrière-plan de la page d'accueil"
 #: .\templates\business\sitesettings\homepage_background.html:42
 msgid "Background Image"
 msgstr "Image de fond"
-
-#: .\templates\business\sitesettings\homepage_background.html:82
-msgid "Button Link"
-msgstr "Lien de bouton"
 
 #: .\templates\business\sitesettings\paymentGateways.html:4
 msgid "Payment Gateways Settings"
@@ -1086,10 +1823,6 @@ msgstr "Ajouter une nouvelle icône"
 msgid "Add New Social Icon"
 msgstr "Ajouter une nouvelle icône sociale"
 
-#: .\templates\business\sitesettings\socialIcons.html:67
-msgid "Social Media Name"
-msgstr "Nom des médias sociaux"
-
 #: .\templates\business\sitesettings\socialIcons.html:68
 #: .\templates\business\sitesettings\store_features.html:72
 msgid "Icon"
@@ -1115,13 +1848,59 @@ msgstr "Vous n'avez ajouté aucune fonctionnalité de magasin"
 msgid "Add New Feature"
 msgstr "AAjouter une nouvelle fonctionnalité"
 
-#: .\templates\business\sitesettings\store_features.html:75
-msgid "Feature URL"
-msgstr "URL de la fonction d'icône"
-
 #: .\templates\business\sitesettings\topbarEdit.html:4
 msgid "Topbar Settings"
 msgstr "Paramètres de la barre supérieure"
+
+#: .\templates\business\viewContact.html:5
+msgid "Contact Request Details"
+msgstr "Détails de la demande de contact"
+
+#: .\templates\business\viewContact.html:20
+msgid "Contact Details"
+msgstr "Détails du contact"
+
+#: .\templates\business\viewContact.html:40
+#: .\templates\business\viewInquiry.html:40
+msgid "From"
+msgstr "De"
+
+#: .\templates\business\viewInquiry.html:5
+msgid "Inquiry Details"
+msgstr "Détails de l'enquête"
+
+#: .\templates\business\viewInquiry.html:20
+msgid "Inquiry Detail"
+msgstr "Détails de l'enquête"
+
+#: .\templates\business\viewOrder.html:5
+msgid "Order Details"
+msgstr "détails de la commande"
+
+#: .\templates\business\viewOrder.html:21
+msgid "Order Detail"
+msgstr "Détail de la commande"
+
+#: .\templates\business\viewOrder.html:32
+msgid "Order Information"
+msgstr "Informations sur la commande"
+
+#: .\templates\business\viewOrder.html:47
+msgid "Payment Method"
+msgstr "Mode de paiement"
+
+#: .\templates\business\viewOrder.html:127
+msgid "Click to open"
+msgstr "Cliquez pour ouvrir"
+
+#: .\templates\business\viewOrder.html:133
+msgid "Direct Deposit Payment Attachment"
+msgstr "Pièce jointe au paiement par dépôt direct"
+
+#: .\templates\business\viewOrder.html:142
+#: .\templates\shop\product_detail.html:469
+msgid "Close"
+msgstr "Fermer"
 
 #: .\templates\includes\_footer.html:20 .\templates\includes\_footer.html:24
 msgid "Phone"
@@ -1237,14 +2016,6 @@ msgstr "Complétez la commande"
 msgid "Review Your Order and Pay"
 msgstr "Vérifiez votre commande et payez"
 
-#: .\templates\orders\payments.html:40
-msgid "Shipping Address"
-msgstr "adresse de livraison"
-
-#: .\templates\orders\payments.html:70
-msgid "Payment method"
-msgstr "Mode de paiement"
-
 #: .\templates\orders\payments.html:94
 msgid "Review Products"
 msgstr "Examiner les produits"
@@ -1257,14 +2028,6 @@ msgstr "Qté"
 msgid "make payment"
 msgstr "effectuer le paiement"
 
-#: .\templates\orders\payments.html:170 .\templates\shop\checkout.html:107
-msgid "Subtotal"
-msgstr "Total"
-
-#: .\templates\orders\payments.html:182 .\templates\shop\checkout.html:181
-msgid "Tax"
-msgstr "Impôt"
-
 #: .\templates\orders\payments.html:186 .\templates\shop\checkout.html:192
 msgid "Grand Total"
 msgstr "Total"
@@ -1276,22 +2039,6 @@ msgid ""
 msgstr ""
 "Veuillez effectuer le paiement à l'adresse e-mail ci-dessous et soumettre "
 "les détails de la transaction."
-
-#: .\templates\orders\payments.html:212
-msgid "Amount Paid"
-msgstr "Le montant payé"
-
-#: .\templates\orders\payments.html:217
-msgid "Transaction Detail"
-msgstr "Détails de la transaction"
-
-#: .\templates\orders\payments.html:221
-msgid "Date of Payment"
-msgstr "Date de règlement"
-
-#: .\templates\orders\payments.html:225
-msgid "Attachment"
-msgstr "Attachement"
 
 #: .\templates\orders\payments.html:229
 msgid "Order will be confirmed after the payment is recieved."
@@ -1322,10 +2069,6 @@ msgid " If you any query or feedback, please feel free to contact us"
 msgstr ""
 "Si vous avez des questions ou des commentaires, n'hésitez pas à nous "
 "contacter"
-
-#: .\templates\pages\contact.html:57
-msgid "Subject"
-msgstr "Matière"
 
 #: .\templates\pages\contact.html:64
 msgid "Your Message"
@@ -1801,20 +2544,9 @@ msgstr "Votre panier est vide"
 msgid "Continue Shopping"
 msgstr "Continuer vos achats"
 
-#: .\templates\shop\cart.html:45 .\templates\shop\checkout.html:105
-#: .\templates\shop\compare_products.html:53
-#: .\templates\shop\my-wishlist.html:41 .\templates\shop\shop.html:34
-msgid "Price"
-msgstr "Prix"
-
 #: .\templates\shop\cart.html:46
 msgid "Quantity"
 msgstr "Quantité"
-
-#: .\templates\shop\cart.html:47 .\templates\shop\cart.html:174
-#: .\templates\shop\shop.html:195
-msgid "Total"
-msgstr "Le total"
 
 #: .\templates\shop\cart.html:142
 msgid "Continue shopping"
@@ -1832,14 +2564,6 @@ msgstr "Passer à la caisse"
 msgid "Billing details"
 msgstr "Détails de la facturation"
 
-#: .\templates\shop\checkout.html:34 .\templates\shop\product_detail.html:410
-msgid "First Name"
-msgstr "Prénom"
-
-#: .\templates\shop\checkout.html:38 .\templates\shop\product_detail.html:413
-msgid "Last Name"
-msgstr "Nom de famille"
-
 #: .\templates\shop\checkout.html:44
 msgid "E-Mail"
 msgstr "E-mail"
@@ -1847,10 +2571,6 @@ msgstr "E-mail"
 #: .\templates\shop\checkout.html:48
 msgid "Telephone"
 msgstr "Téléphone"
-
-#: .\templates\shop\checkout.html:71
-msgid "Pin Code"
-msgstr "Code PIN"
 
 #: .\templates\shop\checkout.html:87
 msgid "Order Notes"
@@ -1879,10 +2599,8 @@ msgstr ""
 "tard."
 
 #: .\templates\shop\color_list.html:4 .\templates\shop\product_detail.html:169
-#, fuzzy
-#| msgid "Please choose color!"
 msgid "Choose Color"
-msgstr "Veuillez choisir la couleur!"
+msgstr "Choisir la couleur"
 
 #: .\templates\shop\compare_products.html:3
 #: .\templates\shop\compare_products.html:16
@@ -1905,21 +2623,6 @@ msgstr "Caractéristiques"
 #: .\templates\shop\compare_products.html:37
 msgid "Add another product"
 msgstr "Ajouter un autre produit"
-
-#: .\templates\shop\compare_products.html:43
-msgid "Product Description"
-msgstr "Description du produit"
-
-#: .\templates\shop\compare_products.html:63
-msgid "Availability"
-msgstr "Disponibilité"
-
-#: .\templates\shop\compare_products.html:66
-#: .\templates\shop\compare_products.html:77
-#: .\templates\shop\my-wishlist.html:76
-#: .\templates\shop\product_detail.html:346
-msgid "Out of Stock"
-msgstr "En rupture de stock"
 
 #: .\templates\shop\compare_products.html:68
 #: .\templates\shop\compare_products.html:79
@@ -1976,13 +2679,11 @@ msgstr "en stock."
 
 #: .\templates\shop\product_detail.html:154
 msgid "Choose Size"
-msgstr ""
+msgstr "Choisir la taille"
 
 #: .\templates\shop\product_detail.html:228
-#, fuzzy
-#| msgid "Please choose color!"
 msgid "choose color"
-msgstr "Veuillez choisir la couleur!"
+msgstr "choisir la couleur"
 
 #: .\templates\shop\product_detail.html:257
 msgid "Add to Wishlist"
@@ -2026,10 +2727,6 @@ msgstr ""
 "Veuillez remplir le formulaire ci-dessous pour vous renseigner sur ce "
 "produit."
 
-#: .\templates\shop\product_detail.html:420
-msgid "Email Address"
-msgstr "Adresse e-mail"
-
 #: .\templates\shop\product_detail.html:423
 msgid "Phone Number (optional)"
 msgstr "Numéro de téléphone (facultatif)"
@@ -2037,10 +2734,6 @@ msgstr "Numéro de téléphone (facultatif)"
 #: .\templates\shop\product_detail.html:429
 msgid "Enter your message here"
 msgstr "Entrez votre message ici"
-
-#: .\templates\shop\product_detail.html:469
-msgid "Close"
-msgstr "Fermer"
 
 #: .\templates\shop\product_detail.html:482
 msgid "PRODUCT DETAILS"
@@ -2063,10 +2756,8 @@ msgid "Review Title"
 msgstr "Titre du commentaire"
 
 #: .\templates\shop\product_detail.html:528
-#, fuzzy
-#| msgid "Preview"
 msgid "Review"
-msgstr "Aperçu"
+msgstr "Revoir"
 
 #: .\templates\shop\product_detail.html:553
 msgid "Please note, reviews must be approved before they are published"
@@ -2099,17 +2790,13 @@ msgstr "au"
 
 #: .\templates\shop\product_detail.html:632
 #: .\templates\shop\product_detail.html:668
-#, fuzzy
-#| msgid "Please choose color!"
 msgid "Please choose size"
-msgstr "Veuillez choisir la couleur!"
+msgstr "Veuillez choisir la taille"
 
 #: .\templates\shop\product_detail.html:638
 #: .\templates\shop\product_detail.html:644
 #: .\templates\shop\product_detail.html:674
 #: .\templates\shop\product_detail.html:680
-#, fuzzy
-#| msgid "Please choose color!"
 msgid "Please choose color"
 msgstr "Veuillez choisir la couleur!"
 
@@ -2141,14 +2828,6 @@ msgstr "Prix ​​minimum"
 msgid "Max Price"
 msgstr "Prix ​​maximum"
 
-#: .\templates\shop\shop.html:69
-msgid "Size"
-msgstr "Taille"
-
-#: .\templates\shop\shop.html:82
-msgid "Color"
-msgstr "Couleur"
-
 #: .\templates\shop\shop.html:93
 msgid "filter"
 msgstr "filtre"
@@ -2165,6 +2844,12 @@ msgstr "Filtres de produits"
 msgid "Popular"
 msgstr "Populaire"
 
+#~ msgid "All Rights Reserved."
+#~ msgstr "Tous les droits sont réservés."
+
+#~ msgid "Provided by"
+#~ msgstr "Fourni par"
+
 #~ msgid "each"
 #~ msgstr "chaque"
 
@@ -2173,9 +2858,6 @@ msgstr "Populaire"
 
 #~ msgid "Selected"
 #~ msgstr "Choisi"
-
-#~ msgid "Enter OTP"
-#~ msgstr "Entrez OTP"
 
 #~ msgid "Verify"
 #~ msgstr "Vérifier"

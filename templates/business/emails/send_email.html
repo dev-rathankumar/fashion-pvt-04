@@ -1,6 +1,7 @@
 {% extends 'business/base.html' %}
 {% load static %}
-{% block title %} Send an Email {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'Send an Email' %} {% endblock %}
 
 {% block content %}
 
@@ -16,7 +17,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Send An Email</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Send An Email' %}</h4>
           </div>
         </div>
 
@@ -29,14 +30,14 @@
             <div class="row">
               <div class="col-sm-12 col-md-8 col-lg-8">
                 <div class="card-body">
-                  <h4 class="card-title">Send An Email</h4>
+                  <h4 class="card-title">{% trans 'Send An Email' %}</h4>
                   <br>
                   <form method="POST" action="{% url 'send_email' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
                       <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="form-group">
-                          <label for="logo">Subject</label>
+                          <label for="logo">{% trans 'Subject' %}</label>
                           {{ form.subject }}
                         </div>
                       </div>
@@ -45,13 +46,13 @@
                     <div class="row">
                       <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="form-group">
-                          <label for="logo">Email Body</label>
+                          <label for="logo">{% trans 'Email Body' %}</label>
                           {{ form.email_body }}
                         </div>
                       </div>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"> SEND <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                    <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;">{% trans 'SEND' %}  <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                   </form>
                   <br>
                   <div style="width:300px;">
@@ -64,7 +65,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12">
-                      <h4>Subscribers</h4>
+                      <h4>{% trans 'Subscribers' %}</h4>
                       <div class="form-group" style="max-height:515px;overflow:scroll;background-color:#F1F1F1;">
 
                         <!-- {{ form.to_address }} -->

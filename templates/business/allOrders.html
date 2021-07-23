@@ -1,7 +1,8 @@
 {% extends 'business/base.html' %}
 {% load static %}
 {% load humanize %}
-{% block title %} Manage Orders {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'Manage Orders' %} {% endblock %}
 
 {% block content %}
 
@@ -17,12 +18,12 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">All Orders</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'All Orders' %}</h4>
 
             <div class="page-title-right">
               <ol class="breadcrumb m-0">
-                <li class="breadcrumb-item"><a href="javascript: void(0);">Orders</a></li>
-                <li class="breadcrumb-item active">All Orders</li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">{% trans 'Orders' %}</a></li>
+                <li class="breadcrumb-item active">{% trans 'All Orders' %}</li>
               </ol>
             </div>
 
@@ -36,14 +37,14 @@
           <div class="card">
 
             {% if not orders %}
-            <h2 class="text-center" style="padding:25px;">You did not recieve any orders yet</h2>
+            <h2 class="text-center" style="padding:25px;">{% trans 'You did not recieve any orders yet' %}</h2>
             {% else %}
             <div class="card-body">
               <div class="row mb-2">
                 <div class="col-sm-4">
                   <div class="search-box mr-2 mb-2 d-inline-block">
                     <div class="position-relative">
-                      <input type="text" id="myInput" class="form-control" placeholder="Search...">
+                      <input type="text" id="myInput" class="form-control" placeholder="{% trans 'Search' %}...">
                       <i class="bx bx-search-alt search-icon"></i>
                     </div>
                   </div>
@@ -55,16 +56,16 @@
                 <table class="table table-centered table-nowrap table-hover">
                   <thead class="thead-light">
                     <tr>
-                      <th>Order Number</th>
-                      <th>Name</th>
-                      <th>Contact</th>
-                      <th>City</th>
-                      <th>Total</th>
-                      <th>Payment</th>
-                      <th>Status</th>
-                      <th>Ordered Date</th>
-                      <th>View Order</th>
-                      <th>Action</th>
+                      <th>{% trans 'Order Number' %}</th>
+                      <th>{% trans 'Name' %}</th>
+                      <th>{% trans 'Contact' %}</th>
+                      <th>{% trans 'City' %}</th>
+                      <th>{% trans 'Total' %}</th>
+                      <th>{% trans 'Payment' %}</th>
+                      <th>{% trans 'Status' %}</th>
+                      <th>{% trans 'Ordered Date' %}</th>
+                      <th>{% trans 'View Order' %}</th>
+                      <th>{% trans 'Action' %}</th>
                     </tr>
                   </thead>
                   <tbody id="myTable">
@@ -94,17 +95,17 @@
                       </td>
                       <td>
                         {% if order.status == 'New' %}
-                        <span class="badge badge-pill badge-soft-success font-size-12 w-100">New</span>
+                        <span class="badge badge-pill badge-soft-success font-size-12 w-100">{% trans 'New' %}</span>
                         {% elif order.status == 'Accepted' %}
-                        <span class="badge badge-pill badge-soft-primary font-size-12 w-100">Accepted</span>
+                        <span class="badge badge-pill badge-soft-primary font-size-12 w-100">{% trans 'Accepted' %}</span>
                         {% elif order.status == 'On Hold' %}
-                        <span class="badge badge-pill badge-soft-info font-size-12 w-100">On Hold</span>
+                        <span class="badge badge-pill badge-soft-info font-size-12 w-100">{% trans 'On Hold' %}</span>
                         {% elif order.status == 'Pending Payment' %}
-                        <span class="badge badge-pill badge-soft-secondary font-size-12 w-100">Pending Payment</span>
+                        <span class="badge badge-pill badge-soft-secondary font-size-12 w-100">{% trans 'Pending Payment' %}</span>
                         {% elif order.status == 'Completed' %}
-                        <span class="badge badge-pill badge-soft-warning font-size-12 w-100">Completed</span>
+                        <span class="badge badge-pill badge-soft-warning font-size-12 w-100">{% trans 'Completed' %}</span>
                         {% elif order.status == 'Cancelled' %}
-                        <span class="badge badge-pill badge-soft-danger font-size-12 w-100">Cancelled</span>
+                        <span class="badge badge-pill badge-soft-danger font-size-12 w-100">{% trans 'Cancelled' %}</span>
                         {% else %} <span class="badge badge-pill badge-soft-success font-size-12 w-100">{{order.status}}</span>
                         {% endif %}
 
@@ -114,7 +115,7 @@
                       </td>
                       <td>
                         <a href="{% url 'bizOrderDetail' order.order_number %}" class="btn btn-primary">
-                          View Order
+                          {% trans 'View Order' %}
                         </a>
 
                       </td>

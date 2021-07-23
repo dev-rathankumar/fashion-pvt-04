@@ -1,7 +1,8 @@
 {% extends 'business/base.html' %}
 {% load static %}
+{% load i18n %}
 {% load humanize %}
-{% block title %} Inquiry Details {% endblock %}
+{% block title %} {% trans 'Inquiry Details' %} {% endblock %}
 {% block content %}
 
 <!-- ============================================================== -->
@@ -16,7 +17,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Inquiry Detail</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Inquiry Detail' %}</h4>
           </div>
         </div>
       </div>
@@ -36,7 +37,7 @@
                       <br>
 
 
-                      <p style="margin-bottom:0;"><b>From:</b></p>
+                      <p style="margin-bottom:0;"><b>{% trans 'From' %}:</b></p>
                       <p style="margin-bottom:0;">{{inquiry.name}}</p>
                       <p style="margin-bottom:0;">{{inquiry.email}}</p>
                       <p style="margin-bottom:0;">{{inquiry.phone}}</p>
@@ -46,7 +47,7 @@
                           <div class="card-header">
                             <div class="row">
                               <div class="col-12">
-                                <h5 class="m-0"><strong>Product Name:</strong> {{inquiry.product_name }}<span><small class="m-0" style="float:right;margin-bottom:0;">{{inquiry.create_date}}</small></span></h5>
+                                <h5 class="m-0"><strong>{% trans 'Product Name' %}:</strong> {{inquiry.product_name }}<span><small class="m-0" style="float:right;margin-bottom:0;">{{inquiry.create_date}}</small></span></h5>
 
                               </div>
                             </div>
@@ -69,7 +70,7 @@
 
               </div>
 <!-- <button onclick="goBack();" class="btn btn-primary"><i class="fas fa-reply"></i>&nbsp; Reply</button> -->
-<button onclick="goBack();" class="btn btn-primary"><i class="fas fa-arrow-left"></i>&nbsp; Go back</button>
+<button onclick="goBack();" class="btn btn-primary"><i class="fas fa-arrow-left"></i>&nbsp; {% trans 'Go back' %}</button>
             </div>
           </div>
 

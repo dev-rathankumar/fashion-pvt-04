@@ -1,7 +1,8 @@
 {% extends 'business/base.html' %}
 {% load static %}
 {% load humanize %}
-{% block title %} Purchase Details {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'Purchase Details' %} {% endblock %}
 {% block content %}
 
 <!-- ============================================================== -->
@@ -16,7 +17,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Purchase Details</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Purchase Details' %}</h4>
           </div>
         </div>
       </div>
@@ -41,14 +42,14 @@
                       </div><br>
 
 
-                      <p style="margin-bottom:0;">Purchased on: {{planHistoryDetail.created_at}}</p>
+                      <p style="margin-bottom:0;">{% trans 'Purchased on' %}: {{planHistoryDetail.created_at}}</p>
                       <div class="table-responsive-sm order-table">
 
                         <div class="card">
                           <div class="card-header">
                             <div class="row">
                               <div class="col-12">
-                                <h5 class="m-0">Order # <strong style="letter-spacing: 2px;">{{planHistoryDetail.order_number }}</strong> </h5>
+                                <h5 class="m-0">{% trans 'Order' %} # <strong style="letter-spacing: 2px;">{{planHistoryDetail.order_number }}</strong> </h5>
 
                               </div>
                             </div>
@@ -57,19 +58,19 @@
                           <div class="row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                               <div class="card-body">
-                                <p class="card-text mb-0">Plan <b>{{planHistoryDetail.plan.plan_name}}</b></p>
-                                <p class="card-text mb-0">Transaction ID <b>{{planHistoryDetail.plan_payment.payment_id}}</b></p>
-                                <p class="card-text mb-0">Payment method <b>{{planHistoryDetail.plan_payment.payment_method | capfirst}}</b></p>
-                                <p class="card-text mb-0">Status <b>{{planHistoryDetail.plan_payment.status | capfirst}}</b></p>
+                                <p class="card-text mb-0">{% trans 'Plan' %} <b>{{planHistoryDetail.plan.plan_name}}</b></p>
+                                <p class="card-text mb-0">{% trans 'Transaction ID' %} <b>{{planHistoryDetail.plan_payment.payment_id}}</b></p>
+                                <p class="card-text mb-0">{% trans 'Payment method' %} <b>{{planHistoryDetail.plan_payment.payment_method | capfirst}}</b></p>
+                                <p class="card-text mb-0">{% trans 'Status' %} <b>{{planHistoryDetail.plan_payment.status | capfirst}}</b></p>
 
 
                               </div>
                             </div>
                             <div class="col-md-6 col-lg-6 col-sm-12">
                               <div class="card-body">
-                                <p class="card-text mb-0">Subtotal $ {{subtotal}}</p>
-                                <p class="card-text mb-0">Tax $ {{planHistoryDetail.tax}}</p>
-                                <h5 class="card-text mb-0">Total <b>$ {{planHistoryDetail.total}}</b></h5>
+                                <p class="card-text mb-0">{% trans 'Subtotal' %} $ {{subtotal}}</p>
+                                <p class="card-text mb-0">{% trans 'Tax' %} $ {{planHistoryDetail.tax}}</p>
+                                <h5 class="card-text mb-0">{% trans 'Total' %} <b>$ {{planHistoryDetail.total}}</b></h5>
                               </div>
                             </div>
                           </div>
@@ -87,7 +88,7 @@
 
               </div>
 
-              <button onclick="goBack();" class="btn btn-primary"><i class="fas fa-arrow-left"></i>&nbsp Go back</button>
+              <button onclick="goBack();" class="btn btn-primary"><i class="fas fa-arrow-left"></i>&nbsp {% trans 'Go back' %}</button>
             </div>
           </div>
 

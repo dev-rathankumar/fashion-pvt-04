@@ -1,7 +1,8 @@
 {% extends 'business/base.html' %}
 {% load static %}
 {% load humanize %}
-{% block title %} Contact Request Details {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'Contact Request Details' %} {% endblock %}
 {% block content %}
 
 <!-- ============================================================== -->
@@ -16,7 +17,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Contact Details</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Contact Details' %}</h4>
           </div>
         </div>
       </div>
@@ -36,7 +37,7 @@
                       <br>
 
 
-                      <p style="margin-bottom:0;"><b>From:</b></p>
+                      <p style="margin-bottom:0;"><b>{% trans 'From' %}:</b></p>
                       <p style="margin-bottom:0;">{{contact.name}}</p>
                       <p style="margin-bottom:0;"><a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
                       <p style="margin-bottom:0;"><a href="tel:{{contact.phone}}">{{contact.phone}}</a></p>
@@ -46,7 +47,7 @@
                           <div class="card-header">
                             <div class="row">
                               <div class="col-12">
-                                <h5 class="m-0"><strong>Subject:</strong> {{contact.subject }}<span><small class="m-0" style="float:right;margin-bottom:0;">{{contact.create_date}}</small></span></h5>
+                                <h5 class="m-0"><strong>{% trans 'Subject' %}:</strong> {{contact.subject }}<span><small class="m-0" style="float:right;margin-bottom:0;">{{contact.create_date}}</small></span></h5>
 
                               </div>
                             </div>
@@ -69,7 +70,7 @@
 
               </div>
 <!-- <button onclick="goBack();" class="btn btn-primary"><i class="fas fa-reply"></i>&nbsp; Reply</button> -->
-<button onclick="goBack();" class="btn btn-primary"><i class="fas fa-arrow-left"></i>&nbsp; Back</button>
+<button onclick="goBack();" class="btn btn-primary"><i class="fas fa-arrow-left"></i>&nbsp; {% trans 'Back' %}</button>
             </div>
           </div>
 

@@ -1,7 +1,8 @@
 {% extends 'business/base.html' %}
 {% load static %}
 {% load humanize %}
-{% block title %} Email Details {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'Email Details' %} {% endblock %}
 {% block content %}
 
 <!-- ============================================================== -->
@@ -16,7 +17,7 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Email Detail</h4>
+            <h4 class="mb-0 font-size-18">{% trans 'Email Detail' %}</h4>
           </div>
         </div>
       </div>
@@ -36,15 +37,15 @@
                       <br>
 
 
-                      <p style="margin-bottom:0;">Status: {% if email.is_sent == True %}<i class="fa fa-check" aria-hidden="true" style="color:#28A745;"></i> Sent{% else %}<i class="fa fa-times" aria-hidden="true" style="color:#DC3545;"></i> Failed{% endif %}</p>
-        <p style="margin-bottom:0;">Recipients: {{email.recipients}}</p>
+                      <p style="margin-bottom:0;">{% trans 'Status' %}: {% if email.is_sent == True %}<i class="fa fa-check" aria-hidden="true" style="color:#28A745;"></i> {% trans 'Sent' %}{% else %}<i class="fa fa-times" aria-hidden="true" style="color:#DC3545;"></i> {% trans 'Failed' %}{% endif %}</p>
+        <p style="margin-bottom:0;">{% trans 'Recipients' %}: {{email.recipients}}</p>
                       <div class="table-responsive-sm order-table">
 
                         <div class="card">
                           <div class="card-header">
                             <div class="row">
                               <div class="col-12">
-                                <h5 class="m-0"><strong>Subject:</strong> {{email.subject }}<span><small class="m-0" style="float:right;margin-bottom:0;">{{email.sent_date}}</small></span></h5>
+                                <h5 class="m-0"><strong>{% trans 'Subject' %}:</strong> {{email.subject }}<span><small class="m-0" style="float:right;margin-bottom:0;">{{email.sent_date}}</small></span></h5>
 
                               </div>
                             </div>
@@ -73,7 +74,7 @@
 
               </div>
 
-              <button onclick="goBack();" class="btn btn-primary"><i class="fas fa-arrow-left"></i>&nbsp Go back</button>
+              <button onclick="goBack();" class="btn btn-primary"><i class="fas fa-arrow-left"></i>&nbsp {% trans 'Go back' %}</button>
             </div>
           </div>
 
