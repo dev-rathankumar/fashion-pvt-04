@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-23 23:15+0530\n"
+"POT-Creation-Date: 2021-07-24 23:18+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,13 +22,181 @@ msgstr ""
 msgid "Homepage"
 msgstr "Page d'accueil"
 
+#: .\templates\accounts\biz_password_reset.html:3
+msgid "Password Reset"
+msgstr "Réinitialisation du mot de passe"
+
+#: .\templates\accounts\biz_password_reset.html:10
+#: .\templates\accounts\changeuserPassword.html:12
+#: .\templates\accounts\editUser.html:12
+#: .\templates\accounts\forgotPassword.html:11
+#: .\templates\accounts\inquiries.html:11
+#: .\templates\accounts\myorders.html:11
+#: .\templates\accounts\orderDetail.html:13
+#: .\templates\accounts\resetPassword.html:10
+#: .\templates\accounts\userDashboard.html:11
+#: .\templates\accounts\userRegister.html:11
+#: .\templates\blogs\blog_detail.html:16 .\templates\blogs\blogs.html:12
+#: .\templates\includes\_navbar.html:40 .\templates\pages\about.html:11
+#: .\templates\pages\contact.html:13 .\templates\pages\home.html:3
+#: .\templates\pages\home.html:14 .\templates\shop\cart.html:13
+#: .\templates\shop\product_detail.html:13 .\templates\shop\shop.html:13
+msgid "Home"
+msgstr "Domicile"
+
+#: .\templates\accounts\biz_password_reset.html:10
+#: .\templates\accounts\biz_password_reset.html:16
+#: .\templates\accounts\resetPassword.html:16
+msgid "Reset Your Password"
+msgstr "Réinitialisez votre mot de passe"
+
+#: .\templates\accounts\biz_password_reset.html:30
+#: .\templates\accounts\resetPassword.html:30
+#: .\templates\accounts\userRegister.html:61
+msgid "Password"
+msgstr "Mot de passe"
+
+#: .\templates\accounts\biz_password_reset.html:31
+#: .\templates\accounts\rm_password_reset.html:66
+msgid "Enter new password"
+msgstr "Entrez un nouveau mot de passe"
+
+#: .\templates\accounts\biz_password_reset.html:38
+#: .\templates\accounts\changeuserPassword.html:46
+#: .\templates\accounts\resetPassword.html:38
+#: .\templates\accounts\rm_password_reset.html:71
+#: .\templates\accounts\userRegister.html:69
+msgid "Confirm Password"
+msgstr "Confirmez le mot de passe"
+
+#: .\templates\accounts\biz_password_reset.html:39
+#: .\templates\accounts\rm_password_reset.html:72
+msgid "Confirm password"
+msgstr "Confirmez le mot de passe"
+
+#: .\templates\accounts\biz_password_reset.html:47
+#: .\templates\accounts\forgotPassword.html:42
+#: .\templates\accounts\resetPassword.html:47
+msgid "Back To Login Page"
+msgstr "Retour à la page de connexion"
+
+#: .\templates\accounts\changeuserPassword.html:3
+msgid "Change Your Password"
+msgstr "Changez votre mot de passe"
+
+#: .\templates\accounts\changeuserPassword.html:12
+#: .\templates\accounts\editUser.html:12
 #: .\templates\accounts\includes\_navbar.html:2
+#: .\templates\accounts\inquiries.html:11
+#: .\templates\accounts\myorders.html:11
+#: .\templates\accounts\orderDetail.html:13
 #: .\templates\accounts\userDashboard.html:3
 #: .\templates\accounts\userDashboard.html:11
 #: .\templates\includes\_footer.html:48 .\templates\includes\_navbar.html:112
 #: .\templates\pages\home.html:139
 msgid "My Account"
 msgstr "Mon compte"
+
+#: .\templates\accounts\changeuserPassword.html:28
+msgid "Change your password"
+msgstr "Changez votre mot de passe"
+
+#: .\templates\accounts\changeuserPassword.html:32
+msgid "Current Password"
+msgstr "Mot de passe actuel"
+
+#: .\templates\accounts\changeuserPassword.html:34
+msgid "Enter current password"
+msgstr "Entrer le mot de passe actuel"
+
+#: .\templates\accounts\changeuserPassword.html:38
+#: .\templates\accounts\rm_password_reset.html:65
+msgid "New Password"
+msgstr "nouveau mot de passe"
+
+#: .\templates\accounts\changeuserPassword.html:40
+msgid "Create new password"
+msgstr "Créer un nouveau mot de passe"
+
+#: .\templates\accounts\changeuserPassword.html:48
+msgid "Confirm new password"
+msgstr "Confirmer le nouveau mot de passe"
+
+#: .\templates\accounts\changeuserPassword.html:55
+#: .\templates\business\editProduct.html:117
+msgid "Change"
+msgstr "Changement"
+
+#: .\templates\accounts\editUser.html:3
+msgid "Edit User"
+msgstr "Modifier l'utilisateur"
+
+#: .\templates\accounts\editUser.html:28
+msgid "Account details"
+msgstr "Détails du compte"
+
+#: .\templates\accounts\editUser.html:45
+#: .\templates\accounts\forgotPassword.html:33
+#: .\templates\accounts\userRegister.html:51
+#: .\templates\business\editOrder.html:109
+#: .\templates\shop\product_detail.html:420
+msgid "Email Address"
+msgstr "Adresse e-mail"
+
+#: .\templates\accounts\editUser.html:49
+#: .\templates\business\editOrder.html:103
+#: .\templates\business\sitesettings\contactUs.html:85
+#: .\templates\pages\contact.html:52
+msgid "Phone Number"
+msgstr "Numéro de téléphone"
+
+#: .\templates\accounts\editUser.html:55
+#: .\templates\business\CustomerViewProfile.html:74
+#: .\templates\business\allCustomers.html:63
+msgid "Gender"
+msgstr "Le genre"
+
+#: .\templates\accounts\editUser.html:59
+#: .\templates\business\allCustomers.html:59
+msgid "Profile Picture"
+msgstr "Image de profil"
+
+#: .\templates\accounts\editUser.html:64
+#: .\templates\business\paymentSettings.html:81
+msgid "Save"
+msgstr "sauver"
+
+#: .\templates\accounts\forgotPassword.html:3
+msgid "Forgot Password"
+msgstr "Mot de passe oublié"
+
+#: .\templates\accounts\forgotPassword.html:11
+#: .\templates\accounts\forgotPassword.html:17
+#: .\templates\accounts\resetPassword.html:10
+msgid "Forgot Your Password"
+msgstr "Mot de passe oublié"
+
+#: .\templates\accounts\forgotPassword.html:28
+msgid "Retrieve your password here"
+msgstr "Récupérez votre mot de passe ici"
+
+#: .\templates\accounts\forgotPassword.html:29
+msgid ""
+"Please enter your email address below. You will receive a link to reset your "
+"password."
+msgstr ""
+"Veuillez insérer votre adresse courriel ci-bas. Vous recevrez un lien pour "
+"réinitialiser votre mot de passe"
+
+#: .\templates\accounts\forgotPassword.html:34
+msgid "Enter your email address"
+msgstr "Entrez votre adresse email"
+
+#: .\templates\accounts\forgotPassword.html:40
+#: .\templates\blogs\blog_detail.html:90
+#: .\templates\blogs\blog_detail.html:157
+msgid "Submit"
+msgstr "Soumettre"
 
 #: .\templates\accounts\includes\_navbar.html:7
 msgid "Hello"
@@ -60,10 +228,12 @@ msgid "Dashboard"
 msgstr "Tableau de bord"
 
 #: .\templates\accounts\includes\_sidebar.html:6
+#: .\templates\accounts\myorders.html:3
 msgid "My Orders"
 msgstr "Mes commandes"
 
 #: .\templates\accounts\includes\_sidebar.html:7
+#: .\templates\accounts\inquiries.html:3
 #: .\templates\business\allInquiries.html:24
 #: .\templates\business\dashboard.html:144
 #: .\templates\business\includes\_sidebar.html:168
@@ -83,26 +253,240 @@ msgstr "Changer le mot de passe"
 msgid "logout"
 msgstr "Se déconnecter"
 
-#: .\templates\accounts\userDashboard.html:11
-#: .\templates\blogs\blog_detail.html:16 .\templates\blogs\blogs.html:12
-#: .\templates\includes\_navbar.html:40 .\templates\pages\about.html:11
-#: .\templates\pages\contact.html:13 .\templates\pages\home.html:3
-#: .\templates\pages\home.html:14 .\templates\shop\cart.html:13
-#: .\templates\shop\product_detail.html:13 .\templates\shop\shop.html:13
-msgid "Home"
-msgstr "Domicile"
-
-#: .\templates\accounts\userDashboard.html:33
-msgid "Your Orders"
-msgstr "Vos commandes"
-
+#: .\templates\accounts\inquiries.html:27
 #: .\templates\accounts\userDashboard.html:41
 msgid "Your Inquiries"
 msgstr "Vos demandes"
 
+#: .\templates\accounts\inquiries.html:34 .\templates\pages\home.html:94
+#: .\templates\shop\cart.html:44 .\templates\shop\my-wishlist.html:40
+msgid "Product"
+msgstr "Produit"
+
+#: .\templates\accounts\inquiries.html:35 .\templates\pages\contact.html:64
+msgid "Your Message"
+msgstr "Votre message"
+
+#: .\templates\accounts\inquiries.html:36
+#: .\templates\accounts\orderDetail.html:31
+#: .\templates\business\allComments.html:62
+#: .\templates\business\allContacts.html:60
+#: .\templates\business\allInquiries.html:61
+#: .\templates\business\allReviewRatings.html:61
+#: .\templates\business\commentReplies.html:61
+#: .\templates\business\emails\emails.html:70
+#: .\templates\business\planPurchaseHistory.html:63
+msgid "Date"
+msgstr "Date"
+
+#: .\templates\accounts\inquiries.html:51
+msgid "You have not made any inquiries"
+msgstr "Vous n'avez fait aucune demande"
+
+#: .\templates\accounts\inquiries.html:52
+#: .\templates\accounts\myorders.html:58
+msgid "Go to shop"
+msgstr "Aller à la boutique"
+
+#: .\templates\accounts\myorders.html:27
+#: .\templates\accounts\userDashboard.html:33
+msgid "Your Orders"
+msgstr "Vos commandes"
+
+#: .\templates\accounts\myorders.html:34
+msgid "Order No."
+msgstr "N ° de commande."
+
+#: .\templates\accounts\myorders.html:35
+msgid "Billing Name"
+msgstr "Nom de facturation"
+
+#: .\templates\accounts\myorders.html:36
+#: .\templates\business\allOrders.html:63
+#: .\templates\business\planHistoryDetail.html:73
+#: .\templates\business\planPurchaseHistory.html:62
+#: .\templates\shop\cart.html:47 .\templates\shop\cart.html:174
+#: .\templates\shop\shop.html:195
+msgid "Total"
+msgstr "Le total"
+
+#: .\templates\accounts\myorders.html:37
+msgid "Purchased On"
+msgstr "Acheté le"
+
+#: .\templates\accounts\myorders.html:38 .\templates\business\addBlog.html:73
+#: .\templates\business\allBlogs.html:64
+#: .\templates\business\allOrders.html:65
+#: .\templates\business\allProducts.html:79
+#: .\templates\business\editBlog.html:78
+#: .\templates\business\emails\email_detail.html:40
+#: .\templates\business\emails\emails.html:69
+#: .\templates\business\planHistoryDetail.html:64
+#: .\templates\shop\my-wishlist.html:42
+msgid "Status"
+msgstr "Statut"
+
+#: .\templates\accounts\myorders.html:39
+#: .\templates\business\allContacts.html:79
+#: .\templates\business\allInquiries.html:83
+#: .\templates\business\emails\emails.html:71
+#: .\templates\business\emails\emails.html:89
+#: .\templates\business\planPurchaseHistory.html:64
+#: .\templates\business\planPurchaseHistory.html:84
+msgid "View Details"
+msgstr "Voir les détails"
+
+#: .\templates\accounts\myorders.html:50
+msgid "VIEW DETAILS"
+msgstr "VOIR LES DÉTAILS"
+
+#: .\templates\accounts\myorders.html:57
+msgid "You have not purchased anything yet."
+msgstr "Vous n'avez encore rien acheté."
+
+#: .\templates\accounts\orderDetail.html:5
+#: .\templates\business\viewOrder.html:5
+msgid "Order Details"
+msgstr "détails de la commande"
+
+#: .\templates\accounts\orderDetail.html:28
+msgid "Thank you for your order"
+msgstr "Nous vous remercions de votre commande"
+
+#: .\templates\accounts\orderDetail.html:30
+#: .\templates\business\editOrder.html:51
+#: .\templates\business\planHistoryDetail.html:52
+#: .\templates\business\viewOrder.html:40
+msgid "Order"
+msgstr "Ordre"
+
+#: .\templates\accounts\orderDetail.html:38
+msgid "This order is on hold. Please wait until we verify your payment."
+msgstr ""
+"Cette commande est en attente. Veuillez attendre que nous vérifions votre "
+"paiement."
+
+#: .\templates\accounts\orderDetail.html:46
+#: .\templates\business\editOrder.html:79
+#: .\templates\business\viewOrder.html:70 .\templates\orders\payments.html:40
+msgid "Shipping Address"
+msgstr "adresse de livraison"
+
+#: .\templates\accounts\orderDetail.html:72
+msgid "Transaction Details"
+msgstr "Détails de la transaction"
+
+#: .\templates\accounts\orderDetail.html:80
+msgid "Transaction No."
+msgstr "N° de transaction"
+
+#: .\templates\accounts\orderDetail.html:82
+#: .\templates\business\viewOrder.html:47
+msgid "Payment Method"
+msgstr "Mode de paiement"
+
+#: .\templates\accounts\orderDetail.html:93
+msgid "Purchased Products"
+msgstr "Produits achetés"
+
+#: .\templates\accounts\orderDetail.html:172
+#: .\templates\business\planHistoryDetail.html:72
+#: .\templates\orders\payments.html:182 .\templates\shop\checkout.html:181
+msgid "Tax"
+msgstr "Impôt"
+
+#: .\templates\accounts\orderDetail.html:177
+#: .\templates\orders\payments.html:186 .\templates\shop\checkout.html:192
+msgid "Grand Total"
+msgstr "Total"
+
+#: .\templates\accounts\resetPassword.html:3
+msgid "Reset Your Password "
+msgstr "Réinitialisez votre mot de passe"
+
+#: .\templates\accounts\rm_password_reset.html:9
+msgid "Regional Manager"
+msgstr "Directeur régional"
+
+#: .\templates\accounts\rm_password_reset.html:9
+msgid "Password Reset "
+msgstr "Réinitialisation du mot de passe"
+
+#: .\templates\accounts\rm_password_reset.html:42
+msgid "Hi Regional Manager,"
+msgstr "Bonjour directeur régional,"
+
+#: .\templates\accounts\rm_password_reset.html:43
+msgid "Please reset your password to activate your account."
+msgstr "Veuillez réinitialiser votre mot de passe pour activer votre compte."
+
+#: .\templates\accounts\rm_password_reset.html:77
+msgid "Reset"
+msgstr ""
+
 #: .\templates\accounts\userDashboard.html:48
 msgid "Edit Profile"
 msgstr "Editer le profil"
+
+#: .\templates\accounts\userLogin.html:3 .\templates\includes\_footer.html:50
+#: .\templates\includes\_navbar.html:123 .\templates\pages\home.html:138
+msgid "Login"
+msgstr "Connexion"
+
+#: .\templates\accounts\userLogin.html:24
+msgid "New Customers"
+msgstr "nouveaux clients"
+
+#: .\templates\accounts\userLogin.html:25
+msgid ""
+"By creating an account with our store, you will be able to move through the "
+"checkout process faster, store multiple shipping addresses, view and track "
+"your orders in your account and more."
+msgstr ""
+
+#: .\templates\accounts\userLogin.html:26
+msgid "Create an account"
+msgstr "Créer un compte"
+
+#: .\templates\accounts\userRegister.html:3
+#: .\templates\accounts\userRegister.html:78
+msgid "Register"
+msgstr "S'inscrire"
+
+#: .\templates\accounts\userRegister.html:11
+#: .\templates\accounts\userRegister.html:16
+msgid "Create An Account"
+msgstr "Créer un compte"
+
+#: .\templates\accounts\userRegister.html:24
+#: .\templates\business\profile.html:78
+msgid "Personal Information"
+msgstr "Informations personnelles"
+
+#: .\templates\accounts\userRegister.html:30
+#: .\templates\business\editOrder.html:89 .\templates\shop\checkout.html:34
+#: .\templates\shop\product_detail.html:410
+msgid "First Name"
+msgstr "Prénom"
+
+#: .\templates\accounts\userRegister.html:36
+#: .\templates\business\editOrder.html:95 .\templates\shop\checkout.html:38
+#: .\templates\shop\product_detail.html:413
+msgid "Last Name"
+msgstr "Nom de famille"
+
+#: .\templates\accounts\userRegister.html:45
+#: .\templates\business\allCustomers.html:62
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: .\templates\accounts\userRegister.html:57
+msgid "Login Information"
+msgstr "Informations de connexion"
+
+#: .\templates\accounts\userRegister.html:81
+msgid "Back To Login"
+msgstr "Retour à la page de connexion"
 
 #: .\templates\blogs\blog_detail.html:29
 msgid "comments"
@@ -150,11 +534,6 @@ msgstr ""
 #: .\templates\shop\product_detail.html:541
 msgid "Enter Captcha"
 msgstr "Entrez Captcha"
-
-#: .\templates\blogs\blog_detail.html:90
-#: .\templates\blogs\blog_detail.html:157
-msgid "Submit"
-msgstr "Soumettre"
 
 #: .\templates\blogs\blog_detail.html:104
 msgid "Latest Comments"
@@ -255,11 +634,6 @@ msgstr " Client ID"
 msgid "Last login"
 msgstr "Dernière connexion"
 
-#: .\templates\business\CustomerViewProfile.html:74
-#: .\templates\business\allCustomers.html:63
-msgid "Gender"
-msgstr "Le genre"
-
 #: .\templates\business\CustomerViewProfile.html:94
 #: .\templates\business\addBlog.html:88
 #: .\templates\business\addBlogCategory.html:62
@@ -328,17 +702,6 @@ msgstr "Brève description du blog"
 #: .\templates\business\sitesettings\homepage_background.html:68
 msgid "Description"
 msgstr "La description "
-
-#: .\templates\business\addBlog.html:73 .\templates\business\allBlogs.html:64
-#: .\templates\business\allOrders.html:65
-#: .\templates\business\allProducts.html:79
-#: .\templates\business\editBlog.html:78
-#: .\templates\business\emails\email_detail.html:40
-#: .\templates\business\emails\emails.html:69
-#: .\templates\business\planHistoryDetail.html:64
-#: .\templates\shop\my-wishlist.html:42
-msgid "Status"
-msgstr "Statut"
 
 #: .\templates\business\addBlog.html:82 .\templates\business\allBlogs.html:60
 msgid "Featured Image"
@@ -626,16 +989,6 @@ msgstr "Les clients"
 msgid "Replies"
 msgstr "Réponses"
 
-#: .\templates\business\allComments.html:62
-#: .\templates\business\allContacts.html:60
-#: .\templates\business\allInquiries.html:61
-#: .\templates\business\allReviewRatings.html:61
-#: .\templates\business\commentReplies.html:61
-#: .\templates\business\emails\emails.html:70
-#: .\templates\business\planPurchaseHistory.html:63
-msgid "Date"
-msgstr "Date"
-
 #: .\templates\business\allComments.html:63
 #: .\templates\business\allReviewRatings.html:62
 #: .\templates\business\commentReplies.html:62
@@ -693,15 +1046,6 @@ msgstr "Courriel et téléphone"
 msgid "View"
 msgstr "Vue"
 
-#: .\templates\business\allContacts.html:79
-#: .\templates\business\allInquiries.html:83
-#: .\templates\business\emails\emails.html:71
-#: .\templates\business\emails\emails.html:89
-#: .\templates\business\planPurchaseHistory.html:64
-#: .\templates\business\planPurchaseHistory.html:84
-msgid "View Details"
-msgstr "Voir les détails"
-
 #: .\templates\business\allCustomers.html:5
 #: .\templates\business\allCustomers.html:20
 #: .\templates\business\allCustomers.html:25
@@ -712,19 +1056,11 @@ msgstr "Les clients"
 msgid "You do not have any customers yet"
 msgstr "Vous n'avez pas encore de clients"
 
-#: .\templates\business\allCustomers.html:59
-msgid "Profile Picture"
-msgstr "Image de profil"
-
 #: .\templates\business\allCustomers.html:61
 #: .\templates\business\allInquiries.html:60
 #: .\templates\business\allOrders.html:61 .\templates\pages\contact.html:3
 msgid "Contact"
 msgstr "Contacter"
-
-#: .\templates\business\allCustomers.html:62
-msgid "Username"
-msgstr "Nom d'utilisateur"
 
 #: .\templates\business\allCustomers.html:65
 #: .\templates\business\includes\_navbar.html:92
@@ -779,14 +1115,6 @@ msgstr "Numéro de commande"
 #: .\templates\shop\checkout.html:67
 msgid "City"
 msgstr "Ville"
-
-#: .\templates\business\allOrders.html:63
-#: .\templates\business\planHistoryDetail.html:73
-#: .\templates\business\planPurchaseHistory.html:62
-#: .\templates\shop\cart.html:47 .\templates\shop\cart.html:174
-#: .\templates\shop\shop.html:195
-msgid "Total"
-msgstr "Le total"
 
 #: .\templates\business\allOrders.html:64
 msgid "Payment"
@@ -1048,12 +1376,6 @@ msgstr "Modifier la commande"
 msgid "Edit Product"
 msgstr "Modifier le produit"
 
-#: .\templates\business\editOrder.html:51
-#: .\templates\business\planHistoryDetail.html:52
-#: .\templates\business\viewOrder.html:40
-msgid "Order"
-msgstr "Ordre"
-
 #: .\templates\business\editOrder.html:57
 #: .\templates\business\planHistoryDetail.html:62
 #: .\templates\business\planPurchaseHistory.html:61
@@ -1073,32 +1395,6 @@ msgstr "Cette commande a été annulée."
 #: .\templates\business\viewOrder.html:48
 msgid "Order Status"
 msgstr "Statut de la commande"
-
-#: .\templates\business\editOrder.html:79
-#: .\templates\business\viewOrder.html:70 .\templates\orders\payments.html:40
-msgid "Shipping Address"
-msgstr "adresse de livraison"
-
-#: .\templates\business\editOrder.html:89 .\templates\shop\checkout.html:34
-#: .\templates\shop\product_detail.html:410
-msgid "First Name"
-msgstr "Prénom"
-
-#: .\templates\business\editOrder.html:95 .\templates\shop\checkout.html:38
-#: .\templates\shop\product_detail.html:413
-msgid "Last Name"
-msgstr "Nom de famille"
-
-#: .\templates\business\editOrder.html:103
-#: .\templates\business\sitesettings\contactUs.html:85
-#: .\templates\pages\contact.html:52
-msgid "Phone Number"
-msgstr "Numéro de téléphone"
-
-#: .\templates\business\editOrder.html:109
-#: .\templates\shop\product_detail.html:420
-msgid "Email Address"
-msgstr "Adresse e-mail"
 
 #: .\templates\business\editOrder.html:117
 #: .\templates\business\editOrder.html:123
@@ -1171,10 +1467,6 @@ msgstr "Produits commandés"
 #: .\templates\business\editOrder.html:301
 msgid "Update"
 msgstr "Mettre à jour"
-
-#: .\templates\business\editProduct.html:117
-msgid "Change"
-msgstr "Changement"
 
 #: .\templates\business\editProduct.html:132
 msgid "SKIP"
@@ -1443,10 +1735,6 @@ msgstr "Numéro de compte"
 msgid "Bank Code"
 msgstr "Code bancaire"
 
-#: .\templates\business\paymentSettings.html:81
-msgid "Save"
-msgstr "sauver"
-
 #: .\templates\business\planHistoryDetail.html:5
 #: .\templates\business\planHistoryDetail.html:20
 msgid "Purchase Details"
@@ -1465,11 +1753,6 @@ msgstr "Planifier"
 #: .\templates\orders\payments.html:170 .\templates\shop\checkout.html:107
 msgid "Subtotal"
 msgstr "Total"
-
-#: .\templates\business\planHistoryDetail.html:72
-#: .\templates\orders\payments.html:182 .\templates\shop\checkout.html:181
-msgid "Tax"
-msgstr "Impôt"
 
 #: .\templates\business\planPurchaseHistory.html:5
 #: .\templates\business\planPurchaseHistory.html:20
@@ -1516,10 +1799,6 @@ msgstr "Votre compte expirera le"
 #: .\templates\business\plans.html:52
 msgid "Purchase Now"
 msgstr "Acheter maintenant"
-
-#: .\templates\business\profile.html:78
-msgid "Personal Information"
-msgstr "Informations personnelles"
 
 #: .\templates\business\profile.html:84
 msgid "Full Name"
@@ -1873,10 +2152,6 @@ msgstr "Détails de l'enquête"
 msgid "Inquiry Detail"
 msgstr "Détails de l'enquête"
 
-#: .\templates\business\viewOrder.html:5
-msgid "Order Details"
-msgstr "détails de la commande"
-
 #: .\templates\business\viewOrder.html:21
 msgid "Order Detail"
 msgstr "Détail de la commande"
@@ -1884,10 +2159,6 @@ msgstr "Détail de la commande"
 #: .\templates\business\viewOrder.html:32
 msgid "Order Information"
 msgstr "Informations sur la commande"
-
-#: .\templates\business\viewOrder.html:47
-msgid "Payment Method"
-msgstr "Mode de paiement"
 
 #: .\templates\business\viewOrder.html:127
 msgid "Click to open"
@@ -1913,11 +2184,6 @@ msgstr "Boutique rapide"
 #: .\templates\includes\_footer.html:45
 msgid "Important Links"
 msgstr "Liens importants"
-
-#: .\templates\includes\_footer.html:50 .\templates\includes\_navbar.html:123
-#: .\templates\pages\home.html:138
-msgid "Login"
-msgstr "Connexion"
 
 #: .\templates\includes\_footer.html:52
 msgid "About us"
@@ -2028,10 +2294,6 @@ msgstr "Qté"
 msgid "make payment"
 msgstr "effectuer le paiement"
 
-#: .\templates\orders\payments.html:186 .\templates\shop\checkout.html:192
-msgid "Grand Total"
-msgstr "Total"
-
 #: .\templates\orders\payments.html:201
 msgid ""
 "Please make payment to below email address and submit the transaction "
@@ -2069,10 +2331,6 @@ msgid " If you any query or feedback, please feel free to contact us"
 msgstr ""
 "Si vous avez des questions ou des commentaires, n'hésitez pas à nous "
 "contacter"
-
-#: .\templates\pages\contact.html:64
-msgid "Your Message"
-msgstr "Votre message"
 
 #: .\templates\pages\contact.html:88
 msgid "Send Message"
@@ -2290,11 +2548,6 @@ msgstr "Comparer le style de page1"
 #: .\templates\pages\home.html:89
 msgid "Compare Page Style2"
 msgstr "Comparer le style de page2"
-
-#: .\templates\pages\home.html:94 .\templates\shop\cart.html:44
-#: .\templates\shop\my-wishlist.html:40
-msgid "Product"
-msgstr "Produit"
 
 #: .\templates\pages\home.html:96
 msgid "Product Page"

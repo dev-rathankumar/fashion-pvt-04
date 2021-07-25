@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-
-{% block title %} My Orders {% endblock %}
+{% load i18n %}
+{% block title %} {% trans 'My Orders' %} {% endblock %}
 {% block content %}
 
 <div id="page-content">
@@ -8,7 +8,7 @@
   <!--Breadcrumbs-->
   <div class="breadcrumbs-wrapper">
     <div class="container">
-      <div class="breadcrumbs"><a href="index.html" title="Back to the home page">Home</a> <span aria-hidden="true">|</span> <span>My Account</span></div>
+      <div class="breadcrumbs"><a href="index.html" title="Back to the home page">{% trans 'Home' %}</a> <span aria-hidden="true">|</span> <span>{% trans 'My Account' %}</span></div>
     </div>
   </div>
   <!--End Breadcrumbs-->
@@ -24,19 +24,19 @@
 
           <!-- Account Details -->
           <div id="account-details" class="tab-pane fade">
-            <h3>Your Orders </h3>
+            <h3>{% trans 'Your Orders' %} </h3>
             <div id="downloads" class="product-order tab-pane fade">
               <div class="table-responsive">
                 {% if orders %}
                 <table class="table">
                   <thead>
                     <tr>
-                      <th>Order No.</th>
-                      <th>Billing Name</th>
-                      <th>Total</th>
-                      <th>Purchased On</th>
-                      <th>Status</th>
-                      <th>View Details</th>
+                      <th>{% trans 'Order No.' %}</th>
+                      <th>{% trans 'Billing Name' %}</th>
+                      <th>{% trans 'Total' %}</th>
+                      <th>{% trans 'Purchased On' %}</th>
+                      <th>{% trans 'Status' %}</th>
+                      <th>{% trans 'View Details' %}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -47,15 +47,15 @@
                       <td>${{order.total}}</td>
                       <td>{{order.created_at | date:"M d, Y"}}</td>
                       <td>{{order.status}}</td>
-                      <td><a href="{% url 'orderDetail' order.order_number %}"><b>VIEW DETAILS</b></a></td>
+                      <td><a href="{% url 'orderDetail' order.order_number %}"><b>{% trans 'VIEW DETAILS' %}</b></a></td>
                     </tr>
                   {% endfor %}
                   </tbody>
                 </table>
                 {% else %}
                 <div class="text-center">
-                  <h4>You have not purchased anything yet.</h4>
-                  <a href="/shop/" class="btn btn-primary"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Go to shop</a>
+                  <h4>{% trans 'You have not purchased anything yet.' %}</h4>
+                  <a href="/shop/" class="btn btn-primary"><i class="fa fa-shopping-bag" aria-hidden="true"></i> {% trans 'Go to shop' %}</a>
                 </div>
                 {% endif %}
               </div>
