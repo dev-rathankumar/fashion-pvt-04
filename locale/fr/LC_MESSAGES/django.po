@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-24 23:18+0530\n"
+"POT-Creation-Date: 2021-07-25 23:00+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,8 +35,9 @@ msgstr "Réinitialisation du mot de passe"
 #: .\templates\accounts\orderDetail.html:13
 #: .\templates\accounts\resetPassword.html:10
 #: .\templates\accounts\userDashboard.html:11
+#: .\templates\accounts\userLogin.html:11
 #: .\templates\accounts\userRegister.html:11
-#: .\templates\blogs\blog_detail.html:16 .\templates\blogs\blogs.html:12
+#: .\templates\blogs\blog_detail.html:16 .\templates\blogs\blogs.html:13
 #: .\templates\includes\_navbar.html:40 .\templates\pages\about.html:11
 #: .\templates\pages\contact.html:13 .\templates\pages\home.html:3
 #: .\templates\pages\home.html:14 .\templates\shop\cart.html:13
@@ -52,6 +53,7 @@ msgstr "Réinitialisez votre mot de passe"
 
 #: .\templates\accounts\biz_password_reset.html:30
 #: .\templates\accounts\resetPassword.html:30
+#: .\templates\accounts\userLogin.html:44
 #: .\templates\accounts\userRegister.html:61
 msgid "Password"
 msgstr "Mot de passe"
@@ -134,6 +136,20 @@ msgstr "Modifier l'utilisateur"
 #: .\templates\accounts\editUser.html:28
 msgid "Account details"
 msgstr "Détails du compte"
+
+#: .\templates\accounts\editUser.html:35
+#: .\templates\accounts\userRegister.html:30
+#: .\templates\business\editOrder.html:89 .\templates\shop\checkout.html:34
+#: .\templates\shop\product_detail.html:410
+msgid "First Name"
+msgstr "Prénom"
+
+#: .\templates\accounts\editUser.html:39
+#: .\templates\accounts\userRegister.html:36
+#: .\templates\business\editOrder.html:95 .\templates\shop\checkout.html:38
+#: .\templates\shop\product_detail.html:413
+msgid "Last Name"
+msgstr "Nom de famille"
 
 #: .\templates\accounts\editUser.html:45
 #: .\templates\accounts\forgotPassword.html:33
@@ -422,13 +438,15 @@ msgstr "Veuillez réinitialiser votre mot de passe pour activer votre compte."
 
 #: .\templates\accounts\rm_password_reset.html:77
 msgid "Reset"
-msgstr ""
+msgstr "Réinitialiser"
 
 #: .\templates\accounts\userDashboard.html:48
 msgid "Edit Profile"
 msgstr "Editer le profil"
 
-#: .\templates\accounts\userLogin.html:3 .\templates\includes\_footer.html:50
+#: .\templates\accounts\userLogin.html:3
+#: .\templates\accounts\userLogin.html:11
+#: .\templates\accounts\userLogin.html:17 .\templates\includes\_footer.html:50
 #: .\templates\includes\_navbar.html:123 .\templates\pages\home.html:138
 msgid "Login"
 msgstr "Connexion"
@@ -443,9 +461,45 @@ msgid ""
 "checkout process faster, store multiple shipping addresses, view and track "
 "your orders in your account and more."
 msgstr ""
+"En créant un compte avec notre magasin, vous pourrez vous déplacer dans le "
+"processus de paiement plus rapide, stockage de plusieurs adresses de "
+"livraison, visualisation et suivi vos commandes dans votre compte et plus "
+"encore."
 
 #: .\templates\accounts\userLogin.html:26
 msgid "Create an account"
+msgstr "Créer un compte"
+
+#: .\templates\accounts\userLogin.html:34
+msgid "If you have an account with us, please log in."
+msgstr "Si vous avez un compte chez nous, veuillez vous connecter."
+
+#: .\templates\accounts\userLogin.html:38
+#: .\templates\blogs\blog_detail.html:50
+#: .\templates\business\sitesettings\contactUs.html:91
+#: .\templates\includes\_footer.html:21 .\templates\includes\_footer.html:25
+#: .\templates\pages\contact.html:43 .\templates\shop\product_detail.html:70
+msgid "Email"
+msgstr "E-mail"
+
+#: .\templates\accounts\userLogin.html:39
+msgid "Your Email Address"
+msgstr "Votre adresse e-mail"
+
+#: .\templates\accounts\userLogin.html:45
+msgid "Your password"
+msgstr "Votre mot de passe"
+
+#: .\templates\accounts\userLogin.html:51
+msgid "Sign In"
+msgstr "S'identifier"
+
+#: .\templates\accounts\userLogin.html:53
+msgid "Forgot your password?"
+msgstr "Mot de passe oublié?"
+
+#: .\templates\accounts\userLogin.html:54
+msgid "Create account"
 msgstr "Créer un compte"
 
 #: .\templates\accounts\userRegister.html:3
@@ -462,18 +516,6 @@ msgstr "Créer un compte"
 #: .\templates\business\profile.html:78
 msgid "Personal Information"
 msgstr "Informations personnelles"
-
-#: .\templates\accounts\userRegister.html:30
-#: .\templates\business\editOrder.html:89 .\templates\shop\checkout.html:34
-#: .\templates\shop\product_detail.html:410
-msgid "First Name"
-msgstr "Prénom"
-
-#: .\templates\accounts\userRegister.html:36
-#: .\templates\business\editOrder.html:95 .\templates\shop\checkout.html:38
-#: .\templates\shop\product_detail.html:413
-msgid "Last Name"
-msgstr "Nom de famille"
 
 #: .\templates\accounts\userRegister.html:45
 #: .\templates\business\allCustomers.html:62
@@ -512,13 +554,6 @@ msgstr "Google"
 msgid "Pin it"
 msgstr "Épinglez-le"
 
-#: .\templates\blogs\blog_detail.html:50
-#: .\templates\business\sitesettings\contactUs.html:91
-#: .\templates\includes\_footer.html:21 .\templates\includes\_footer.html:25
-#: .\templates\pages\contact.html:43 .\templates\shop\product_detail.html:70
-msgid "Email"
-msgstr "E-mail"
-
 #: .\templates\blogs\blog_detail.html:62
 msgid "Write A Comment"
 msgstr "Écrire un commentaire"
@@ -556,15 +591,15 @@ msgstr "Réponse"
 msgid "Write A Reply"
 msgstr "Écrire une réponse"
 
-#: .\templates\blogs\blogs.html:12 .\templates\blogs\blogs.html:17
-#: .\templates\business\allBlogs.html:21
+#: .\templates\blogs\blogs.html:3 .\templates\blogs\blogs.html:13
+#: .\templates\blogs\blogs.html:18 .\templates\business\allBlogs.html:21
 #: .\templates\business\allComments.html:59
 #: .\templates\business\includes\_sidebar.html:103
 #: .\templates\includes\_navbar.html:58
 msgid "Blogs"
 msgstr "Blogues"
 
-#: .\templates\blogs\blogs.html:25 .\templates\business\allBlogs.html:44
+#: .\templates\blogs\blogs.html:26 .\templates\business\allBlogs.html:44
 #: .\templates\business\allColors.html:43
 #: .\templates\business\allComments.html:47
 #: .\templates\business\allContacts.html:46
@@ -584,29 +619,29 @@ msgstr "Blogues"
 msgid "Search"
 msgstr "Rechercher"
 
-#: .\templates\blogs\blogs.html:32
+#: .\templates\blogs\blogs.html:33
 msgid "Search for blogs..."
 msgstr "Recherche de blogs..."
 
-#: .\templates\blogs\blogs.html:46
+#: .\templates\blogs\blogs.html:47
 msgid "Blog Category"
 msgstr "Catégorie de blog"
 
-#: .\templates\blogs\blogs.html:51 .\templates\business\allBlogs.html:4
+#: .\templates\blogs\blogs.html:52 .\templates\business\allBlogs.html:4
 #: .\templates\business\allBlogs.html:18 .\templates\business\allBlogs.html:22
 #: .\templates\business\includes\_sidebar.html:106
 msgid "All Blogs"
 msgstr "Tous les blogs"
 
-#: .\templates\blogs\blogs.html:62
+#: .\templates\blogs\blogs.html:63
 msgid "Recent Blog Posts"
 msgstr "Articles de blog récents"
 
-#: .\templates\blogs\blogs.html:121
+#: .\templates\blogs\blogs.html:122
 msgid "Read more"
 msgstr "Lire la suite"
 
-#: .\templates\blogs\blogs.html:127
+#: .\templates\blogs\blogs.html:128
 msgid "No blogs"
 msgstr "Pas de blog"
 
@@ -3096,6 +3131,9 @@ msgstr "Filtres de produits"
 #: .\templates\shop\shop.html:219
 msgid "Popular"
 msgstr "Populaire"
+
+#~ msgid "First"
+#~ msgstr "Pre"
 
 #~ msgid "All Rights Reserved."
 #~ msgstr "Tous les droits sont réservés."
