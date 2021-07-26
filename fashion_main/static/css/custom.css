@@ -301,3 +301,27 @@ input[type="radio"]{
   width: 20px;
     height: 20px;
 }
+
+/* R E S P O N S  I V E */
+@media only screen and (max-width: 480px){
+  .hideonPhone{
+    display: none !important;
+  }
+  .showPhone{
+    display: block !important;
+  }
+  .wishlist-link.showPhone{
+    display: inline-block !important;
+    margin-left: 15px;
+  }
+  .filters-toolbar__product-count{
+    overflow: unset;
+  }
+  .addcart.product-form__item--submit{
+    all: initial;
+  }
+  .cart-flex-item{
+    display: inherit !important;
+  }
+ 
+}

@@ -320,7 +320,7 @@
                     </div>
                   </div>
                   <input type="hidden" name="variants" id="variants" value="{{single_product.variant}}">
-                  <div class="product-form__item--submit">
+                  <div class="addcart product-form__item--submit">
                     {% if cart_count >= 1 %}
                     <button type="submit" {% if variant.quantity < 1  %} disabled {% endif %} id="add_to_cart_btn" class="btn product-form__cart-submit add-to-cart" style="width:49%;">
                       <i class="fa fa-shopping-cart"></i><span> {% trans 'Add to cart' %}</span>
@@ -347,7 +347,7 @@
             </div>
             {% else %}
             <div class="product-action clearfix">
-              <div class="product-form__item--submit" style="padding-left:0px;">
+              <div class="addcart product-form__item--submit" style="padding-left:0px;">
                 <a href="{% url 'add_cart' single_product.id %}" name="add" class="btn product-form__cart-submit" style="color:#fff !important;">
                   {% trans 'Add to cart' %}
                 </a>
@@ -568,7 +568,9 @@
   
               <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="spr-reviews">
-                  <h3 class="spr-form-title">{% trans 'Customer Reviews' %} ( <span class="product-review spr-starratings spr-review-header-starratings">
+                  <h3 class="spr-form-title">{% trans 'Customer Reviews' %} </h3>
+                  
+                    <h4 class="product-review spr-starratings spr-review-header-starratings" style="text-transform: unset;">
                       <span class="reviewLink">
                         <i class="font-13 fa fa-star{% if single_product.avaregereview < 0.5 %}-o{% elif single_product.avaregereview >= 0.5 and single_product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
                         <i class="font-13 fa fa-star{% if single_product.avaregereview < 1.5 %}-o{% elif single_product.avaregereview >= 1.5 and single_product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
@@ -576,8 +578,14 @@
                         <i class="font-13 fa fa-star{% if single_product.avaregereview < 3.5 %}-o{% elif single_product.avaregereview >= 3.5 and single_product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
                         <i class="font-13 fa fa-star{% if single_product.avaregereview < 4.5 %}-o{% elif single_product.avaregereview >= 4.5 and single_product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
                       </span>
-                      {{ single_product.avaregereview}}/{{ single_product.countreview}}
-                    </span> <span style="font-size:14px; text-transform:lowercase;">{% trans 'reviews' %}</span> )</h3>
+                      {% if single_product.avaregereview  %}
+{{ single_product.avaregereview }} out of 5
+                      {% else %}
+                      Not rated yet
+                      {% endif %}
+                    </h4>
+                  
+                    <hr>
   
                   {% if not reviews %}
                   <h6 style="margin-top:30px;">{% trans 'Be the first to review this product.' %}</h6>

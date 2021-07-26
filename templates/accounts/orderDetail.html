@@ -160,7 +160,7 @@
                         {% endif %}
                       </div>
 
-                      <div class="col">
+                     
                         <div class="col-md-12">
                           <div class="solid-border">
                             <!-- <div class="row">
@@ -169,19 +169,27 @@
                             </div> -->
                             <!-- Tax -->
                             <div class="row">
-                              <span class="col-12 col-sm-6 cart__subtotal-title">{% trans 'Tax' %} </span>
-                              <span class="col-12 col-sm-6 cart__subtotal-title text-right"><span class="money" style="font-size:20px;">${{order.tax}}</span></span>
+                              <span class="col-12 col-sm-6 cart__subtotal-title">{% trans 'Tax' %} &emsp; ${{order.tax}}</span>
                             </div>
                             <!-- Grand Total -->
                             <div class="row">
-                              <span class="col-12 col-sm-6 cart__subtotal-title"><strong>{% trans 'Grand Total' %}</strong></span>
-                              <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money" style="font-size:32px;">${{order.payment.amount}}</span></span>
+                              <span class="col-12 col-sm-6 cart__subtotal-title"><strong>{% trans 'Grand Total' %} &emsp; <span class="money" style="font-size:32px;">${{order.payment.amount}}</span></strong></span>
                             </div>
                           </div>
                         </div>
-                      </div>
+                        
+                      
 
                     </div>
+                    {% if order.status == 'Cancelled' %}
+                    <div class="alert alert-danger" role="alert">
+                      This order was cancelled
+                    </div>
+                    {% elif order.status == 'On Hold' %}
+                    <div class="alert alert-primary" role="alert">
+                      {% trans 'This order is on hold. Please wait until we verify your payment.' %}
+                    </div>
+                    {% endif %}
                   </div>
 
 
