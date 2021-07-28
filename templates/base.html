@@ -1,7 +1,8 @@
 {% load static %}
 {% load i18n %}
+{% get_current_language as LANGUAGE_CODE  %}
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="{{LANGUAGE_CODE}}" {% if LANGUAGE_CODE == 'ar' %}dir="rtl"{% endif %}>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -11,6 +12,7 @@
 <!-- Favicon -->
 <link rel="shortcut icon" href="{% if header.favicon %} {{header.favicon.url}}{% endif %}" />
 <!-- Plugins CSS -->
+
 <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
 <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
 <!-- Main Style CSS -->

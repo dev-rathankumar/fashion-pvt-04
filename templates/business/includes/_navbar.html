@@ -47,18 +47,30 @@
     </div>
     {% endif %}
 
+   
     <div class="d-flex">
-
-
-
+      {% get_current_language as LANGUAGE_CODE  %}
+      <form action="{% url 'set_language' %}" id="lang_form" method="POST" class="lang_form" style="position: relative;top:25px;right:{% if LANGUAGE_CODE == 'ar' %}-10px{% else %}10px;{% endif %};">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{redirect_to}}">
+        <select name="language" id="select_lang" style="padding: 0 20px;">
+          {% get_available_languages as LANGUAGES %}
+          {% get_language_info_list for LANGUAGES as languages %}
+          {% for language in languages %}
+              <option value="{{language.code}}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                {{language.name_local}} ({{language.code}})
+              </option>
+          {% endfor %}
+        </select>
+       
+      </form>
+     
       <div class="dropdown d-inline-block">
         <a href="http://{{domain}}/" target="_blank" style="color:black;">{% trans 'VIEW SITE' %}</a>
-        <button type="button" class="btn header-item waves-effect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="visibility:hidden;">
+        <button type="button" class="btn header-item waves-effect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="visibility: hidden;">
           <img id="header-lang-img" src="{% static 'business/images/flags/us.jpg' %}" alt="Header Language" height="16">
         </button>
         <div class="dropdown-menu dropdown-menu-right">
-
-
           <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="eng">
             <img src="{% static 'business/images/flags/us.jpg' %}" alt="user-image" class="mr-1" height="12"> <span class="align-middle">English</span>
           </a>
@@ -66,8 +78,6 @@
           <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="sp">
             <img src="{% static 'business/images/flags/spain.jpg' %}" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Arabic</span>
           </a>
-
-
         </div>
       </div>
 
@@ -100,12 +110,17 @@
         </div>
       </div>
 
-      <div class="dropdown d-inline-block">
+      <!-- <div class="dropdown d-inline-block">
         <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
           <i class="bx bx-cog bx-spin"></i>
         </button>
-      </div>
+      </div> -->
 
     </div>
   </div>
 </header>
+<script>
+  $('#select_lang').change(function(){
+  $('#lang_form').submit();
+});
+</script>
