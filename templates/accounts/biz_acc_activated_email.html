@@ -1,4 +1,5 @@
 {% load static %}
+% load i18n %}
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -181,7 +182,7 @@
 
                               <div style="color: #000000; line-height: 140%; text-align: center; word-wrap: break-word;">
                                 <p style="font-size: 14px; line-height: 140%;"><span style="font-family: Cabin, sans-serif; font-size: 14px; line-height: 19.6px;"><span style="font-size: 26px; line-height: 36.4px;"><strong><span
-                                          style="line-height: 36.4px; font-size: 26px;letter-spacing: 2px;">ACCOUNT ACTIVATED</span></strong></span></span></p>
+                                          style="line-height: 36.4px; font-size: 26px;letter-spacing: 2px;">{% trans 'ACCOUNT ACTIVATED' %}</span></strong></span></span></p>
                               </div>
 
                             </td>
@@ -195,9 +196,9 @@
                             <td style="overflow-wrap:break-word;word-break:break-word;padding:4px 55px 10px;font-family:'Cabin',sans-serif;">
 
                               <div style="color: #000000; line-height: 170%; text-align: center; word-wrap: break-word;">
-                                <p style="font-size: 14px; line-height: 170%;"><span style="font-family: Cabin, sans-serif; font-size: 18px; line-height: 30.6px;">Hi {{ user.first_name }},
+                                <p style="font-size: 14px; line-height: 170%;"><span style="font-family: Cabin, sans-serif; font-size: 18px; line-height: 30.6px;">{% trans 'Hi' %} {{ user.first_name }},
 
-Congratulations! Your business account has been activated.</span>
+{% trans 'Congratulations! Your business account has been activated.' %}</span>
                                 </p>
                               </div>
 
@@ -225,7 +226,7 @@ Congratulations! Your business account has been activated.</span>
                         <tbody>
                           <tr>
                             <td style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 55px;font-family:'Cabin',sans-serif;" align="center">
-                              <p style="padding-top:15px;text-align:center;">If you have any questions, feel free to contact <span><a href="mailto:support@altocan.com">support@altocan.com</a></span></p>
+                              <p style="padding-top:15px;text-align:center;">{% trans 'If you have any questions, feel free to contact' %} <span><a href="mailto:support@altocan.com">support@altocan.com</a></span></p>
                             </td>
                           </tr>
                         </tbody>
@@ -262,7 +263,7 @@ Congratulations! Your business account has been activated.</span>
 
                                 <div style="color: #ffffff; line-height: 230%; text-align: center; word-wrap: break-word;">
                                   <p style="font-size: 12px; line-height: 230%;"><span style="font-family: Cabin, sans-serif; font-size: 12px; line-height: 41.4px; letter-spacing:2px;">
-                                    © Copyright Altocan 2021. All Rights Reserved
+                                    © {% trans 'Copyright Altocan 2021. All Rights Reserved' %}
                                     </span></p>
 
                                 </div>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-27 17:01+0530\n"
+"POT-Creation-Date: 2021-07-29 17:22+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,6 +22,54 @@ msgstr ""
 #: .\pages\views.py:22
 msgid "Homepage"
 msgstr "الصفحة الرئيسية"
+
+#: .\templates\accounts\acc_active_email.html:184
+msgid "ACTIVATE YOUR ACCOUNT"
+msgstr "فعل حسابك"
+
+#: .\templates\accounts\acc_active_email.html:198
+#: .\templates\accounts\biz_acc_activated_email.html:199
+#: .\templates\accounts\biz_reset_password_email.html:199
+#: .\templates\accounts\reset_password_email.html:199
+#: .\templates\accounts\rm_reset_password_email.html:199
+#: .\templates\business\dashboard.html:58 .\templates\business\profile.html:37
+#: .\templates\business\reset_password_email.html:3
+#: .\templates\regional_managers\reset_password_email.html:3
+msgid "Hi"
+msgstr "أهلا"
+
+#: .\templates\accounts\acc_active_email.html:198
+msgid "please verify your email address to activate your account."
+msgstr "يرجى التحقق من عنوان بريدك الإلكتروني لتفعيل حسابك"
+
+#: .\templates\accounts\acc_active_email.html:215
+msgid "Verify Now"
+msgstr "تحقق الآن"
+
+#: .\templates\accounts\acc_active_email.html:226
+#: .\templates\accounts\biz_acc_activated_email.html:229
+#: .\templates\accounts\biz_reset_password_email.html:227
+#: .\templates\accounts\rm_reset_password_email.html:227
+#: .\templates\business\emails\email_template.html:202
+msgid "If you have any questions, feel free to contact"
+msgstr "إذا كان لديك أي استفسار أو تعليق ، فلا تتردد في الاتصال بنا"
+
+#: .\templates\accounts\biz_acc_activated_email.html:185
+#: .\templates\accounts\rm_acc_activated_email.html:185
+msgid "ACCOUNT ACTIVATED"
+msgstr "تم تفعيل الحساب"
+
+#: .\templates\accounts\biz_acc_activated_email.html:201
+#: .\templates\accounts\rm_acc_activated_email.html:201
+msgid "Congratulations! Your business account has been activated."
+msgstr "تهانينا! تم تنشيط حساب عملك."
+
+#: .\templates\accounts\biz_acc_activated_email.html:266
+#: .\templates\accounts\biz_reset_password_email.html:264
+#: .\templates\accounts\rm_acc_activated_email.html:266
+#: .\templates\accounts\rm_reset_password_email.html:264
+msgid "Copyright Altocan 2021. All Rights Reserved"
+msgstr "حقوق الطبع والنشر Altocan 2021. جميع الحقوق محفوظة"
 
 #: .\templates\accounts\biz_password_reset.html:3
 msgid "Password Reset"
@@ -82,6 +130,24 @@ msgstr "تأكيد كلمة المرور"
 #: .\templates\accounts\resetPassword.html:47
 msgid "Back To Login Page"
 msgstr "العودة إلى صفحة تسجيل الدخول"
+
+#: .\templates\accounts\biz_reset_password_email.html:185
+#: .\templates\accounts\rm_reset_password_email.html:185
+msgid "ACTIVATE YOUR ACCOUNT."
+msgstr "فعل حسابك"
+
+#: .\templates\accounts\biz_reset_password_email.html:199
+#: .\templates\accounts\rm_reset_password_email.html:199
+msgid ""
+"please click the activate button to reset your password and activate your "
+"account."
+msgstr ""
+"الرجاء النقر فوق زر التنشيط لإعادة تعيين كلمة المرور الخاصة بك وتنشيط حسابك."
+
+#: .\templates\accounts\biz_reset_password_email.html:216
+#: .\templates\accounts\rm_reset_password_email.html:216
+msgid "Activate"
+msgstr "تفعيل"
 
 #: .\templates\accounts\changeuserPassword.html:3
 msgid "Change Your Password"
@@ -200,7 +266,9 @@ msgstr "استرد كلمة المرور هنا"
 msgid ""
 "Please enter your email address below. You will receive a link to reset your "
 "password."
-msgstr "يرجى إدخال عنوان البريد الالكتروني أدناه. سوف تتلقى وصلة لإعادة تعيين كلمة المرور الخاصة بك."
+msgstr ""
+"يرجى إدخال عنوان البريد الالكتروني أدناه. سوف تتلقى وصلة لإعادة تعيين كلمة "
+"المرور الخاصة بك."
 
 #: .\templates\accounts\forgotPassword.html:34
 msgid "Enter your email address"
@@ -417,6 +485,23 @@ msgstr "المبلغ الإجمالي"
 msgid "Reset Your Password "
 msgstr "اعد ضبط كلمه السر"
 
+#: .\templates\accounts\reset_password_email.html:185
+msgid "Please reset your password"
+msgstr "اعد ضبط كلمه السر"
+
+#: .\templates\accounts\reset_password_email.html:199
+msgid "please reset your password to recover your account."
+msgstr "يرجى إعادة تعيين كلمة المرور الخاصة بك لاستعادة حسابك."
+
+#: .\templates\accounts\reset_password_email.html:216
+msgid "Reset Password"
+msgstr "إعادة تعيين كلمة المرور"
+
+#: .\templates\accounts\reset_password_email.html:227
+#: .\templates\accounts\rm_acc_activated_email.html:229
+msgid "If you have any questions, feel free to contact "
+msgstr "إذا كان لديك أي أسئلة ، فلا تتردد في الاتصال"
+
 #: .\templates\accounts\rm_password_reset.html:9
 msgid "Regional Manager"
 msgstr "المدير الاقليمي"
@@ -457,7 +542,9 @@ msgid ""
 "By creating an account with our store, you will be able to move through the "
 "checkout process faster, store multiple shipping addresses, view and track "
 "your orders in your account and more."
-msgstr "من خلال إنشاء حساب في متجرنا ، ستتمكن من التنقل خلال عملية الدفع بشكل أسرع ، وتخزين عناوين شحن متعددة ، وعرض وتتبع طلباتك في حسابك والمزيد."
+msgstr ""
+"من خلال إنشاء حساب في متجرنا ، ستتمكن من التنقل خلال عملية الدفع بشكل أسرع ، "
+"وتخزين عناوين شحن متعددة ، وعرض وتتبع طلباتك في حسابك والمزيد."
 
 #: .\templates\accounts\userLogin.html:26
 msgid "Create an account"
@@ -1341,10 +1428,6 @@ msgstr "لافتات"
 msgid "Payment Gateways"
 msgstr "بوابات الدفع"
 
-#: .\templates\business\dashboard.html:58 .\templates\business\profile.html:37
-msgid "Hi"
-msgstr "أهلا"
-
 #: .\templates\business\dashboard.html:59 .\templates\business\profile.html:38
 msgid "Welcome back!"
 msgstr "مرحبا بعودتك!"
@@ -1855,6 +1938,21 @@ msgstr "تاريخ انتهاء الحساب"
 msgid "Edit"
 msgstr "يحرر"
 
+#: .\templates\business\reset_password_email.html:4
+#: .\templates\regional_managers\reset_password_email.html:4
+msgid "Please follow below link to reset your account."
+msgstr "يرجى اتباع الرابط أدناه لإعادة تعيين حسابك"
+
+#: .\templates\business\reset_password_email.html:7
+#: .\templates\regional_managers\reset_password_email.html:7
+msgid "this is right"
+msgstr "هذا صحيح"
+
+#: .\templates\business\reset_password_email.html:8
+#: .\templates\regional_managers\reset_password_email.html:8
+msgid "If you need any help, please contact support."
+msgstr "إذا كان لديك أي استفسار أو تعليق ، فلا تتردد في الاتصال بنا"
+
 #: .\templates\business\sitesettings\aboutUs.html:3
 #: .\templates\business\sitesettings\aboutUs.html:22
 #: .\templates\business\sitesettings\aboutUs.html:32
@@ -1957,7 +2055,9 @@ msgstr "خرائط جوجل"
 msgid ""
 " select your location > click on Share > select Embed a map > COPY HTML and "
 "paste it inside above field. "
-msgstr "حدد موقعك ، انقر فوق مشاركة وحدد تضمين خريطة نسخة HTML والصقها داخل الحقل أعلاه."
+msgstr ""
+"حدد موقعك ، انقر فوق مشاركة وحدد تضمين خريطة نسخة HTML والصقها داخل الحقل "
+"أعلاه."
 
 #: .\templates\business\sitesettings\contactUs.html:101
 msgid "See Example"
@@ -2095,7 +2195,9 @@ msgstr "معاق"
 msgid ""
 "Client ID is a combination of long strings and numbers that is used to "
 "connect your application with PayPal Payment gateway."
-msgstr "Client ID هو مزيج من السلاسل الطويلة والأرقام المستخدمة لربط تطبيقك ببوابة PayPal Payment."
+msgstr ""
+"Client ID هو مزيج من السلاسل الطويلة والأرقام المستخدمة لربط تطبيقك ببوابة "
+"PayPal Payment."
 
 #: .\templates\business\sitesettings\paymentGateways.html:73
 msgid "DIRECT DEPOSIT"

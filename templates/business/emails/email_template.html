@@ -1,4 +1,5 @@
 {% load static %}
+% load i18n %}
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -198,7 +199,7 @@
                           <tr>
                             <td style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 30px;font-family:'Cabin',sans-serif;" align="left">
 
-                              <p style="padding-top:15px;text-align:center;">If you have any questions, feel free to contact <span><a href="mailto:{{support_email}}">{{support_email}}</a></span></p>
+                              <p style="padding-top:15px;text-align:center;">{% trans 'If you have any questions, feel free to contact' %} <span><a href="mailto:{{support_email}}">{{support_email}}</a></span></p>
                             </td>
                           </tr>
                         </tbody>
