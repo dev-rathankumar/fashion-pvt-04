@@ -681,8 +681,9 @@ def editOrder(request, pk=None):
                 to_email = order.user.email
                 email = EmailMessage(
                     mail_subject, message, to=[to_email]
+                    
                 )
-                # email.content_subtype = "html"
+                email.content_subtype = "html"
                 email.send()
                 # print('Current status was '+current_status +', '+ 'new status is '+ changed_status)
             form.save()

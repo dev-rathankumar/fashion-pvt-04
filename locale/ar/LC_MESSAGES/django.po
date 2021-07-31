@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-29 17:22+0530\n"
+"POT-Creation-Date: 2021-07-30 18:08+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,6 +34,7 @@ msgstr "فعل حسابك"
 #: .\templates\accounts\rm_reset_password_email.html:199
 #: .\templates\business\dashboard.html:58 .\templates\business\profile.html:37
 #: .\templates\business\reset_password_email.html:3
+#: .\templates\orders\order_status_email.html:202
 #: .\templates\regional_managers\reset_password_email.html:3
 msgid "Hi"
 msgstr "أهلا"
@@ -281,6 +282,7 @@ msgid "Submit"
 msgstr "يقدم"
 
 #: .\templates\accounts\includes\_navbar.html:7
+#: .\templates\orders\order_placed_email.html:51
 msgid "Hello"
 msgstr "سلام"
 
@@ -358,6 +360,7 @@ msgstr "رسالتك"
 #: .\templates\business\commentReplies.html:61
 #: .\templates\business\emails\emails.html:70
 #: .\templates\business\planPurchaseHistory.html:63
+#: .\templates\orders\order_placed_email.html:50
 msgid "Date"
 msgstr "تاريخ"
 
@@ -439,6 +442,7 @@ msgstr "شكرا لطلبك"
 #: .\templates\business\editOrder.html:51
 #: .\templates\business\planHistoryDetail.html:52
 #: .\templates\business\viewOrder.html:40
+#: .\templates\orders\order_placed_email.html:59
 msgid "Order"
 msgstr "طلب"
 
@@ -472,6 +476,7 @@ msgstr "المنتجات المشتراة"
 
 #: .\templates\accounts\orderDetail.html:172
 #: .\templates\business\planHistoryDetail.html:72
+#: .\templates\orders\order_placed_email.html:111
 #: .\templates\orders\payments.html:182 .\templates\shop\checkout.html:181
 msgid "Tax"
 msgstr "ضريبة"
@@ -499,6 +504,7 @@ msgstr "إعادة تعيين كلمة المرور"
 
 #: .\templates\accounts\reset_password_email.html:227
 #: .\templates\accounts\rm_acc_activated_email.html:229
+#: .\templates\orders\order_status_email.html:218
 msgid "If you have any questions, feel free to contact "
 msgstr "إذا كان لديك أي أسئلة ، فلا تتردد في الاتصال"
 
@@ -950,7 +956,8 @@ msgstr "تنوع المنتج"
 
 #: .\templates\business\addProduct.html:86
 #: .\templates\business\allProducts.html:74
-#: .\templates\business\editProduct.html:92 .\templates\shop\cart.html:45
+#: .\templates\business\editProduct.html:92
+#: .\templates\orders\order_placed_email.html:66 .\templates\shop\cart.html:45
 #: .\templates\shop\checkout.html:105
 #: .\templates\shop\compare_products.html:53
 #: .\templates\shop\my-wishlist.html:41 .\templates\shop\shop.html:34
@@ -1063,7 +1070,9 @@ msgid "Add Color"
 msgstr "أضف اللون"
 
 #: .\templates\business\allColors.html:66
-#: .\templates\business\allProducts.html:100 .\templates\shop\shop.html:82
+#: .\templates\business\allProducts.html:100
+#: .\templates\orders\order_placed_email.html:81
+#: .\templates\orders\order_placed_email.html:83 .\templates\shop\shop.html:82
 msgid "Color"
 msgstr "اللون"
 
@@ -1307,7 +1316,7 @@ msgstr "التوفر"
 
 #: .\templates\business\allProducts.html:100
 #: .\templates\business\allSizes.html:66 .\templates\business\editSize.html:42
-#: .\templates\shop\shop.html:69
+#: .\templates\orders\order_placed_email.html:79 .\templates\shop\shop.html:69
 msgid "Size"
 msgstr "مقاس"
 
@@ -1489,6 +1498,7 @@ msgstr "تحرير المنتج"
 #: .\templates\business\planHistoryDetail.html:62
 #: .\templates\business\planPurchaseHistory.html:61
 #: .\templates\business\viewOrder.html:46
+#: .\templates\orders\order_placed_email.html:49
 msgid "Transaction ID"
 msgstr "رقم المعاملة"
 
@@ -1502,6 +1512,7 @@ msgstr "تم الغاء هذا الطلب."
 
 #: .\templates\business\editOrder.html:68
 #: .\templates\business\viewOrder.html:48
+#: .\templates\orders\order_status_email.html:188
 msgid "Order Status"
 msgstr "حالة الطلب"
 
@@ -1857,6 +1868,7 @@ msgid "Plan"
 msgstr "يخطط"
 
 #: .\templates\business\planHistoryDetail.html:71
+#: .\templates\orders\order_placed_email.html:105
 #: .\templates\orders\payments.html:170 .\templates\shop\checkout.html:107
 msgid "Subtotal"
 msgstr "المجموع الفرعي"
@@ -2377,6 +2389,43 @@ msgstr "انشئ حساب"
 msgid "Close Menu"
 msgstr "إغلاق القائمة"
 
+#: .\templates\orders\order_placed_email.html:31
+msgid "ORDER PLACED"
+msgstr "تم الطلب"
+
+#: .\templates\orders\order_placed_email.html:31
+msgid "ORDER CONFIRMATION"
+msgstr "تأكيد الطلب"
+
+#: .\templates\orders\order_placed_email.html:44
+msgid "Thank You For Your Order"
+msgstr "شكرا لطلبك"
+
+#: .\templates\orders\order_placed_email.html:51
+msgid "Thank you for shopping with us. Here is your order details"
+msgstr "شكرا للتسوق معنا. هنا تفاصيل طلبك"
+
+#: .\templates\orders\order_placed_email.html:64
+msgid "Purchased Items"
+msgstr "البنود التي تم شراؤها"
+
+#: .\templates\orders\order_placed_email.html:65
+#: .\templates\orders\payments.html:133 .\templates\shop\checkout.html:106
+msgid "Qty"
+msgstr "الكمية"
+
+#: .\templates\orders\order_placed_email.html:121
+msgid "TOTAL"
+msgstr "مجموع"
+
+#: .\templates\orders\order_placed_email.html:143
+msgid "DELIVERY ADDRESS"
+msgstr "عنوان التسليم"
+
+#: .\templates\orders\order_placed_email.html:160
+msgid "Shop Again"
+msgstr "تسوق مرة أخرى"
+
 #: .\templates\orders\payments.html:3
 msgid "Make Payment"
 msgstr "قم بالدفع"
@@ -2405,10 +2454,6 @@ msgstr "راجع طلبك وادفع"
 #: .\templates\orders\payments.html:94
 msgid "Review Products"
 msgstr "مراجعة المنتجات"
-
-#: .\templates\orders\payments.html:133 .\templates\shop\checkout.html:106
-msgid "Qty"
-msgstr "الكمية"
 
 #: .\templates\orders\payments.html:163
 msgid "make payment"
