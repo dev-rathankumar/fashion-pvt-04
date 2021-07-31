@@ -124,20 +124,9 @@ def userLogin(request):
         if user is not None:
             try:
                 if user.is_business:
-                    # Check for the expiry date
-                    biz = Business.objects.get(user__id=user.id)
-                    get_exp_date = biz.account_expiry_date
-                    exp_date = datetime.strptime(str(get_exp_date), '%Y-%m-%d')
-                    get_today = date.today()
-                    print(get_exp_date)
-                    today = datetime.strptime(str(get_today), '%Y-%m-%d')
-                    if today > exp_date:
-                        messages.error(request, "Your account is expired.")
-                        return redirect('userLogin')
-                    else:
-                        auth.login(request, user)
-                        messages.success(request, "You are now logged in!")
-                        return redirect('biz_dashboard')
+                    auth.login(request, user)
+                    messages.success(request, "You are now logged in!")
+                    return redirect('biz_dashboard')
 
                 elif user.is_regional_manager:
                     auth.login(request, user)

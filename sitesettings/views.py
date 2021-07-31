@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from business.views import business_required
 
 from django.core.files.storage import FileSystemStorage
+from business.views import is_account_expired
 
 
 @login_required(login_url = 'userLogin')
@@ -29,6 +30,7 @@ def header(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def headerEdit(request, pk=None):
     header = get_object_or_404(Header, pk=pk)
     if request.method == 'POST':
@@ -48,6 +50,7 @@ def headerEdit(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def headerAdd(request):
     if request.method == 'POST':
         form = HeaderForm(request.POST, request.FILES)
@@ -70,6 +73,7 @@ def headerAdd(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def banners(request):
     try:
         business = Business.objects.get(user=request.user)
@@ -85,6 +89,7 @@ def banners(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def addBanner(request):
     if request.method == 'POST':
         form = BannerImageForm(request.POST, request.FILES)
@@ -108,6 +113,7 @@ def addBanner(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def editBanner(request, pk=None):
     banner = get_object_or_404(BannerImage, pk=pk)
     if request.method == 'POST':
@@ -127,6 +133,7 @@ def editBanner(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def deleteBanner(request, pk=None):
     banner = get_object_or_404(BannerImage, pk=pk)
     banner.delete()
@@ -136,6 +143,7 @@ def deleteBanner(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def store_features(request):
     try:
         business = Business.objects.get(user=request.user)
@@ -150,7 +158,9 @@ def store_features(request):
     }
     return render(request, 'business/sitesettings/store_features.html', context)
 
-
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
 def addFeature(request):
     homepage = Homepage.objects.get(business__user=request.user)
     store_features = StoreFeature.objects.filter(homepage=homepage)
@@ -181,6 +191,7 @@ def addFeature(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def editFeature(request, pk=None):
     feature = get_object_or_404(StoreFeature, pk=pk)
     if request.method == 'POST':
@@ -200,6 +211,7 @@ def editFeature(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def deleteFeature(request, pk=None):
     feature = get_object_or_404(StoreFeature, pk=pk)
     feature.delete()
@@ -209,6 +221,7 @@ def deleteFeature(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def homepage_background(request):
     homepage = Homepage.objects.get(business__user=request.user)
     background = get_object_or_404(ParallaxBackground, homepage=homepage)
@@ -228,6 +241,7 @@ def homepage_background(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def aboutUs(request):
     business = Business.objects.get(user=request.user)
     about_page = get_object_or_404(AboutPage, business=business)
@@ -257,6 +271,7 @@ def aboutUs(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def aboutContent(request):
     business = Business.objects.get(user=request.user)
     aboutus = get_object_or_404(AboutPage, business=business)
@@ -290,6 +305,7 @@ def aboutContent(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def contactUs(request):
     business = Business.objects.get(user=request.user)
     contact_page = get_object_or_404(ContactPage, business=business)
@@ -311,6 +327,7 @@ def contactUs(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def footerEdit(request):
     business = Business.objects.get(user=request.user)
     footer = get_object_or_404(Footer, business=business)
@@ -332,6 +349,7 @@ def footerEdit(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def topbarEdit(request):
     business = Business.objects.get(user=request.user)
     # try:
@@ -372,6 +390,7 @@ def topbarToggleEnable(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def socialIcons(request):
     business = Business.objects.get(user=request.user)
     social_icons = SocialMediaLink.objects.filter(business=business).order_by('created_date')
@@ -383,6 +402,7 @@ def socialIcons(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def addIcon(request):
     business = Business.objects.get(user=request.user)
     social_icons = SocialMediaLink.objects.filter(business=business)
@@ -404,6 +424,7 @@ def addIcon(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def editIcon(request, pk=None):
     social_icons = get_object_or_404(SocialMediaLink, pk=pk)
 
@@ -424,6 +445,7 @@ def editIcon(request, pk=None):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def deleteIcon(request, pk=None):
     social_icon = get_object_or_404(SocialMediaLink, pk=pk)
     social_icon.delete()
@@ -431,6 +453,9 @@ def deleteIcon(request, pk=None):
     return redirect('socialIcons')
 
 
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
 def editPolicy(request):
     business = Business.objects.get(user=request.user)
     policy = get_object_or_404(Policy, business=business)
@@ -452,6 +477,9 @@ def editPolicy(request):
     return render(request, 'business/sitesettings/editPolicy.html', context)
 
 
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
 def editTermsConditions(request):
     business = Business.objects.get(user=request.user)
     terms = get_object_or_404(TermsAndCondition, business=business)
@@ -476,6 +504,7 @@ def editTermsConditions(request):
 
 @login_required(login_url = 'userLogin')
 @business_required(login_url="userLogin")
+@is_account_expired
 def paymentGateways(request):
     business = Business.objects.get(user=request.user)
     dd = get_object_or_404(DirectDepositEmail, business=business)
