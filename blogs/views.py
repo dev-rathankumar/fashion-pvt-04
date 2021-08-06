@@ -1,8 +1,9 @@
+from urllib.parse import urlparse
 from accounts.models import Business
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render,get_object_or_404, redirect
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from .models import Category, Blog, Comment
+from .models import BlogActivation, Category, Blog, Comment
 from .forms import CommentForm
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
@@ -13,6 +14,15 @@ from django.db.models import Q
 
 
 def blog(request, slug=None):
+    # Check if the blog is activated or not
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    business = Business.objects.get(domain_name=domain)
+    blog_activation = BlogActivation.objects.get(business=business)
+    if not blog_activation.is_enabled:
+        return redirect('home')
+    
+
     categories = None
     blogs =None
     paged_blogs=None
@@ -61,6 +71,14 @@ def blog(request, slug=None):
 
 
 def blog_detail(request, category_slug, blog_slug):
+    # Check if the blog is activated or not
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    business = Business.objects.get(domain_name=domain)
+    blog_activation = BlogActivation.objects.get(business=business)
+    if not blog_activation.is_enabled:
+        return redirect('home')
+        
     try:
         single_blog = Blog.objects.get(category__slug=category_slug, slug=blog_slug)
         # If the blog is set to draft, it will be unavailable for public

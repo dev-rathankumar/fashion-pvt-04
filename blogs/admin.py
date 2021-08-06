@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Blog, Category, Comment
+from .models import Blog, Category, Comment, BlogActivation
 from mptt.admin import DraggableMPTTAdmin
 
 
@@ -54,6 +54,10 @@ class CommentAdmin(admin.ModelAdmin):
     def approve_comments(self, request, queryset):
         queryset.update(is_active=True)
 
+class BlogActivationAdmin(admin.ModelAdmin):
+    list_display = ('business','is_enabled', 'updated_on')
+
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(BlogActivation, BlogActivationAdmin)

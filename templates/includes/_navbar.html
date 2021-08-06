@@ -55,8 +55,9 @@
                     <li class="lvl1 parent megamenu"><a href="{% url 'shop' %}">{% trans 'Shop' %} <i class="anm anm-angle-down-l"></i></a></li>
                     <li class="lvl1 parent megamenu"><a href="{% url 'about' %}">{% trans 'About Us' %} <i class="anm anm-angle-down-l"></i></a></li>
                     <li class="lvl1 parent megamenu"><a href="{% url 'contact_page' %}">{% trans 'Contact Us' %} <i class="anm anm-angle-down-l"></i></a></li>
+                    {% if blog_activation.is_enabled %}
                     <li class="lvl1 parent megamenu"><a href="{% url 'blog' %}">{% trans 'Blogs' %} <i class="anm anm-angle-down-l"></i></a></li>
-
+                    {% endif %}
                   </ul>
                 </nav>
                 <!--End Desktop Menu-->

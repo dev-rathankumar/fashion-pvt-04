@@ -1,3 +1,4 @@
+from blogs.models import BlogActivation
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages, auth
@@ -445,6 +446,11 @@ def biz_password_reset(request):
             ppConfig = PaypalConfig()
             ppConfig.business = business
             ppConfig.save()
+
+            # Automatically creating Paypal Config entry
+            blog_activation = BlogActivation()
+            blog_activation.business = business
+            blog_activation.save()
 
             mail_subject = 'Your Business Account is Activated'
             # message = 'Congratulations! Your business account has been activated.'

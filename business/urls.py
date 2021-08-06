@@ -95,6 +95,7 @@ urlpatterns = [
     path('blogs/comments/', views.allComments, name='allComments'),
     path('blogs/comments/commentApproval/<int:pk>/', views.commentApproval, name='commentApproval'),
     path('blogs/comments/commentReplies/<int:pk>/', views.commentReplies, name='commentReplies'),
+    path('blogs/blogEnableToggle/', views.blogEnableToggle, name='blogEnableToggle'),
 
     # Inquiries
     path('contactInqs/', views.allContacts, name='allContacts'),

@@ -38,7 +38,7 @@ from carts.models import TaxSetting, Tax
 from sitesettings.forms import HeaderForm
 from contacts.models import Inquiry, SiteContact
 from urllib.parse import urlparse
-from blogs.models import Blog, Comment
+from blogs.models import Blog, BlogActivation, Comment
 from blogs.models import Category as BlogCategory
 from django.db.models import Sum, Min, Count, Q
 
@@ -1238,8 +1238,12 @@ def allBlogs(request):
     page = request.GET.get('page')
     paged_blogs = paginator.get_page(page)
 
+    # get blog activation status
+    blog_activation = BlogActivation.objects.get(business=business)
+
     context = {
         'blogs': paged_blogs,
+        'blog_activation': blog_activation,
     }
     return render(request, 'business/allBlogs.html', context)
 
@@ -1461,3 +1465,18 @@ def deleteContact(request, pk=None):
     contact.delete()
     messages.success(request, 'Contact request has been deleted successfully.')
     return redirect('allContacts')
+
+
+def blogEnableToggle(request):
+    event = request.GET.get('event')
+    business = Business.objects.get(user=request.user)
+    blog_activation = get_object_or_404(BlogActivation, business=business)
+    if event == 'true':
+        blog_activation.is_enabled = True
+        blog_activation.save()
+        result = 'enabled'
+    else:
+        blog_activation.is_enabled = False
+        blog_activation.save()
+        result = 'disabled'
+    return HttpResponse(result)
