@@ -1,3 +1,4 @@
+from products.views import is_productSelling_activated
 from sitesettings.models import DirectDepositEmail, PaypalConfig
 from orders.models import Payment
 from django.shortcuts import render, redirect, get_object_or_404
@@ -226,6 +227,7 @@ def delete_itemfromcart(request, product_id):
 
 
 
+@is_productSelling_activated
 def shopcart(request):
     category = Category.objects.all()
     current_user = request.user  # Access User Session information
@@ -271,6 +273,7 @@ def deletefromcart(request,id):
     return HttpResponseRedirect("/shopcart")
 
 
+@is_productSelling_activated
 def checkout(request):
     current_user = request.user
     shopcart = ShopCart.objects.filter(user_id=current_user.id)

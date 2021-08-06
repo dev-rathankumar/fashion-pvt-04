@@ -137,6 +137,7 @@
             </div>
         </div>
 
+        {% if product_activation.is_enabled %}
         <!--Body Container-->
         <div class="container">
 
@@ -231,10 +232,11 @@
                 </div>
         	</div>
         	<!--End Collection Box slider-->
+          {% endif %}
 
           <!--Parallax Banner-->
           {% if background.parallax_image %}
-        <div class="section parallax-banner-style1" style="padding-bottom:0px;">
+        <div class="section parallax-banner-style1" style="padding-bottom:0px;padding-top:0px !important;">
             <div class="hero hero--exlarge hero__overlay bg-size">
                 <img class="bg-img" src="{{ background.parallax_image.url }}" alt="Background Image">
                 <div class="hero__inner">

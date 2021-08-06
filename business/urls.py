@@ -32,6 +32,7 @@ urlpatterns = [
     path('products/editProduct/<int:pk>/editVariants/', views.editVariants, name='editVariants'),
     path('products/addProduct/', views.addProduct, name='addProduct'),
     path('products/deleteProduct/<int:pk>/', views.deleteProduct, name='deleteProduct'),
+    path('products/productEnableToggle/', views.productEnableToggle, name='productEnableToggle'),
 
     # Manage Orders
     path('orders/', views.allOrders, name='allOrders'),

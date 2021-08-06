@@ -57,6 +57,13 @@ class CommentAdmin(admin.ModelAdmin):
 class BlogActivationAdmin(admin.ModelAdmin):
     list_display = ('business','is_enabled', 'updated_on')
 
+    # if there's already an entry, do not allow adding
+    def has_add_permission(self, request):
+        count = BlogActivation.objects.all().count()
+        if count == 0:
+          return True
+        return False
+
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Comment, CommentAdmin)

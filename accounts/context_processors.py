@@ -1,3 +1,4 @@
+from products.models import ProductActivation
 from blogs.models import BlogActivation
 from accounts.models import Business, User, DashboardImage
 from urllib.parse import urlparse
@@ -38,18 +39,21 @@ def get_sitesettings(request):
                 footer = Footer.objects.get(business=business)
                 topbar = Topbar.objects.get(business=business)
                 blog_activation = BlogActivation.objects.get(business=business)
+                product_activation = ProductActivation.objects.get(business=business)
             except:
                 header = None
                 footer = None
                 topbar = None
                 blog_activation = None
+                product_activation = None
     except:
         header = None
         footer = None
         topbar = None
         company_name = None
         blog_activation = None
-    return dict(header=header, company_name=company_name, footer=footer, topbar=topbar, blog_activation=blog_activation)
+        product_activation = None
+    return dict(product_activation=product_activation, header=header, company_name=company_name, footer=footer, topbar=topbar, blog_activation=blog_activation)
 
 
 def get_dashboardImage(request):

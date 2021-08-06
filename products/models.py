@@ -225,3 +225,13 @@ class CompareItem(models.Model):
 
     def __str__(self):
         return self.product.product_name
+
+
+class ProductActivation(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    is_enabled = models.BooleanField(default=False)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now= True)
+
+    def __str__(self):
+        return self.business.company_name

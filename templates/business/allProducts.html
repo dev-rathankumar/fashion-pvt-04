@@ -42,6 +42,18 @@
             </div>
             {% else %}
             <div class="card-body">
+              <div class="row" >
+                <div id="feature" class="col-md-12 col-lg-12 col-sm-12 alert {% if product_activation.is_enabled %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+                  {% if product_activation.is_enabled %}Product selling feature is <span id="enabledisable">enabled</span> in your website. {% else %}Product selling feature is <span id="enabledisable">disabled</span> in your website. {% endif %} &emsp;
+                  <span>
+                    <label class="switch" style="margin-bottom: -0.5rem;">
+                      <input type="hidden" name="productToggleUrl" id="productToggleUrl" value="{% url 'productEnableToggle' %}">
+                      <input type="checkbox" id="productSwitch" {% if product_activation.is_enabled %} checked {% else %} {% endif %} onclick="productSwitch()">
+                      <span class="slider round"></span>
+                    </label>
+                  </span>
+                </div>
+              </div>
               <div class="row mb-2">
                 <div class="col-sm-4">
                   <div class="search-box mr-2 mb-2 d-inline-block">

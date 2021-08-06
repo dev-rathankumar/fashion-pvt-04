@@ -1,5 +1,6 @@
+from blogs.models import BlogActivation
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product, ProductGallery, Wishlist, WishlistForm, Size
+from .models import Product, ProductActivation, ProductGallery, Wishlist, WishlistForm, Size
 from .models import Category, Variants, Color, Compare, CompareItem
 from .models import ReviewRating, ReviewForm
 from accounts.models import Business
@@ -18,7 +19,25 @@ from functools import reduce
 import operator
 
 
+
+
+# Custom decorator to check if the business account expired or not
+def is_productSelling_activated(func):
+    def wrapper(request, *args, **kwargs):
+        url = request.build_absolute_uri()
+        domain = urlparse(url).netloc
+        try:
+            business = Business.objects.get(domain_name=domain)
+            product_activation = ProductActivation.objects.get(business=business)
+            if not product_activation.is_enabled:
+                return redirect('home')
+        except:
+            pass
+        return func(request, *args, **kwargs)
+    return wrapper
+
 # Create your views here.
+@is_productSelling_activated
 def shop(request, slug=None):
     categories = None
     products = None
@@ -77,7 +96,7 @@ def shop(request, slug=None):
     return render(request, 'shop/shop.html', context)
 
 
-
+@is_productSelling_activated
 def product_detail(request, category_slug, product_slug):
     num = random.randrange(100000,999999)
     str_num=str(num)
@@ -147,6 +166,7 @@ def product_detail(request, category_slug, product_slug):
 
 
 @login_required(login_url='/userLogin')
+@is_productSelling_activated
 def wishlist(request):
     current_user = request.user  # Access User Session information
     wishlist = Wishlist.objects.filter(user_id=current_user.id)
@@ -158,6 +178,7 @@ def wishlist(request):
 
 # Add product to wishlist
 @login_required(login_url='/userLogin')
+@is_productSelling_activated
 def add_to_wishlist(request,product_id):
     id = product_id
     url = request.META.get('HTTP_REFERER')  # get last url
@@ -198,6 +219,7 @@ def add_to_wishlist(request,product_id):
         return render(request, 'shop/my-wishlist.html')
 
 
+@is_productSelling_activated
 def wishlist_addtoshopcart(request, product_id):
     id = product_id
     url = request.META.get('HTTP_REFERER')  # get last url
@@ -260,12 +282,14 @@ def wishlist_addtoshopcart(request, product_id):
         return HttpResponseRedirect(url)
 
 
+@is_productSelling_activated
 def wishlist_delete(request, id):
     wishlist = Wishlist.objects.filter(id=id).delete()
     messages.success(request, "Product has been removed from your Wishlist.")
     return redirect('wishlist')
 
 
+@is_productSelling_activated
 def search(request):
     products = None
     product_count = 0
@@ -348,6 +372,7 @@ def search(request):
     return render(request, 'shop/shop.html', context)
 
 
+@is_productSelling_activated
 def submit_review(request, product_id):
     url = request.META.get('HTTP_REFERER')
     if request.method == 'POST':
@@ -384,6 +409,7 @@ def _compare_id(request):
 
 
 # Product comparison
+@is_productSelling_activated
 def compare_products(request):
     compare_product_1 = None
     compare_product_2 = None
@@ -408,6 +434,7 @@ def compare_products(request):
     return render(request, 'shop/compare_products.html', context)
 
 
+@is_productSelling_activated
 def add_to_compare(request, product_id):
     url = request.META.get('HTTP_REFERER')
     product = Product.objects.get(id=product_id) # get the product
@@ -439,6 +466,7 @@ def add_to_compare(request, product_id):
     return HttpResponseRedirect(url)
 
 
+@is_productSelling_activated
 def remove_from_compare(request, product_id):
     url = request.META.get('HTTP_REFERER')
     compare = Compare.objects.get(compare_id=_compare_id(request))

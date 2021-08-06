@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages, auth
 from .models import DashboardImage, User, RegionalManager, Business, Customer
 from contacts.models import Inquiry
-from products.models import Product
+from products.models import Product, ProductActivation
 from orders.models import Order, OrderProduct
 from business.models import PaymentSetting
 
@@ -447,10 +447,15 @@ def biz_password_reset(request):
             ppConfig.business = business
             ppConfig.save()
 
-            # Automatically creating Paypal Config entry
+            # Automatically creating Blog Activation entry
             blog_activation = BlogActivation()
             blog_activation.business = business
             blog_activation.save()
+
+            # Automatically creating Product Activation entry
+            product_activation = ProductActivation()
+            product_activation.business = business
+            product_activation.save()
 
             mail_subject = 'Your Business Account is Activated'
             # message = 'Congratulations! Your business account has been activated.'

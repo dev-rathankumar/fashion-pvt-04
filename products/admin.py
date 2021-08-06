@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, ProductGallery, Color, Size, Variants, Wishlist, ReviewRating, Compare, CompareItem
+from .models import Product, ProductActivation, ProductGallery, Color, Size, Variants, Wishlist, ReviewRating, Compare, CompareItem
 from django.utils.html import format_html
 import admin_thumbnails
 
@@ -71,6 +71,15 @@ class CompareAdmin(admin.ModelAdmin):
 class CompareItemAdmin(admin.ModelAdmin):
     list_display = ['product', 'compare', 'is_active']
 
+class ProductActivationAdmin(admin.ModelAdmin):
+    list_display = ('business','is_enabled', 'updated_on')
+
+    # if there's already an entry, do not allow adding
+    def has_add_permission(self, request):
+        count = ProductActivation.objects.all().count()
+        if count == 0:
+          return True
+        return False
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Color,ColorAdmin)
@@ -81,3 +90,4 @@ admin.site.register(ReviewRating, ReviewRatingAdmin)
 admin.site.register(Compare, CompareAdmin)
 admin.site.register(CompareItem, CompareItemAdmin)
 admin.site.register(ProductGallery)
+admin.site.register(ProductActivation, ProductActivationAdmin)

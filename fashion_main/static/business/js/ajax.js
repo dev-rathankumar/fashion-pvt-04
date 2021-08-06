@@ -337,22 +337,61 @@ function ppToggleEnable(event, url){
 }
 
 
-// Topbar Switch
+// Blog enable Switch
 function blogSwitch() {
   var blogSwitch = document.getElementById('blogSwitch');
   var url = $('#blogToggleUrl').val();
   if (blogSwitch.checked == true){
     var event = Boolean(true);
     blogToggleEnable(event, url);
-    // document.getElementById("topbarForm").style.display = "block";
   } else {
     var event = Boolean(false);
     blogToggleEnable(event, url);
-    // document.getElementById("topbarForm").style.display = "none";
   }
 }
 
 function blogToggleEnable(event, url){
+  $.ajax({
+    type: 'GET',
+    url: url,
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'enabled') {
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-danger");
+        element.classList.add("alert-success");
+        document.getElementById("enabledisable").innerHTML = "enabled";
+      }
+      else{
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-success");
+        element.classList.add("alert-danger");
+        document.getElementById("enabledisable").innerHTML = "disabled";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}
+
+// Product enable Switch
+function productSwitch() {
+  var productSwitch = document.getElementById('productSwitch');
+  var url = $('#productToggleUrl').val();
+  if (productSwitch.checked == true){
+    var event = Boolean(true);
+    productToggleEnable(event, url);
+  } else {
+    var event = Boolean(false);
+    productToggleEnable(event, url);
+  }
+}
+
+function productToggleEnable(event, url){
   $.ajax({
     type: 'GET',
     url: url,

@@ -32,6 +32,7 @@
           </ul>
         </div>
 
+        {% if product_activation.is_enabled %}
         <div class="col-12 col-sm-12 col-md-2 col-lg-2 footer-links">
           <h4 class="h4">{% trans 'Quick Shop' %}</h4>
           <ul>
@@ -40,6 +41,7 @@
             {% endfor %}
           </ul>
         </div>
+        {% endif %}
 
         <div class="col-12 col-sm-12 col-md-2 col-lg-2 footer-links">
           <h4 class="h4">{% trans 'Important Links' %}</h4>

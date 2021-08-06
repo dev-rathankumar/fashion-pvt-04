@@ -23,7 +23,7 @@ import json
 from django.contrib import messages
 from .forms import UserForm, BusinessForm, ProductForm, ProductGalleryForm, ProductVariantForm, BlogForm,BlogCategoryForm
 from .forms import CategoryForm, OrderForm, TaxSettingForm, ColorForm, SizeForm
-from products.models import Product, ProductGallery, Variants, ReviewRating, Color, Size
+from products.models import Product, ProductActivation, ProductGallery, Variants, ReviewRating, Color, Size
 from django.forms import inlineformset_factory
 from django import forms
 from django.template.defaultfilters import slugify
@@ -340,8 +340,12 @@ def allProducts(request):
     page = request.GET.get('page')
     paged_products = paginator.get_page(page)
 
+    # get blog activation status
+    product_activation = ProductActivation.objects.get(business=business)
+
     context = {
         'products': paged_products,
+        'product_activation': product_activation,
     }
     return render(request, 'business/allProducts.html', context)
 
@@ -1478,5 +1482,20 @@ def blogEnableToggle(request):
     else:
         blog_activation.is_enabled = False
         blog_activation.save()
+        result = 'disabled'
+    return HttpResponse(result)
+
+
+def productEnableToggle(request):
+    event = request.GET.get('event')
+    business = Business.objects.get(user=request.user)
+    product_activation = get_object_or_404(ProductActivation, business=business)
+    if event == 'true':
+        product_activation.is_enabled = True
+        product_activation.save()
+        result = 'enabled'
+    else:
+        product_activation.is_enabled = False
+        product_activation.save()
         result = 'disabled'
     return HttpResponse(result)

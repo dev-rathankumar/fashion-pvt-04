@@ -38,6 +38,7 @@
                 <nav class="grid__item" id="AccessibleNav">
                     <ul id="siteNav" class="site-nav medium center hidearrow">
                         <li class="lvl1 parent megamenu mdropdown"><a href="{% url 'home' %}">{% trans 'Home' %} <i class="anm anm-angle-down-l"></i></a></li>
+                        {% if product_activation.is_enabled %}
                         <li class="lvl1 parent dropdown"><a href="#">{% trans 'Categories' %} <i class="anm anm-angle-down-l"></i></a>
                           <ul class="dropdown">
                             <li class="site-nav"><a href="{% url 'shop' %}">{% trans 'All Products' %}</a></li>
@@ -52,7 +53,10 @@
                             {% endrecursetree %}
                           </ul>
                         </li>
+                        {% endif %}
+                    {% if product_activation.is_enabled %}
                     <li class="lvl1 parent megamenu"><a href="{% url 'shop' %}">{% trans 'Shop' %} <i class="anm anm-angle-down-l"></i></a></li>
+                    {% endif %}
                     <li class="lvl1 parent megamenu"><a href="{% url 'about' %}">{% trans 'About Us' %} <i class="anm anm-angle-down-l"></i></a></li>
                     <li class="lvl1 parent megamenu"><a href="{% url 'contact_page' %}">{% trans 'Contact Us' %} <i class="anm anm-angle-down-l"></i></a></li>
                     {% if blog_activation.is_enabled %}
@@ -64,6 +68,7 @@
             </div>
             <div class="col-4 col-sm-4 col-md-4 col-lg-4 align-self-center icons-col text-right">
               <!--Search-->
+              {% if product_activation.is_enabled %}
                 <div class="site-search iconset">
                     <i class="icon anm anm-search-l"></i>
                 </div>
@@ -88,6 +93,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
                 <!--End Search-->
                 <!--Setting Dropdown-->
                 {% if user.id is not None %}
@@ -141,6 +147,7 @@
                     </div> -->
                 </div>
                 <!--End Setting Dropdown-->
+                {% if product_activation.is_enabled %}
                 <!--Wishlist-->
                 <div class="wishlist-link iconset" title="Wishlist">
                   <a href="{% url 'wishlist' %}" class="site-header__cart btn-minicart">
@@ -165,6 +172,7 @@
                         <span class="site-cart-count">{{cart_count}}</span>
                     </a>
                 </div>
+                {% endif %}
                 <!--End Minicart Dropdown-->
                 <div class="language hideonPhone iconset">
                   <!-- Language selection -->
@@ -234,8 +242,10 @@
             <li class="lvl1 parent megamenu">
               <a href="{% url 'home' %}">{% trans 'Home'%}</a>
             </li>
+            {% if product_activation.is_enabled %}
             <li class="lvl1 parent megamenu"><a href="#"> {% trans 'Categories'%} <i class="anm anm-plus-l"></i></a>
-            <ul>
+           
+              <ul>
               <li>
                 <a href="{% url 'shop' %}" class="site-nav">{% trans 'All Products'%}</a>
               </li>
@@ -251,18 +261,23 @@
               
             </ul>
           </li>
+          {% endif %}
+          {% if product_activation.is_enabled %}
             <li class="lvl1 parent megamenu">
               <a href="{% url 'shop' %}">{% trans 'Shop'%}</a>
           </li>
+          {% endif %}
           <li class="lvl1 parent megamenu">
             <a href="{% url 'about' %}">{% trans 'About Us'%}</a>
         </li>
         <li class="lvl1 parent megamenu">
           <a href="{% url 'contact_page' %}">{% trans 'Contact Us'%}</a>
         </li>
+        {% if blog_activation.is_enabled %}
         <li class="lvl1 parent megamenu">
           <a href="{% url 'blog' %}">{% trans 'Blogs'%}</a>
         </li>
+        {% endif %}
         </ul>
     </div>
     <!--End Mobile Menu-->
