@@ -227,3 +227,26 @@ class PaypalConfig(models.Model):
 
     def __str__(self):
         return self.paypal_client_id
+
+
+class Service(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='services/')
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    is_active = models.BooleanField(default=True)
+    created_date    = models.DateTimeField(auto_now_add=True)
+    modified_date   = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+
+class ServiceActivation(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    is_enabled = models.BooleanField(default=False)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now= True)
+
+    def __str__(self):
+        return self.business.company_name

@@ -1,3 +1,4 @@
+from sitesettings.models import Service
 from django import forms
 from accounts.models import User, Business
 from .models import PaymentSetting
@@ -237,5 +238,23 @@ class BlogCategoryForm(forms.ModelForm):
             elif myField == 'description':
                 self.fields[myField].widget.attrs['class'] = 'form-control'
                 self.fields[myField].widget.attrs['rows'] = '4'
+            else:
+                self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class ServiceForm(forms.ModelForm):
+    image = forms.ImageField(label=('Image'), required=True, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+        "type": "file",
+        "data-show-preview": "false"
+    }))
+    class Meta:
+        model = Service
+        fields = ['title', 'image', 'description']
+
+    def __init__(self, *args, **kwargs):
+        super(ServiceForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            if myField == 'image':
+                self.fields[myField].widget.attrs['class'] = 'form-control file'
             else:
                 self.fields[myField].widget.attrs['class'] = 'form-control'

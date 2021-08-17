@@ -20,7 +20,7 @@ from .forms import UserForm
 
 from django.http import HttpResponse
 from urllib.parse import urlparse
-from sitesettings.models import DirectDepositEmail, Homepage, ParallaxBackground, Header, ContactPage, Footer, AboutPage, PaypalConfig, Policy, TermsAndCondition, Topbar
+from sitesettings.models import DirectDepositEmail, Homepage, ParallaxBackground, Header, ContactPage, Footer, AboutPage, PaypalConfig, Policy, ServiceActivation, TermsAndCondition, Topbar
 from emails.models import BusinessEmailSetting
 from datetime import date, datetime
 import time
@@ -456,6 +456,11 @@ def biz_password_reset(request):
             product_activation = ProductActivation()
             product_activation.business = business
             product_activation.save()
+
+            # Automatically creating Service Activation entry
+            service_activation = ServiceActivation()
+            service_activation.business = business
+            service_activation.save()
 
             mail_subject = 'Your Business Account is Activated'
             # message = 'Congratulations! Your business account has been activated.'

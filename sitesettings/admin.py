@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Header, Footer, ContactPage, Homepage, BannerImage, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent, DirectDepositEmail, PaypalConfig
+from .models import Header, Footer, ContactPage, Homepage, BannerImage, Service, ServiceActivation, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent, DirectDepositEmail, PaypalConfig
 
 
 class BannerImageInline(admin.TabularInline):
@@ -104,8 +104,24 @@ class TopbarAdmin(admin.ModelAdmin):
 class DirectDepositEmailAdmin(admin.ModelAdmin):
     list_display = ['business', 'direct_deposit_email', 'is_enabled', 'modified_date']
 
+
 class PaypalConfigAdmin(admin.ModelAdmin):
     list_display = ['business', 'paypal_client_id', 'is_enabled', 'modified_date']
+
+
+class ServiceAdmin(admin.ModelAdmin):
+    list_display = ['business', 'title', 'is_active', 'modified_date']
+
+
+class ServiceActivationAdmin(admin.ModelAdmin):
+    list_display = ('business','is_enabled', 'updated_on')
+
+    # if there's already an entry, do not allow adding
+    def has_add_permission(self, request):
+        count = ServiceActivation.objects.all().count()
+        if count == 0:
+          return True
+        return False
 
 
 admin.site.register(Header, HeaderAdmin)
@@ -123,4 +139,5 @@ admin.site.register(Topbar, TopbarAdmin)
 admin.site.register(AboutContent)
 admin.site.register(DirectDepositEmail, DirectDepositEmailAdmin)
 admin.site.register(PaypalConfig, PaypalConfigAdmin)
-
+admin.site.register(Service, ServiceAdmin)
+admin.site.register(ServiceActivation, ServiceActivationAdmin)

@@ -102,4 +102,11 @@ urlpatterns = [
     path('contactInqs/', views.allContacts, name='allContacts'),
     path('contactInqs/viewContact/<int:pk>/', views.viewContact, name='viewContact'),
     path('contactInqs/deleteContact/<int:pk>/', views.deleteContact, name='deleteContact'),
+
+    # Services
+    path('allServices/', views.allServices, name='allServices'),
+    path('addService/', views.addService, name='addService'),
+    path('editService/<int:pk>/', views.editService, name='editService'),
+    path('deleteService/<int:pk>/', views.deleteService, name='deleteService'),
+    path('serviceEnableToggle/', views.serviceEnableToggle, name='serviceEnableToggle'),
 ]

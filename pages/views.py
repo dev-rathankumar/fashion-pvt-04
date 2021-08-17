@@ -1,14 +1,31 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from category.models import Category
 from products.models import Product, ProductGallery
 from accounts.models import Business
-from sitesettings.models import AboutContent, BannerImage, StoreFeature, ParallaxBackground, Homepage, ContactPage, SocialMediaLink, AboutPage, Policy, TermsAndCondition
+from sitesettings.models import AboutContent, BannerImage, Service, ServiceActivation, StoreFeature, ParallaxBackground, Homepage, ContactPage, SocialMediaLink, AboutPage, Policy, TermsAndCondition
 from urllib.parse import urlparse
 
 from django.http import HttpResponse
 from django.utils.translation import gettext as _
 
-# Create your views here.
+
+
+# Custom decorator to check if the service feature is enabled or not
+def is_service_activated(func):
+    def wrapper(request, *args, **kwargs):
+        url = request.build_absolute_uri()
+        domain = urlparse(url).netloc
+        try:
+            business = Business.objects.get(domain_name=domain)
+            service_activation = ServiceActivation.objects.get(business=business)
+            if not service_activation.is_enabled:
+                return redirect('home')
+        except:
+            pass
+        return func(request, *args, **kwargs)
+    return wrapper
+
+
 def home(request):
     """Home Page"""
     # Set the language session key manually
@@ -130,3 +147,12 @@ def terms_and_conditions(request):
         'terms': terms,
     }
     return render(request, 'pages/terms_and_conditions.html', context)
+
+
+@is_service_activated
+def services(request):
+    services = Service.objects.filter(is_active=True).order_by('created_date')
+    context = {
+        'services': services,
+    }
+    return render(request, 'pages/services.html', context)

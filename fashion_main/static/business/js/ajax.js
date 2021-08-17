@@ -418,3 +418,45 @@ function productToggleEnable(event, url){
     }
   });
 }
+
+
+// Service enable Switch
+function serviceSwitch() {
+  var serviceSwitch = document.getElementById('serviceSwitch');
+  var url = $('#serviceToggleUrl').val();
+  if (serviceSwitch.checked == true){
+    var event = Boolean(true);
+    serviceToggleEnable(event, url);
+  } else {
+    var event = Boolean(false);
+    serviceToggleEnable(event, url);
+  }
+}
+
+function serviceToggleEnable(event, url){
+  $.ajax({
+    type: 'GET',
+    url: url,
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'enabled') {
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-danger");
+        element.classList.add("alert-success");
+        document.getElementById("enabledisable").innerHTML = "enabled";
+      }
+      else{
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-success");
+        element.classList.add("alert-danger");
+        document.getElementById("enabledisable").innerHTML = "disabled";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}

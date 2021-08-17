@@ -1,6 +1,6 @@
 import json
 from urllib.parse import urlparse
-from pages.views import about
+from pages.views import about, services
 from django.core.mail import message
 from products.models import ReviewRating
 from django.shortcuts import render, get_object_or_404, redirect
@@ -564,6 +564,4 @@ def ppToggleEnable(request):
         pp.save()
         result = 'disabled'
     return HttpResponse(result)
-
-
 

@@ -1,3 +1,4 @@
+from sitesettings.models import Service, ServiceActivation
 from orders.views import orderproduct
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
@@ -7,7 +8,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from accounts.models import User, Customer, RegionalManager
 from accounts.models import Business, TaxOnPlan
 from django.http import HttpResponse, JsonResponse
-from .forms import PaymentSettingForm
+from .forms import PaymentSettingForm, ServiceForm
 from .models import PaymentSetting
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import default_token_generator
@@ -1497,5 +1498,97 @@ def productEnableToggle(request):
     else:
         product_activation.is_enabled = False
         product_activation.save()
+        result = 'disabled'
+    return HttpResponse(result)
+
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def allServices(request):
+    # business = get_object_or_404(Business, pk=request.user.id)
+    services = Service.objects.filter(business=request.user.id).order_by('-created_date')
+
+    # get service activation status
+    service_activation = ServiceActivation.objects.get(business=request.user.id)
+    context = {
+        'services': services,
+        'service_activation': service_activation,
+    }
+    return render(request, 'business/allServices.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def editService(request, pk=None):
+    url = request.META.get('HTTP_REFERER')
+    service = get_object_or_404(Service, pk=pk)
+    if request.method == 'POST':
+        form = ServiceForm(request.POST, request.FILES, instance=service)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Service has been updated.')
+            return HttpResponseRedirect(url)
+        else:
+            messages.error(request, 'Invalid form, please try again.')
+            return HttpResponseRedirect(url)
+
+    else:
+        form = ServiceForm(instance=service)
+    context = {
+        'form': form,
+        'service': service,
+    }
+    return render(request, 'business/editService.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def addService(request):
+    if request.method == 'POST':
+        form = ServiceForm(request.POST, request.FILES)
+        if form.is_valid():
+            business = Business.objects.get(user=request.user)
+            # product_name = basicInfo_form.cleaned_data['product_name']
+            service = form.save(commit=False)
+            service.business = business
+            service.save()
+            messages.success(request, 'New service has been created.')
+            return redirect('allServices')
+        else:
+            messages.error(request, 'Invalid form, please try again.')
+            return redirect('addService')
+    else:
+        form = ServiceForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/addService.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def deleteService(request, pk=None):
+    service = get_object_or_404(Service, pk=pk)
+    service.delete()
+    messages.success(request, 'Service has been deleted.')
+    return redirect('allServices')
+
+
+def serviceEnableToggle(request):
+    event = request.GET.get('event')
+    business = Business.objects.get(user=request.user)
+    service_activation = get_object_or_404(ServiceActivation, business=business)
+    if event == 'true':
+        service_activation.is_enabled = True
+        service_activation.save()
+        result = 'enabled'
+    else:
+        service_activation.is_enabled = False
+        service_activation.save()
         result = 'disabled'
     return HttpResponse(result)

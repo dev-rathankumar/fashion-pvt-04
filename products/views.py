@@ -21,7 +21,7 @@ import operator
 
 
 
-# Custom decorator to check if the business account expired or not
+# Custom decorator to check if the product selling is enabled or not
 def is_productSelling_activated(func):
     def wrapper(request, *args, **kwargs):
         url = request.build_absolute_uri()
