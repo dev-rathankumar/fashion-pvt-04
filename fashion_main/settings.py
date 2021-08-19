@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'taxes',
     'faicon',
     'blogs',
+    'portfolio',
 ]
 
 SITE_ID = 1

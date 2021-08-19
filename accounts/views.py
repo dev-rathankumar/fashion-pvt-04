@@ -1,3 +1,4 @@
+from portfolio.models import PortfolioActivation, PortfolioHeader
 from blogs.models import BlogActivation
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -461,6 +462,17 @@ def biz_password_reset(request):
             service_activation = ServiceActivation()
             service_activation.business = business
             service_activation.save()
+
+            # Automatically creating Portfolio Header entry
+            portfolio_header = PortfolioHeader()
+            portfolio_header.business = business
+            portfolio_header.heading = 'Our Portfolio'
+            portfolio_header.save()
+
+            # Automatically creating Portfolio Activation entry
+            portfolio_activation = PortfolioActivation()
+            portfolio_activation.business = business
+            portfolio_activation.save()
 
             mail_subject = 'Your Business Account is Activated'
             # message = 'Congratulations! Your business account has been activated.'

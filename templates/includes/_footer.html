@@ -429,7 +429,7 @@
 <script src="{% static 'js/plugins.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 <script src="{% static 'js/ajax-js.js' %}"></script>
-{% if 'shop' in request.path %}
+{% if 'shop' in request.path or 'portfolio' in request.path %}
 <script src="{% static 'js/vendor/photoswipe.min.js' %}"></script>
 
 

@@ -1,3 +1,4 @@
+from portfolio.models import PortfolioActivation
 from products.models import ProductActivation
 from blogs.models import BlogActivation
 from accounts.models import Business, User, DashboardImage
@@ -41,6 +42,7 @@ def get_sitesettings(request):
                 blog_activation = BlogActivation.objects.get(business=business)
                 product_activation = ProductActivation.objects.get(business=business)
                 service_activation = ServiceActivation.objects.get(business=business)
+                portfolio_activation = PortfolioActivation.objects.get(business=business)
             except:
                 header = None
                 footer = None
@@ -48,6 +50,7 @@ def get_sitesettings(request):
                 blog_activation = None
                 product_activation = None
                 service_activation = None
+                portfolio_activation = None
     except:
         header = None
         footer = None
@@ -56,7 +59,8 @@ def get_sitesettings(request):
         blog_activation = None
         product_activation = None
         service_activation = None
-    return dict(service_activation=service_activation, product_activation=product_activation, header=header, company_name=company_name, footer=footer, topbar=topbar, blog_activation=blog_activation)
+        portfolio_activation = None
+    return dict(portfolio_activation=portfolio_activation, service_activation=service_activation, product_activation=product_activation, header=header, company_name=company_name, footer=footer, topbar=topbar, blog_activation=blog_activation)
 
 
 def get_dashboardImage(request):

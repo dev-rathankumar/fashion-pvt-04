@@ -1,3 +1,4 @@
+from portfolio.models import Portfolio, PortfolioActivation, PortfolioGallery, PortfolioHeader
 from django.shortcuts import redirect, render
 from category.models import Category
 from products.models import Product, ProductGallery
@@ -19,6 +20,21 @@ def is_service_activated(func):
             business = Business.objects.get(domain_name=domain)
             service_activation = ServiceActivation.objects.get(business=business)
             if not service_activation.is_enabled:
+                return redirect('home')
+        except:
+            pass
+        return func(request, *args, **kwargs)
+    return wrapper
+
+# Custom decorator to check if the portfolio feature is enabled or not
+def is_portfolio_activated(func):
+    def wrapper(request, *args, **kwargs):
+        url = request.build_absolute_uri()
+        domain = urlparse(url).netloc
+        try:
+            business = Business.objects.get(domain_name=domain)
+            portfolio_activation = PortfolioActivation.objects.get(business=business)
+            if not portfolio_activation.is_enabled:
                 return redirect('home')
         except:
             pass
@@ -156,3 +172,42 @@ def services(request):
         'services': services,
     }
     return render(request, 'pages/services.html', context)
+
+
+@is_portfolio_activated
+def portfolio(request):
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    portfolio = None
+    if request.GET:
+        show = request.GET['show']
+        if show == 'all':
+            portfolio = Portfolio.objects.filter(is_active=True).order_by('created_date')
+    else:
+        portfolio = Portfolio.objects.filter(is_active=True).order_by('created_date')[:3]
+    business = Business.objects.get(domain_name=domain)
+    portfolio_header = PortfolioHeader.objects.get(business=business)
+    context = {
+        'portfolio': portfolio,
+        'portfolio_header': portfolio_header,
+    }
+    return render(request, 'pages/portfolio.html', context)
+
+
+@is_portfolio_activated
+def portfolio_detail(request, portfolio_slug=None):
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    try:
+        single_portfolio = Portfolio.objects.get(slug=portfolio_slug)
+        gallery = PortfolioGallery.objects.filter(portfolio=single_portfolio)
+        business = Business.objects.get(domain_name=domain)
+        portfolio_header = PortfolioHeader.objects.get(business=business)
+    except Exception as e:
+        raise e
+    context = {
+        'single_portfolio': single_portfolio,
+        'gallery': gallery,
+        'portfolio_header': portfolio_header,
+    }
+    return render(request, 'pages/portfolio_detail.html', context)

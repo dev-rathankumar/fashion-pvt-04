@@ -11,4 +11,8 @@ urlpatterns = [
     # Services
     path('services/', views.services, name='services'),
 
+    # Portfolio
+    path('portfolio/', views.portfolio, name='portfolio'),
+    path('portfolio/<slug:portfolio_slug>/', views.portfolio_detail, name='portfolio_detail'),
+
 ]

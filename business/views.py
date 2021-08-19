@@ -1,3 +1,4 @@
+from portfolio.models import Portfolio, PortfolioActivation, PortfolioGallery
 from sitesettings.models import Service, ServiceActivation
 from orders.views import orderproduct
 from django.http.response import HttpResponseRedirect
@@ -8,7 +9,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from accounts.models import User, Customer, RegionalManager
 from accounts.models import Business, TaxOnPlan
 from django.http import HttpResponse, JsonResponse
-from .forms import PaymentSettingForm, ServiceForm
+from .forms import PaymentSettingForm, PortfolioForm, PortfolioGalleryForm, ServiceForm
 from .models import PaymentSetting
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import default_token_generator
@@ -1592,3 +1593,128 @@ def serviceEnableToggle(request):
         service_activation.save()
         result = 'disabled'
     return HttpResponse(result)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def allPortfolio(request):
+    portfolio = Portfolio.objects.filter(business=request.user.id).order_by('-created_date')
+
+    # get service activation status
+    portfolio_activation = PortfolioActivation.objects.get(business=request.user.id)
+    context = {
+        'portfolio': portfolio,
+        'portfolio_activation': portfolio_activation,
+    }
+    return render(request, 'business/allPortfolio.html', context)
+
+
+def portfolioEnableToggle(request):
+    event = request.GET.get('event')
+    business = Business.objects.get(user=request.user)
+    portfolio_activation = get_object_or_404(PortfolioActivation, business=business)
+    if event == 'true':
+        portfolio_activation.is_enabled = True
+        portfolio_activation.save()
+        result = 'enabled'
+    else:
+        portfolio_activation.is_enabled = False
+        portfolio_activation.save()
+        result = 'disabled'
+    return HttpResponse(result)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def editPortfolio(request, pk=None):
+    url = request.META.get('HTTP_REFERER')
+    portfolio = get_object_or_404(Portfolio, pk=pk)
+    if request.method == 'POST':
+        form = PortfolioForm(request.POST, request.FILES, instance=portfolio)
+        if form.is_valid():
+            form.save()
+            return redirect('/business/editPortfolio/'+str(pk)+'/editPortfolioGallery/')
+        else:
+            messages.error(request, 'Invalid form, please try again.')
+            return HttpResponseRedirect(url)
+
+    else:
+        form = PortfolioForm(instance=portfolio)
+    context = {
+        'form': form,
+        'portfolio': portfolio,
+    }
+    return render(request, 'business/editPortfolio.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def addPortfolio(request):
+    if request.method == 'POST':
+        form = PortfolioForm(request.POST, request.FILES)
+        if form.is_valid():
+            business = Business.objects.get(user=request.user)
+            portfolio = form.save(commit=False)
+            portfolio.business = business
+            portfolio.save()
+            pk = portfolio.id
+            makeSlug = portfolio.title + str(pk)
+            portfolio.slug = slugify(makeSlug)
+            portfolio.save()
+            messages.success(request, 'New item has been added to your portfolio.')
+            return redirect('/business/editPortfolio/'+str(pk)+'/editPortfolioGallery/')
+        else:
+            messages.error(request, 'Invalid form, please try again.')
+            return redirect('addPortfolio')
+    else:
+        form = PortfolioForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/addPortfolio.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def deletePortfolio(request, pk=None):
+    portfolio = get_object_or_404(Portfolio, pk=pk)
+    portfolio.delete()
+    messages.success(request, 'Portfolio item has been deleted.')
+    return redirect('allPortfolio')
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def editPortfolioGallery(request, pk=None):
+    portfolio = get_object_or_404(Portfolio, pk=pk)
+    PortfolioGalleryFormSet = inlineformset_factory(Portfolio, PortfolioGallery, form=PortfolioGalleryForm, extra=1)
+
+    if request.method == 'POST':
+        add_another = request.POST['add_another']
+        formset = PortfolioGalleryFormSet(request.POST, request.FILES, instance=portfolio)
+        if formset.is_valid():
+            formset.save()
+            if add_another == 'true':
+                return redirect('/business/editPortfolio/'+str(pk)+'/editPortfolioGallery/')
+            elif add_another == 'finish':
+                portfolio.is_active = True
+                portfolio.save()
+                messages.success(request, 'Portfolio has been uploaded successfully.')
+                return redirect('allPortfolio')
+            else:
+                return redirect('/business/editPortfolio/'+str(pk)+'/editPortfolioGallery/')
+        else:
+            return HttpResponse(formset.errors)
+    else:
+        formset = PortfolioGalleryFormSet(instance=portfolio)
+    
+    context = {
+        'portfolio' : portfolio,
+        'formset': formset,
+    }
+    return render(request, 'business/editPortfolioGallery.html', context)

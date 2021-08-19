@@ -1,3 +1,4 @@
+from portfolio.models import Portfolio, PortfolioGallery
 from sitesettings.models import Service
 from django import forms
 from accounts.models import User, Business
@@ -258,3 +259,35 @@ class ServiceForm(forms.ModelForm):
                 self.fields[myField].widget.attrs['class'] = 'form-control file'
             else:
                 self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+
+class PortfolioForm(forms.ModelForm):
+    featured_image = forms.ImageField(label=('Image'), required=True, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+        "type": "file",
+        "data-show-preview": "false"
+    }))
+    class Meta:
+        model = Portfolio
+        fields = ['title', 'featured_image', 'description', 'live_preview_button', 'button_name', 'button_link', 'button_bg_color', 'button_text_color', 'button_alignment']
+
+    def __init__(self, *args, **kwargs):
+        super(PortfolioForm, self).__init__(*args, **kwargs)
+        self.fields['live_preview_button'].widget.attrs['onchange'] = 'showhideButton()'
+        for myField in self.fields:
+            if myField == 'featured_image':
+                self.fields[myField].widget.attrs['class'] = 'form-control file'
+            else:
+                self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class PortfolioGalleryForm(forms.ModelForm):
+    image = forms.ImageField(label=('Portfolio Gallery Image'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+        "type": "file",
+        "class": "file",
+        "data-show-preview": "false",
+    }))
+    class Meta:
+        model = PortfolioGallery
+        fields = ('image',)
+        exclude = ()

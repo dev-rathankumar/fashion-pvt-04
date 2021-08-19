@@ -65,12 +65,25 @@
         <li>
           <a href="javascript: void(0);" class="has-arrow waves-effect
                     {% if '/services/' == request.path or '/editService/' in request.path %} active {% else %} {% endif %}">
-            <i class="bx bxs-file"></i>
+            <i class="bx bxs-briefcase"></i>
             <span key="t-ecommerce">{% trans 'Services' %}</span>
           </a>
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="{% url 'allServices' %}" key="t-products" {% if '/allServices/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'All Services' %}</a></li>
             <li><a href="{% url 'addService' %}" key="t-products" {% if '/addService/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Add Service' %}</a></li>
+            
+            </ul>
+        </li>
+
+        <li>
+          <a href="javascript: void(0);" class="has-arrow waves-effect
+                    {% if '/portfolio/' == request.path or '/editPortfolio/' in request.path %} active {% else %} {% endif %}">
+            <i class="bx bxs-folder-open"></i>
+            <span key="t-ecommerce">{% trans 'Portfolio' %}</span>
+          </a>
+          <ul class="sub-menu" aria-expanded="false">
+            <li><a href="{% url 'allPortfolio' %}" key="t-products" {% if '/allPortfolio/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'All' %}</a></li>
+            <li><a href="{% url 'addPortfolio' %}" key="t-products" {% if '/addPortfolio/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Add New' %}</a></li>
             
             </ul>
         </li>

@@ -109,4 +109,13 @@ urlpatterns = [
     path('editService/<int:pk>/', views.editService, name='editService'),
     path('deleteService/<int:pk>/', views.deleteService, name='deleteService'),
     path('serviceEnableToggle/', views.serviceEnableToggle, name='serviceEnableToggle'),
+
+    # Portfolio
+    path('allPortfolio/', views.allPortfolio, name='allPortfolio'),
+    path('portfolioEnableToggle/', views.portfolioEnableToggle, name='portfolioEnableToggle'),
+    path('editPortfolio/<int:pk>/', views.editPortfolio, name='editPortfolio'),
+    path('addPortfolio/', views.addPortfolio, name='addPortfolio'),
+    path('deletePortfolio/<int:pk>/', views.deletePortfolio, name='deletePortfolio'),
+    path('editPortfolio/<int:pk>/editPortfolioGallery/', views.editPortfolioGallery, name='editPortfolioGallery'),
+
 ]
