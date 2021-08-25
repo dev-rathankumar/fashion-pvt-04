@@ -99,7 +99,7 @@
                 <span class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
                   <span id="ProductPrice-product-template">
                     {% if  single_product.variant != 'None'   %}
-                    <span class="money">$ <span id="varPrice">{{variant.price}}</span></span>
+                    <span class="money">$ {{variant.price}}</span>
                     {% else %}
                     <span class="money">$ {{single_product.price}}</span>
                     {% endif %}
@@ -120,105 +120,6 @@
             <div id="quantity_message">Hurry! Only <span class="items">{{single_product.stock}}</span> {% trans 'left in stock.' %}</div>
             {% endif %}
 
-            <!-- A J A X   C A L L -->
-            {% if single_product.variant == 'Custom' %}
-          <script>
-            $(document).ready(function() {
-              url = window.location.href;
-              a = url.split(/[?#]/)[0];
-              window.history.replaceState(null, null, window.location.pathname);
-              $('#post-form select').on('change', function(e) {
-                e.preventDefault();
-                productid = $('#productid').val();
-                selectedKey = $(this).attr('id');
-                var_value = $('#'+selectedKey).val();
-                firstKey = document.querySelector('.firstloop-True').id
-                firstVal = $('#'+firstKey).val();
-                
-                url = $('#ajaxVarUrl').val();
-                
-
-
-                function removeURLParameter(url, parameter) {
-                  //better to use l.search if you have a location/link object
-                  var urlparts= url.split('?');   
-                  if (urlparts.length>=2) {
-
-                      var prefix= encodeURIComponent(parameter)+'=';
-                      var pars= urlparts[1].split(/[&;]/g);
-
-                      //reverse iteration as may be destructive
-                      for (var i= pars.length; i-- > 0;) {    
-                          //idiom for string.startsWith
-                          if (pars[i].lastIndexOf(prefix, 0) !== -1) {  
-                              pars.splice(i, 1);
-                          }
-                      }
-
-                      url= urlparts[0] + (pars.length > 0 ? '?' + pars.join('&') : "");
-                      return url;
-                    } else {
-                        return url;
-                    }
-                }
-
-                if (history.pushState) {
-                    // var newurl = window.location.protocol + "//" + window.location.host + search.pathname + '?myNewUrlQuery=1';
-                    var currentUrlWithOutHash = window.location.origin + window.location.pathname + window.location.search;
-                    //remove any param for the same key
-                    var currentUrlWithOutHash = removeURLParameter(currentUrlWithOutHash, selectedKey);
-                    //figure out if we need to add the param with a ? or a &
-                    var queryStart;
-                    if(currentUrlWithOutHash.indexOf('?') !== -1){
-                        queryStart = '&';
-                    } else {
-                        queryStart = '?';
-                    }
-                    var newurl = currentUrlWithOutHash + queryStart + selectedKey + '=' + var_value
-                    window.history.pushState({path:newurl},'',newurl);
-                  }
-
-                urlParams = new URLSearchParams(window.location.search);
-                urlParamsStr = urlParams.toString();
-                
-                $.ajax({
-                  type: 'POST',
-                  url: url,
-                  
-                  data: {
-                    productid: productid,
-                    selectedKey: selectedKey,
-                    var_value: var_value,
-                    firstKey: firstKey,
-                    firstVal: firstVal,
-                    urlParams: urlParamsStr,
-                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-                    action: 'post'
-                  },
-                  data_type: 'html',
-                  success: function(data) {
-                    // document.getElementById("varPrice").innerHTML = data.price;
-                    $('.firstloop-True').empty();
-                    $('.firstloop-False').empty();
-                    $('#appendHere').html(data.rendered_table);
-
-                    
-                    let parameters = new URLSearchParams(window.location.search);
-                    for(var key of parameters.keys()) {
-                        v = parameters.get(key);
-                        id = '#'+key
-                        $(id).val(v)
-                        .find("option[value=" + v +"]").attr('selected', true);
-                      }
-                  },
-                  error: function(data) {
-                    alert("Something went wrong! " + data);
-                  }
-                });
-              });
-            });
-          </script>
-          {% else %}
             <!-- A J A X   C A L L -->
             <script>
               $(document).on('change', '#post-form', function(e) {
@@ -243,8 +144,6 @@
                 });
               });
             </script>
-
-          {% endif %}
 
             <!-- S I Z E   A N D   C O L O R   V A R I A N T  -->
             {% if single_product.variant == 'Size-Color' %}
@@ -289,63 +188,6 @@
                   </ul>
                 </div>
               </form>
-            </div>
-
-            <!-- C U S T O M   V A R I A N T  -->
-            {% elif single_product.variant == 'Custom' %}
-            <div class="swatch clearfix swatch-1 option2" data-option-index="1">
-              <div class="product-form__item p-0">
-                
-                <form method="POST" id="post-form">
-                  <div id="appendHere">
-                  <input type="hidden" name="productid" id="productid" value="{{ single_product.id }}">
-                  <input type="hidden" name="ajaxVarUrl" id="ajaxVarUrl" value="{% url 'ajaxVarUrl' %}">
-
-                  {% for key, value in varDict.items %} 
-                   <h3>Choose {{ key }}</h3>
-                    <select name="var_value" id="{{key}}" required class="lastloop-{{forloop.last}} firstloop-{{forloop.first}} variant_select" {% if forloop.counter > 1 %}disabled{% endif %}>
-                      <option value="">Select</option>
-                      {% for j in value %}
-                      <option value="{{j}}">{{j}}</option>
-                      {% endfor %}
-                    </select>
-                    <br><br>
-                    
-                  {% endfor %}
-                </div>
-                </form>
-   
-                <div >
-
-                </div>
-              </div>
-
-              <!-- <form method="post" action="?q=selectvariant" id="post-color">
-                {% csrf_token %}
-                <div id="appendHere">
-                  <input type="hidden" name="size" id="size" value="{{ size_id }}">
-                  <ul class="color-option">
-                    <li><span class="text-uppercase" style="font-size:16px;font-weight:600;letter-spacing:1px;">{% trans 'Choose Color' %}</span></li> <br>
-                    {% for rs in colors %}
-                    <label class="var_color">
-                      <input type="radio" 
-                      {% if request.method == 'POST' %}
-                      {% if variant.id == rs.id %}
-                      checked
-                      {% endif %}
-                    {% endif %} name="variantid" id="variantid" required="required" value="{{ rs.id }}" onchange="this.form.submit();">
-                      <li {% if variant.id == rs.id %} class="active" {% endif %}>
-                        <p style="color: #2d2c2c; width: 60px;font-size: 12px;margin-bottom: 5px;margin-left: 0;">
-                          {{ rs.color }}
-                        </p>
-                        <img src="{{ rs.image }}" style="height: 50px">
-                      </li>
-                      
-                    </label>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </form> -->
             </div>
 
 
@@ -410,7 +252,6 @@
 
             <!-- Select Variant Error -->
             <p id="selectVariantError" class="text-danger"></p>
-            <p id="outOfStockError" class="text-danger"></p>
 
             <p class="infolinks">
               <a class="wishlist add-to-wishlist" onclick="return addWishlist();" href="javascript:{document.getElementById('add-wishlist').submit()}" title="Add to Wishlist"><i class="icon anm anm-heart" aria-hidden="true" style="color:red;"></i> <span>{% trans 'Add to Wishlist' %}</span></a>

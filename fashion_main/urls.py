@@ -62,6 +62,7 @@ urlpatterns += i18n_patterns (
 
     # Ajax color
     path('ajaxcolor/', views.ajaxcolor, name='ajaxcolor'),
+    path('ajaxVarUrl/', views.ajaxVarUrl, name='ajaxVarUrl'),
 
     # Newsletters
     path('subscribe/', NewsletterViews.email_list_subscribe, name='subscribe'),

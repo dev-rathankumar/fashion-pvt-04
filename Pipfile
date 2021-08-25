@@ -28,6 +28,7 @@ django-authtools = "*"
 django-colorfield = "*"
 django-faicon = "*"
 django-constance = {extras = ["redis"], version = "*"}
+numpy = "*"
 
 [requires]
 python_version = "3.8"

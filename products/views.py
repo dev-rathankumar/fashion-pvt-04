@@ -10,13 +10,15 @@ from django.contrib import messages
 from carts.models import ShopCart, ShopCartForm
 from django.db.models import Q
 from django.db.models import Max
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 from orders.models import OrderProduct
 
 from django.http import HttpResponse, HttpResponseRedirect
 import random
 from functools import reduce
 import operator
+import numpy as np
+import requests
 
 
 
@@ -152,14 +154,36 @@ def product_detail(request, category_slug, product_slug):
             colors = Variants.objects.filter(product_id=id,size_id=variant.size_id )
             sizes = Variants.objects.raw('SELECT DISTINCT ON (size_id) * FROM products_variants WHERE product_id=%s ORDER BY size_id',[id])
             query += variant.title+' Size:' +str(variant.size) +' Color:' +str(variant.color)
+            varDict = {}
         else:
             variants = Variants.objects.filter(product_id=id)
             colors = Variants.objects.filter(product_id=id,size_id=variants[0].size_id )
             sizes = Variants.objects.raw('SELECT DISTINCT ON (size_id) * FROM products_variants WHERE product_id=%s ORDER BY size_id',[id])
-            variant =Variants.objects.get(id=variants[0].id)
 
+            # product_variant = Variants.objects.filter(product_id=id,size_id=variants[0].size_id )
+            # variant_value = Variants.objects.raw('SELECT DISTINCT ON (variant_value_id) * FROM products_variants WHERE product_id=%s ORDER BY variant_value_id',[id])
+            # product_variants = Variants.objects.filter(product=product).distinct('product_variant')
+            
+            
+            listDict = []
+            for i in variants:
+                var_data = i.variant_data
+                listDict.append(var_data)
+
+            varDict = {}
+            for d in listDict:
+                for k, v in d.items():
+                    # result.setdefault(k, []).append(v) # this will create dupplicate values
+                    varDict.setdefault(k, set()).add(v)
+            
+            variant =Variants.objects.get(id=variants[0].id)
         context.update({'sizes': sizes, 'colors': colors,
                         'variant': variant,'query': query,
+                        # 'variants': variants,
+                        # 'variant_value': values,
+                        # 'product_variants': product_variants,
+                        'varDict': varDict,
+                        
                         })
     return render(request, 'shop/product_detail.html', context)
 

@@ -7,6 +7,7 @@ from django.forms import ModelForm
 from ckeditor.fields import RichTextField
 from django.db.models import Avg, Count
 from colorfield.fields import ColorField
+from smart_selects.db_fields import ChainedForeignKey
 
 # Image manipulation
 from io import BytesIO
@@ -31,6 +32,7 @@ class Product(models.Model):
         ('Size', 'Size'),
         ('Color', 'Color'),
         ('Size-Color', 'Size-Color'),
+        ('Custom', 'Custom'),
 
     )
     business        = models.ForeignKey(Business, on_delete=models.CASCADE)
@@ -118,12 +120,16 @@ class Size(models.Model):
         return self.name
 
 
+def variant_data_default():
+    return {'tax': 0}
+
 # PRODUCT VARIATION
 class Variants(models.Model):
     title = models.CharField(max_length=100, blank=True,null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     color = models.ForeignKey(Color, on_delete=models.CASCADE,blank=True,null=True)
     size = models.ForeignKey(Size, on_delete=models.CASCADE,blank=True,null=True)
+    variant_data = models.JSONField(default=variant_data_default, blank=True, help_text = "Data format: {'product_name':{'variant_type':'variant_value'}}")
     image_id = models.IntegerField(blank=True,null=True)
     quantity = models.IntegerField()
     price = models.DecimalField(max_digits=12, decimal_places=2)
