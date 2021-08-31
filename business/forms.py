@@ -120,7 +120,7 @@ class ProductVariantForm(forms.ModelForm):
     attribute_value = forms.ModelChoiceField(required=False, queryset=AttributeValue.objects.all())
     class Meta:
         model = Variants
-        fields = ('title', 'color', 'size', 'product_attribute', 'attribute_value', 'variant_data', 'image_id', 'quantity', 'price')
+        fields = ('id', 'title', 'color', 'size', 'product_attribute', 'attribute_value', 'variant_data', 'image_id', 'quantity', 'price')
         exclude = ()
 
     # Give same CSS class to all the fields
