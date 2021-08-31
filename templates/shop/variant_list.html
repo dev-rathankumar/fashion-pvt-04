@@ -7,12 +7,10 @@
       id = '#'+validInputs[i].id;
       key = validInputs[i].id     
       $(id).addClass('validationError');
-      document.getElementById("outOfStockError").innerHTML = 'Select all fields';
-      
-      // return false;
-      // const stateObj = { key: '' };
-      // window.history.replaceState(stateObj, '', window.location.pathname);
-      
+      document.getElementById("add_to_cart_btn").disabled = true;
+      document.getElementById("add_to_cart_btn").style.cursor = "not-allowed";
+      document.getElementById("selectVariantError").innerHTML = '';
+      document.getElementById("outOfStockError").innerHTML = 'Please select all fields';
     }
     $('#post-form select').on('change', function(e) {
       e.preventDefault();
@@ -24,10 +22,7 @@
       url = $('#ajaxVarUrl').val();
       elem = document.getElementById(selectedKey);
       lastloop = elem.className
-      // if(lastloop == 'lastloop-True'){
-      //   alert('Last loop')
-      //   return false;
-      // }
+      
 
       function removeURLParameter(url, parameter) {
           //better to use l.search if you have a location/link object
@@ -88,10 +83,13 @@
         },
         data_type: 'html',
         success: function(data) {
-          // $('.firstloop-True').empty();
-          // $('.firstloop-False').empty();
           if (data.VarPrice !== null){
+            
             document.getElementById("varPrice").innerHTML = data.VarPrice;
+            document.getElementById("customVariantId").value = data.varId; 
+            document.getElementById("customVariantIdWishlist").value = data.varId;
+            document.getElementById("add_to_cart_btn").disabled = false;
+            document.getElementById("add_to_cart_btn").style.cursor = "pointer";
           }
           if (data.message !== null){
             document.getElementById("outOfStockError").innerHTML = data.message;

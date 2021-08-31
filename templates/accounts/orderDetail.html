@@ -121,6 +121,10 @@
                             {{ i.variant.size }}
                           {% elif i.variant.product.variant == 'Color' %}
                             {{ i.variant.color }}
+                          {% elif i.variant.product.variant == 'Custom' %}
+                          {% for key, value in i.variant.variant_data.items %}
+                            {{value}} {% if not forloop.last %}|{% endif %}
+                          {% endfor %}
                           {% else %}
                             {{ i.variant.color }} | {{ i.variant.size }}
                           {% endif %}

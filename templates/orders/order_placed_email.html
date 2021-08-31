@@ -79,6 +79,10 @@
                               {% trans 'Size' %}: {{ item.variant.size }}
                               {% elif item.variant.product.variant == 'Color' %}
                               {% trans 'Color' %}: {{ item.variant.color }}
+                              {% elif item.variant.product.variant == 'Custom' %}
+                              {% for key, value in item.variant.variant_data.items %}
+                                {{key}} : {{value}} <br>
+                              {% endfor %}
                               {% else %}
                               {% trans 'Color' %}: {{ item.variant.color }} | Size: {{ item.variant.size }}
                               {% endif %}

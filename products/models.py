@@ -120,8 +120,22 @@ class Size(models.Model):
         return self.name
 
 
+class ProductAttribute(models.Model):
+    attribute_name = models.CharField(max_length=20, unique=True, blank=True)
+
+    def __str__(self):
+        return self.attribute_name
+
+class AttributeValue(models.Model):
+    product_attribute = models.ForeignKey(ProductAttribute, on_delete=models.CASCADE, blank=True)
+    attribute_value = models.CharField(max_length=255, blank=True)
+
+    def __str__(self):
+        return self.attribute_value
+
+
 def variant_data_default():
-    return {'tax': 0}
+    return {'variant_data': 0}
 
 # PRODUCT VARIATION
 class Variants(models.Model):
@@ -129,7 +143,7 @@ class Variants(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     color = models.ForeignKey(Color, on_delete=models.CASCADE,blank=True,null=True)
     size = models.ForeignKey(Size, on_delete=models.CASCADE,blank=True,null=True)
-    variant_data = models.JSONField(default=variant_data_default, blank=True, help_text = "Data format: {'product_name':{'variant_type':'variant_value'}}")
+    variant_data = models.JSONField(default=variant_data_default, blank=True, help_text = 'Data should be in JSON format: {"attribute_name": "attribute_value", "attribute_name": "attribute_value"}')
     image_id = models.IntegerField(blank=True,null=True)
     quantity = models.IntegerField()
     price = models.DecimalField(max_digits=12, decimal_places=2)

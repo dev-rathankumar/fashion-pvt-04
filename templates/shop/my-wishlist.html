@@ -64,6 +64,10 @@
                     Size: {{ wish.variant.size }}
                     {% elif wish.variant.product.variant == 'Color' %}
                     Color: {{ wish.variant.color }}
+                    {% elif wish.product.variant == 'Custom' %}
+                    {% for key, value in wish.variant.variant_data.items %}
+                      {{key}} : {{value}} {% if not forloop.last %}|{% endif %}
+                    {% endfor %}
                     {% else %}
                     Color: {{ wish.variant.color }} | Size: {{ wish.variant.size }}
                     {% endif %}</small></span>

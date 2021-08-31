@@ -3,7 +3,7 @@ from sitesettings.models import Service
 from django import forms
 from accounts.models import User, Business
 from .models import PaymentSetting
-from products.models import Product, ProductGallery, Variants, Color, Size
+from products.models import AttributeValue, Product, ProductAttribute, ProductGallery, Variants, Color, Size
 from category.models import Category
 from ckeditor.widgets import CKEditorWidget
 from django.forms import inlineformset_factory
@@ -116,9 +116,11 @@ class ProductGalleryForm(forms.ModelForm):
 
 
 class ProductVariantForm(forms.ModelForm):
+    product_attribute = forms.ModelChoiceField(required=False, queryset=ProductAttribute.objects.all())
+    attribute_value = forms.ModelChoiceField(required=False, queryset=AttributeValue.objects.all())
     class Meta:
         model = Variants
-        fields = ('title', 'color', 'size', 'image_id', 'quantity', 'price')
+        fields = ('title', 'color', 'size', 'product_attribute', 'attribute_value', 'variant_data', 'image_id', 'quantity', 'price')
         exclude = ()
 
     # Give same CSS class to all the fields

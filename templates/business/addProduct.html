@@ -95,6 +95,22 @@
                   </div>
                   </div>
 
+                  <!-- <div class="row" id="custom_attribute" style="display: none;"> -->
+                    <!-- <div class="col-md-6 col-lg-6 col-sm-12">
+                      <div class="form-group">
+                        <label for="productname">{% trans 'Product Attribute' %}</label>
+                        {{ basicInfo_form.price }}
+                      </div>
+                    </div> -->
+                    <!-- <div class="col-md-6 col-lg-6 col-sm-12">
+                      <div class="form-group">
+                        <label for="productname">{% trans 'Attribute Value' %}</label>
+                        {{ basicInfo_form.stock }}
+                      </div>
+                    </div> -->
+                    <!-- </div> -->
+
+
 
                 <div class="row">
                   <div class="col-md-6 col-lg-6 col-sm-12">
@@ -155,12 +171,19 @@
       var stock = document.getElementById("id_stock")
        if(select.value=='None'){
          document.getElementById('price_stock').style.display = "flex";
+         document.getElementById('custom_attribute').style.display = "none";
          price.setAttribute('required', 'required');
          stock.setAttribute('required', 'required');
          document.getElementById('price_stock_info').innerHTML = "";
 
-       } else{
+       } else if(select.value == 'Custom'){
+        document.getElementById('price_stock').style.display = "none";
+        document.getElementById('custom_attribute').style.display = "flex";
+        
+       }
+       else{
          document.getElementById('price_stock').style.display = "none";
+         document.getElementById('custom_attribute').style.display = "none";
          price.removeAttribute('required');
          stock.removeAttribute('required');
          document.getElementById('price_stock_info').innerHTML = "Price and Stock can be added with product variants"

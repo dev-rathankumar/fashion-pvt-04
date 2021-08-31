@@ -314,38 +314,9 @@
                   {% endfor %}
                 </div>
                 </form>
-   
                 <div >
-
                 </div>
               </div>
-
-              <!-- <form method="post" action="?q=selectvariant" id="post-color">
-                {% csrf_token %}
-                <div id="appendHere">
-                  <input type="hidden" name="size" id="size" value="{{ size_id }}">
-                  <ul class="color-option">
-                    <li><span class="text-uppercase" style="font-size:16px;font-weight:600;letter-spacing:1px;">{% trans 'Choose Color' %}</span></li> <br>
-                    {% for rs in colors %}
-                    <label class="var_color">
-                      <input type="radio" 
-                      {% if request.method == 'POST' %}
-                      {% if variant.id == rs.id %}
-                      checked
-                      {% endif %}
-                    {% endif %} name="variantid" id="variantid" required="required" value="{{ rs.id }}" onchange="this.form.submit();">
-                      <li {% if variant.id == rs.id %} class="active" {% endif %}>
-                        <p style="color: #2d2c2c; width: 60px;font-size: 12px;margin-bottom: 5px;margin-left: 0;">
-                          {{ rs.color }}
-                        </p>
-                        <img src="{{ rs.image }}" style="height: 50px">
-                      </li>
-                      
-                    </label>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </form> -->
             </div>
 
 
@@ -426,7 +397,11 @@
             <form action="{% url 'add_to_wishlist' single_product.id %}" method="POST" id="add-wishlist">
               {% csrf_token %}
               <input type="hidden" name="productid" id="productid" value="{{ single_product.id }}">
-              <input type="hidden" name="variantid" id="variantid" value="{{ variant.id }}">
+              {% if single_product.variant == 'Custom' %}
+                  <input type="hidden" name="variantid" id="customVariantIdWishlist" value="">
+              {% else %}
+                  <input type="hidden" name="variantid" id="variantid" value="{{ variant.id }}">
+              {% endif %}
               <input class="input" name="size" type="hidden" value="{{ variant.size }}">
               <input class="input" name="color" type="hidden" value="{{ variant.color }}">
               <input class="input" name="quantity" type="hidden" value="1">
@@ -443,11 +418,16 @@
             </form>
             <!-- Product Action -->
 
-            {% if  product.variant != 'None'   %}
+            {% if  single_product.variant != 'None'   %}
             <form action="{% url 'addtoshopcart' single_product.id %}" method="post" id="addchart-form">
               {% csrf_token %}
               <input type="hidden" name="command" id="command" value="add">
-              <input type="hidden" name="variantid" id="variantid" value="{{ variant.id }}">
+              {% if single_product.variant == 'Custom' %}
+                  <input type="hidden" name="customVariantId" id="customVariantId" value="">
+              {% else %}
+                  <input type="hidden" name="variantid" id="variantid" value="{{ variant.id }}">
+              {% endif %}
+              
               <div id="SelectedProduct">
                 <p><strong>Availability:</strong>
                   {% if single_product.variant != 'None' %}
@@ -461,13 +441,7 @@
                     Out of Stock 
                     {% endif %}
                   {% endif %}</p>
-                <!-- {% if single_product.variant == 'Size' %}
-                  <p><strong>Selected :</strong> Size : {{ variant.size }} </p>
-                {% elif single_product.variant == 'Color' %}
-                  <p><strong>Selected :</strong> Color : {{ variant.color }} </p>
-                {% else %}
-                  <p><strong>Selected :</strong> Size : {{ variant.size }} | Color : {{ variant.color }} </p>
-                {% endif %} -->
+                
                 <input class="input" name="size" type="hidden" value="{{ variant.size }}">
                 
                 <input class="input" name="color" type="hidden" value="{{ variant.color }}">
@@ -507,17 +481,11 @@
             {% else %}
             <div class="product-action clearfix">
               <div class="addcart product-form__item--submit" style="padding-left:0px;">
-                <a href="{% url 'add_cart' single_product.id %}" name="add" class="btn product-form__cart-submit" style="color:#fff !important;">
+                <a href="{% url 'addtoshopcart' single_product.id %}" name="add" class="btn product-form__cart-submit" style="color:#fff !important;">
                   {% trans 'Add to cart' %}
                 </a>
               </div>
-              <div class="agree-check">
-                <input type="checkbox" name="tearm" id="prTearm" class="checkbox" value="tearm" required>
-                <label for="prTearm"><span class="checkbox"></span> {% trans 'I agree with the terms and conditions' %}</label>
-              </div>
-              <div class="buy-it-btn">
-                <button type="button" class="btn" disabled="disabled">{% trans 'Buy it now' %}</button>
-              </div>
+              
             </div>
             {% endif %}
 
@@ -812,6 +780,14 @@ function addWishlist(){
             return false;
           }
       }
+      else if(variant == 'Custom'){
+        var customVariantId = document.getElementById("customVariantId").value;
+        
+        if(customVariantId == '' ){
+          document.getElementById("selectVariantError").innerHTML = "{% trans 'Please select all fields' %}";
+            return false;
+          }
+      }
 }
 
 function checkforFields(){
@@ -845,6 +821,14 @@ function checkforFields(){
       else if(variant == 'Size-Color'){
         if(!$("input[name='variantid']:checked").val()) {
           document.getElementById("selectVariantError").innerHTML = "{% trans 'Please choose color' %}";
+            return false;
+          }
+      }
+      else if(variant == 'Custom'){
+        var customVariantId = document.getElementById("customVariantId").value;
+        
+        if(customVariantId == '' ){
+          document.getElementById("selectVariantError").innerHTML = "{% trans 'Please select all fields' %}";
             return false;
           }
       }

@@ -25,7 +25,7 @@ import json
 from django.contrib import messages
 from .forms import UserForm, BusinessForm, ProductForm, ProductGalleryForm, ProductVariantForm, BlogForm,BlogCategoryForm
 from .forms import CategoryForm, OrderForm, TaxSettingForm, ColorForm, SizeForm
-from products.models import Product, ProductActivation, ProductGallery, Variants, ReviewRating, Color, Size
+from products.models import AttributeValue, Product, ProductActivation, ProductAttribute, ProductGallery, Variants, ReviewRating, Color, Size
 from django.forms import inlineformset_factory
 from django import forms
 from django.template.defaultfilters import slugify
@@ -427,9 +427,32 @@ def editVariants(request, pk=None):
 
     if request.method == 'POST':
         add_another = request.POST['add_another']
+        attr = request.POST.getlist('variants_set-0-product_attribute')
+        att_values = request.POST.getlist('variants_set-0-attribute_value')
+        
+        if attr != [''] and att_values != ['']:
+            attr_names = []
+            for i in attr:
+                attr_name = ProductAttribute.objects.get(id=i)
+                attr_names.append(attr_name.attribute_name)
+
+            attr_values = []
+            for i in att_values:
+                attr_val = AttributeValue.objects.get(id=i)
+                attr_values.append(attr_val.attribute_value)
+
+            res = dict(zip(attr_names, attr_values))
+        
         formset = ProductVariantFormSet(request.POST, instance=product)
         if formset.is_valid():
-            formset.save()
+            if attr != [''] and att_values != ['']:
+                new = formset.save(commit=False)
+                for n in new:
+                    n.variant_data = res
+                    n.save()
+            else:
+                formset.save()
+            
             product.is_active = True
             product.save()
             if add_another == 'true':
@@ -450,6 +473,7 @@ def editVariants(request, pk=None):
         command = ''
         message1 = ''
         message2 = ''
+        
         if product.variant == 'Color':
             command = 'delete_size'
             message1 = 'Product with only Color variant.'
@@ -461,6 +485,8 @@ def editVariants(request, pk=None):
         elif product.variant == 'Size-Color':
             message1 = 'Product with Size and Color variant.'
             message2 = 'Change Variants.'
+        elif product.variant == 'Custom':
+            command = 'delete_size_color'
         formset = ProductVariantFormSet(instance=product)
         gallery = ProductGallery.objects.filter(product=product)
 

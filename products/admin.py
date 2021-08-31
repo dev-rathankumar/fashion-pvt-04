@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, ProductActivation, ProductGallery, Color, Size, Variants, Wishlist, ReviewRating, Compare, CompareItem
+from .models import Product, ProductActivation, ProductGallery, Color, Size, Variants, Wishlist, ReviewRating, Compare, CompareItem, ProductAttribute, AttributeValue
 from django.utils.html import format_html
 import admin_thumbnails
 
@@ -81,6 +81,13 @@ class ProductActivationAdmin(admin.ModelAdmin):
           return True
         return False
 
+class AttributeValueAdmin(admin.ModelAdmin):
+    list_display = ('attribute_value', 'product_attribute')
+    list_display_links = ('attribute_value',)
+    list_filter = ('product_attribute',)
+    search_fields = ('attribute_value',)
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Color,ColorAdmin)
 admin.site.register(Size,SizeAdmin)
@@ -91,3 +98,6 @@ admin.site.register(Compare, CompareAdmin)
 admin.site.register(CompareItem, CompareItemAdmin)
 admin.site.register(ProductGallery)
 admin.site.register(ProductActivation, ProductActivationAdmin)
+admin.site.register(AttributeValue, AttributeValueAdmin)
+admin.site.register(ProductAttribute)
+

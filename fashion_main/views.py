@@ -40,6 +40,7 @@ def ajaxVarUrl(request):
         for i in variants:
             v.append(i.variant_data)
             id.append(i.id)
+        print(v)
 
         c = 0
         for i in v[:1]:
@@ -48,7 +49,7 @@ def ajaxVarUrl(request):
         
         Varitem = None
         VarPrice = None
-        print(len(dictA))
+        varId = None
         message = ''
         if c == len(dictA):
             if dictA in v:
@@ -56,6 +57,7 @@ def ajaxVarUrl(request):
                 item_id = id[index]
                 Varitem = Variants.objects.get(product_id=product_id, id=item_id)
                 VarPrice = Varitem.price
+                varId = Varitem.id
             else:
                 message = 'Out of Stock'
         
@@ -101,7 +103,7 @@ def ajaxVarUrl(request):
             'product_id': product_id,
             'Varitem': Varitem,
         }
-        print('hereeree')
-        data = {'rendered_table': render_to_string('shop/variant_list.html', context=context), 'VarPrice': VarPrice, 'message': message}
+        
+        data = {'rendered_table': render_to_string('shop/variant_list.html', context=context), 'VarPrice': VarPrice, 'varId': varId, 'message': message}
         return JsonResponse(data)
     return JsonResponse(data)

@@ -118,9 +118,16 @@ def addtoshopcart(request,product_id):
     id = product_id
     url = request.META.get('HTTP_REFERER')  # get last url
     current_user = request.user  # Access User Session information
+    
     product= Product.objects.get(pk=id)
     if product.variant != 'None':
-        variantid = request.POST.get('variantid')  # from variant add to cart
+        if product.variant  == 'Custom':
+            variantid = request.POST.get('customVariantId')
+        else:
+            variantid = request.POST.get('variantid')  # from variant add to cart
+        
+        print('variantid', variantid)
+        
         checkinvariant = ShopCart.objects.filter(variant_id=variantid, user_id=current_user.id)  # Check product in shopcart
         if checkinvariant:
             control = 1 # The product is in the cart
