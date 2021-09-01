@@ -65,7 +65,7 @@
                   <tr class="{% cycle row1 row2 %} formset_row">
 
                     {% for field in form.visible_fields %}
-                    <td class="{% if field.name == 'product_attribute' or field.name == 'attribute_value' %}{{field.auto_id}}{% else %}varField-{{field.label|cut:' '}}{% endif %}" id="{% if field.name == 'product_attribute' or field.name == 'attribute_value' %}{{field.auto_id}}{% else %}varField-{{field.label|cut:' '}}{% endif %}">
+                    <td class="varField-{{field.label|cut:' '}}" id="varField-{{field.label|cut:' '}}">
                       <!-- {# Include the hidden fields in the form #} -->
                       {% if forloop.first %}
                       {% for hidden in form.hidden_fields %}
@@ -74,9 +74,12 @@
                       {% endif %}
                       {{ field.errors.as_ul }}
                       {{ field.label|capfirst }}
-                      {% if field.name == 'attribute_value' %}<input type="button" value="&plus;" id="btn-add" OnClick="attrValue('{{field.auto_id}}');" class="btn btn-primary" style="padding: 2px 8px 2px 8px;margin-top: -12px;">{% endif %}
-                      {% if field.name == 'attribute_value' %}<input type="button" value="&minus;" id="btn-delete1" onClick="removeAttr('{{field.auto_id}}');" class="btn btn-danger" style="padding: 2px 8px 2px 8px;margin-top: -12px;">{% endif %}
+                      {% if field.name == 'attribute_value' %}<input type="button" value="&plus;" id="btn-add" OnClick="proAttribute('varField-Productattribute');attrValue('varField-Attributevalue');" class="btn btn-primary" style="padding: 2px 8px 2px 8px;margin-top: -12px;">{% endif %}
+                      {% if field.name == 'attribute_value' %}<input type="button" value="&minus;" id="btn-delete1" class="btn btn-danger removeAttr" style="padding: 2px 8px 2px 8px;margin-top: -12px;">{% endif %}
                       {{ field }}
+                      <!-- {% if field.name == 'attribute_value' %}<table id="item_table"></table>{% endif %}
+                      {% if field.name == 'attribute_value' %}<a name="add_more_attr" class="btn btn-primary add_more_attr" style="padding: 5px 15px 5px 15px;">Add</a>{% endif %} -->
+                      
                     </td>
                     {% endfor %}
                   </tr>
@@ -160,33 +163,31 @@
   </script>
 
 <script type="text/javascript">
-  // var i = 1;
-  // function proAttribute(x){
-    
-  //     var y = document.createElement('tr');
-  //     y.innerHTML = '<select id="id_variants_set-0-product_attribute'+i+ '" class="form-control" name="variants_set-0-product_attribute"></select>';
-  //     document.getElementById(x).appendChild(y);
-  //     $('#id_variants_set-0-product_attribute' + i).html($('#id_variants_set-0-product_attribute').html());
-  //     i++;
-  // }
+  var i = 1;
+  function proAttribute(x){
+      var y = document.createElement('tr');
+      y.innerHTML = '<select id="id_variants_set-0-product_attribute'+i+ '" class="form-control" name="variants_set-0-product_attribute"></select>';
+      document.getElementById(x).appendChild(y);
+      $('#id_variants_set-0-product_attribute' + i).html($('#id_variants_set-0-product_attribute').html());
+      i++;
+  }
 
   
- j = 1;
+  var j = 1;
   function attrValue(x){
       var y = document.createElement('tr');
-      y.innerHTML = '<select id="id_variants_set-0-attribute_value'+j+'" class="form-control" name="variants_set-'+j+'-attribute_value"></select>';
-      t = document.getElementById(x).appendChild(y);
-      console.log($('#id_variants_set-0-attribute_value').html())
-      $('#id_variants_set-0-attribute_value'+j).html($('#id_variants_set-0-attribute_value').html());
-      console.log('here')
-      // $('#id_variants_set-'+j+'-attribute_value'+j).html($('#id_variants_set-'+j+'-attribute_value').html());
+      y.innerHTML = '<select id="id_variants_set-0-attribute_value'+j+ '" class="form-control" name="variants_set-0-attribute_value"></select>';
+      document.getElementById(x).appendChild(y);
+      
+      $('#id_variants_set-0-attribute_value' + j).html($('#id_variants_set-0-attribute_value').html());
       j++;
   }
-
-  function removeAttr(x){
-    cls = '.'+x
-    $(cls+' tr:last').remove();
-  }
+  $(document).on('click', '.removeAttr', function(){
+    
+    // $(".varField-Attributevalue select:last-child").remove();
+    $('.varField-Productattribute tr:last').remove();
+    $('.varField-Attributevalue tr:last').remove();
+      });
 </script>
 
   {% endblock %}
