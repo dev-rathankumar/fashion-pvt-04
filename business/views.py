@@ -427,31 +427,52 @@ def editVariants(request, pk=None):
 
     if request.method == 'POST':
         add_another = request.POST['add_another']
-        attr = request.POST.getlist('variants_set-0-product_attribute')
-        att_values = request.POST.getlist('variants_set-0-attribute_value')
-        
-        if attr != [''] and att_values != ['']:
-            attr_names = []
-            for i in attr:
-                attr_name = ProductAttribute.objects.get(id=i)
-                attr_names.append(attr_name.attribute_name)
+        # pr_attrs = [name for name in request.POST.keys() if name.endswith('-product_attribute')]
+        # attr = []
+        # for i in pr_attrs:
+        #     # attr.append(i)
+        #     att_name = request.POST.getlist(i)
+        #     attr.append(att_name)
 
-            attr_values = []
-            for i in att_values:
-                attr_val = AttributeValue.objects.get(id=i)
-                attr_values.append(attr_val.attribute_value)
-
-            res = dict(zip(attr_names, attr_values))
+        # attr_vals = [name for name in request.POST.keys() if name.endswith('-attribute_value')]
+        # att_values = []
+        # for i in attr_vals:
+        #     # attr.append(i)
+        #     att_val = request.POST.getlist(i)
+        #     att_values.append(att_val)
+        # # print(attr_val)
         
+        # # attr = request.POST.getlist('variants_set-0-product_attribute')
+        # # print('attr==>', attr)
+        # # att_values = request.POST.getlist('variants_set-0-attribute_value')
+        # # print('att_values==>', att_values)
+        
+        # if attr != [''] and att_values != ['']:
+        #     attr_names = []
+        #     for i in attr:
+        #         for j in i:
+        #             attr_name = ProductAttribute.objects.get(id=j)
+        #             attr_names.append(attr_name.attribute_name)
+        #     print('attr_names==>', attr_names)
+        #     attr_values = []
+        #     for i in att_values:
+        #         for j in i:
+        #             attr_val = AttributeValue.objects.get(id=j)
+        #             attr_values.append(attr_val.attribute_value)
+        #     print('attr_values==>', attr_values)
+            
+            # print('res==>', res)
         formset = ProductVariantFormSet(request.POST, instance=product)
         if formset.is_valid():
-            if attr != [''] and att_values != ['']:
-                new = formset.save(commit=False)
-                for n in new:
-                    n.variant_data = res
-                    n.save()
-            else:
-                formset.save()
+            # if attr != [''] and att_values != ['']:
+            #     new = formset.save(commit=False)
+            #     for n in new:
+            #         res = dict(zip(attr_names, attr_values))
+            #         print('res==>', res)
+            #         n.variant_data = res
+            #         n.save()
+            # else:
+            formset.save()
             
             product.is_active = True
             product.save()

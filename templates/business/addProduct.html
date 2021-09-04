@@ -167,23 +167,22 @@
       stock.setAttribute('required', 'required');
     }
     function showDiv(select){
+      
       var price = document.getElementById("id_price")
       var stock = document.getElementById("id_stock")
        if(select.value=='None'){
          document.getElementById('price_stock').style.display = "flex";
-         document.getElementById('custom_attribute').style.display = "none";
          price.setAttribute('required', 'required');
          stock.setAttribute('required', 'required');
          document.getElementById('price_stock_info').innerHTML = "";
 
        } else if(select.value == 'Custom'){
         document.getElementById('price_stock').style.display = "none";
-        document.getElementById('custom_attribute').style.display = "flex";
-        
+        price.setAttribute('required', 'false');
+        stock.setAttribute('required', 'false');
        }
        else{
          document.getElementById('price_stock').style.display = "none";
-         document.getElementById('custom_attribute').style.display = "none";
          price.removeAttribute('required');
          stock.removeAttribute('required');
          document.getElementById('price_stock_info').innerHTML = "Price and Stock can be added with product variants"

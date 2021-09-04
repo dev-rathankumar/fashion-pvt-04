@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, OrderProduct, Payment
+from .models import Order, OrderProduct, Payment, StoreLocation
 
 
 
@@ -38,7 +38,11 @@ class PaymentAdmin(admin.ModelAdmin):
     readonly_fields = ('user', 'payment_id', 'amount', 'status', 'created_at')
     inlines = [OrderInline]
 
+class StoreLocationAdmin(admin.ModelAdmin):
+    list_display = ['business', 'store_name', 'phone_number', 'email', 'city', 'updated_at']
+
 
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderProduct,OrderProductAdmin)
 admin.site.register(Payment, PaymentAdmin)
+admin.site.register(StoreLocation)

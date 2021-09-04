@@ -4,8 +4,8 @@ from pages.views import about, services
 from django.core.mail import message
 from products.models import ReviewRating
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import AboutContent, DirectDepositEmail, Header, Homepage, BannerImage, PaypalConfig, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
-from .forms import AboutContentForm, DirectDepositEmailForm, HeaderForm, BannerImageForm, PaypalConfigForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, TermsAndConditionForm, TopbarForm
+from .models import AboutContent, CashOnDelivery, DirectDepositEmail, Header, Homepage, BannerImage, PaypalConfig, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
+from .forms import AboutContentForm, DirectDepositEmailForm, HeaderForm, BannerImageForm, PaypalConfigForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, StoreLocationForm, TermsAndConditionForm, TopbarForm
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from accounts.models import Business
@@ -15,6 +15,7 @@ from business.views import business_required
 
 from django.core.files.storage import FileSystemStorage
 from business.views import is_account_expired
+from orders.models import StoreLocation
 
 
 @login_required(login_url = 'userLogin')
@@ -509,6 +510,8 @@ def paymentGateways(request):
     business = Business.objects.get(user=request.user)
     dd = get_object_or_404(DirectDepositEmail, business=business)
     pp = get_object_or_404(PaypalConfig, business=business)
+    cod = get_object_or_404(CashOnDelivery, business=business)
+   
 
     if request.method == 'POST':
         gateway = request.POST['gateway']
@@ -527,11 +530,13 @@ def paymentGateways(request):
     else:
         ddform = DirectDepositEmailForm(instance=dd)
         ppform = PaypalConfigForm(instance=pp)
+        ppform = PaypalConfigForm(instance=pp)
     context = {
         'ddform': ddform,
         'dd': dd,
         'ppform': ppform,
         'pp': pp,
+        'cod': cod,
     }
     return render(request, 'business/sitesettings/paymentGateways.html', context)
 
@@ -565,3 +570,80 @@ def ppToggleEnable(request):
         result = 'disabled'
     return HttpResponse(result)
 
+
+def codToggleEnable(request):
+    event = request.GET.get('event')
+    business = Business.objects.get(user=request.user)
+    cod = get_object_or_404(CashOnDelivery, business=business)
+    if event == 'true':
+        cod.is_enabled = True
+        cod.save()
+        result = 'enabled'
+    else:
+        cod.is_enabled = False
+        cod.save()
+        result = 'disabled'
+    return HttpResponse(result)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def store_locations(request):
+    store_locations = StoreLocation.objects.all().order_by('created_at')
+    context = {
+        'store_locations': store_locations,
+    }
+    return render(request, 'business/sitesettings/store_locations.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def addLocation(request):
+    form = StoreLocationForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            current_user = request.user
+            location = form.save(commit=False)
+            business = Business.objects.get(user=current_user)
+            location.business = business
+            location.save()
+            messages.success(request, 'Location added successfully.')
+            return redirect('store_locations')
+    else:
+        form = StoreLocationForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/sitesettings/addStoreLocation.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def editLocation(request, pk=None):
+    location = get_object_or_404(StoreLocation, pk=pk)
+    if request.method == 'POST':
+        form = StoreLocationForm(request.POST, instance=location)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Location updated successfully.')
+            return redirect('store_locations')
+    else:
+        form = StoreLocationForm(instance=location)
+    context = {
+        'form': form,
+        'location': location,
+    }
+    return render(request, 'business/sitesettings/editStoreLocation.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def deleteLocation(request, pk=None):
+    location = get_object_or_404(StoreLocation, pk=pk)
+    location.delete()
+    messages.success(request, 'Store location has been deleted.')
+    return redirect('store_locations')

@@ -103,6 +103,29 @@
                 </div>
                 <!-- D I R E  C T  D E P O S I T -->
               </div>
+<br>
+              <div class="row">
+                <!-- C A S H   O N   D E L I V E R Y -->
+                <div class="col-md-6 col-lg-6 col-sm-12 bg-light" style="border-top: 1px solid #cfcfcf;">
+                <div class="row p-3">
+                  <div class="col-md-6 col-lg-6 col-sm-12">
+                      <h5>{% trans 'CASH ON DELIVERY' %}</h5>
+                  </div>
+                  <div class="col-md-6 col-lg-6 col-sm-12">
+                    <label class="switch">
+                      <input type="checkbox" id="codSwitch" {% if cod.is_enabled %} checked {% else %} {% endif %} onclick="codSwitch()">
+                      <span class="slider round"></span>
+                      
+                    </label>
+                    <span id="codStatus" style="position:relative;top:3px;">{% if cod.is_enabled %}{% trans 'Enabled' %}{% else %}{% trans 'Disabled' %}{% endif %}</span>
+                </div>
+                  <input type="hidden" name="url" id="codurl" value="{% url 'codToggleEnable' %}">
+                </div>
+
+               
+                </div>
+                 <!-- C A S H   O N   D E L I V E R Y -->
+              </div>
               
          <div class="row">
           {% include 'includes/_alerts.html' %}

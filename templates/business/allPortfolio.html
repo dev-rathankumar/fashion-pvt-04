@@ -29,27 +29,26 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
+            <!-- Enable/disable portfolio -->
+            <div class="row" style="margin-right: 0px;margin-left: 0px;">
+              <div id="feature" class="col-md-12 col-lg-12 col-sm-12 alert {% if portfolio_activation.is_enabled %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+                {% if portfolio_activation.is_enabled %}Portfolio feature has been <span id="enabledisable">enabled</span> in your website. {% else %}Portfolio feature has been <span id="enabledisable">disabled</span> in your website. {% endif %} &emsp;
+                <span>
+                  <label class="switch" style="margin-bottom: -0.5rem;">
+                    <input type="hidden" name="portfolioToggleUrl" id="portfolioToggleUrl" value="{% url 'portfolioEnableToggle' %}">
+                    <input type="checkbox" id="portfolioSwitch" {% if portfolio_activation.is_enabled %} checked {% else %} {% endif %} onclick="portfolioSwitch()">
+                    <span class="slider round"></span>
+                  </label>
+                </span>
+              </div>
+            </div>
             {% if not portfolio %}
-            <h2 class="text-center" style="padding:25px;">{% trans 'Nothing found.' %}</h2>
+            <h2 class="text-center" style="padding:25px;">{% trans 'No portfolio items found.' %}</h2>
             <div class="text-sm-center" style="padding-bottom:25px;">
               <a href="{% url 'addPortfolio' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i>{% trans 'Add New' %} </a>
             </div>
             {% else %}
             <div class="card-body">
-              <!-- Enable/disable portfolio -->
-              <div class="row" >
-                <div id="feature" class="col-md-12 col-lg-12 col-sm-12 alert {% if portfolio_activation.is_enabled %}alert-success{% else %}alert-danger{% endif %}" role="alert">
-                  {% if portfolio_activation.is_enabled %}Portfolio feature has been <span id="enabledisable">enabled</span> in your website. {% else %}Portfolio feature has been <span id="enabledisable">disabled</span> in your website. {% endif %} &emsp;
-                  <span>
-                    <label class="switch" style="margin-bottom: -0.5rem;">
-                      <input type="hidden" name="portfolioToggleUrl" id="portfolioToggleUrl" value="{% url 'portfolioEnableToggle' %}">
-                      <input type="checkbox" id="portfolioSwitch" {% if portfolio_activation.is_enabled %} checked {% else %} {% endif %} onclick="portfolioSwitch()">
-                      <span class="slider round"></span>
-                    </label>
-                  </span>
-                </div>
-                
-              </div>
               <div class="row mb-2">
                 <div class="col-sm-4">
                   <div class="search-box mr-2 mb-2 d-inline-block">

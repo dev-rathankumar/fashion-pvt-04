@@ -148,7 +148,7 @@ class Variants(models.Model):
     quantity = models.IntegerField()
     price = models.DecimalField(max_digits=12, decimal_places=2)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.id
 
     def image(self):

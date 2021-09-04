@@ -6,7 +6,7 @@ from django.contrib import messages, auth
 from .models import DashboardImage, User, RegionalManager, Business, Customer
 from contacts.models import Inquiry
 from products.models import Product, ProductActivation
-from orders.models import Order, OrderProduct
+from orders.models import Order, OrderProduct, StoreLocation
 from business.models import PaymentSetting
 
 # Send account verification email
@@ -21,7 +21,7 @@ from .forms import UserForm
 
 from django.http import HttpResponse
 from urllib.parse import urlparse
-from sitesettings.models import DirectDepositEmail, Homepage, ParallaxBackground, Header, ContactPage, Footer, AboutPage, PaypalConfig, Policy, ServiceActivation, TermsAndCondition, Topbar
+from sitesettings.models import CashOnDelivery, DirectDepositEmail, Homepage, ParallaxBackground, Header, ContactPage, Footer, AboutPage, PaypalConfig, Policy, ServiceActivation, TermsAndCondition, Topbar
 from emails.models import BusinessEmailSetting
 from datetime import date, datetime
 import time
@@ -473,6 +473,25 @@ def biz_password_reset(request):
             portfolio_activation = PortfolioActivation()
             portfolio_activation.business = business
             portfolio_activation.save()
+
+            # Automatically creating Paypal Config entry
+            codConfig = CashOnDelivery()
+            codConfig.business = business
+            codConfig.save()
+
+            # Automatically creating Store Location entry
+            store_location = StoreLocation()
+            store_location.business = business
+            store_location.store_name = business.company_name
+            store_location.phone_number = business.user.phone_number
+            store_location.email = business.user.email
+            store_location.address_line_1 = business.address_line_1
+            store_location.address_line_2 = business.address_line_2
+            store_location.city = business.city
+            store_location.pin_code = business.pin_code
+            store_location.country = business.country
+            store_location.state = business.state
+            store_location.save()
 
             mail_subject = 'Your Business Account is Activated'
             # message = 'Congratulations! Your business account has been activated.'

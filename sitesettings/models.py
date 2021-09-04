@@ -250,3 +250,13 @@ class ServiceActivation(models.Model):
 
     def __str__(self):
         return self.business.company_name
+
+
+class CashOnDelivery(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    is_enabled = models.BooleanField(default=False)
+    created_date    = models.DateTimeField(auto_now_add=True)
+    modified_date   = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.business.company_name

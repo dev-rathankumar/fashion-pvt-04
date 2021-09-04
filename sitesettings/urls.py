@@ -45,6 +45,11 @@ urlpatterns = [
     path('paymentGateways/', views.paymentGateways, name='paymentGateways'),
     path('paymentGateways/ddToggleEnable/', views.ddToggleEnable, name='ddToggleEnable'),
     path('paymentGateways/ppToggleEnable/', views.ppToggleEnable, name='ppToggleEnable'),
+    path('paymentGateways/codToggleEnable/', views.codToggleEnable, name='codToggleEnable'),
 
-
+    # Store locations
+    path('store_locations/', views.store_locations, name='store_locations'),
+    path('store_locations/addLocation/', views.addLocation, name='addLocation'),
+    path('store_locations/editLocation/<int:pk>/', views.editLocation, name='editLocation'),
+    path('store_locations/deleteLocation/<int:pk>/', views.deleteLocation, name='deleteLocation'),
 ]

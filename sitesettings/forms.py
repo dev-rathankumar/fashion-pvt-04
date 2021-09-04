@@ -1,7 +1,8 @@
+from orders.models import StoreLocation
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 from django.forms import inlineformset_factory
-from .models import DirectDepositEmail, Header, BannerImage, PaypalConfig, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent
+from .models import CashOnDelivery, DirectDepositEmail, Header, BannerImage, PaypalConfig, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent
 
 
 
@@ -225,5 +226,29 @@ class PaypalConfigForm(forms.ModelForm):
     # Give same CSS class to all the fields
     def __init__(self, *args, **kwargs):
         super(PaypalConfigForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class CashOnDeliveryForm(forms.ModelForm):
+    class Meta:
+        model = CashOnDelivery
+        fields = ['is_enabled']
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(CashOnDeliveryForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class StoreLocationForm(forms.ModelForm):
+    class Meta:
+        model = StoreLocation
+        fields = ['store_name', 'phone_number', 'email', 'address_line_1', 'address_line_2', 'city', 'pin_code', 'country', 'state', 'geolocation']
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(StoreLocationForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
             self.fields[myField].widget.attrs['class'] = 'form-control'

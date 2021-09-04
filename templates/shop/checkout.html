@@ -221,9 +221,15 @@
                     <img src="{% static 'images/payment_gateways/direct.png' %}" width="150" style="padding: 0 10px 0 10px;border: 1px solid #d2d2d2;">
                   </label>
                   {% endif %}
+                  {% if cod.is_enabled %}
+                  <label>
+                    <input type="radio" name="payment_method" value="Cash On Delivery" {% if cod.is_enabled and not pp.is_enabled or not pp.paypal_client_id %}checked{% endif %}>
+                    <img src="{% static 'images/payment_gateways/cod.png' %}" width="150" style="padding: 9px 10px 9px 10px;border: 1px solid #d2d2d2;">
+                  </label>
+                  {% endif %}
                 </div>
               </div>
-              {% if pp.is_enabled or dd.is_enabled %}
+              {% if pp.is_enabled or dd.is_enabled or cod.is_enabled %}
               {% if pp.paypal_client_id or dd.direct_deposit_email %}
               <div class="order-button-payment">
                 <button class="btn btn--small-wide" onclick="return payMethodConfirm();" value="Place order" type="submit">{% trans 'Place order' %}</button>

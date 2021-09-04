@@ -39,6 +39,7 @@
             <li><a href="{% url 'banners' %}" key="t-products" {% if '/site_settings/banners/' in request.path or '/site_settings/banners/editBanner' in request.path %} class="waves-effect active" {% else %} class="waves-effect"
                 {% endif %}>{% trans 'Banners' %}</a></li>
             <li><a href="{% url 'store_features' %}" key="t-products" {% if '/site_settings/store_features/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Store Features' %}</a></li>
+            <li><a href="{% url 'store_locations' %}" key="t-products" {% if '/site_settings/store_locations/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Store Locations' %}</a></li>
             <li><a href="{% url 'homepage_background' %}" key="t-products" {% if '/site_settings/homepage_background/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Homepage Background' %}</a></li>
             <li><a href="{% url 'socialIcons' %}" key="t-products" {% if '/site_settings/socialIcons/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Social Icons' %}</a></li>
             <li><a href="{% url 'paymentGateways' %}" key="t-products" {% if '/site_settings/paymentGateways/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Payment Gateways' %}</a></li>

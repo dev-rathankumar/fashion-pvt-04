@@ -81,6 +81,8 @@
                         <img src="{% static 'images/payment_gateways/paypal.png' %}" width="150" style="padding: 0 10px 0 10px;border: 1px solid #d2d2d2;">
                         {% elif payment_method == 'Direct Deposit' %}
                         <img src="{% static 'images/payment_gateways/direct.png' %}" width="150" style="padding: 0 10px 0 10px;border: 1px solid #d2d2d2;">
+                        {% elif payment_method == 'Cash On Delivery' %}
+                        <img src="{% static 'images/payment_gateways/cod.png' %}" width="150" style="padding: 9px 10px 9px 10px;border: 1px solid #d2d2d2;">
                         {% endif %}
                       </div>
                     </div>
@@ -192,7 +194,7 @@
                         </div>
                       </div>
 
-                      {% if payment_method == 'Direct Deposit' %}
+                      {% if payment_method == 'Direct Deposit' or payment_method == 'Cash On Delivery' %}
                       </form>
                       {% endif %}
 
@@ -237,8 +239,34 @@
 
                         </div>
 
-
+                      {% elif payment_method == 'Cash On Delivery' %}
+                      <br>
+                        <h2 class="payment-title mb-3">{% trans 'Choose store location' %}</h2>
+                        <div class="jumbotron jumbotron-fluid payment_options_dd_paypal" style="padding: 1rem;">
+                          <div class="container">
+                            {% for loc in store_locations %}
+                            <div class="row">
+                                <label style="width:100% !important;">
+                                  <input type="radio" name="store_location" value="{{loc.id}}" {% if location_count == 1 %}checked{% endif %}>
+                                    <div class="col-md-12 location" style="padding: 10px 10px 10px 10px; border: 1px solid #ccc;cursor: pointer;">
+                                      <p class="mb-0">{{loc.store_name}}</p>
+                                      <p class="mb-0">{{loc.phone_number}}</p>
+                                      <p class="mb-0">{{loc.email}}</p>
+                                      <p class="mb-0">{{loc.address}}</p>
+                                      <p class="mb-0">{{loc.city}}, {{loc.pin_code}}</p>
+                                      <p class="mb-0">{{loc.state}}, {{loc.country}}</p>
+                                    </div>
+                                </label>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                        <p id="errorMessage" class="text-danger"></p>
+                        <div class="form-group">
+                          <input type="submit" name="submit" id="codPlaceOrder" onclick="return chkLocation();" formaction="{% url 'codPlaceOrder' %}" value="Place Order" class="btn w-100">
+                        </div>
                       {% endif %}
+                      
                     </div>
                   </div>
 
@@ -358,6 +386,13 @@
       },
     })
     .render("#paypal-button-container");
+
+    function chkLocation(){
+      if (!$("input[name='store_location']:checked").val()) {
+        document.getElementById("errorMessage").innerHTML = "Please choose your preferred store location!";
+        return false;
+      }
+    }
 </script>
 
 {% endblock %}

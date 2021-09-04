@@ -28,7 +28,7 @@
                   <tbody align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:80%;margin:0;">
                     <tr>
                       <td align="center" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 36px; font-weight: 800; line-height: 48px;" class="mobile-center">
-                        <h1 style="font-size: 24px; font-weight: 700; margin: 0; color: #ffffff;">{% if direct_deposit %}{% trans 'ORDER PLACED' %}{% else %}{% trans 'ORDER CONFIRMATION' %}{% endif %}</h1>
+                        <h1 style="font-size: 24px; font-weight: 700; margin: 0; color: #ffffff;">{% if order.payment_method == 'Direct Deposit' or order.payment_method == 'Cash On Delivery' %}{% trans 'ORDER PLACED' %}{% else %}{% trans 'ORDER CONFIRMATION' %}{% endif %}</h1>
                       </td>
                     </tr>
                   </tbody>
@@ -135,7 +135,29 @@
             </tr>
             <tr>
 
-            
+              {% if order.payment_method == 'Cash On Delivery' %}
+              <td align="center" height="100%" valign="top" width="100%" style="padding: 20px 35px 0 35px; background-color: #ececec;" bgcolor="#ececec">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:660px;">
+                  <tr>
+                    <td align="center" valign="top" style="font-size:0;">
+                      <div style="display:inline-block; max-width:100%; min-width:240px; vertical-align:top; width:100%;">
+                        <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:300px;">
+                          <tr>
+                            <td align="left" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 20px;">
+                              <p style="font-weight: 800;margin-bottom:0; font-size:15px;">STORE ADDRESS</p>
+                              <p>{{order.store_location.store_name}}<br>{{order.store_location.address}}<br>{{order.store_location.city}} - {{order.store_location.pin_code}}<br>{{order.store_location.state}}, {{order.store_location.country}}<br>{{order.store_location.phone_number}}<br>{{order.store_location.email}}</p>
+                              {% if order.store_location.geolocation %}
+                              <i class="fas fa-directions" style="font-size: 20px;"></i>  <a href="{{order.store_location.geolocation}}" target="_blank" style="font-size: 16px;">Get Direction</a> <br>
+                              {% endif %}
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              {% else %}
               <td align="center" height="100%" valign="top" width="100%" style="padding: 20px 35px 0 35px; background-color: #ececec;" bgcolor="#ececec">
                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:660px;">
                   <tr>
@@ -154,6 +176,7 @@
                   </tr>
                 </table>
               </td>
+              {% endif %}
             </tr>
             <tr>
               <td align="center" style=" padding: 20px; background-color: #000;" bgcolor="#000">

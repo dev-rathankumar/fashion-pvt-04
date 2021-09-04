@@ -336,6 +336,40 @@ function ppToggleEnable(event, url){
   });
 }
 
+// Cash On Delivery Switch
+function codSwitch() {
+  var codSwitch = document.getElementById('codSwitch');
+  var url = $('#codurl').val();
+  if (codSwitch.checked == true){
+    var event = Boolean(true);
+    codToggleEnable(event, url);
+  } else {
+    var event = Boolean(false);
+    codToggleEnable(event, url);
+  }
+}
+
+function codToggleEnable(event, url){
+  $.ajax({
+    type: 'GET',
+    url: url,
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'enabled') {
+        document.getElementById('codStatus').innerHTML = "Enabled";
+      }
+      else{
+        document.getElementById('codStatus').innerHTML = "Disabled";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}
 
 // Blog enable Switch
 function blogSwitch() {

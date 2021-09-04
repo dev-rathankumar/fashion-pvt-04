@@ -1,5 +1,5 @@
 from products.views import is_productSelling_activated
-from sitesettings.models import DirectDepositEmail, PaypalConfig
+from sitesettings.models import CashOnDelivery, DirectDepositEmail, PaypalConfig
 from orders.models import Payment
 from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product
@@ -295,10 +295,12 @@ def checkout(request):
         business = Business.objects.get(domain_name=domain)
         dd = DirectDepositEmail.objects.get(business=business)
         pp = PaypalConfig.objects.get(business=business)
+        cod = CashOnDelivery.objects.get(business=business)
         context = {
             'userinfo_form': userinfo_form,
             'customerinfo_form': customerinfo_form,
             'dd': dd,
             'pp': pp,
+            'cod': cod,
         }
         return render(request, 'shop/checkout.html', context)

@@ -29,6 +29,11 @@
 
               <p style="font-size:24px;text-align:right;">{% trans 'Order' %} # <span style="font-size:48px;">{{order.order_number}}</span></p>
               <p class="text-muted">{% trans 'Date' %}: {{order.created_at}}</p>
+              {% if order.payment_method == 'Cash On Delivery' %}
+              <div class="alert alert-primary" role="alert">
+                {% trans 'You have choose to pay Cash On Delivery. Please visit our store to pick up your products.' %}
+              </div>
+              {% endif %}
               {% if order.status == 'Cancelled' %}
               <div class="alert alert-danger" role="alert">
                 This order was cancelled
@@ -39,6 +44,36 @@
               </div>
               {% endif %}
               <div class="table-responsive-sm order-table">
+                {% if order.payment_method == 'Cash On Delivery' %}
+                <div class="card">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-8">
+                        <h5 class="m-0">{% trans 'Store Address' %}</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-12">
+                      <div class="card-body">
+                        <p class="card-text mb-0" style="font-weight:600;">{{order.store_location.store_name}}</p>
+                        <p class="card-text mb-0">{{order.store_location.address}}</p>
+                        <p class="card-text mb-0">{{order.store_location.city}} - {{order.store_location.pin_code}}</p>
+                        <p class="card-text mb-0">{{order.store_location.state}}, {{order.store_location.country}}</p>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-12">
+                      <div class="card-body">
+                        <p class="card-text mb-0">{{order.store_location.email}}</p>
+                        <p class="card-text mb-0">{{order.store_location.phone_number}}</p>
+                        {% if order.store_location.geolocation %}
+                        <i class="fas fa-directions" style="font-size: 20px;color: #1A73E8;"></i> <a href="{{order.store_location.geolocation}}" target="_blank" style="font-size: 16px;color: #1A73E8;">Get Direction</a>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% else %}
                 <div class="card">
                   <div class="card-header">
                     <div class="row">
@@ -64,6 +99,7 @@
                     </div>
                   </div>
                 </div>
+                {% endif %}
 
                 <div class="card">
                   <div class="card-header">
