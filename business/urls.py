@@ -117,5 +117,14 @@ urlpatterns = [
     path('addPortfolio/', views.addPortfolio, name='addPortfolio'),
     path('deletePortfolio/<int:pk>/', views.deletePortfolio, name='deletePortfolio'),
     path('editPortfolio/<int:pk>/editPortfolioGallery/', views.editPortfolioGallery, name='editPortfolioGallery'),
+    
+    path('customVariants/', views.customVariants, name='customVariants'),
+    path('customVariants/addVariant/', views.addVariant, name='addVariant'),
+    path('customVariants/editVariant/<int:pk>/', views.editVariant, name='editVariant'),
+    path('customVariants/deleteVariant/<int:pk>/', views.deleteVariant, name='deleteVariant'),
+
+    path('customVariants/addVariantValue/', views.addVariantValue, name='addVariantValue'),
+    path('customVariants/editVariantValue/<int:pk>/', views.editVariantValue, name='editVariantValue'),
+    path('customVariants/deleteVariantValue/<int:pk>/', views.deleteVariantValue, name='deleteVariantValue'),
 
 ]

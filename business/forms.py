@@ -293,3 +293,25 @@ class PortfolioGalleryForm(forms.ModelForm):
         model = PortfolioGallery
         fields = ('image',)
         exclude = ()
+
+    
+class ProductAttributeForm(forms.ModelForm):
+    class Meta:
+        model = ProductAttribute
+        fields = ('attribute_name',)
+    def __init__(self, *args, **kwargs):
+        super(ProductAttributeForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+            self.fields[myField].widget.attrs['required'] = 'required'
+
+
+class AttributeValueForm(forms.ModelForm):
+    class Meta:
+        model = AttributeValue
+        fields = ('attribute_value', 'product_attribute')
+    def __init__(self, *args, **kwargs):
+        super(AttributeValueForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+            self.fields[myField].widget.attrs['required'] = 'required'

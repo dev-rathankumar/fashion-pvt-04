@@ -103,13 +103,14 @@
 
         <li>
           <a href="javascript: void(0);" class="has-arrow waves-effect
-                    {% if '/colors/' in request.path or '/sizes/' in request.path %} active {% else %} {% endif %}">
+                    {% if '/colors/' in request.path or '/sizes/' in request.path or '/customVariants/' %} active {% else %} {% endif %}">
             <i class="bx bx-palette"></i>
             <span key="t-ecommerce">{% trans 'Product Variants' %}</span>
           </a>
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="{% url 'allColors' %}" key="t-products" {% if 'colors' in request.path or 'addColor' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Colors' %}</a></li>
             <li><a href="{% url 'allSizes' %}" key="t-product-detail" {% if '/sizes/' in request.path or 'addSize' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Sizes' %}</a></li>
+            <li><a href="{% url 'customVariants' %}" key="t-product-detail" {% if '/customVariants/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Custom' %}</a></li>
           </ul>
         </li>
         <li>

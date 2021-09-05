@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from accounts.models import User, Customer, RegionalManager
 from accounts.models import Business, TaxOnPlan
 from django.http import HttpResponse, JsonResponse
-from .forms import PaymentSettingForm, PortfolioForm, PortfolioGalleryForm, ServiceForm
+from .forms import AttributeValueForm, PaymentSettingForm, PortfolioForm, PortfolioGalleryForm, ProductAttributeForm, ServiceForm
 from .models import PaymentSetting
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import default_token_generator
@@ -1765,3 +1765,100 @@ def editPortfolioGallery(request, pk=None):
         'formset': formset,
     }
     return render(request, 'business/editPortfolioGallery.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def customVariants(request):
+    product_attr = ProductAttribute.objects.all()
+    attr_values = AttributeValue.objects.all()
+    context = {
+        'product_attr': product_attr,
+        'attr_values': attr_values,
+    }
+    return render(request, 'business/customVariants.html', context)
+
+
+def addVariant(request):
+    if request.method == 'POST':
+        form = ProductAttributeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Product Variant Added Successfully')
+            return redirect('customVariants')
+        else:
+            print(form.errors)
+
+    form = ProductAttributeForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/addVariant.html', context)
+
+
+def editVariant(request, pk=None):
+    pro_attribute = get_object_or_404(ProductAttribute, pk=pk)
+    if request.method == 'POST':
+        form = ProductAttributeForm(request.POST, instance=pro_attribute)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Product Variant Updated Successfully')
+            return redirect('customVariants')
+        else:
+            print(form.errors)
+
+    form = ProductAttributeForm(instance=pro_attribute)
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/editVariant.html', context)
+
+
+def deleteVariant(request, pk=None):
+    pro_attribute = get_object_or_404(ProductAttribute, pk=pk)
+    pro_attribute.delete()
+    messages.success(request, 'Product Variant has been deleted.')
+    return redirect('customVariants')
+
+
+def addVariantValue(request):
+    if request.method == 'POST':
+        form = AttributeValueForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Variant value has been assigned.')
+            return redirect('customVariants')
+        else:
+            print(form.errors)
+
+    form = AttributeValueForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/addVariantValue.html', context)
+
+
+def editVariantValue(request, pk=None):
+    attribute_value = get_object_or_404(AttributeValue, pk=pk)
+    if request.method == 'POST':
+        form = AttributeValueForm(request.POST, instance=attribute_value)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Attribute Value Updated Successfully')
+            return redirect('customVariants')
+        else:
+            print(form.errors)
+
+    form = AttributeValueForm(instance=attribute_value)
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/editVariantValue.html', context)
+
+
+def deleteVariantValue(request, pk=None):
+    attribute_value = get_object_or_404(AttributeValue, pk=pk)
+    attribute_value.delete()
+    messages.success(request, 'Variant value has been deleted.')
+    return redirect('customVariants')

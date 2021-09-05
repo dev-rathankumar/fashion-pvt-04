@@ -120,9 +120,9 @@
                     <span id="codStatus" style="position:relative;top:3px;">{% if cod.is_enabled %}{% trans 'Enabled' %}{% else %}{% trans 'Disabled' %}{% endif %}</span>
                 </div>
                   <input type="hidden" name="url" id="codurl" value="{% url 'codToggleEnable' %}">
+                  <a href="{% url 'store_locations' %}" class="btn btn-primary" style="margin-left: 10px;margin-top: 10px;"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp; MANAGE YOUR STORE LOCATIONS</a>
                 </div>
 
-               
                 </div>
                  <!-- C A S H   O N   D E L I V E R Y -->
               </div>
