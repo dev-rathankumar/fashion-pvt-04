@@ -99,7 +99,8 @@ def sales_popup(request):
         business = Business.objects.get(domain_name=domain)
         popups = SalesPopup.objects.filter(is_active=True)
         popupsettings = SalesPopupSetting.objects.get(business=business)
-        return dict(popups=popups, popupsettings=popupsettings)
     except:
-        pass
+        popups = None
+        popupsettings = None
+    return dict(popups=popups, popupsettings=popupsettings)
     
