@@ -255,3 +255,46 @@ class ProductActivation(models.Model):
 
     def __str__(self):
         return self.business.company_name
+
+
+class SalesPopup(models.Model):
+    INTERVAL_CHOICE = (
+        ('Seconds', 'Seconds'),
+        ('Minutes', 'Minutes'),
+        ('Hours', 'Hours'),
+        ('Days', 'Days'),
+    )
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    location = models.CharField(max_length=50)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    time = models.CharField(max_length=9)
+    interval = models.CharField(max_length=50, choices=INTERVAL_CHOICE, default='Seconds')
+    is_active = models.BooleanField(default=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now= True)
+
+    def __str__(self):
+        return self.product.product_name
+
+
+class SalesPopupSetting(models.Model):
+    POSITION_CHOICE = (
+        ('Left Bottom Corner', 'Left Bottom Corner'),
+        ('Right Bottom Corner', 'Right Bottom Corner'),
+        ('Left Top Corner', 'Left Top Corner'),
+        ('Right Top Corner', 'Right Top Corner'),
+    )
+    STYLE_CHOICE = (
+        ('Rounded', 'Rounded'),
+        ('Rectangled', 'Rectangled'),
+    )
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    background_color = ColorField(default='#000000')
+    text_color = ColorField(default='#FFFFFF')
+    notification_position = models.CharField(max_length=50, choices=POSITION_CHOICE, default='Left Bottom Corner')
+    notification_style = models.CharField(max_length=50, choices=STYLE_CHOICE, default='Rounded')
+    
+
+    def __str__(self):
+        return self.business.company_name

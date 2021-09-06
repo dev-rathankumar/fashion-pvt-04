@@ -1,3 +1,4 @@
+from products.models import Product, SalesPopup, SalesPopupSetting
 from orders.models import StoreLocation
 from django import forms
 from ckeditor.widgets import CKEditorWidget
@@ -250,5 +251,32 @@ class StoreLocationForm(forms.ModelForm):
     # Give same CSS class to all the fields
     def __init__(self, *args, **kwargs):
         super(StoreLocationForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class SalesPopupForm(forms.ModelForm):
+    product = forms.ModelChoiceField(queryset=Product.objects.filter(is_active=True), empty_label='Select the product')
+    class Meta:
+        model = SalesPopup
+        fields = ['name', 'location', 'product', 'time', 'interval', 'is_active']
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(SalesPopupForm, self).__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs['placeholder'] = 'Someone'
+        self.fields['location'].widget.attrs['placeholder'] = 'Toronto, Ontario'
+        self.fields['time'].widget.attrs['placeholder'] = '10'
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class SalesPopupSettingForm(forms.ModelForm):
+    class Meta:
+        model = SalesPopupSetting
+        fields = ['background_color', 'text_color', 'notification_position', 'notification_style']
+    
+    def __init__(self, *args, **kwargs):
+        super(SalesPopupSettingForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
             self.fields[myField].widget.attrs['class'] = 'form-control'

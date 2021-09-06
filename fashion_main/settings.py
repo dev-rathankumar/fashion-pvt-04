@@ -105,6 +105,7 @@ TEMPLATES = [
                 'pages.context_processors.address',
                 'accounts.context_processors.get_dashboardImage',
                 'sitesettings.context_processors.getPaypalClientId',
+                'products.context_processors.sales_popup',
             ],
         },
     },

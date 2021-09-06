@@ -1,4 +1,6 @@
-from .models import Wishlist, Product, Size, Color, Variants
+from accounts.models import Business
+from urllib.parse import urlparse
+from .models import SalesPopup, SalesPopupSetting, Wishlist, Product, Size, Color, Variants
 from django.db.models import Max, Min
 from products.models import Compare, CompareItem
 from carts.views import _cart_id
@@ -88,3 +90,16 @@ def search_products(request):
 
     return dict(products=products, product_count=product_count, sizes=sizes, colors=colors, values=request.GET)
     # return render(request, 'shop/shop.html', context)
+
+
+def sales_popup(request):
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
+    try:
+        business = Business.objects.get(domain_name=domain)
+        popups = SalesPopup.objects.filter(is_active=True)
+        popupsettings = SalesPopupSetting.objects.get(business=business)
+        return dict(popups=popups, popupsettings=popupsettings)
+    except:
+        pass
+    

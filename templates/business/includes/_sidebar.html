@@ -43,6 +43,7 @@
             <li><a href="{% url 'homepage_background' %}" key="t-products" {% if '/site_settings/homepage_background/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Homepage Background' %}</a></li>
             <li><a href="{% url 'socialIcons' %}" key="t-products" {% if '/site_settings/socialIcons/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Social Icons' %}</a></li>
             <li><a href="{% url 'paymentGateways' %}" key="t-products" {% if '/site_settings/paymentGateways/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Payment Gateways' %}</a></li>
+            <li><a href="{% url 'salesPopup' %}" key="t-products" {% if '/site_settings/salesPopup/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Sales Popup' %}</a></li>
 
 
           </ul>
@@ -103,7 +104,7 @@
 
         <li>
           <a href="javascript: void(0);" class="has-arrow waves-effect
-                    {% if '/colors/' in request.path or '/sizes/' in request.path or '/customVariants/' %} active {% else %} {% endif %}">
+                    {% if '/colors/' in request.path or '/sizes/' in request.path or '/customVariants/' in request.path %} active {% else %} {% endif %}">
             <i class="bx bx-palette"></i>
             <span key="t-ecommerce">{% trans 'Product Variants' %}</span>
           </a>

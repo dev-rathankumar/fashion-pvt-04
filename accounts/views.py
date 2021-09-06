@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages, auth
 from .models import DashboardImage, User, RegionalManager, Business, Customer
 from contacts.models import Inquiry
-from products.models import Product, ProductActivation
+from products.models import Product, ProductActivation, SalesPopupSetting
 from orders.models import Order, OrderProduct, StoreLocation
 from business.models import PaymentSetting
 
@@ -492,6 +492,15 @@ def biz_password_reset(request):
             store_location.country = business.country
             store_location.state = business.state
             store_location.save()
+
+            # Automatically creating Popup settings
+            popup_settings = SalesPopupSetting()
+            popup_settings.business = business
+            popup_settings.background_color = '#37384E'
+            popup_settings.text_color = '#FFFFFF'
+            popup_settings.notification_position = 'Left Bottom Corner'
+            popup_settings.notification_style = 'Rectangled'
+            popup_settings.save()
 
             mail_subject = 'Your Business Account is Activated'
             # message = 'Congratulations! Your business account has been activated.'

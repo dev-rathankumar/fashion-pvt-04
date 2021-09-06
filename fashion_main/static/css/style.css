@@ -1399,7 +1399,7 @@ background-color:rgba(0,0,0,0.18); border-radius:100px; -webkit-border-radius:10
 .slick-next::before { content:"\ea8c"; }
 .productSlider:hover .slick-arrow, .productPageSlider:hover .slick-arrow, .productSlider-style1:hover .slick-arrow, .productSlider-style2:hover .slick-arrow,
 .productSlider-style2:hover .slick-arrow, .productSlider-fullwidth:hover .slick-arrow { opacity:1; }
-.grid-products .slick-arrow { margin-top:-10px; width:30px; }
+.grid-products .slick-arrow { margin-top:-60px; width:30px; }
 .productPageSlider .slick-arrow { margin-top:-20px; }
 .productSlider-style1 .slick-arrow, .productSlider-style2 .slick-prev, .productSlider-fullwidth .slick-prev { margin-top:-10px; }
 .productSlider .slick-arrow, .productPageSlider .slick-arrow, .productSlider-style1 .slick-arrow,

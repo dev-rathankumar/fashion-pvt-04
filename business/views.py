@@ -402,7 +402,6 @@ def editGallery(request, pk=None):
             return HttpResponse(formset.errors)
     else:
         formset = ProductGalleryFormSet(instance=product)
-        print(formset)
         # print('gallery image count', len(formset))
     context = {
         'product' : product,

@@ -52,4 +52,13 @@ urlpatterns = [
     path('store_locations/addLocation/', views.addLocation, name='addLocation'),
     path('store_locations/editLocation/<int:pk>/', views.editLocation, name='editLocation'),
     path('store_locations/deleteLocation/<int:pk>/', views.deleteLocation, name='deleteLocation'),
+
+    # Sales Popup
+    path('salesPopup/', views.salesPopup, name='salesPopup'),
+    path('salesPopup/addPopup/', views.addPopup, name='addPopup'),
+    path('salesPopup/editPopup/<int:pk>/', views.editPopup, name='editPopup'),
+    path('salesPopup/deletePopup/<int:pk>/', views.deletePopup, name='deletePopup'),
+
+    # Sales Popup Settings
+    path('salesPopupSettings/', views.salesPopupSettings, name='salesPopupSettings'),
 ]

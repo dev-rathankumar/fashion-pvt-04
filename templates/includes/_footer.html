@@ -3,6 +3,9 @@
 {% load faicon %}
 {% load i18n %}
 <!--Footer-->
+
+
+
 <div class="footer footer-1">
   <div class="footer-top clearfix">
     <div class="container">
@@ -112,15 +115,6 @@
   </div>
   <div class="footer-bottom clearfix">
     <div class="container">
-      <!-- <ul class="payment-icons list--inline">
-        <li><i class="anm anm-cc-visa" aria-hidden="true"></i></li>
-        <li><i class="anm anm-cc-mastercard" aria-hidden="true"></i></li>
-        <li><i class="anm anm-cc-amex" aria-hidden="true"></i></li>
-        <li><i class="anm anm-cc-paypal" aria-hidden="true"></i></li>
-        <li><i class="anm anm-cc-discover" aria-hidden="true"></i></li>
-        <li><i class="anm anm-cc-stripe" aria-hidden="true"></i></li>
-        <li><i class="anm anm-cc-jcb" aria-hidden="true"></i></li>
-      </ul> -->
       <div style="text-align:{{footer.footer_align}};">
         {% if footer is not None %}
         {{footer.footer_text}}. {{footer.hard_code_footer}} <span><a href="{{footer.hard_code_url}}" target="_blank"><u>{{footer.hard_code_branding}}</u></a></span>

@@ -2,10 +2,10 @@ import json
 from urllib.parse import urlparse
 from pages.views import about, services
 from django.core.mail import message
-from products.models import ReviewRating
+from products.models import ReviewRating, SalesPopup, SalesPopupSetting
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import AboutContent, CashOnDelivery, DirectDepositEmail, Header, Homepage, BannerImage, PaypalConfig, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
-from .forms import AboutContentForm, DirectDepositEmailForm, HeaderForm, BannerImageForm, PaypalConfigForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, StoreLocationForm, TermsAndConditionForm, TopbarForm
+from .forms import AboutContentForm, DirectDepositEmailForm, HeaderForm, BannerImageForm, PaypalConfigForm, SalesPopupForm, SalesPopupSettingForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, StoreLocationForm, TermsAndConditionForm, TopbarForm
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from accounts.models import Business
@@ -601,7 +601,7 @@ def store_locations(request):
 @business_required(login_url="userLogin")
 @is_account_expired
 def addLocation(request):
-    form = StoreLocationForm(request.POST, request.FILES)
+    form = StoreLocationForm(request.POST)
     if request.method == 'POST':
         if form.is_valid():
             current_user = request.user
@@ -647,3 +647,88 @@ def deleteLocation(request, pk=None):
     location.delete()
     messages.success(request, 'Store location has been deleted.')
     return redirect('store_locations')
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def salesPopup(request):
+    sales_popups = SalesPopup.objects.all().order_by('-created_on')
+    context = {
+        'sales_popups': sales_popups,
+    }
+    return render(request, 'business/sitesettings/salesPopup.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def addPopup(request):
+    form = SalesPopupForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            current_user = request.user
+            popup = form.save(commit=False)
+            business = Business.objects.get(user=current_user)
+            popup.business = business
+            popup.save()
+            messages.success(request, 'Sales popup created successfully.')
+            return redirect('salesPopup')
+    else:
+        form = SalesPopupForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/sitesettings/addPopup.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def editPopup(request, pk=None):
+    popup = get_object_or_404(SalesPopup, pk=pk)
+    if request.method == 'POST':
+        form = SalesPopupForm(request.POST, instance=popup)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Sales popup updated successfully.')
+            return redirect('salesPopup')
+    else:
+        form = SalesPopupForm(instance=popup)
+    context = {
+        'form': form,
+        'popup': popup,
+    }
+    return render(request, 'business/sitesettings/editPopup.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def deletePopup(request, pk=None):
+    popup = get_object_or_404(SalesPopup, pk=pk)
+    popup.delete()
+    messages.success(request, 'Sales popup has been deleted.')
+    return redirect('salesPopup')
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def salesPopupSettings(request):
+    business = Business.objects.get(user=request.user)
+    settings = get_object_or_404(SalesPopupSetting, business=business)
+
+    if request.method == 'POST':
+        form = SalesPopupSettingForm(request.POST, instance=settings)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Settings updated successfully')
+            return redirect('salesPopupSettings')
+    else:
+        form = SalesPopupSettingForm(instance=settings)
+    context = {
+        'form': form,
+        'settings': settings,
+    }
+    return render(request, 'business/sitesettings/salesPopupSettings.html', context)
