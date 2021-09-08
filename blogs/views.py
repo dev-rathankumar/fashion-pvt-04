@@ -15,9 +15,7 @@ from django.db.models import Q
 
 def blog(request, slug=None):
     # Check if the blog is activated or not
-    url = request.build_absolute_uri()
-    domain = urlparse(url).netloc
-    business = Business.objects.get(domain_name=domain)
+    business = Business.objects.get(user__is_business=True, is_account_verified=True)
     blog_activation = BlogActivation.objects.get(business=business)
     if not blog_activation.is_enabled:
         return redirect('home')
@@ -72,9 +70,7 @@ def blog(request, slug=None):
 
 def blog_detail(request, category_slug, blog_slug):
     # Check if the blog is activated or not
-    url = request.build_absolute_uri()
-    domain = urlparse(url).netloc
-    business = Business.objects.get(domain_name=domain)
+    business = Business.objects.get(user__is_business=True, is_account_verified=True)
     blog_activation = BlogActivation.objects.get(business=business)
     if not blog_activation.is_enabled:
         return redirect('home')

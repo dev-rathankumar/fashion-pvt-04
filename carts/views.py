@@ -92,9 +92,8 @@ def cart(request, total=0, quantity=0, cart_items=None):
         for cart_item in cart_items:
             total += (cart_item.product.price * cart_item.quantity)
             quantity += cart_item.quantity
-        url = request.build_absolute_uri()
-        domain = urlparse(url).netloc
-        biz_id = Business.objects.get(domain_name=domain)
+        
+        biz_id = Business.objects.get(user__is_business=True, is_account_verified=True)
         get_tax = Tax.objects.get(business__business_id=biz_id.business_id)
         tax_percent = get_tax.tax_percentage
         tax = round((tax_percent * total)/100, 2)
@@ -290,9 +289,8 @@ def checkout(request):
     else:
         userinfo_form = BillingUserInfoForm(instance=current_user)
         customerinfo_form = BillingCustomerInfoForm()
-        url = request.build_absolute_uri()
-        domain = urlparse(url).netloc
-        business = Business.objects.get(domain_name=domain)
+        
+        business = Business.objects.get(user__is_business=True, is_account_verified=True)
         dd = DirectDepositEmail.objects.get(business=business)
         pp = PaypalConfig.objects.get(business=business)
         cod = CashOnDelivery.objects.get(business=business)

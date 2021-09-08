@@ -134,9 +134,8 @@ def orderproduct(request):
     # for i in shopcart:
     #     total += i.variant.price * i.quantity
 
-    url = request.build_absolute_uri()
-    domain = urlparse(url).netloc
-    biz_id = Business.objects.get(domain_name=domain)
+    
+    biz_id = Business.objects.get(user__is_business=True, is_account_verified=True)
     # grand_total = request.session.get('grand_total')
     # print(grand_total)
     # tax = request.session['tx_amount']

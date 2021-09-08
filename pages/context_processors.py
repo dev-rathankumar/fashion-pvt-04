@@ -5,10 +5,9 @@ from accounts.models import Business
 
 
 def social_media_links(request):
-    url = request.build_absolute_uri()
-    domain = urlparse(url).netloc
+    
     try:
-        business = Business.objects.get(domain_name=domain)
+        business = Business.objects.get(user__is_business=True, is_account_verified=True)
     except:
         business = None
     if business is not None:
@@ -33,10 +32,8 @@ def social_media_links(request):
 
 
 def address(request):
-    url = request.build_absolute_uri()
-    domain = urlparse(url).netloc
     try:
-        business = Business.objects.get(domain_name=domain)
+        business = Business.objects.get(user__is_business=True, is_account_verified=True)
         contact_page = ContactPage.objects.get(business=business)
         return dict(contact_page=contact_page)
     except:

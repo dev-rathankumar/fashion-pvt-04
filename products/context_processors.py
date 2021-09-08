@@ -93,10 +93,9 @@ def search_products(request):
 
 
 def sales_popup(request):
-    url = request.build_absolute_uri()
-    domain = urlparse(url).netloc
+    
     try:
-        business = Business.objects.get(domain_name=domain)
+        business = Business.objects.get(user__is_business=True, is_account_verified=True)
         popups = SalesPopup.objects.filter(is_active=True)
         popupsettings = SalesPopupSetting.objects.get(business=business)
     except:

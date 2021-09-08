@@ -5,10 +5,9 @@ from accounts.models import Business
 
 
 def getPaypalClientId(request):
-    url = request.build_absolute_uri()
-    domain = urlparse(url).netloc
+    
     try:
-        business = Business.objects.get(domain_name=domain)
+        business = Business.objects.get(user__is_business=True, is_account_verified=True)
         paypal_config = PaypalConfig.objects.get(business=business)
     except:
         paypal_config = None

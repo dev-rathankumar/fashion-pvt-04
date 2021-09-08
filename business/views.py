@@ -48,10 +48,8 @@ from django.db.models import Sum, Min, Count, Q
 # Custom decorator to check if the business account expired or not
 def is_account_expired(func):
     def wrapper(request, *args, **kwargs):
-        url = request.build_absolute_uri()
-        domain = urlparse(url).netloc
         try:
-            business = Business.objects.get(domain_name=domain)
+            business = Business.objects.get(user__is_business=True, is_account_verified=True)
             get_exp_date = business.account_expiry_date
             exp_date = datetime.strptime(str(get_exp_date), '%Y-%m-%d')
             get_today = date.today()

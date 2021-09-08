@@ -64,11 +64,10 @@ def login(request):
 @login_required(login_url = 'userLogin')
 @regional_manager_required(login_url="userLogin")
 def dashboard(request):
-    url = request.build_absolute_uri()
-    domain = urlparse(url).netloc
+    
     account_manager = RegionalManager.objects.get(user=request.user)
     try:
-        business = Business.objects.get(domain_name=domain)
+        business = Business.objects.get(user__is_business=True, is_account_verified=True)
         get_commission = PlanOrder.objects.filter(business=business, ordered=True)
         total_commission = 0
         for i in get_commission:
@@ -165,10 +164,9 @@ def rm_profile(request):
     current_user = request.user
     rm = RegionalManager.objects.get(user__id=current_user.id)
 
-    url = request.build_absolute_uri()
-    domain = urlparse(url).netloc
+    
     # account_manager = RegionalManager.objects.get(user=request.user)
-    business = Business.objects.get(domain_name=domain)
+    business = Business.objects.get(user__is_business=True, is_account_verified=True)
     get_commission = PlanOrder.objects.filter(business=business, ordered=True)
     total_commission = 0
     for i in get_commission:
@@ -248,10 +246,9 @@ def editProfile(request, pk=None):
 @login_required(login_url = 'userLogin')
 @regional_manager_required(login_url="userLogin")
 def supplier(request):
-    url = request.build_absolute_uri()
-    domain = urlparse(url).netloc
+    
     try:
-        business = Business.objects.get(domain_name=domain)
+        business = Business.objects.get(user__is_business=True, is_account_verified=True)
         regional_manager = RegionalManager.objects.get(user=request.user)
     except:
         pass
@@ -281,9 +278,8 @@ def bizPlanPurchaseHistory(request):
     paginator = Paginator(plan_orders, 15)
     page = request.GET.get('page')
     paged_plan_orders = paginator.get_page(page)
-    url = request.build_absolute_uri()
-    domain = urlparse(url).netloc
-    business = Business.objects.get(domain_name=domain)
+    
+    business = Business.objects.get(user__is_business=True, is_account_verified=True)
     account_expiry_date = business.account_expiry_date
     current_plan = Plan.objects.get(pk=business.plan_id)
     # Check if plan expired

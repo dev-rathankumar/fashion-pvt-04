@@ -40,10 +40,9 @@ def shopcart_context(request):
         else:
             total += i.product.price * i.quantity
 
-    url = request.build_absolute_uri()
-    domain = urlparse(url).netloc
+    
     try:
-        biz_id = Business.objects.get(domain_name=domain)
+        biz_id = Business.objects.get(user__is_business=True, is_account_verified=True)
     except:
         biz_id = None
 

@@ -26,10 +26,9 @@ import requests
 # Custom decorator to check if the product selling is enabled or not
 def is_productSelling_activated(func):
     def wrapper(request, *args, **kwargs):
-        url = request.build_absolute_uri()
-        domain = urlparse(url).netloc
+        
         try:
-            business = Business.objects.get(domain_name=domain)
+            business = Business.objects.get(user__is_business=True, is_account_verified=True)
             product_activation = ProductActivation.objects.get(business=business)
             if not product_activation.is_enabled:
                 return redirect('home')
@@ -111,9 +110,8 @@ def product_detail(request, category_slug, product_slug):
     except Exception as e:
         raise e
     # get business info
-    url = request.build_absolute_uri()
-    domain = urlparse(url).netloc
-    business = Business.objects.get(domain_name=domain)
+    
+    business = Business.objects.get(user__is_business=True, is_account_verified=True)
 
     get_product_id = Product.objects.get(slug=product_slug)
     id = get_product_id.id
