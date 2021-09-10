@@ -81,7 +81,7 @@ class ProductForm(forms.ModelForm):
         "type": "file",
         "data-show-preview": "false"
     }))
-    image_2 = forms.ImageField(label=('Product Image 02'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+    image_2 = forms.ImageField(label=('Product Image 02'), required=True, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
         "type": "file",
         "data-show-preview": "false"
     }))

@@ -64,6 +64,7 @@
 
             <!--End Price Filter-->
             <!--Size Swatches-->
+            {% if sizes %}
             <div class="sidebar_widget filterBox filter-widget">
               <div class="widget-title">
                 <h2>{% trans 'Size' %}</h2>
@@ -75,8 +76,10 @@
               </label>
               {% endfor %}
             </div>
+            {% endif %}
             <!--End Size Swatches-->
             <!--Color Swatches-->
+            {% if colors %}
             <div class="sidebar_widget filterBox filter-widget">
               <div class="widget-title">
                 <h2>{% trans 'Color' %}</h2>
@@ -88,6 +91,7 @@
               </label>
               {% endfor %}
             </div>
+            {% endif %}
 
             <div style="padding-bottom:20px;">
               <button class="btn btn-secondary btn--small" style="width:100%;">{% trans 'filter' %}</button>

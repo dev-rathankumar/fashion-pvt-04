@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='sitecontact',
             name='otp_updated_time',
-            field=models.CharField(default=datetime.datetime.now, max_length=255),
+            field=models.CharField(blank=True, max_length=255),
         ),
     ]

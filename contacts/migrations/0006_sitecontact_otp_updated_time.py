@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='sitecontact',
             name='otp_updated_time',
-            field=models.DateTimeField(blank=True, default=datetime.datetime.now),
+            field=models.DateTimeField(blank=True),
         ),
     ]
