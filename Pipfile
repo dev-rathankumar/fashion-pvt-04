@@ -25,11 +25,12 @@ python-decouple = "*"
 django-formset-js = "*"
 django-authtools = "*"
 django-colorfield = "*"
-django-faicon = "*"
 django-constance = {extras = ["redis"], version = "*"}
 numpy = "*"
 psycopg2-binary = "*"
 tldextract = "*"
+django-faicon = {git = "https://github.com/dev-rathankumar/django-faicon-1.git"}
+psycopg2 = "==2.8.6"
 
 [requires]
 python_version = "3.8"

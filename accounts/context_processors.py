@@ -9,6 +9,8 @@ from datetime import date, datetime
 
 
 def get_business(request):
+    url = request.build_absolute_uri()
+    domain = urlparse(url).netloc
     try:
         business = Business.objects.get(user__is_business=True, is_account_verified=True)
         get_exp_date = business.account_expiry_date
