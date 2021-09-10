@@ -129,7 +129,8 @@ class ProductVariantForm(forms.ModelForm):
         for myField in self.fields:
             if myField == 'image_id':
                 self.fields[myField].widget.attrs['class'] = 'form-control image_id'
-                # self.fields[myField].widget.attrs['onfocus'] = 'image_idFocus(this)'
+            if myField == 'variant_data':
+                self.fields[myField].widget.attrs['class'] = 'form-control nvvariant'
             else:
                 self.fields[myField].widget.attrs['class'] = 'form-control'
 

@@ -1,6 +1,5 @@
 {% extends 'business/base.html' %}
 {% load static %}
-{% load add_loop_counter %}
 {% block title %} Edit Variants {% endblock %}
 
 {% block content %}
@@ -63,11 +62,11 @@
 
                   {% for form in formset.forms %}
                   <!-- {% with nvserial="{{ forloop.counter }}" %} -->
-                  <tr class="{% cycle row1 row2 %} formset_row" id="nv{{ forloop.counter }}" data-id="nv{{ forloop.counter }}">
+                  <tr class="{% cycle row1 row2 %}formset_row" id="nv{{ forloop.counter }}" data-id="nv{{ forloop.counter }}">
 
                     {% for field in form.visible_fields %}
 
-                    <td class="varField-{{field.label|cut:' '}}" id="varField-{{field.label|cut:' '}}">
+                    <td class="varField-{{field.label|cut:' '}}{% if field.name == 'product_attribute' or field.name == 'attribute_value' %} pr_variant_selection{% endif %}" id="varField-{{field.label|cut:' '}}">
                       
                       {% if forloop.first %}
                       {% for hidden in form.hidden_fields %}
@@ -78,12 +77,7 @@
                       {{ field.label|capfirst }}
                       {% if field.name == 'attribute_value' %}<input data-tdid="varField-{{field.label|cut:' '}}" data-id="nv{{ forloop.parentloop.counter }}" data-idnum="{{ forloop.parentloop.counter }}" type="button" value="&plus;" id="btn-add" class="btn btn-primary nvclass" style="padding: 2px 8px 2px 8px;margin-top: -12px;">{% endif %}
                       {% if field.name == 'attribute_value' %}<input data-tdid="varField-{{field.label|cut:' '}}" data-id="nv{{ forloop.parentloop.counter }}" data-idnum="{{ forloop.parentloop.counter }}" type="button" value="&minus;" id="btn-delete1" class="btn btn-danger removeAttr" style="padding: 2px 8px 2px 8px;margin-top: -12px;">{% endif %}
-                      
-                      {% if field.name == 'variant_data' %}
-                        {{ field|add_loop_counter:forloop.parentloop.counter }}
-                      {% else %}
-                        {{ field }}
-                      {% endif %}
+                      {{ field }}
                       <!-- {% if field.name == 'attribute_value' %}<table id="item_table"></table>{% endif %}
                       {% if field.name == 'attribute_value' %}<a name="add_more_attr" class="btn btn-primary add_more_attr" style="padding: 5px 15px 5px 15px;">Add</a>{% endif %} -->
                       
@@ -151,27 +145,31 @@
       });
 
       $(document).on('click', '.nvclass', function(){
-        var i = 1 + Math.floor(Math.random() * 6000);
-        var j = 1 + Math.floor(Math.random() * 6000);
+        // var i = 1 + Math.floor(Math.random(3) * 6000);
+        // var j = 1 + Math.floor(Math.random(3) * 6000);
+        var i = Math.floor(1000 + Math.random() * 9000);
+        var j = Math.floor(1000 + Math.random() * 9000);
         var nvid = $(this).data('id');
         var tdid = $(this).data('tdid');
         var idnum = $(this).data('idnum');
         var vFA = $('#'+nvid).find("td[id='varField-Productattribute']");
-        var vFV = $('#'+nvid).find("td[id='varField-Attributevalue']");
+        var rtvFAName = vFA[0]['children'][0].getAttribute("name");
         
+        var vFV = $('#'+nvid).find("td[id='varField-Attributevalue']");
+        var rtvFVName = vFV[0]['children'][2].getAttribute("name");
         
         var y = document.createElement('tr');
         y.className = i;
         var x = document.createElement('tr');
         x.className = i;
-        
-        y.innerHTML = '<select id="id_variants_set-0-product_attribute'+i+ '" class="form-control nvremove'+nvid+'" name="variants_set-0-product_attribute"></select>';
+
+        y.innerHTML = '<select id="id_variants_set-0-product_attribute'+i+ '" class="form-control nvremove'+nvid+'" name="'+rtvFAName+'"></select>';
         $(vFA).append(y);
 
         var $options = $('#id_variants_set-0-product_attribute > option').clone();
         $('#id_variants_set-0-product_attribute' + i).append($options);
         
-        x.innerHTML = '<select id="id_variants_set-0-attribute_value'+i+ '" class="form-control" name="variants_set-0-attribute_value"></select>';
+        x.innerHTML = '<select id="id_variants_set-0-attribute_value'+i+ '" class="form-control" name="'+rtvFVName+'"></select>';
         $(vFV).append(x);
 
         var $options = $('#id_variants_set-0-attribute_value > option').clone();
@@ -192,17 +190,48 @@
       });
 
     });
-    // Custom product attribute selection
-    // $('#id_variants_set-0-product_attribute').on('change', function(e) {
-    //   e.preventDefault();
-    //   key = $( "#id_variants_set-0-product_attribute option:selected" ).val();
+    
+    $(document).on("change", ".pr_variant_selection select", function(){
+    var attr_id = $(this).attr('id');
+    if(attr_id.length > 35){
+      attr_id = attr_id.slice(0, -4)
+      
+    }
+    alert(attr_id);
+    return false;
+    if (attr_id.endsWith('product_attribute')){
+      prod_attr = attr_id
+      att = '#'+prod_attr+' '+'option:selected'
+     
+      var selectedText = $(att).text();
+      // form a JSON data
+      alert(selectedText)
+    }else if(attr_id.endsWith('attribute_value')){
+      attr_value = attr_id
+    }
+    
+    
+    var trId = $(this).closest('tr').prop('id');
+    var var_data = $('#'+trId).find("td[id='varField-Variantdata']");
+    var vardata_id = var_data[0]['children'][0].getAttribute("id");
+    document.getElementById(vardata_id).value = selectedText;
+    
+    
+    // form json data
+    
+    // $("#myHiddenField").attr("value", selectedText); //apply to hidden field  
+    });
+
+    $('#id_variants_set-0-product_attribute').on('change', function(e) {
+      e.preventDefault();
+      key = $( "#id_variants_set-0-product_attribute option:selected" ).val();
       
       
-    //   val = 'Cotton'
-    //   var varData = '{"'+key+'": "'+val+'"}';
-    //   document.getElementById('my_textarea_id').textContent = 'foo'
+      val = 'Cotton'
+      var varData = '{"'+key+'": "'+val+'"}';
+      document.getElementById('my_textarea_id').textContent = 'foo'
       
-    // });
+    });
   </script>
   <script type="text/javascript">
     $('.formset_row').formset({
