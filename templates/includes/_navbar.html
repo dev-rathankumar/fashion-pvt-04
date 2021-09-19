@@ -64,10 +64,10 @@
                     {% if portfolio_activation.is_enabled %}
                     <li class="lvl1 parent megamenu"><a href="{% url 'portfolio' %}" class="{% if '/portfolio/' in request.path %}active{% endif %}">{% trans 'Gallery' %} <i class="anm anm-angle-down-l"></i></a></li>
                     {% endif %}
-                    <li class="lvl1 parent megamenu"><a href="{% url 'contact_page' %}">{% trans 'Contact Us' %} <i class="anm anm-angle-down-l"></i></a></li>
                     {% if blog_activation.is_enabled %}
                     <li class="lvl1 parent megamenu"><a href="{% url 'blog' %}">{% trans 'Blogs' %} <i class="anm anm-angle-down-l"></i></a></li>
                     {% endif %}
+                    <li class="lvl1 parent megamenu"><a href="{% url 'contact_page' %}">{% trans 'Contact Us' %} <i class="anm anm-angle-down-l"></i></a></li>
                   </ul>
                 </nav>
                 <!--End Desktop Menu-->

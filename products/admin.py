@@ -19,7 +19,7 @@ class ProductGalleryInline(admin.TabularInline):
 class ProductVariantsInline(admin.TabularInline):
     model = Variants
     readonly_fields = ('image_tag',)
-    extra = 0
+    extra = 1
     show_change_link = True
 
 

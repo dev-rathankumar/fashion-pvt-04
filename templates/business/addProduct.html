@@ -178,8 +178,9 @@
 
        } else if(select.value == 'Custom'){
         document.getElementById('price_stock').style.display = "none";
-        price.setAttribute('required', 'false');
-        stock.setAttribute('required', 'false');
+        price.removeAttribute('required');
+        stock.removeAttribute('required');
+        document.getElementById('price_stock_info').innerHTML = "Price and Stock can be added with product variants"
        }
        else{
          document.getElementById('price_stock').style.display = "none";
