@@ -100,7 +100,9 @@ urlpatterns += i18n_patterns (
     path('faicon/', include('faicon.urls')),
 
     #blog
-    path('blogs/', include('blogs.urls'))
+    path('blogs/', include('blogs.urls')),
+
+    path('locations/', include('orders.urls')),
 
 
  ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

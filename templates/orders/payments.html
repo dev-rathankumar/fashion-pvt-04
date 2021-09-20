@@ -241,26 +241,38 @@
 
                       {% elif payment_method == 'Cash On Delivery' %}
                       <br>
-                        <h2 class="payment-title mb-3">{% trans 'Choose store location' %}</h2>
-                        <div class="jumbotron jumbotron-fluid payment_options_dd_paypal" style="padding: 1rem;">
-                          <div class="container">
+                        <h2 class="payment-title mb-3" style="padding-left: 10px;">{% trans 'Choose pickup location' %}</h2>
+                        <!-- <div class="jumbotron jumbotron-fluid" style="padding: 1rem;"> -->
+                          <div class="container" id="choosePickupLocation">
+
                             {% for loc in store_locations %}
-                            <div class="row">
+                            <div class="row" style="padding-left: 10px;">
                                 <label style="width:100% !important;">
-                                  <input type="radio" name="store_location" value="{{loc.id}}" {% if location_count == 1 %}checked{% endif %}>
-                                    <div class="col-md-12 location" style="padding: 10px 10px 10px 10px; border: 1px solid #ccc;cursor: pointer;">
-                                      <p class="mb-0">{{loc.store_name}}</p>
-                                      <p class="mb-0">{{loc.phone_number}}</p>
-                                      <p class="mb-0">{{loc.email}}</p>
-                                      <p class="mb-0">{{loc.address}}</p>
-                                      <p class="mb-0">{{loc.city}}, {{loc.pin_code}}</p>
-                                      <p class="mb-0">{{loc.state}}, {{loc.country}}</p>
-                                    </div>
+                                  <input class="loc" type="radio" name="store_location" value="{{loc.id}}" {% if location_count == 1 %}checked{% endif %}>
+                                  <span style="position: relative;bottom: 5px;">{{loc.city}}, {{loc.state}}</span>
                                 </label>
                             </div>
                             {% endfor %}
+
+                            
+
+                            
+                            <div class="row">
+                                <label style="width:100% !important;">
+                                    <div class="col-md-12 location" style="padding: 10px 10px 10px 10px;">
+                                      <h2 class="payment-title mb-0" id="pickup_loc"></h2>
+                                      <p class="mb-0" id="store_name"></p>
+                                      <p class="mb-0" id="phone"></p>
+                                      <p class="mb-0" id="email"></p>
+                                      <p class="mb-0" id="address"></p>
+                                      <p class="mb-0" id="city"></p>
+                                      <p class="mb-0" id="state"></p>
+                                    </div>
+                                </label>
+                            </div>
+                            
                           </div>
-                        </div>
+                        <!-- </div> -->
                         <p id="errorMessage" class="text-danger"></p>
                         <div class="form-group">
                           <input type="submit" name="submit" id="codPlaceOrder" onclick="return chkLocation();" formaction="{% url 'codPlaceOrder' %}" value="Place Order" class="btn w-100">
@@ -393,6 +405,30 @@
         return false;
       }
     }
+
+    $('#choosePickupLocation .loc').change(function(){
+    var loc_id = $(this).val();
+
+    var url = "{% url 'fetchPickupLoc' %}";
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: {
+          loc_id: loc_id,
+          dataType: "json",
+        },
+        success: function( data ) {
+            document.getElementById("pickup_loc").innerHTML = 'pickup location';
+            document.getElementById("store_name").innerHTML = data.store_name;
+            document.getElementById("phone").innerHTML = data.phone_number;
+            document.getElementById("email").innerHTML = data.email;
+            document.getElementById("address").innerHTML = data.address;
+            document.getElementById("city").innerHTML = data.city
+            document.getElementById("state").innerHTML = data.state;
+        }
+    });
+    });
+
 </script>
 
 {% endblock %}

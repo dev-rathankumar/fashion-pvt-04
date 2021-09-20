@@ -94,15 +94,28 @@
             <div class="card-body">
               <h4 class="text-center">Assign a value to product variants</h4>
               <div class="row mb-2">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                   <div class="search-box mr-2 mb-2 d-inline-block">
                     <div class="position-relative">
-                      <input type="text" id="myInput2" class="form-control" id="myInput2" placeholder="{% trans 'Search' %}...">
+                      <select id="varlist" onchange="searchFilter()" class='form-control'>
+                        <option value="">All Variants</option>
+                        {% for attr in product_attr %}
+<option value="{{attr.attribute_name}}">{{attr.attribute_name}}</option>
+                        {% endfor %}
+                        </select>
+                        <i class="bx bx-filter-alt search-icon"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="search-box mr-2 mb-2 d-inline-block">
+                    <div class="position-relative">
+                      <input type="text" id="myInput2" class="form-control" id="myInput2" placeholder="{% trans 'Type to search' %}...">
                       <i class="bx bx-search-alt search-icon"></i>
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                   <div class="text-sm-right">
                     <a href="{% url 'addVariantValue' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> {% trans 'Add Variant Value' %}</a>
                   </div>
@@ -161,5 +174,13 @@
         });
       });
     });
+
+    function searchFilter() {
+        var value = $( "#varlist option:selected" ).attr('value').toLowerCase();
+        $("#myTable2 tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+
+        });
+    }
   </script>
   {% endblock %}

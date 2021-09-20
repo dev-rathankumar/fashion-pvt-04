@@ -428,3 +428,22 @@ def order_complete(request):
         return render(request, 'orders/order_complete.html', context)
     except (Payment.DoesNotExist, Order.DoesNotExist):
         return redirect('home')
+
+
+def fetchPickupLoc(request):
+    loc_id = request.GET.get('loc_id')
+    if request.is_ajax():
+        store_locations = StoreLocation.objects.get(id=loc_id)
+        state = store_locations.state
+        country = store_locations.country
+        return JsonResponse({
+            "message":"success",
+            "store_name":store_locations.store_name,
+            "phone_number":store_locations.phone_number,
+            "email":store_locations.email,
+            "address":store_locations.address,
+            "city":store_locations.city + ', ' + store_locations.pin_code,
+            "state":str(state) + ', ' +str(country),
+            },safe=False)
+    else:
+        return HttpResponse('Invalid request')
