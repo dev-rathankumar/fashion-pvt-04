@@ -49,6 +49,7 @@
                     <div class="form-group">
                       <label for="logo">{% trans 'Logo' %}</label>
                       {{ form.site_logo }}
+                      <span class="text-muted">Recommended size: 220 x 80px</span>
                     </div>
                     {% if form.site_logo.value %}
                     <img src="{{form.site_logo.value.url}}" alt="Site Logo" width="50">
@@ -60,6 +61,7 @@
                     <div class="form-group">
                       <label for="favicon">{% trans 'Favicon' %}</label>
                       {{ form.favicon }}
+                      <span class="text-muted">Recommended size: 16 x 16px</span>
                     </div>
                     {% if form.favicon.value %}
                     <img src="{{form.favicon.value.url}}" alt="Favicon" width="50">

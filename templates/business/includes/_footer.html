@@ -69,7 +69,7 @@
 <div class="rightbar-overlay"></div>
 
 
-<script src="{% static 'business/libs/jquery/jquery.min.js' %}"></script>
+<!-- <script src="{% static 'business/libs/jquery/jquery.min.js' %}"></script> -->
 <script src="{% static 'business/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'business/libs/metismenu/metisMenu.min.js' %}"></script>
 <script src="{% static 'business/libs/simplebar/simplebar.min.js' %}"></script>
@@ -126,6 +126,17 @@
     });
   });
 </script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+  $('#dTable').DataTable( {
+      "pagingType": "full_numbers"
+  } );
+} );
+</script>
+
+
 </body>
 
 </html>

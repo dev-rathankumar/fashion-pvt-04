@@ -39,12 +39,7 @@
             <div class="card-body">
               <div class="row mb-2">
                 <div class="col-sm-4">
-                  <div class="search-box mr-2 mb-2 d-inline-block">
-                    <div class="position-relative">
-                      <input type="text" class="form-control" id="myInput" placeholder="{% trans 'Search' %}...">
-                      <i class="bx bx-search-alt search-icon"></i>
-                    </div>
-                  </div>
+                  
                 </div>
                 <div class="col-sm-8">
                   <div class="text-sm-right">
@@ -56,7 +51,7 @@
 
               <div class="table-responsive">
 
-                <table class="table table-centered table-nowrap table-hover">
+                <table class="table table-centered table-nowrap table-hover" id="dTable">
                   <thead class="thead-light">
                     <tr>
                       <!-- <th style="width: 20px;">
@@ -103,46 +98,7 @@
                 </table>
               </div>
 
-              <!-- Paginator Start -->
-              {% if emails.has_other_pages %}
-              <ul class="pagination pagination-rounded justify-content-end mb-2">
-                {% if emails.has_previous %}
-                <li class="page-item">
-                  <a class="page-link" href="?page={{emails.previous_page_number}}" aria-label="Previous">
-                    <i class="mdi mdi-chevron-left"></i>
-                  </a>
-                </li>
-                {% else %}
-                <li class="page-item disabled">
-                  <a class="page-link" aria-label="Previous">
-                    <i class="mdi mdi-chevron-left"></i>
-                  </a>
-                </li>
-                {% endif %}
-                {% for i in emails.paginator.page_range %}
-                {% if emails.number == i %}
-                <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
-                {% else %}
-                <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
-                {% endif %}
-                {% endfor %}
-
-                {% if emails.has_next %}
-                <li class="page-item">
-                  <a class="page-link" href="?page={{emails.next_page_number}}" aria-label="Next">
-                    <i class="mdi mdi-chevron-right"></i>
-                  </a>
-                </li>
-                {% else %}
-                <li class="page-item disabled">
-                  <a class="page-link" aria-label="Next">
-                    <i class="mdi mdi-chevron-right"></i>
-                  </a>
-                </li>
-                {% endif %}
-              </ul>
-              {% endif %}
-              <!-- Paginator End -->
+              
 
             </div>
             {% endif %}

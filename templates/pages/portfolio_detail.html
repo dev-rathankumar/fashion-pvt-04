@@ -9,7 +9,7 @@
     <!--Services-->
     <div class="breadcrumbs-wrapper">
         <div class="container">
-            <div class="breadcrumbs"><a href="{% url 'home' %}" title="Back to the home page">{% trans 'Home' %}</a> <span aria-hidden="true">|</span> <span class="m-0"><a href="{% url 'portfolio' %}" class="m-0">{% trans 'Our Portfolio' %}</a></span>| <span>{{single_portfolio.title}}</span></div>
+            <div class="breadcrumbs"><a href="{% url 'home' %}" title="Back to the home page">{% trans 'Home' %}</a> <span aria-hidden="true">|</span> <span class="m-0"><a href="{% url 'portfolio' %}" class="m-0">{% trans 'Our Gallery' %}</a></span>| <span>{{single_portfolio.title}}</span></div>
         </div>
     </div>
  
@@ -33,7 +33,7 @@
                                 <div class="product-center-style3">
                                     {% for i in gallery %}
                                     <div class="zoompro-span">
-                                        <img class="prlightbox" data-zoom-image="{{i.image.url}}" src="{{i.image.url}}" alt="Portfolio Image" height="300px" />
+                                        <img class="prlightbox" data-zoom-image="{{i.image.url}}" src="{{i.image.url}}" alt="Gallery Image" height="300px" />
                                     </div>
                                     {% endfor %}
                                 </div>

@@ -55,7 +55,7 @@
                         </li>
                         {% endif %}
                     {% if product_activation.is_enabled %}
-                    <li class="lvl1 parent megamenu"><a href="{% url 'shop' %}" class="{% if '/shop/' in request.path %}active{% endif %}">{% trans 'Shop' %} <i class="anm anm-angle-down-l"></i></a></li>
+                    <li class="lvl1 parent megamenu"><a href="{% url 'shop' %}" class="{% if '/shop/' in request.path %}active{% endif %}">{% trans 'Product' %} <i class="anm anm-angle-down-l"></i></a></li>
                     {% endif %}
                     <li class="lvl1 parent megamenu"><a href="{% url 'about' %}">{% trans 'About Us' %} <i class="anm anm-angle-down-l"></i></a></li>
                     {% if service_activation.is_enabled %}
@@ -270,7 +270,7 @@
           {% endif %}
           {% if product_activation.is_enabled %}
             <li class="lvl1 parent megamenu">
-              <a href="{% url 'shop' %}">{% trans 'Shop'%}</a>
+              <a href="{% url 'shop' %}">{% trans 'Product'%}</a>
           </li>
           {% endif %}
           <li class="lvl1 parent megamenu">

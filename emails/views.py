@@ -11,18 +11,15 @@ from accounts.models import User, Business
 from django.http import HttpResponse
 from django.conf import settings
 from newsletters.models import NewsletterUser
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from sitesettings.models import Footer, Header
 
 # Create your views here.
 
 def emails(request):
     emails = Email.objects.all().order_by('-sent_date')
-    paginator = Paginator(emails, 10)
-    page = request.GET.get('page')
-    paged_emails = paginator.get_page(page)
+    
     context = {
-        'emails': paged_emails,
+        'emails': emails,
     }
     return render(request, 'business/emails/emails.html', context)
 

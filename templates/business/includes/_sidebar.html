@@ -81,7 +81,7 @@
           <a href="javascript: void(0);" class="has-arrow waves-effect
                     {% if '/portfolio/' == request.path or '/editPortfolio/' in request.path %} active {% else %} {% endif %}">
             <i class="bx bxs-folder-open"></i>
-            <span key="t-ecommerce">{% trans 'Portfolio' %}</span>
+            <span key="t-ecommerce">{% trans 'Gallery' %}</span>
           </a>
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="{% url 'allPortfolio' %}" key="t-products" {% if '/allPortfolio/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'All' %}</a></li>
@@ -102,7 +102,7 @@
           </ul>
         </li>
 
-        <li>
+        <!-- <li>
           <a href="javascript: void(0);" class="has-arrow waves-effect
                     {% if '/colors/' in request.path or '/sizes/' in request.path or '/customVariants/' in request.path %} active {% else %} {% endif %}">
             <i class="bx bx-palette"></i>
@@ -113,14 +113,17 @@
             <li><a href="{% url 'allSizes' %}" key="t-product-detail" {% if '/sizes/' in request.path or 'addSize' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Sizes' %}</a></li>
             <li><a href="{% url 'customVariants' %}" key="t-product-detail" {% if '/customVariants/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Custom' %}</a></li>
           </ul>
-        </li>
+        </li> -->
         <li>
           <a href="javascript: void(0);" class="has-arrow waves-effect
-                    {% if '/products/' == request.path or '/editProduct/' in request.path %} active {% else %} {% endif %}">
+                    {% if '/products/' == request.path or '/editProduct/' in request.path or '/addCategory/' in request.path or '/colors/' in request.path or '/sizes/' in request.path or '/customVariants/' in request.path %} active {% else %} {% endif %}">
             <i class="bx bx-store"></i>
             <span key="t-ecommerce">{% trans 'Products' %}</span>
           </a>
           <ul class="sub-menu" aria-expanded="false">
+            <li><a href="{% url 'allCategories' %}" key="t-products" {% if '/categories/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'All Categories' %}</a></li>
+            <li><a href="{% url 'addCategory' %}" key="t-product-detail" {% if '/addCategory/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Add Category' %}</a></li>
+            <li><a href="{% url 'customVariants' %}" key="t-product-detail" {% if '/colors/' in request.path or '/sizes/' in request.path or '/customVariants/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Product Variants' %}</a></li>
             <li><a href="{% url 'allProducts' %}" key="t-products" {% if '/products/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'All Products' %}</a></li>
             <li><a href="{% url 'addProduct' %}" key="t-product-detail" {% if '/addProduct/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Add Product' %}</a></li>
           </ul>
