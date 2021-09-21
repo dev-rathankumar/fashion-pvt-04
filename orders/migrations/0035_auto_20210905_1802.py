@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='payment',
             name='payment_method',
-            field=models.CharField(choices=[('paypal', 'PayPal'), ('direct deposit', 'Direct Deposit'), ('cash on delivery', 'Cash On Delivery')], default='paypal', max_length=100),
+            field=models.CharField(choices=[('paypal', 'PayPal'), ('direct deposit', 'Direct Deposit'), ('cash on pickup', 'Cash On Pickup')], default='paypal', max_length=100),
         ),
     ]

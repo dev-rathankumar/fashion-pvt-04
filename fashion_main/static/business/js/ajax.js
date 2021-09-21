@@ -336,7 +336,7 @@ function ppToggleEnable(event, url){
   });
 }
 
-// Cash On Delivery Switch
+// Cash On Pickup Switch
 function codSwitch() {
   var codSwitch = document.getElementById('codSwitch');
   var url = $('#codurl').val();

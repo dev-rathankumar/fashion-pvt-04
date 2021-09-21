@@ -223,7 +223,7 @@
                   {% endif %}
                   {% if cod.is_enabled %}
                   <label>
-                    <input type="radio" name="payment_method" value="Cash On Delivery" {% if cod.is_enabled and not pp.is_enabled or not pp.paypal_client_id %}checked{% endif %}>
+                    <input type="radio" name="payment_method" value="Cash On Pickup" {% if cod.is_enabled and not pp.is_enabled or not pp.paypal_client_id %}checked{% endif %}>
                     <img src="{% static 'images/payment_gateways/cod.png' %}" width="150" style="padding: 9px 10px 9px 10px;border: 1px solid #d2d2d2;">
                   </label>
                   {% endif %}

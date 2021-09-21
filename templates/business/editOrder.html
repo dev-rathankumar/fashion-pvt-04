@@ -169,7 +169,7 @@
                                 <div class="card-body">
                                   {% if order.payment_method == 'Direct Deposit' %}
                                   <img src="{% static 'images/payment_gateways/direct.png' %}" width="120" style="padding: 0 10px 0 10px;border: 1px solid #d2d2d2;">
-                                  {% elif order.payment_method == 'Cash On Delivery' %}
+                                  {% elif order.payment_method == 'Cash On Pickup' %}
                                   <img src="{% static 'images/payment_gateways/cod.png' %}" width="120" style="padding: 9px 10px 9px 10px;border: 1px solid #d2d2d2;">
                                   {% else %}
                                   <img src="{% static 'images/payment_gateways/paypal.png' %}" width="120" style="padding: 0 10px 0 10px;border: 1px solid #d2d2d2;">
@@ -223,12 +223,12 @@
                             </div>
                           </div>
                         </div>
-                        {% elif order.payment_method == 'Cash On Delivery' %}
+                        {% elif order.payment_method == 'Cash On Pickup' %}
                         <div class="card">
                           <div class="card-header">
                             <div class="row">
                               <div class="col-12">
-                                <h5 class="m-0">{% trans 'Store Location' %}</h5>
+                                <h5 class="m-0">{% trans 'Pickup Location' %}</h5>
                               </div>
                             </div>
                           </div>

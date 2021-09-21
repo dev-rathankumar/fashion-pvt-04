@@ -1,5 +1,5 @@
 from portfolio.models import Portfolio, PortfolioActivation, PortfolioGallery
-from sitesettings.models import Service, ServiceActivation
+from sitesettings.models import Footer, Service, ServiceActivation
 from orders.views import orderproduct
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
@@ -684,12 +684,16 @@ def editOrder(request, pk=None):
 
                 mail_subject = message
                 # current_site = get_current_site(request)
+                current_site = get_current_site(request)
+                business = Business.objects.get(domain_name=current_site.domain)
+                footer = Footer.objects.get(business=business)
                 message = render_to_string('orders/order_status_email.html', {
                     'user': order.user,
                     # 'domain': current_site.domain,
                     'changed_status': changed_status,
                     'order': order,
                     'message': message,
+                    'footer': footer,
                 })
                 to_email = order.user.email
                 email = EmailMessage(

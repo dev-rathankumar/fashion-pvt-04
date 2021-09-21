@@ -10,7 +10,7 @@ class Payment(models.Model):
     PAYMENT_METHOD = (
         ('paypal', 'PayPal'),
         ('direct deposit', 'Direct Deposit'),
-        ('cash on delivery', 'Cash On Delivery'),
+        ('cash on pickup', 'Cash On Pickup'),
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     payment_id = models.CharField(max_length=100)

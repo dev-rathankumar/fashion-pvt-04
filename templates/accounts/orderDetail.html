@@ -29,9 +29,9 @@
 
               <p style="font-size:24px;text-align:right;">{% trans 'Order' %} # <span style="font-size:48px;">{{order.order_number}}</span></p>
               <p class="text-muted">{% trans 'Date' %}: {{order.created_at}}</p>
-              {% if order.payment_method == 'Cash On Delivery' %}
+              {% if order.payment_method == 'Cash On Pickup' %}
               <div class="alert alert-primary" role="alert">
-                {% trans 'You have choose to pay Cash On Delivery. Please visit our store to pick up your products.' %}
+                {% trans 'You have choose to pay Cash On Pickup. Please visit our store to pick up your products.' %}
               </div>
               {% endif %}
               {% if order.status == 'Cancelled' %}

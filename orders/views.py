@@ -175,7 +175,7 @@ def orderproduct(request):
             data.city = form.cleaned_data['city']
             data.pin_code = form.cleaned_data['pin_code']
             data.payment_method = payment_method
-            if payment_method == 'Direct Deposit' or payment_method == 'Cash On Delivery':
+            if payment_method == 'Direct Deposit' or payment_method == 'Cash On Pickup':
                 data.status = 'On Hold'
             data.note = form.cleaned_data['note']
             data.user_id = current_user.id
@@ -204,7 +204,7 @@ def orderproduct(request):
             if payment_method == 'Direct Deposit':
                 dd = DirectDepositEmail.objects.get(business=biz_id)
                 ddEmail = dd.direct_deposit_email
-            elif payment_method == 'Cash On Delivery':
+            elif payment_method == 'Cash On Pickup':
                 cod = CashOnDelivery.objects.get(business=biz_id)
                 codStatus = cod.is_enabled
                 store_locations = StoreLocation.objects.all()
@@ -384,6 +384,7 @@ def codPlaceOrder(request):
         business = Business.objects.get(domain_name=current_site.domain)
         header = Header.objects.get(business=business)
         footer = Footer.objects.get(business=business)
+        print(footer.footer_text)
         support_email = business.user.email
         mail_subject = 'Thank you for your order!'
         message = render_to_string('orders/order_placed_email.html', {
