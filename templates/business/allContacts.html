@@ -47,20 +47,21 @@
                     <tr>
                       <th>{% trans 'Name' %}</th>
                       <th>{% trans 'Email & Phone' %}</th>
+                      <th>{% trans 'Subject' %}</th>
                       <th>{% trans 'Date' %}</th>
                       <th>{% trans 'View' %}</th>
                       <th>{% trans 'Action' %}</th>
                     </tr>
                   </thead>
                   <tbody id="myTable">
-
-
-
                     {% for contact in contacts %}
                     <tr>
                       <td>{{contact.name}}</td>
                       <td><a href="mailto:{{contact.email}}">{{contact.email}}</a><br>
                         <a href="tel:{{contact.phone}}">{{contact.phone}}</a></td>
+                      <td style="white-space: unset;max-width: 300px;">
+                        {{contact.subject }}
+                      </td>
                       <td>
                         {{contact.create_date}}
                       </td>

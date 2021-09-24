@@ -288,10 +288,14 @@
     $(document).ready(function(){
 
       $('#colorsTable').DataTable( {
-        "pagingType": "full_numbers"
+        pageLength : 5,
+        "pagingType": "full_numbers",
+        lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 50]],
     } );
     $('#sizeTable').DataTable( {
-        "pagingType": "full_numbers"
+        pageLength : 5,
+        "pagingType": "full_numbers",
+        lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 50]]
     } );
     $('#proAttributeTable').DataTable( {
         "pagingType": "full_numbers"

@@ -73,7 +73,7 @@
                   <input type="email" class="input-group__field newsletter-input" name="email" id="email" placeholder="{% trans 'Email address' %}" required>
                   <!-- {{ form }} -->
 
-                  <table>
+                  <table style="margin-bottom: 0;">
                     <tr>
                       <td>
                         <div class="container newsletterCaptcha" style="padding: 0px !important;">
@@ -101,8 +101,8 @@
                     </tr>
                   </table>
                   <input type="hidden" name="url" id="url" value="{% url 'subscribe' %}">
-                  <span class="input-group__btn">
-                    <input type="submit" name="submit" value="{% trans 'Subscribe' %}" id="Subscribe" class="btn newsletter__submit" onclick="return ValidCaptcha();">
+                  <span class="input-group__btn" style="width: 100%;">
+                    <input type="submit" name="submit" value="{% trans 'Subscribe' %}" id="Subscribe" class="btn newsletter__submit" onclick="return ValidCaptcha();" style="width: 100%;">
                   </span>
                 </div>
                 <div id="subscriptionMessage"></div>

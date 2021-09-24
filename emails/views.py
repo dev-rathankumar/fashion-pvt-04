@@ -39,49 +39,54 @@ def send_email(request):
 
             # Send email
             current_site = get_current_site(request)
-            business = Business.objects.get(domain_name=current_site.domain)
+            business = Business.objects.get(user=request.user)
             header = Header.objects.get(business=business)
             support_email = business.user.email
             footer = get_object_or_404(Footer, business=business)
             footer_credit = footer.footer_text
             mail_subject = subject
-            message = render_to_string('business/emails/email_template.html', {
+
+            # Get Email Connection
+            email_settings = BusinessEmailSetting.objects.get(business__user=request.user)
+            from_email = email_settings.email_host_user
+            for i in to_address:
+                hash = NewsletterUser.objects.get(email=i)
+                print(i, hash)
+                to_email = i
+                message = render_to_string('business/emails/email_template.html', {
                 'domain': current_site.domain,
                 'email_body': email_body,
                 'footer':footer,
                 'header': header,
                 'support_email': support_email,
                 'footer_credit' : footer_credit,
-            })
-            to_email = to_address
-            # Get Email Connection
-            email_settings = BusinessEmailSetting.objects.get(business__user=request.user)
-            from_email = email_settings.email_host_user
-            with get_connection(
-                host=email_settings.email_host,
-                port=email_settings.port,
-                username=email_settings.email_host_user,
-                password=email_settings.email_host_password,
-                use_tls=email_settings.email_use_tls
-            ) as connection:
-                email = EmailMessage(mail_subject, message, from_email, to=to_email,
-                             connection=connection)
-            # email = EmailMessage(
-            #     mail_subject, message, to=[to_email]
-            # )
-            email.content_subtype = "html"
-            
-            if email.send():
+                'user_email': i,
+                'hash': hash.hash,
+                })
+                try:
+                    with get_connection(
+                        host=email_settings.email_host,
+                        port=email_settings.port,
+                        username=email_settings.email_host_user,
+                        password=email_settings.email_host_password,
+                        use_tls=email_settings.email_use_tls
+                    ) as connection:
+                        email = EmailMessage(mail_subject, message, from_email, to=[to_email,],
+                                    connection=connection)
+                        email.content_subtype = "html"
+                        email.send()
+                except:
+                    email_obj.recipients = to_address
+                    email_obj.save()
+                    messages.error(request, 'Could not send emails. Please check your email settings!')
+                    return redirect('emails')
+            else:
                 email_obj.is_sent = True
-                email_obj.recipients = to_email
+                email_obj.recipients = to_address
                 email_obj.save()
                 messages.success(request, 'Emails sent successfully.')
                 return redirect('emails')
-            else:
-                email_obj.recipients = to_email
-                email_obj.save()
-                messages.error(request, 'Could not send emails. Please check your email settings!')
-                return redirect('emails')
+                
     else:
         form = EmailForm()
     context = {
@@ -151,10 +156,26 @@ def test_mail(request):
         email.send()
         email_settings.is_settings_verified = True
         email_settings.save()
-        messages.success(request, 'Test email sent successfully. Your configuration is updated.')
+        messages.success(request, 'Your configuration is updated successfully. You can now start sending newsletters.')
         return redirect('email_settings')
     except:
         email_settings.is_settings_verified = False
         email_settings.save()
         messages.error(request, 'Your configuration seems to be Incorrect. Please check your email settings!')
         return redirect('email_settings')
+
+
+def emailContactList(request):
+    subscribers = NewsletterUser.objects.all().order_by('-date_added')
+    context = {
+        'subscribers': subscribers,
+    }
+    return render(request, 'business/emails/emailContactList.html', context)
+
+
+def deleteSubscriber(request, pk=None):
+    subscriber = get_object_or_404(NewsletterUser, pk=pk)
+    subscriber.delete()
+    messages.success(request, 'Your newsletter subscriber has been deleted.')
+    return redirect('emailContactList')
+

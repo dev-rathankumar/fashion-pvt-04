@@ -1,5 +1,5 @@
 {% load static %}
-% load i18n %}
+{% load i18n %}
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -259,6 +259,11 @@
                                     </span></p>
 
 
+                                </div>
+                                <div style="color: #ffffff; line-height: 230%; text-align: center; word-wrap: break-word;">
+                                  <p style="font-size: 12px; line-height: 230%;"><span style="font-family: Cabin, sans-serif; font-size: 12px; line-height: 41.4px; letter-spacing:2px;">
+                                    <a href="http://{{ domain }}{% url 'unsubscribeNewslt' %}?email={{user_email}}&hash={{hash}}" style="color: #ccc;" target="_blank"><u>Unsubscribe</u></a>
+                                    </span></p>
                                 </div>
 
                               </td>

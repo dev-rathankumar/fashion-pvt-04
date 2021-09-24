@@ -104,5 +104,7 @@ urlpatterns += i18n_patterns (
 
     path('locations/', include('orders.urls')),
 
+    path('unsubscribeNewslt/', views.unsubscribeNewslt, name='unsubscribeNewslt'),
+
 
  ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

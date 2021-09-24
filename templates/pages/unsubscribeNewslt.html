@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %} {% trans 'Unsubscribe' %} {% endblock %}
+{% block content %}
+{% load static %}
+<div id="page-content">
+        <!--Body Container-->
+        <div class="container">
+        	
+			<div class="top-text-block mt-5">
+                {% if message == 'unsubscribed' %}
+                <h2>You are unsubscribed!</h2>
+                <p style="font-size: 20px;">We will no longer send newsletter emails to your email address <b>test@gmail.com</b></p>
+
+                <a href="/" class="btn btn-primary">Back To Home</a>
+                {% else %}
+                <p style="font-size: 20px;">Invalid request. Please try again</b></p>
+                {% endif %}
+            </div>
+
+            
+
+           
+        	
+           
+
+        </div><!--End Body Container-->
+    </div><!--End Page Wrapper-->
+{% endblock %}

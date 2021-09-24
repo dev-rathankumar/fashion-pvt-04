@@ -4,10 +4,10 @@ from accounts.models import User
 from .forms import BusinessEmailSettingForm
 
 
-class EmailAdmin(admin.ModelAdmin):
-    def render_change_form(self, request, context, *args, **kwargs):
-         context['adminform'].form.fields['to_address'].queryset = User.objects.filter(is_customer=True, is_active=True)
-         return super(EmailAdmin, self).render_change_form(request, context, *args, **kwargs)
+# class EmailAdmin(admin.ModelAdmin):
+#     def render_change_form(self, request, context, *args, **kwargs):
+#          context['adminform'].form.fields['to_address'].queryset = User.objects.filter(is_customer=True, is_active=True)
+#          return super(EmailAdmin, self).render_change_form(request, context, *args, **kwargs)
 
 
 class BusinessEmailSettingAdmin(admin.ModelAdmin):
@@ -23,5 +23,5 @@ class BusinessEmailSettingAdmin(admin.ModelAdmin):
         return False
 
 
-admin.site.register(Email, EmailAdmin)
+admin.site.register(Email)
 admin.site.register(BusinessEmailSetting, BusinessEmailSettingAdmin)

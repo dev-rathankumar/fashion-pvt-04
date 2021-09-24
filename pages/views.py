@@ -9,6 +9,7 @@ from urllib.parse import urlparse
 
 from django.http import HttpResponse
 from django.utils.translation import gettext as _
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
 
@@ -173,7 +174,10 @@ def portfolio(request):
         if show == 'all':
             portfolio = Portfolio.objects.filter(is_active=True).order_by('created_date')
     else:
-        portfolio = Portfolio.objects.filter(is_active=True).order_by('created_date')[:3]
+        portfolio = Portfolio.objects.filter(is_active=True).order_by('created_date')
+        paginator = Paginator(portfolio, 3)
+        page = request.GET.get('page')
+        portfolio = paginator.get_page(page)
     business = Business.objects.get(user__is_business=True, is_account_verified=True)
     portfolio_header = PortfolioHeader.objects.get(business=business)
     context = {

@@ -466,7 +466,7 @@ def biz_password_reset(request):
             # Automatically creating Portfolio Header entry
             portfolio_header = PortfolioHeader()
             portfolio_header.business = business
-            portfolio_header.heading = 'Our Portfolio'
+            portfolio_header.heading = 'Our Gallery'
             portfolio_header.save()
 
             # Automatically creating Portfolio Activation entry

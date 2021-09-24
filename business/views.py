@@ -1256,9 +1256,12 @@ def addBlog(request):
             title  = blogInfo_form.cleaned_data['title']
             blog  = blogInfo_form.save(commit=False)
             blog.business = business_name
-            blog.slug = slugify(title)
             blog.author = current_user.name
             blogInfo_form.save()
+            pk = blog.id
+            makeSlug = title + '-'+str(pk)
+            blog.slug = slugify(makeSlug)
+            blog.save()            
             messages.success(request, 'You have added a new blog!')
             return redirect('allBlogs')
         else:

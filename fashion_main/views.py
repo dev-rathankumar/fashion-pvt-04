@@ -1,6 +1,9 @@
+from django.core.mail import message
+from newsletters.models import NewsletterUser
 from products.models import Variants
 from django.http import HttpResponse, JsonResponse
 from django.template.loader import render_to_string
+from django.shortcuts import render
 
 
 def ajaxcolor(request):
@@ -107,3 +110,19 @@ def ajaxVarUrl(request):
         data = {'rendered_table': render_to_string('shop/variant_list.html', context=context), 'VarPrice': VarPrice, 'varId': varId, 'message': message}
         return JsonResponse(data)
     return JsonResponse(data)
+
+
+def unsubscribeNewslt(request):
+    email = request.GET.get('email')
+    hash = request.GET.get('hash')
+    message = ''
+    try:
+        chkEmail = NewsletterUser.objects.get(email=email, hash=hash)
+        chkEmail.delete()
+        message = 'unsubscribed'
+    except:
+        message = 'invalid'
+    context = {
+        'message': message,
+    }
+    return render(request, 'pages/unsubscribeNewslt.html', context)

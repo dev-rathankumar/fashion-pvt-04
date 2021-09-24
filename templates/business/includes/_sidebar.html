@@ -90,30 +90,7 @@
             </ul>
         </li>
 
-        <li>
-          <a href="javascript: void(0);" class="has-arrow waves-effect
-                    {% if '/categories/' == request.path or '/editCategory/' in request.path %} active {% else %} {% endif %}">
-            <i class="bx bx-list-check"></i>
-            <span key="t-ecommerce">{% trans 'Categories' %}</span>
-          </a>
-          <ul class="sub-menu" aria-expanded="false">
-            <li><a href="{% url 'allCategories' %}" key="t-products" {% if '/categories/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'All Categories' %}</a></li>
-            <li><a href="{% url 'addCategory' %}" key="t-product-detail" {% if '/addCategory/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Add Category' %}</a></li>
-          </ul>
-        </li>
 
-        <!-- <li>
-          <a href="javascript: void(0);" class="has-arrow waves-effect
-                    {% if '/colors/' in request.path or '/sizes/' in request.path or '/customVariants/' in request.path %} active {% else %} {% endif %}">
-            <i class="bx bx-palette"></i>
-            <span key="t-ecommerce">{% trans 'Product Variants' %}</span>
-          </a>
-          <ul class="sub-menu" aria-expanded="false">
-            <li><a href="{% url 'allColors' %}" key="t-products" {% if 'colors' in request.path or 'addColor' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Colors' %}</a></li>
-            <li><a href="{% url 'allSizes' %}" key="t-product-detail" {% if '/sizes/' in request.path or 'addSize' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Sizes' %}</a></li>
-            <li><a href="{% url 'customVariants' %}" key="t-product-detail" {% if '/customVariants/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Custom' %}</a></li>
-          </ul>
-        </li> -->
         <li>
           <a href="javascript: void(0);" class="has-arrow waves-effect
                     {% if '/products/' == request.path or '/editProduct/' in request.path or '/addCategory/' in request.path or '/colors/' in request.path or '/sizes/' in request.path or '/customVariants/' in request.path %} active {% else %} {% endif %}">
@@ -136,32 +113,25 @@
             <span key="t-ecommerce">{% trans 'Blogs' %}</span>
           </a>
           <ul class="sub-menu" aria-expanded="false">
+            <li><a href="{% url 'addBlogCategories'%}" key="t-product-detail" {% if '/addcategories/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Add Blogs Category' %}</a></li>
+            <li><a href="{% url 'allBlogsCategories' %}" key="t-products" {% if '/categories/' == request.path or '/editcategory/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'All Blogs Categories' %}</a></li>
+            <li><a href="{% url 'addBlog' %}" key="t-product-detail" {% if '/addBlog/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Add New Blog' %}</a></li>
             <li><a href="{% url 'allBlogs' %}" key="t-products" {% if '/blogs/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'All Blogs' %}</a></li>
-            <li><a href="{% url 'addBlog' %}" key="t-product-detail" {% if '/addBlog/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Add Blog' %}</a></li>
+            
             <li>
               <a href="{% url 'allComments' %}" {% if 'comments' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>
-                <span>{% trans 'Comments' %}</span>
+                <span>{% trans 'Blogs Comments' %}</span>
               </a>
             </li>
-            <li>
-              <a href="javascript: void(0);" class="has-arrow waves-effect
-                        {% if '/categories/' == request.path or '/editcategory/' in request.path %} active {% else %} {% endif %}">
-                <i class="bx bx-list-check"></i>
-                <span key="t-ecommerce">{% trans 'Categories' %}</span>
-              </a>
-              <ul class="sub-menu" aria-expanded="false">
-                <li><a href="{% url 'allBlogsCategories' %}" key="t-products" {% if '/categories/' == request.path or '/editcategory/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'All Categories' %}</a></li>
-                <li><a href="{% url 'addBlogCategories'%}" key="t-product-detail" {% if '/addcategories/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Add Category' %}</a></li>
-              </ul>
-            </li>
+            
           </ul>
         </li>
-        <li>
+        <!-- <li>
           <a href="{% url 'paymentSettings' user.id %}" {% if 'paymentSettings' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>
             <i class="bx bxs-credit-card"></i>
             <span>{% trans 'Payment Settings' %}</span>
           </a>
-        </li>
+        </li> -->
         <li>
           <a href="javascript: void(0);" class="has-arrow waves-effect
                     {% if '/plans/' == request.path or '/purchasePlan/' in request.path or 'planOrder' in request.path %} active {% else %} {% endif %}">
@@ -179,12 +149,13 @@
           <a href="javascript: void(0);" class="has-arrow waves-effect
                     {% if '/emails/' == request.path or '/emails/email_settings/' in request.path %} active {% else %} {% endif %}">
             <i class="bx bxs-envelope"></i>
-            <span key="t-ecommerce">{% trans 'Emails' %}</span>
+            <span key="t-ecommerce">{% trans 'Email Newsletters' %}</span>
           </a>
           <ul class="sub-menu" aria-expanded="false">
-            <li><a href="{% url 'emails' %}" key="t-product-detail" {% if '/emails/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'All Emails' %}</a></li>
-            <li><a href="{% url 'send_email' %}" key="t-product-detail" {% if '/send_email/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Send New Email' %}</a></li>
-            <li><a href="{% url 'email_settings' %}" key="t-products" {% if '/emails/' == request.path or '/emails/email_settings/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Email Settings' %}</a></li>
+            <li><a href="{% url 'send_email' %}" key="t-product-detail" {% if '/send_email/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Compose New Broadcast' %}</a></li>
+            <li><a href="{% url 'emails' %}" key="t-product-detail" {% if '/emails/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'All Sent Items' %}</a></li>
+            <li><a href="{% url 'emailContactList' %}" key="t-product-detail" {% if '/emailContactList/' == request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Contact List' %}</a></li>
+            <li><a href="{% url 'email_settings' %}" key="t-products" {% if '/emails/' == request.path or '/emails/email_settings/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Setup Sending Email' %}</a></li>
           </ul>
         </li>
 
