@@ -106,5 +106,7 @@ urlpatterns += i18n_patterns (
 
     path('unsubscribeNewslt/', views.unsubscribeNewslt, name='unsubscribeNewslt'),
 
+    path('testimonial/', ProductViews.editTestimonial, name='editTestimonial'),
+
 
  ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

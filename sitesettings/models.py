@@ -38,7 +38,7 @@ class BannerImage(models.Model):
     homepage = models.ForeignKey(Homepage, on_delete=models.CASCADE)
     banner_image = models.ImageField(upload_to='banner_images', blank=True)
     title = models.CharField(max_length=500, null=True, blank=True)
-    sub_title = models.CharField(max_length=500, null=True, blank=True)
+    sub_title = models.TextField(max_length=500, null=True, blank=True)
     button_name = models.CharField(max_length=20, null=True, blank=True)
     button_link = models.CharField(max_length=255, null=True, blank=True)
     button_color = ColorField(default='#000000')

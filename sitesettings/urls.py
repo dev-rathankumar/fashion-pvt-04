@@ -58,6 +58,7 @@ urlpatterns = [
     path('salesPopup/addPopup/', views.addPopup, name='addPopup'),
     path('salesPopup/editPopup/<int:pk>/', views.editPopup, name='editPopup'),
     path('salesPopup/deletePopup/<int:pk>/', views.deletePopup, name='deletePopup'),
+    path('salesPopupEnableToggle/', views.salesPopupEnableToggle, name='salesPopupEnableToggle'),
 
     # Sales Popup Settings
     path('salesPopupSettings/', views.salesPopupSettings, name='salesPopupSettings'),

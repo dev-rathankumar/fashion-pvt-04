@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, ProductActivation, ProductGallery, Color, SalesPopup, SalesPopupSetting, Size, Variants, Wishlist, ReviewRating, Compare, CompareItem, ProductAttribute, AttributeValue
+from .models import Product, ProductActivation, ProductGallery, Color, SalesPopup, SalesPopupActivation, SalesPopupSetting, Size, Testimonial, Variants, Wishlist, ReviewRating, Compare, CompareItem, ProductAttribute, AttributeValue
 from django.utils.html import format_html
 import admin_thumbnails
 
@@ -110,3 +110,5 @@ admin.site.register(AttributeValue, AttributeValueAdmin)
 admin.site.register(ProductAttribute)
 admin.site.register(SalesPopup)
 admin.site.register(SalesPopupSetting, SalesPopupSettingAdmin)
+admin.site.register(SalesPopupActivation)
+admin.site.register(Testimonial)

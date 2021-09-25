@@ -127,4 +127,8 @@ urlpatterns = [
     path('customVariants/editVariantValue/<int:pk>/', views.editVariantValue, name='editVariantValue'),
     path('customVariants/deleteVariantValue/<int:pk>/', views.deleteVariantValue, name='deleteVariantValue'),
 
+    # Testimonials
+    path('testimonials/', views.allTestimonials, name='allTestimonials'),
+    path('testimonials/testimonialApproval/<int:pk>/', views.testimonialApproval, name='testimonialApproval'),
+
 ]

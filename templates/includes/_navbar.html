@@ -67,7 +67,8 @@
                     {% if blog_activation.is_enabled %}
                     <li class="lvl1 parent megamenu"><a href="{% url 'blog' %}">{% trans 'Blogs' %} <i class="anm anm-angle-down-l"></i></a></li>
                     {% endif %}
-                    <li class="lvl1 parent megamenu"><a href="{% url 'contact_page' %}">{% trans 'Contact Us' %} <i class="anm anm-angle-down-l"></i></a></li>
+                    <li class="lvl1 parent megamenu"><a href="{% url 'contact_page' %}">{% trans 'Contact Us' %} <i class="anm anm-angle-down-l"></i></a>
+                    </li>
                   </ul>
                 </nav>
                 <!--End Desktop Menu-->
@@ -276,9 +277,6 @@
           <li class="lvl1 parent megamenu">
             <a href="{% url 'about' %}" class="{% if '/about/' in request.path %}active{% endif %}">{% trans 'About Us'%}</a>
         </li>
-        <li class="lvl1 parent megamenu">
-          <a href="{% url 'contact_page' %}" class="{% if '/contact_page/' in request.path %}active{% endif %}">{% trans 'Contact Us'%}</a>
-        </li>
         {% if service_activation.is_enabled %}
         <li class="lvl1 parent megamenu">
           <a href="{% url 'services' %}" class="{% if '/services/' in request.path %}active{% endif %}">{% trans 'Services' %}</a>
@@ -294,6 +292,9 @@
           <a href="{% url 'blog' %}" class="{% if '/blogs/' in request.path %}active{% endif %}">{% trans 'Blogs'%}</a>
         </li>
         {% endif %}
+        <li class="lvl1 parent megamenu">
+          <a href="{% url 'contact_page' %}" class="{% if '/contact_page/' in request.path %}active{% endif %}">{% trans 'Contact Us'%}</a>
+        </li>
         </ul>
     </div>
     <!--End Mobile Menu-->

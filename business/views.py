@@ -25,7 +25,7 @@ import json
 from django.contrib import messages
 from .forms import UserForm, BusinessForm, ProductForm, ProductGalleryForm, ProductVariantForm, BlogForm,BlogCategoryForm
 from .forms import CategoryForm, OrderForm, TaxSettingForm, ColorForm, SizeForm
-from products.models import AttributeValue, Product, ProductActivation, ProductAttribute, ProductGallery, Variants, ReviewRating, Color, Size
+from products.models import AttributeValue, Product, ProductActivation, ProductAttribute, ProductGallery, Testimonial, Variants, ReviewRating, Color, Size
 from django.forms import inlineformset_factory
 from django import forms
 from django.template.defaultfilters import slugify
@@ -678,7 +678,7 @@ def editOrder(request, pk=None):
                 mail_subject = message
                 # current_site = get_current_site(request)
                 current_site = get_current_site(request)
-                business = Business.objects.get(domain_name=current_site.domain)
+                business = Business.objects.get(user__is_business=True, is_account_verified=True)
                 footer = Footer.objects.get(business=business)
                 message = render_to_string('orders/order_status_email.html', {
                     'user': order.user,
@@ -1804,3 +1804,31 @@ def deleteVariantValue(request, pk=None):
     attribute_value.delete()
     messages.success(request, 'Variant value has been deleted.')
     return redirect('customVariants')
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def allTestimonials(request):
+    testimonials = Testimonial.objects.exclude(testimonial='').order_by('-created_date')
+    
+    context = {
+        'testimonials': testimonials,
+    }
+    return render(request, 'business/allTestimonials.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def testimonialApproval(request, pk=None):
+    event = request.GET.get('event')
+    testimonial = get_object_or_404(Testimonial, pk=pk)
+    testimonial.is_active = event.capitalize()
+    testimonial.save()
+
+    testimonial = get_object_or_404(Testimonial, pk=pk)
+    if testimonial.is_active:
+        return HttpResponse('true')
+    else:
+        return HttpResponse('false')

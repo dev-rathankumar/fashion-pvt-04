@@ -75,9 +75,11 @@
         };
         
         // $(window).blur(function(){
+        //         clearInterval(showNotification);
         //         console.log('window is closing')
         //     });
         //     $(window).focus(function(){
+        //         showNotification();
         //         console.log('window is opening')
         //     });
         
@@ -97,6 +99,7 @@
 
 
 <!--  S A L E S  P O P U P  -->
+{% if salespopup_activation.is_enabled %}
 <div id="salespopup" class="salespopup">
     {% for popup in popups %}
     <div id="notification-box-{{forloop.counter}}" class="notification-box" style="background-color: {{popupsettings.background_color}}; display: none;position: fixed;
@@ -119,6 +122,7 @@
     </div>
     {% endfor %}
 </div>
+{% endif %}
 <!--  S A L E S  P O P U P  -->
 <div class="page-wrapper">
     <!--Promotion Bar-->

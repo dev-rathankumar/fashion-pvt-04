@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages, auth
 from .models import DashboardImage, User, RegionalManager, Business, Customer
 from contacts.models import Inquiry
-from products.models import Product, ProductActivation, SalesPopupSetting
+from products.models import Product, ProductActivation, SalesPopupActivation, SalesPopupSetting, Testimonial
 from orders.models import Order, OrderProduct, StoreLocation
 from business.models import PaymentSetting
 
@@ -55,7 +55,7 @@ def userRegister(request):
                     user.profile_picture="default/default-user.png"
                     user.save()
                     current_site = get_current_site(request)
-                    business = Business.objects.get(domain_name=current_site.domain)
+                    business = Business.objects.get(user__is_business=True, is_account_verified=True)
                     header = Header.objects.get(business=business)
                     footer = get_object_or_404(Footer, business=business)
                     footer_text = footer.footer_text
@@ -106,6 +106,13 @@ def activate(request, uidb64, token):
         customer = Customer()
         customer.user = user
         customer.save()
+
+        # Automatically create Testimonial
+        business = Business.objects.get(user__is_business=True, is_account_verified=True)
+        testimonial = Testimonial()
+        testimonial.business = business
+        testimonial.user = user
+        testimonial.save()
 
 
         messages.success(request, 'Congratulations! Your account is activated.')
@@ -197,7 +204,7 @@ def forgotPassword(request):
         if User.objects.filter(email=email).exists():
             user = User.objects.get(email__exact=email)
             current_site = get_current_site(request)
-            business = Business.objects.get(domain_name=current_site.domain)
+            business = Business.objects.get(user__is_business=True, is_account_verified=True)
             header = Header.objects.get(business=business)
             footer = get_object_or_404(Footer, business=business)
             footer_text = footer.footer_text
@@ -501,6 +508,11 @@ def biz_password_reset(request):
             popup_settings.notification_position = 'Left Bottom Corner'
             popup_settings.notification_style = 'Rectangled'
             popup_settings.save()
+
+            # Automatically creating SalesPopup Activation entry
+            popup_activation = SalesPopupActivation()
+            popup_activation.business = business
+            popup_activation.save()
 
             mail_subject = 'Your Business Account is Activated'
             # message = 'Congratulations! Your business account has been activated.'

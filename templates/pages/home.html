@@ -271,6 +271,36 @@ optio, eaque rerum! Provident similique accusantium nemo autem.</div>
         {% endif %}
         <!--End Parallax Banner-->
 
+        <!--Testimonial Slider-->
+        {% if testimonials %}
+        <div class="section testimonial-slider">
+        	<div class="container">
+                <div class="quote-wraper">
+                    <!--Testimonial Slider Title-->
+                    <div class="section-header text-center">
+                        <h2 class="h2">Testimonial</h2>          
+                    </div>
+                    <!--End Testimonial Slider Title-->
+                    <!--Testimonial Slider Items-->
+                    <div class="quotes-slider">
+                      {% for testi in testimonials %}
+                    	<div class="quotes-slide">
+                        <span class="author-pic"><img class="blur-up lazyloaded" src="{{testi.user.profile_picture.url}}" data-src="assets/images/testimonial-photo2.jpg" style="border-radius: 50%;margin: 0 auto;width: 100px;margin-bottom: 10px;"> </span>
+                            <blockquote class="quotes-slider__text text-center">             
+                              <div class="rte-setting"><p>{{testi.testimonial}}</p></div>
+                              <p class="authour">{{testi.user.name}}</p>
+                            </blockquote>
+                        </div>
+                      {% endfor %}
+                        
+                    </div>
+                    <!--Testimonial Slider Items-->
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <!--End Testimonial Slider-->
+
      </div><!--End Body Container-->
 
 

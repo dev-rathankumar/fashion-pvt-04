@@ -1,6 +1,7 @@
+from products.forms import TestimonialForm
 from blogs.models import BlogActivation
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product, ProductActivation, ProductGallery, Wishlist, WishlistForm, Size
+from .models import Product, ProductActivation, ProductGallery, Testimonial, Wishlist, WishlistForm, Size
 from .models import Category, Variants, Color, Compare, CompareItem
 from .models import ReviewRating, ReviewForm
 from accounts.models import Business
@@ -496,3 +497,25 @@ def remove_from_compare(request, product_id):
     compare_item = CompareItem.objects.get(product=product, compare=compare)
     compare_item.delete()
     return HttpResponseRedirect(url)
+
+
+def editTestimonial(request):
+    testimonial = get_object_or_404(Testimonial, user=request.user)
+    if request.method == 'POST':
+        form = TestimonialForm(request.POST, instance=testimonial)
+        if form.is_valid():
+            business = Business.objects.get(user__is_business=True, is_account_verified=True)
+            testimonial = form.save(commit=False)
+            testimonial.business = business
+            testimonial.user = request.user
+            form.save()
+            messages.success(request, 'Thank you for sharing your testimonial.')
+            return redirect('editTestimonial')
+        else:
+            print(form.errors)
+
+    form = TestimonialForm(instance=testimonial)
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounts/editTestimonial.html', context)

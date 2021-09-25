@@ -2,7 +2,7 @@ import json
 from urllib.parse import urlparse
 from pages.views import about, services
 from django.core.mail import message
-from products.models import ReviewRating, SalesPopup, SalesPopupSetting
+from products.models import ReviewRating, SalesPopup, SalesPopupActivation, SalesPopupSetting
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import AboutContent, CashOnDelivery, DirectDepositEmail, Header, Homepage, BannerImage, PaypalConfig, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
 from .forms import AboutContentForm, DirectDepositEmailForm, HeaderForm, BannerImageForm, PaypalConfigForm, SalesPopupForm, SalesPopupSettingForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, StoreLocationForm, TermsAndConditionForm, TopbarForm
@@ -732,3 +732,18 @@ def salesPopupSettings(request):
         'settings': settings,
     }
     return render(request, 'business/sitesettings/salesPopupSettings.html', context)
+
+
+def salesPopupEnableToggle(request):
+    event = request.GET.get('event')
+    business = Business.objects.get(user=request.user)
+    popup_activation = get_object_or_404(SalesPopupActivation, business=business)
+    if event == 'true':
+        popup_activation.is_enabled = True
+        popup_activation.save()
+        result = 'enabled'
+    else:
+        popup_activation.is_enabled = False
+        popup_activation.save()
+        result = 'disabled'
+    return HttpResponse(result)

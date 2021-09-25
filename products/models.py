@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.base import Model
 from category.models import Category
 from accounts.models import Business
 from accounts.models import User
@@ -298,3 +299,25 @@ class SalesPopupSetting(models.Model):
 
     def __str__(self):
         return self.business.company_name
+
+
+class SalesPopupActivation(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    is_enabled = models.BooleanField(default=False)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now= True)
+
+    def __str__(self):
+        return self.business.company_name
+
+
+class Testimonial(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    testimonial = models.TextField(max_length=250, blank=True)
+    is_active = models.BooleanField(default=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.user.first_name

@@ -180,6 +180,12 @@
           </a>
         </li>
         <li>
+          <a href="{% url 'allTestimonials' %}" {% if 'testimonials' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>
+            <i class="bx bxs-quote-alt-left"></i>
+            <span>{% trans 'Testimonials' %}</span>
+          </a>
+        </li>
+        <li>
           <a href="{% url 'allContacts' %}" {% if 'contactInqs' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>
             <i class="bx bx-envelope"></i>
             <span>{% trans 'Contact Us Inbox' %}</span>

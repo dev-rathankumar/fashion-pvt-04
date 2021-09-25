@@ -83,7 +83,7 @@ def payments(request):
     request.session['cart_items'] = 0
 
     current_site = get_current_site(request)
-    business = Business.objects.get(domain_name=current_site.domain)
+    business = Business.objects.get(user__is_business=True, is_account_verified=True)
     header = Header.objects.get(business=business)
     footer = Footer.objects.get(business=business)
     support_email = business.user.email
@@ -290,7 +290,7 @@ def saveDDPayment(request):
             request.session['cart_items'] = 0
 
             current_site = get_current_site(request)
-            business = Business.objects.get(domain_name=current_site.domain)
+            business = Business.objects.get(user__is_business=True, is_account_verified=True)
             header = Header.objects.get(business=business)
             footer = Footer.objects.get(business=business)
             support_email = business.user.email
@@ -381,7 +381,7 @@ def codPlaceOrder(request):
         request.session['cart_items'] = 0
 
         current_site = get_current_site(request)
-        business = Business.objects.get(domain_name=current_site.domain)
+        business = Business.objects.get(user__is_business=True, is_account_verified=True)
         header = Header.objects.get(business=business)
         footer = Footer.objects.get(business=business)
         print(footer.footer_text)

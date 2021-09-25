@@ -2,7 +2,7 @@ from business.views import is_account_expired
 from portfolio.models import Portfolio, PortfolioActivation, PortfolioGallery, PortfolioHeader
 from django.shortcuts import redirect, render
 from category.models import Category
-from products.models import Product, ProductGallery
+from products.models import Product, ProductGallery, Testimonial
 from accounts.models import Business
 from sitesettings.models import AboutContent, BannerImage, Service, ServiceActivation, StoreFeature, ParallaxBackground, Homepage, ContactPage, SocialMediaLink, AboutPage, Policy, TermsAndCondition
 from urllib.parse import urlparse
@@ -70,6 +70,9 @@ def home(request):
         background= None
 
     new_arrival_products = Product.objects.filter(is_active=True).order_by('-created_date')
+    # Get testimonials
+    testimonials = Testimonial.objects.filter(is_active=True)
+
     context = {
         'categories': categories,
         'banners': banners,
@@ -77,6 +80,7 @@ def home(request):
         'background': background,
         'new_arrival_products': new_arrival_products,
         'title': title,
+        'testimonials': testimonials,
     }
 
 
