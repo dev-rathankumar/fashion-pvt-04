@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CashOnDelivery, Header, Footer, ContactPage, Homepage, BannerImage, Service, ServiceActivation, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent, DirectDepositEmail, PaypalConfig
+from .models import CashOnDelivery, FrontPage, Header, Footer, ContactPage, Homepage, BannerImage, Service, ServiceActivation, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent, DirectDepositEmail, PaypalConfig
 
 
 class BannerImageInline(admin.TabularInline):
@@ -134,6 +134,17 @@ class CashOnDeliveryAdmin(admin.ModelAdmin):
         return False
 
 
+class FrontPageAdmin(admin.ModelAdmin):
+    list_display = ['business', 'front_page_name', 'is_active', 'created_date',]
+
+    # if there's already an entry, do not allow adding
+    def has_add_permission(self, request):
+        count = FrontPage.objects.all().count()
+        if count >= 3:
+          return False
+        return True
+
+
 admin.site.register(Header, HeaderAdmin)
 admin.site.register(Footer)
 admin.site.register(ContactPage, ContactPageAdmin)
@@ -152,3 +163,4 @@ admin.site.register(PaypalConfig, PaypalConfigAdmin)
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(ServiceActivation, ServiceActivationAdmin)
 admin.site.register(CashOnDelivery, CashOnDeliveryAdmin)
+admin.site.register(FrontPage, FrontPageAdmin)

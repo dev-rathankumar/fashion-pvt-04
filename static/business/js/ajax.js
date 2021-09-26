@@ -335,3 +335,298 @@ function ppToggleEnable(event, url){
     }
   });
 }
+
+// Cash On Pickup Switch
+function codSwitch() {
+  var codSwitch = document.getElementById('codSwitch');
+  var url = $('#codurl').val();
+  if (codSwitch.checked == true){
+    var event = Boolean(true);
+    codToggleEnable(event, url);
+  } else {
+    var event = Boolean(false);
+    codToggleEnable(event, url);
+  }
+}
+
+function codToggleEnable(event, url){
+  $.ajax({
+    type: 'GET',
+    url: url,
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'enabled') {
+        document.getElementById('codStatus').innerHTML = "Enabled";
+      }
+      else{
+        document.getElementById('codStatus').innerHTML = "Disabled";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}
+
+// Blog enable Switch
+function blogSwitch() {
+  var blogSwitch = document.getElementById('blogSwitch');
+  var url = $('#blogToggleUrl').val();
+  if (blogSwitch.checked == true){
+    var event = Boolean(true);
+    blogToggleEnable(event, url);
+  } else {
+    var event = Boolean(false);
+    blogToggleEnable(event, url);
+  }
+}
+
+function blogToggleEnable(event, url){
+  $.ajax({
+    type: 'GET',
+    url: url,
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'enabled') {
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-danger");
+        element.classList.add("alert-success");
+        document.getElementById("enabledisable").innerHTML = "enabled";
+      }
+      else{
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-success");
+        element.classList.add("alert-danger");
+        document.getElementById("enabledisable").innerHTML = "disabled";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}
+
+// Product enable Switch
+function productSwitch() {
+  var productSwitch = document.getElementById('productSwitch');
+  var url = $('#productToggleUrl').val();
+  if (productSwitch.checked == true){
+    var event = Boolean(true);
+    productToggleEnable(event, url);
+  } else {
+    var event = Boolean(false);
+    productToggleEnable(event, url);
+  }
+}
+
+function productToggleEnable(event, url){
+  $.ajax({
+    type: 'GET',
+    url: url,
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'enabled') {
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-danger");
+        element.classList.add("alert-success");
+        document.getElementById("enabledisable").innerHTML = "enabled";
+      }
+      else{
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-success");
+        element.classList.add("alert-danger");
+        document.getElementById("enabledisable").innerHTML = "disabled";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}
+
+
+// Service enable Switch
+function serviceSwitch() {
+  var serviceSwitch = document.getElementById('serviceSwitch');
+  var url = $('#serviceToggleUrl').val();
+  if (serviceSwitch.checked == true){
+    var event = Boolean(true);
+    serviceToggleEnable(event, url);
+  } else {
+    var event = Boolean(false);
+    serviceToggleEnable(event, url);
+  }
+}
+
+function serviceToggleEnable(event, url){
+  $.ajax({
+    type: 'GET',
+    url: url,
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'enabled') {
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-danger");
+        element.classList.add("alert-success");
+        document.getElementById("enabledisable").innerHTML = "enabled";
+      }
+      else{
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-success");
+        element.classList.add("alert-danger");
+        document.getElementById("enabledisable").innerHTML = "disabled";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}
+
+
+// Portfolio enable Switch
+function portfolioSwitch() {
+  var portfolioSwitch = document.getElementById('portfolioSwitch');
+  var url = $('#portfolioToggleUrl').val();
+  if (portfolioSwitch.checked == true){
+    var event = Boolean(true);
+    portfolioToggleEnable(event, url);
+  } else {
+    var event = Boolean(false);
+    portfolioToggleEnable(event, url);
+  }
+}
+
+function portfolioToggleEnable(event, url){
+  $.ajax({
+    type: 'GET',
+    url: url,
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'enabled') {
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-danger");
+        element.classList.add("alert-success");
+        document.getElementById("enabledisable").innerHTML = "enabled";
+      }
+      else{
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-success");
+        element.classList.add("alert-danger");
+        document.getElementById("enabledisable").innerHTML = "disabled";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}
+
+
+function showhideButton()
+{
+    if($('#id_live_preview_button').is(":checked"))   
+        $(".preview-button").show();
+    else
+        $(".preview-button").hide();
+}
+
+
+
+// Sale popup enable Switch
+function salesPopupSwitch() {
+  var salesPopupSwitch = document.getElementById('salesPopupSwitch');
+  var url = $('#salesPopupToggleUrl').val();
+  if (salesPopupSwitch.checked == true){
+    var event = Boolean(true);
+    salesPopupToggleEnable(event, url);
+  } else {
+    var event = Boolean(false);
+    salesPopupToggleEnable(event, url);
+  }
+}
+
+function salesPopupToggleEnable(event, url){
+  $.ajax({
+    type: 'GET',
+    url: url,
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'enabled') {
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-danger");
+        element.classList.add("alert-success");
+        document.getElementById("enabledisable").innerHTML = "enabled";
+      }
+      else{
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-success");
+        element.classList.add("alert-danger");
+        document.getElementById("enabledisable").innerHTML = "disabled";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}
+
+
+
+// Approval Switch
+function testimonialSwitch(testi_id) {
+  var approvalSwitch = 'testimonialSwitch-' + testi_id;
+  var approvalSwitch = document.getElementById(approvalSwitch);
+  if (approvalSwitch.checked == true){
+    var event = Boolean(true);
+    testimonialApproval(event, testi_id);
+    // status.style.display = "block";
+  } else {
+    var event = Boolean(false);
+    testimonialApproval(event, testi_id);
+     // status.style.display = "none";
+  }
+}
+
+
+function testimonialApproval(event, testi_id){
+  $.ajax({
+    type: 'GET',
+    url: '/business/testimonials/testimonialApproval/'+testi_id,
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'true') {
+        var testimonialstatus = 'testimonialstatus-'+testi_id;
+        document.getElementById(testimonialstatus).innerHTML = "Approved";
+      }
+      else{
+        var testimonialstatus = 'testimonialstatus-'+testi_id;
+        document.getElementById(testimonialstatus).innerHTML = "Pending";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}

@@ -21,7 +21,7 @@ from .forms import UserForm
 
 from django.http import HttpResponse
 from urllib.parse import urlparse
-from sitesettings.models import CashOnDelivery, DirectDepositEmail, Homepage, ParallaxBackground, Header, ContactPage, Footer, AboutPage, PaypalConfig, Policy, ServiceActivation, TermsAndCondition, Topbar
+from sitesettings.models import CashOnDelivery, DirectDepositEmail, FrontPage, Homepage, ParallaxBackground, Header, ContactPage, Footer, AboutPage, PaypalConfig, Policy, ServiceActivation, TermsAndCondition, Topbar
 from emails.models import BusinessEmailSetting
 from datetime import date, datetime
 import time
@@ -513,6 +513,15 @@ def biz_password_reset(request):
             popup_activation = SalesPopupActivation()
             popup_activation.business = business
             popup_activation.save()
+
+            frontpage_names = ['Classic', 'Premium', 'Modern']
+            for i in frontpage_names:
+                frontpage = FrontPage.objects.create(
+                    business = business,
+                    front_page_name = i,
+                    preview_link = 'https://google.com/'
+                )
+                frontpage.save()
 
             mail_subject = 'Your Business Account is Activated'
             # message = 'Congratulations! Your business account has been activated.'

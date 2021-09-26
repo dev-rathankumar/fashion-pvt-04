@@ -2,9 +2,9 @@ import json
 from urllib.parse import urlparse
 from pages.views import about, services
 from django.core.mail import message
-from products.models import ReviewRating, SalesPopup, SalesPopupActivation, SalesPopupSetting
+from products.models import ReviewRating, SalesPopup, SalesPopupActivation, SalesPopupSetting, Testimonial
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import AboutContent, CashOnDelivery, DirectDepositEmail, Header, Homepage, BannerImage, PaypalConfig, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
+from .models import AboutContent, CashOnDelivery, DirectDepositEmail, FrontPage, Header, Homepage, BannerImage, PaypalConfig, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
 from .forms import AboutContentForm, DirectDepositEmailForm, HeaderForm, BannerImageForm, PaypalConfigForm, SalesPopupForm, SalesPopupSettingForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, StoreLocationForm, TermsAndConditionForm, TopbarForm
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
@@ -103,7 +103,7 @@ def addBanner(request):
             banner.homepage = homepage
             form.save()
             messages.success(request, 'Banner saved successfully.')
-            return redirect('banners')
+            return redirect('homepageSetupArea')
     else:
         form = BannerImageForm()
     context = {
@@ -122,7 +122,7 @@ def editBanner(request, pk=None):
         if form.is_valid():
             form.save()
             messages.success(request, 'Banner updated successfully.')
-            return redirect('banners')
+            return redirect('homepageSetupArea')
     else:
         form = BannerImageForm(instance=banner)
     context = {
@@ -168,7 +168,7 @@ def addFeature(request):
     features_count = store_features.count()
     if features_count >= 4:
         messages.warning(request, 'Only 4 store features allowed!')
-        return redirect('store_features')
+        return redirect('homepageSetupArea')
     else:
         form = StoreFeatureForm(request.POST, request.FILES)
         if request.method == 'POST':
@@ -180,8 +180,8 @@ def addFeature(request):
                 homepage = Homepage.objects.get(business=business_name)
                 feature.homepage = homepage
                 form.save()
-                messages.success(request, 'Feature saved successfully.')
-                return redirect('store_features')
+                messages.success(request, 'Store Feature saved successfully.')
+                return redirect('homepageSetupArea')
         else:
             form = StoreFeatureForm()
     context = {
@@ -199,8 +199,8 @@ def editFeature(request, pk=None):
         form = StoreFeatureForm(request.POST, request.FILES, instance=feature)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Feature updated successfully.')
-            return redirect('store_features')
+            messages.success(request, 'Store Feature updated successfully.')
+            return redirect('homepageSetupArea')
     else:
         form = StoreFeatureForm(instance=feature)
     context = {
@@ -230,7 +230,7 @@ def homepage_background(request):
         form = ParallaxBackgroundForm(request.POST, request.FILES, instance=background)
         form.save()
         messages.success(request, 'Background Image updated successfully.')
-        return redirect('homepage_background')
+        return redirect('homepageSetupArea')
     else:
         form = ParallaxBackgroundForm(instance=background)
     context = {
@@ -747,3 +747,55 @@ def salesPopupEnableToggle(request):
         popup_activation.save()
         result = 'disabled'
     return HttpResponse(result)
+
+
+def choosehomepage(request):
+    if request.method == 'POST':
+        front_page = request.POST['frontpage']
+        front = FrontPage.objects.get(is_active=True)
+        front.is_active = False
+        front.save()
+        setFrontpage = FrontPage.objects.get(id=front_page)
+        setFrontpage.is_active = True
+        setFrontpage.save()
+        messages.success(request, 'Homepage set successfully. You can configure your homepage here.')
+        return redirect('homepageSetupArea')
+
+    else:
+        frontpages = FrontPage.objects.all().order_by('created_date')
+
+    context = {
+        'frontpages': frontpages,
+    }
+    return render(request, 'business/sitesettings/choosehomepage.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def homepageSetupArea(request):
+    business = Business.objects.get(user=request.user)
+    homepage = Homepage.objects.get(business=business)
+
+    background = get_object_or_404(ParallaxBackground, homepage=homepage)
+    if request.method == "POST":
+        form = ParallaxBackgroundForm(request.POST, request.FILES, instance=background)
+        form.save()
+        messages.success(request, 'Background Image updated successfully.')
+        return redirect('homepage_background')
+    else:
+        form = ParallaxBackgroundForm(instance=background)
+
+    banners = BannerImage.objects.filter(homepage=homepage)
+    store_features = StoreFeature.objects.filter(homepage=homepage)
+    features_count = store_features.count()
+    frontpage = FrontPage.objects.get(is_active=True)
+    context = {
+        'banners': banners,
+        'store_features': store_features,
+        'features_count': features_count,
+        'form': form,
+        'background': background,
+        'frontpage': frontpage,
+    }
+    return render(request, 'business/sitesettings/homepageSetupArea.html', context)

@@ -62,4 +62,8 @@ urlpatterns = [
 
     # Sales Popup Settings
     path('salesPopupSettings/', views.salesPopupSettings, name='salesPopupSettings'),
+
+    # Choose Homepage
+    path('choosehomepage/', views.choosehomepage, name='choosehomepage'),
+    path('homepageSetupArea/', views.homepageSetupArea, name='homepageSetupArea'),
 ]

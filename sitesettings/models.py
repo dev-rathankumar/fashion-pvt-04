@@ -8,6 +8,18 @@ from smart_selects.db_fields import ChainedForeignKey
 from faicon.fields import FAIconField
 
 
+class FrontPage(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    front_page_name = models.CharField(max_length=50)
+    preview_image = models.ImageField(upload_to='frontpages', blank=True, null=True)
+    preview_link = models.URLField(max_length=200, blank = True)
+    is_active = models.BooleanField(default=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.front_page_name
+
+
 class Header(models.Model):
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
     site_title = models.CharField(max_length=500)

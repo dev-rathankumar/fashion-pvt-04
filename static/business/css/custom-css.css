@@ -273,3 +273,28 @@ p.allCategories:hover, .table-hover tbody tr:hover{
     width: 25px;
     height: 25px;
   }
+  input[type="checkbox"]{
+    height: 20px;
+    width: 20px;
+    display: block;
+  }
+  input#id_is_popular{
+    display: inline !important;
+      position: relative !important;
+      top: 5px !important;
+  }
+
+.choosehomepage [type=radio]{
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.choosehomepage [type=radio] + img{
+  cursor: pointer;
+  margin: 10px 10px 10px 0;
+}
+.choosehomepage [type=radio]:checked + img{
+  outline: 2px solid #000;
+  box-shadow: 0px 0px 5px 2px #000;
+}

@@ -283,3 +283,18 @@ p.allCategories:hover, .table-hover tbody tr:hover{
       position: relative !important;
       top: 5px !important;
   }
+
+.choosehomepage [type=radio]{
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.choosehomepage [type=radio] + img{
+  cursor: pointer;
+  margin: 10px 10px 10px 0;
+}
+.choosehomepage [type=radio]:checked + img{
+  outline: 2px solid #000;
+  box-shadow: 0px 0px 5px 2px #000;
+}
