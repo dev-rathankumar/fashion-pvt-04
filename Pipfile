@@ -26,7 +26,6 @@ django-formset-js = "*"
 django-authtools = "*"
 django-colorfield = "*"
 django-constance = {extras = ["redis"], version = "*"}
-numpy = "*"
 psycopg2-binary = "*"
 tldextract = "*"
 django-faicon = {git = "https://github.com/dev-rathankumar/django-faicon-1.git"}

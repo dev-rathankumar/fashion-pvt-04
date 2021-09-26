@@ -1,3 +1,5 @@
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
 from products.forms import TestimonialForm
 from blogs.models import BlogActivation
 from django.shortcuts import render, get_object_or_404, redirect
@@ -11,15 +13,11 @@ from django.contrib import messages
 from carts.models import ShopCart, ShopCartForm
 from django.db.models import Q
 from django.db.models import Max
-from urllib.parse import urljoin, urlparse
 from orders.models import OrderProduct
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 import random
-from functools import reduce
-import operator
-import numpy as np
-import requests
+from django.core.mail import EmailMessage
 
 
 
@@ -508,7 +506,24 @@ def editTestimonial(request):
             testimonial = form.save(commit=False)
             testimonial.business = business
             testimonial.user = request.user
+            testimonial.is_active = False
             form.save()
+            testimonial = Testimonial.objects.get(user=request.user)
+            # Send email to business owner
+            mail_subject = 'Testimonial Received'
+            current_site = get_current_site(request)
+            message = render_to_string('accounts/testimonial_email.html', {
+                'user': request.user,
+                'domain': current_site.domain,
+                'business': business,
+                'testimonial': testimonial,
+            })
+            to_email = business.user.email
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.content_subtype = "html"
+            email.send()
             messages.success(request, 'Thank you for sharing your testimonial.')
             return redirect('editTestimonial')
         else:
