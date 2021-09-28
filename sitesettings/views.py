@@ -4,7 +4,7 @@ from pages.views import about, services
 from django.core.mail import message
 from products.models import ReviewRating, SalesPopup, SalesPopupActivation, SalesPopupSetting, Testimonial
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import AboutContent, CashOnDelivery, DirectDepositEmail, FrontPage, Header, Homepage, BannerImage, PaypalConfig, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, VideoBanner
+from .models import AboutContent, CashOnDelivery, DirectDepositEmail, FrontPage, Header, Homepage, BannerImage, PaypalConfig, Service, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, VideoBanner
 from .forms import AboutContentForm, DirectDepositEmailForm, HeaderForm, BannerImageForm, PaypalConfigForm, SalesPopupForm, SalesPopupSettingForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, StoreLocationForm, TermsAndConditionForm, TopbarForm, VideoBannerForm
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
@@ -818,6 +818,7 @@ def homepageSetupArea(request):
     # Common
     store_features = StoreFeature.objects.filter(homepage=homepage)
     features_count = store_features.count()
+    services = Service.objects.filter(business=request.user.id).order_by('-created_date')[:2]
     context = {
         'banners': banners,
         'store_features': store_features,
@@ -827,5 +828,6 @@ def homepageSetupArea(request):
         'background': background,
         'frontpage': frontpage,
         'video': video,
+        'services': services,
     }
     return render(request, 'business/sitesettings/homepageSetupArea.html', context)

@@ -55,8 +55,9 @@
                 </div>
 
               <br>
-              <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;float: right;">{% trans 'CONTINUE' %} <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
-              </form>
+              <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;float: right;">{% trans 'SAVE & CONTINUE' %} <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+              <a href="{% url 'homepageSetupArea' %}" class="btn btn-secondary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;">{% trans 'JUMP TO SETUP AREA' %} <i class="fa fa-fast-forward"></i></a>
+            </form>
               <br>
               <div>
                 {% include 'includes/_alerts.html' %}

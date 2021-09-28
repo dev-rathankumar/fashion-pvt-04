@@ -438,7 +438,85 @@
       <!-- end row -->
     </div> <!-- container-fluid -->
 
+    <!-- SERVICES -->
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">{% trans 'Services' %}</h4>
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- Enable/disable services -->
+            <div class="row" style="margin-right: 0px;margin-left: 0px;">
+              <div id="feature" class="col-md-12 col-lg-12 col-sm-12 alert {% if service_activation.is_enabled %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+                {% if service_activation.is_enabled %}Services feature has been <span id="enabledisable">enabled</span> in your website. {% else %}Services feature has been <span id="enabledisable">disabled</span> in your website. {% endif %} &emsp;
+                <span>
+                  <label class="switch" style="margin-bottom: -0.5rem;">
+                    <input type="hidden" name="serviceToggleUrl" id="serviceToggleUrl" value="{% url 'serviceEnableToggle' %}">
+                    <input type="checkbox" id="serviceSwitch" {% if service_activation.is_enabled %} checked {% else %} {% endif %} onclick="serviceSwitch()">
+                    <span class="slider round"></span>
+                  </label>
+                </span>
+              </div>
+            </div>
+            {% if not services %}
+            <h2 class="text-center" style="padding:25px;">{% trans 'You have not added any services yet.' %}</h2>
+            <div class="text-sm-center" style="padding-bottom:25px;">
+              <a href="{% url 'addService' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i>{% trans 'Add New Service' %} </a>
+            </div>
+            {% else %}
+            <div class="card-body">
+              <div class="row mb-2">
+                <div class="col-sm-9">
+                  <b>Please note: </b>Only first 2 services will be displayed on the homepage. You must turn ON the services feature inorder to display the services on the homepage.
+                </div>
+                <div class="col-sm-3">
+                  <div class="text-sm-right">
+                    <a href="{% url 'allServices' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="fa fa-list" style="position:relative;top:2px;font-size:16px !important;"></i> {% trans 'Show All Services' %}</a>
+                  </div>
+                </div><!-- end col-->
+              </div>
 
+              <div class="table-responsive">
+                <table class="table table-centered table-nowrap table-hover">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>{% trans 'Image' %}</th>
+                      <th style="max-width:300px;">{% trans 'Title' %}</th>
+                      <th>{% trans 'Description' %}</th>
+                    </tr>
+                  </thead>
+                  <tbody id="myTable">
+                    {% for service in services %}
+                    <tr>
+                      <td>
+                        <img src="{{ service.image.url }}" alt="Image" width="75" style="border-radius:5px;">
+                      </td>
+                      <td style="max-width:300px;white-space: unset;">{{service.title}}</td>
+                      <td style="max-width:300px;white-space: unset;">
+                        {{service.description }}
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <!-- end row -->
+    </div> <!-- container-fluid -->
+
+    <!-- SERVICES -->
     <!-- HOMEPAGE BACKGROUND -->
     <div class="container-fluid mb-5">
 
