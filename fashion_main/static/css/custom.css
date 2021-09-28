@@ -334,3 +334,70 @@ input[type="radio"]{
   outline: 2px solid #000;
   background-color: #fff;
 }
+.video-text{
+  position: absolute;
+}
+.video-text .ttl{
+  color: #ffffff;
+  font-size: 40px;
+  display: block;
+  margin-bottom: 15px;
+}
+.video-text.bottomcenter{
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  width: 80% !important;
+}
+.video-sec video{
+  max-width: 100% !important;
+}
+.header-2 a{
+  text-transform: uppercase !important;
+  color: #FFF !important;
+}
+.header-2.stickyNav{
+  background-color: #000 !important;
+}
+.header-2 .iconset, .header-2 select#select_lang{
+  color: #ffffff !important;
+}
+.black{
+  color: #000000 !important;
+}
+.header-2 #siteNav > li ul.dropdown li a{
+  color: #000000 !important;
+}
+.text-align-left{
+  text-align: left !important;
+}
+.text-align-center{
+  text-align: center !important;
+}
+.text-align-right{
+  text-align: right !important;
+}
+.featuredContentStyle3 .d-flex{
+  background-color: transparent !important;
+}
+.featuredContentStyle3 h3{
+  color: #000;
+  font-size: 28px;
+}
+.rte-setting{
+  margin-bottom: 11.11111px;
+}
+.featuredContentStyle3 .btn{
+  color: #fff;
+  background-color: #000;
+  font-size: 13px;
+}
+.featuredContentStyle3 p{
+  color: #000;
+    font-size: 15px;
+}
+.hidden-on-load{
+  display: none;
+}

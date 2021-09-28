@@ -1,10 +1,10 @@
 from business.views import is_account_expired
 from portfolio.models import Portfolio, PortfolioActivation, PortfolioGallery, PortfolioHeader
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from category.models import Category
 from products.models import Product, ProductGallery, Testimonial
 from accounts.models import Business
-from sitesettings.models import AboutContent, BannerImage, Service, ServiceActivation, StoreFeature, ParallaxBackground, Homepage, ContactPage, SocialMediaLink, AboutPage, Policy, TermsAndCondition
+from sitesettings.models import AboutContent, BannerImage, FrontPage, Service, ServiceActivation, StoreFeature, ParallaxBackground, Homepage, ContactPage, SocialMediaLink, AboutPage, Policy, TermsAndCondition, VideoBanner
 from urllib.parse import urlparse
 
 from django.http import HttpResponse
@@ -16,7 +16,6 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 # Custom decorator to check if the service feature is enabled or not
 def is_service_activated(func):
     def wrapper(request, *args, **kwargs):
-        
         try:
             business = Business.objects.get(user__is_business=True, is_account_verified=True)
             service_activation = ServiceActivation.objects.get(business=business)
@@ -43,14 +42,6 @@ def is_portfolio_activated(func):
 
 def home(request):
     """Home Page"""
-    # Set the language session key manually
-    # user_language = 'es'
-    # translation.activate(user_language)
-    # request.session[translation.LANGUAGE_SESSION_KEY] = user_language
-
-    # if translation.LANGUAGE_SESSION_KEY in request.session:
-    #     del request.session[translation.LANGUAGE_SESSION_KEY]
-
     title = _('Homepage')
 
     categories = Category.objects.filter(parent=None).order_by('created_date')[:3]
@@ -72,7 +63,9 @@ def home(request):
     new_arrival_products = Product.objects.filter(is_active=True).order_by('-created_date')
     # Get testimonials
     testimonials = Testimonial.objects.filter(is_active=True)
-
+    frontpage = FrontPage.objects.get(is_active=True)
+    video = VideoBanner.objects.get(homepage__business=business)
+    services = Service.objects.filter(business=business).order_by('created_date')[:2]
     context = {
         'categories': categories,
         'banners': banners,
@@ -81,6 +74,9 @@ def home(request):
         'new_arrival_products': new_arrival_products,
         'title': title,
         'testimonials': testimonials,
+        'frontpage': frontpage,
+        'video': video,
+        'services': services,
     }
 
 

@@ -6,6 +6,7 @@ from ckeditor.fields import RichTextField
 from colorfield.fields import ColorField
 from smart_selects.db_fields import ChainedForeignKey
 from faicon.fields import FAIconField
+from .validators import validate_video_file_extension
 
 
 class FrontPage(models.Model):
@@ -274,3 +275,22 @@ class CashOnDelivery(models.Model):
 
     def __str__(self):
         return self.business.company_name
+
+
+class VideoBanner(models.Model):
+    align_choice = (
+        ('left', 'Left'),
+        ('center', 'Center'),
+        ('right', 'Right'),
+    )
+    homepage = models.ForeignKey(Homepage, on_delete=models.CASCADE)
+    video = models.FileField(upload_to='banner_images', blank=True, validators=[validate_video_file_extension])
+    title = models.CharField(max_length=500, null=True, blank=True)
+    sub_title = models.TextField(max_length=500, null=True, blank=True)
+    button_name = models.CharField(max_length=20, null=True, blank=True)
+    button_link = models.CharField(max_length=255, null=True, blank=True)
+    button_color = ColorField(default='#000000')
+    content_align = models.CharField(max_length=10, choices=align_choice, default='center')
+
+    def __str__(self):
+        return self.title

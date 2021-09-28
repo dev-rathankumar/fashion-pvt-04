@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CashOnDelivery, FrontPage, Header, Footer, ContactPage, Homepage, BannerImage, Service, ServiceActivation, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent, DirectDepositEmail, PaypalConfig
+from .models import CashOnDelivery, FrontPage, Header, Footer, ContactPage, Homepage, BannerImage, Service, ServiceActivation, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent, DirectDepositEmail, PaypalConfig, VideoBanner
 
 
 class BannerImageInline(admin.TabularInline):
@@ -164,3 +164,4 @@ admin.site.register(Service, ServiceAdmin)
 admin.site.register(ServiceActivation, ServiceActivationAdmin)
 admin.site.register(CashOnDelivery, CashOnDeliveryAdmin)
 admin.site.register(FrontPage, FrontPageAdmin)
+admin.site.register(VideoBanner)

@@ -34,7 +34,7 @@
           </a>
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="{% url 'topbarEdit' %}" key="t-products" {% if '/site_settings/topbarEdit/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Topbar' %}</a></li>
-            <li><a href="{% url 'choosehomepage' %}" key="t-products" {% if '/site_settings/choosehomepage/' in request.path or '/site_settings/homepageSetupArea/' in request.path or '/banners/editBanner/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Home Pages' %}</a></li>
+            <li><a href="{% url 'choosehomepage' %}" key="t-products" {% if '/site_settings/choosehomepage/' in request.path or '/site_settings/homepageSetupArea/' in request.path or '/banners/editBanner/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Homepages' %}</a></li>
             <li><a href="{% url 'header' %}" key="t-products" {% if '/site_settings/header/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Header' %}</a></li>
             <li><a href="{% url 'footerEdit' %}" key="t-products" {% if '/site_settings/footerEdit/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Footer' %}</a></li>
             <li><a href="{% url 'banners' %}" key="t-products" {% if '/site_settings/banners/' in request.path or '/site_settings/banners/editBanner' in request.path %} class="waves-effect active" {% else %} class="waves-effect"

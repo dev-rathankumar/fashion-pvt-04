@@ -4,8 +4,8 @@ from pages.views import about, services
 from django.core.mail import message
 from products.models import ReviewRating, SalesPopup, SalesPopupActivation, SalesPopupSetting, Testimonial
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import AboutContent, CashOnDelivery, DirectDepositEmail, FrontPage, Header, Homepage, BannerImage, PaypalConfig, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar
-from .forms import AboutContentForm, DirectDepositEmailForm, HeaderForm, BannerImageForm, PaypalConfigForm, SalesPopupForm, SalesPopupSettingForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, StoreLocationForm, TermsAndConditionForm, TopbarForm
+from .models import AboutContent, CashOnDelivery, DirectDepositEmail, FrontPage, Header, Homepage, BannerImage, PaypalConfig, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, VideoBanner
+from .forms import AboutContentForm, DirectDepositEmailForm, HeaderForm, BannerImageForm, PaypalConfigForm, SalesPopupForm, SalesPopupSettingForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, StoreLocationForm, TermsAndConditionForm, TopbarForm, VideoBannerForm
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from accounts.models import Business
@@ -139,7 +139,7 @@ def deleteBanner(request, pk=None):
     banner = get_object_or_404(BannerImage, pk=pk)
     banner.delete()
     messages.success(request, 'Banner has been deleted.')
-    return redirect('banners')
+    return redirect('homepageSetupArea')
 
 
 @login_required(login_url = 'userLogin')
@@ -217,7 +217,7 @@ def deleteFeature(request, pk=None):
     feature = get_object_or_404(StoreFeature, pk=pk)
     feature.delete()
     messages.success(request, 'Feature has been deleted.')
-    return redirect('store_features')
+    return redirect('homepageSetupArea')
 
 
 @login_required(login_url = 'userLogin')
@@ -777,25 +777,55 @@ def homepageSetupArea(request):
     business = Business.objects.get(user=request.user)
     homepage = Homepage.objects.get(business=business)
 
-    background = get_object_or_404(ParallaxBackground, homepage=homepage)
-    if request.method == "POST":
-        form = ParallaxBackgroundForm(request.POST, request.FILES, instance=background)
-        form.save()
-        messages.success(request, 'Background Image updated successfully.')
-        return redirect('homepage_background')
-    else:
-        form = ParallaxBackgroundForm(instance=background)
+    frontpage = FrontPage.objects.get(is_active=True)
+    banners = None
+    background = None
+    video = None
+    vid_form = None
+    bg_form = None
+    if frontpage.front_page_name == 'Classic':
+        banners = BannerImage.objects.filter(homepage=homepage)
+        background = get_object_or_404(ParallaxBackground, homepage=homepage)
+        if request.method == "POST":
+            bg_form = ParallaxBackgroundForm(request.POST, request.FILES, instance=background)
+            bg_form.save()
+            messages.success(request, 'Background Image updated successfully.')
+            return redirect('homepageSetupArea')
+        else:
+            bg_form = ParallaxBackgroundForm(instance=background)
 
-    banners = BannerImage.objects.filter(homepage=homepage)
+    elif frontpage.front_page_name == 'Premium':
+        video = get_object_or_404(VideoBanner, homepage=homepage)
+        background = get_object_or_404(ParallaxBackground, homepage=homepage)
+        if request.method == "POST":
+            savecommand = request.POST['savecommand']
+            if savecommand == 'video':
+                vid_form = VideoBannerForm(request.POST, request.FILES, instance=video)
+                if vid_form.is_valid():
+                    vid_form.save()
+                    messages.success(request, 'Video Banner updated successfully.')
+                    return redirect('homepageSetupArea')
+            elif savecommand == 'background':
+                bg_form = ParallaxBackgroundForm(request.POST, request.FILES, instance=background)
+                if bg_form.is_valid():
+                    bg_form.save()
+                    messages.success(request, 'Background Image updated successfully.')
+                    return redirect('homepageSetupArea')
+        else:
+            vid_form = VideoBannerForm(instance=video)
+            bg_form = ParallaxBackgroundForm(instance=background)
+        
+    # Common
     store_features = StoreFeature.objects.filter(homepage=homepage)
     features_count = store_features.count()
-    frontpage = FrontPage.objects.get(is_active=True)
     context = {
         'banners': banners,
         'store_features': store_features,
         'features_count': features_count,
-        'form': form,
+        'vid_form': vid_form,
+        'bg_form': bg_form,
         'background': background,
         'frontpage': frontpage,
+        'video': video,
     }
     return render(request, 'business/sitesettings/homepageSetupArea.html', context)

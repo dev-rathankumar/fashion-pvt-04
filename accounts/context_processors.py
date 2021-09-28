@@ -3,7 +3,7 @@ from products.models import ProductActivation, SalesPopupActivation
 from blogs.models import BlogActivation
 from accounts.models import Business, User, DashboardImage
 from urllib.parse import urlparse
-from sitesettings.models import Header, Homepage, Footer, ServiceActivation, Topbar
+from sitesettings.models import FrontPage, Header, Homepage, Footer, ServiceActivation, Topbar
 from django.http import HttpResponse
 from datetime import date, datetime
 
@@ -42,6 +42,7 @@ def get_sitesettings(request):
                 service_activation = ServiceActivation.objects.get(business=business)
                 portfolio_activation = PortfolioActivation.objects.get(business=business)
                 salespopup_activation = SalesPopupActivation.objects.get(business=business)
+                frontpage = FrontPage.objects.get(is_active=True)
             except:
                 header = None
                 footer = None
@@ -51,6 +52,7 @@ def get_sitesettings(request):
                 service_activation = None
                 portfolio_activation = None
                 salespopup_activation = None
+                frontpage = None
     except:
         header = None
         footer = None
@@ -61,7 +63,8 @@ def get_sitesettings(request):
         service_activation = None
         portfolio_activation = None
         salespopup_activation = None
-    return dict(portfolio_activation=portfolio_activation, service_activation=service_activation, product_activation=product_activation, salespopup_activation=salespopup_activation, header=header, company_name=company_name, footer=footer, topbar=topbar, blog_activation=blog_activation)
+        frontpage = None
+    return dict(frontpage=frontpage,portfolio_activation=portfolio_activation, service_activation=service_activation, product_activation=product_activation, salespopup_activation=salespopup_activation, header=header, company_name=company_name, footer=footer, topbar=topbar, blog_activation=blog_activation)
 
 
 def get_dashboardImage(request):

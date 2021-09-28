@@ -3,8 +3,9 @@ from orders.models import StoreLocation
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 from django.forms import inlineformset_factory
-from .models import CashOnDelivery, DirectDepositEmail, Header, BannerImage, PaypalConfig, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent
-
+from .models import CashOnDelivery, DirectDepositEmail, Header, BannerImage, PaypalConfig, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent, VideoBanner
+import os
+from django.core.exceptions import ValidationError
 
 
 class HeaderForm(forms.ModelForm):
@@ -280,3 +281,30 @@ class SalesPopupSettingForm(forms.ModelForm):
         super(SalesPopupSettingForm, self).__init__(*args, **kwargs)
         for myField in self.fields:
             self.fields[myField].widget.attrs['class'] = 'form-control'
+
+
+class VideoBannerForm(forms.ModelForm):
+    video = forms.FileField(label=('Video Background'), required=True, error_messages = {'invalid':("Video files only")}, widget=forms.FileInput(attrs={
+        "type": "file",
+        "data-show-preview": "false"
+    }))
+    class Meta:
+        model = VideoBanner
+        fields = ['video', 'title', 'sub_title', 'button_name', 'button_link', 'button_color', 'content_align']
+
+        def clean(self):
+            cleaned_data = super(VideoBannerForm, self).clean()
+            video = cleaned_data.get('video')
+            ext = os.path.splitext(video)[1]  # [0] returns path+filename
+            valid_extensions = ['.avi', '.mp4', '.mkv']
+            if not ext.lower() in valid_extensions:
+                raise forms.ValidationError('Unsupported file extension. Supports .avi, .mp4 and .mkv extensions.')
+
+    # Give same CSS class to all the fields
+    def __init__(self, *args, **kwargs):
+        super(VideoBannerForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            if myField == 'video':
+                self.fields[myField].widget.attrs['class'] = 'form-control file'
+            else:
+                self.fields[myField].widget.attrs['class'] = 'form-control'
