@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load mptt_tags %}
 <!--Header-->
-<header class="header animated d-flex align-items-center {% if frontpage.front_page_name == 'Premium' and '/en/' == request.path or '/ar/' == request.path or '/fr/' == request.path %}header-2{% else %}header-1{% endif %}">
+<header class="header animated d-flex align-items-center {% if frontpage.front_page_name == 'Premium' and '/en/' == request.path or '/ar/' == request.path or '/fr/' == request.path or request.GET.p == 'Premium' %}header-2{% else %}header-1{% endif %}">
   <div class="container-fluid">
         <div class="row">
           <!--Mobile Icons-->

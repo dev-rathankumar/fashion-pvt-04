@@ -13,7 +13,7 @@ class FrontPage(models.Model):
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
     front_page_name = models.CharField(max_length=50)
     preview_image = models.ImageField(upload_to='frontpages', blank=True, null=True)
-    preview_link = models.URLField(max_length=200, blank = True)
+    preview_link = models.CharField(max_length=200, blank = True)
     is_active = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
 
@@ -90,7 +90,7 @@ class ParallaxBackground(models.Model):
     )
     homepage = models.ForeignKey(Homepage, on_delete=models.CASCADE)
     parallax_image = models.ImageField(upload_to='parallax_image', blank=True)
-    title = models.CharField(max_length=50, null=True, blank=True)
+    title = models.CharField(max_length=100, null=True, blank=True)
     description = RichTextField(null=True, blank=True)
     button_name = models.CharField(max_length=20, null=True, blank=True)
     button_link = models.CharField(max_length=500, null=True, blank=True)

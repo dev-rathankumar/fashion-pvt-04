@@ -96,7 +96,7 @@
 </style>
 </head>
 <body class="template-index index-demo1" onload="DrawCaptcha(), DrawCaptchaRating();">
-    {% if frontpage.front_page_name == 'Premium' and '/en/' == request.path or '/ar/' == request.path or '/fr/' == request.path %}
+    {% if frontpage.front_page_name == 'Premium' and '/en/' == request.path or '/ar/' == request.path or '/fr/' == request.path or request.GET.p == 'Premium' %}
     <div id="pre-loader">
         <img src="{% static 'images/spinning-loading.gif' %}" alt="Loading..." />
     </div>

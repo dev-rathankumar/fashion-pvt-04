@@ -200,7 +200,7 @@ def editFeature(request, pk=None):
         if form.is_valid():
             form.save()
             messages.success(request, 'Store Feature updated successfully.')
-            return redirect('homepageSetupArea')
+            return redirect('store_features')
     else:
         form = StoreFeatureForm(instance=feature)
     context = {
@@ -783,6 +783,8 @@ def homepageSetupArea(request):
     video = None
     vid_form = None
     bg_form = None
+    abt_form = None
+    about_page = None
     if frontpage.front_page_name == 'Classic':
         banners = BannerImage.objects.filter(homepage=homepage)
         background = get_object_or_404(ParallaxBackground, homepage=homepage)
@@ -797,6 +799,7 @@ def homepageSetupArea(request):
     elif frontpage.front_page_name == 'Premium':
         video = get_object_or_404(VideoBanner, homepage=homepage)
         background = get_object_or_404(ParallaxBackground, homepage=homepage)
+        about_page = get_object_or_404(AboutPage, business=business)
         if request.method == "POST":
             savecommand = request.POST['savecommand']
             if savecommand == 'video':
@@ -811,9 +814,41 @@ def homepageSetupArea(request):
                     bg_form.save()
                     messages.success(request, 'Background Image updated successfully.')
                     return redirect('homepageSetupArea')
+            elif savecommand == 'about':
+                abt_form = AboutPageForm(request.POST, instance=about_page)
+                if abt_form.is_valid():
+                    about = abt_form.save(commit=False)
+                    about.business = business
+                    abt_form.save()
+                    messages.success(request, 'About Us content saved successfully')
+                    return redirect('homepageSetupArea')
         else:
             vid_form = VideoBannerForm(instance=video)
             bg_form = ParallaxBackgroundForm(instance=background)
+            abt_form = AboutPageForm(instance=about_page)
+    
+    elif frontpage.front_page_name == 'Modern':
+        banners = BannerImage.objects.filter(homepage=homepage)
+        about_page = get_object_or_404(AboutPage, business=business)
+        background = get_object_or_404(ParallaxBackground, homepage=homepage)
+        if request.method == "POST":
+            savecommand = request.POST['savecommand']
+            if savecommand == 'background':
+                bg_form = ParallaxBackgroundForm(request.POST, request.FILES, instance=background)
+                bg_form.save()
+                messages.success(request, 'Background Image updated successfully.')
+                return redirect('homepageSetupArea')
+            elif savecommand == 'about':
+                abt_form = AboutPageForm(request.POST, instance=about_page)
+                if abt_form.is_valid():
+                    about = abt_form.save(commit=False)
+                    about.business = business
+                    abt_form.save()
+                    messages.success(request, 'About Us content saved successfully')
+                    return redirect('homepageSetupArea')
+        else:
+            bg_form = ParallaxBackgroundForm(instance=background)
+            abt_form = AboutPageForm(instance=about_page)
         
     # Common
     store_features = StoreFeature.objects.filter(homepage=homepage)
@@ -829,5 +864,21 @@ def homepageSetupArea(request):
         'frontpage': frontpage,
         'video': video,
         'services': services,
+        'abt_form': abt_form,
+        'about_page': about_page,
     }
     return render(request, 'business/sitesettings/homepageSetupArea.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def homepagePreview(request):
+    preview = request.GET.get('p')
+    if preview:
+        context = {
+            'preview': preview,
+        }
+        return render(request, 'pages/homepagePreview.html', context)
+    else:
+        return HttpResponse('No direct access allowed!')

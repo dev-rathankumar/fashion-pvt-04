@@ -66,4 +66,7 @@ urlpatterns = [
     # Choose Homepage
     path('choosehomepage/', views.choosehomepage, name='choosehomepage'),
     path('homepageSetupArea/', views.homepageSetupArea, name='homepageSetupArea'),
+
+    # Homepage Preview
+    path('homepagePreview/', views.homepagePreview, name='homepagePreview'),
 ]

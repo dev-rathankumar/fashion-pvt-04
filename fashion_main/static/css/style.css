@@ -849,7 +849,7 @@ body.pet-store, html .pet-store, .pet-store button, .pet-store input, .pet-store
 .hero .text-medium .mega-title { font-size:35px; }
 .hero .text-medium .mega-subtitle { font-size:18px; }
 @media (min-width:767px) {
-.hero .hero__inner .wrap-text { max-width:460px; padding:30px; margin:0 auto; }
+.hero .hero__inner .wrap-text { max-width:70%; padding:30px; margin:0 auto; }
 .medical-demo .hero .hero__inner .wrap-text { max-width:400px; }
 }
 .hero .hero__inner .wrap-text:before { position:absolute; height:100%; width:100%; content: ""; left:0px; top:0px; z-index:-1; }

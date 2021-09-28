@@ -66,6 +66,8 @@ def home(request):
     frontpage = FrontPage.objects.get(is_active=True)
     video = VideoBanner.objects.get(homepage__business=business)
     services = Service.objects.filter(business=business).order_by('created_date')[:2]
+    about_page = AboutPage.objects.get(business=business)
+
     context = {
         'categories': categories,
         'banners': banners,
@@ -77,11 +79,8 @@ def home(request):
         'frontpage': frontpage,
         'video': video,
         'services': services,
+        'about_page': about_page,
     }
-
-
-
-
     return render(request, 'pages/home.html', context)
 
 def about(request):

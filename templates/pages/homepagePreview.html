@@ -1,0 +1,1427 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %} {% trans 'Home'%} {% endblock %}
+
+{% block content %}
+{% load static %}
+
+
+{% if preview == 'Classic' %}
+    <div id="page-content">
+    	<!--Home slider-->
+    	<div class="slideshow slideshow-wrapper">
+        	<div class="home-slideshow">
+
+                <div class="slide">
+                    <div class="blur-up lazyload">
+                          <img class="blur-up lazyload" data-src="{% static 'images/default-images/home-slider-1-laptop.jpg' %}" src="{% static 'images/default-images/home-slider-1-laptop.jpg' %}" alt="Default Banner Image" title="Default Banner Image" style="max-height:100vh;" />
+                          <div class="slideshow__text-wrap slideshow__overlay left">
+                              <div class="slideshow__text-content">
+                                  <div class="wrap-caption anim-tru left style1">
+                                      <h2 class="h1 mega-title slideshow__title">{% trans 'We engineer digital success stories,' %}</h2>
+
+                                      <span class="mega-subtitle slideshow__subtitle">{% trans 'while others create websites and apps.' %}</span>
+
+                                    <a href="#" class="btn">{% trans 'OUR SERVICES' %}</a>
+
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="slide">
+                      <div class="blur-up lazyload">
+                            <img class="blur-up lazyload" data-src="{% static 'images/default-images/home-slider-2-laptop.jpg' %}" src="{% static 'images/default-images/home-slider-2-laptop.jpg' %}" alt="Default Banner Image" title="Default Banner Image" style="max-height:100vh;" />
+                            <div class="slideshow__text-wrap slideshow__overlay left">
+                                <div class="slideshow__text-content">
+                                    <div class="wrap-caption anim-tru left style1">
+                                        <h2 class="h1 mega-title slideshow__title">{% trans 'We are young and experts' %}</h2>
+
+                                        <span class="mega-subtitle slideshow__subtitle">{% trans 'Altocan is not just about the technology, it’s more than just a word for us. With a bunch of young & enthusiastic minds working together to fulfill the requirements of our clients in the area of their services.' %}</span>
+
+                                      <a href="#" class="btn">{% trans 'SEE OUR GALLERY' %}</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                
+            </div>
+        </div>
+        <!--End Home slider-->
+
+        <div class="store-info style2 store-info-section small-pd d-none d-sm-none d-md-block d-lg-block" style="margin-top:-5px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <ul class="display-table store-info style2">
+                            <li class="display-table-cell">
+                              <div style="display:flex;">
+                                <img src="{% static 'images/default-images/feature-phone-alt-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                                <a><h5>{% trans 'Call Us Anytime' %}</h5> <span class="sub-text"> <span>{% trans '+1 (555) 555-5555' %}</span></span></a>
+                              </div>
+
+                            </li>
+                            <li class="display-table-cell">
+                              <div style="display:flex;">
+                                <img src="{% static 'images/default-images/feature-truck-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                                <a><h5>{% trans 'Free Shipping' %}</h5> <span class="sub-text"> <span>{% trans 'When you spend $100+' %}</span></span></a>
+                              </div>
+
+                            </li>
+                            <li class="display-table-cell">
+                              <div style="display:flex;">
+                                <img src="{% static 'images/default-images/feature-check-circle-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                                <a><h5>{% trans 'Genuine Quality' %}</h5> <span class="sub-text"> <span>{% trans 'All our products are Genuine' %}</span></span></a>
+                              </div>
+
+                            </li>
+                            <li class="display-table-cell">
+                              <div style="display:flex;">
+                                <img src="{% static 'images/default-images/feature-lock-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                                <a><h5>{% trans 'Secure Payments' %}</h5> <span class="sub-text"> <span>{% trans 'We accept all major credit cards.' %}</span></span></a>
+                              </div>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <!--Body Container-->
+        <div class="container">
+
+            <!--New Arrivals-->
+            <div class="section product-slider">
+                <div class="section-header">
+                    <h2>{% trans 'New Arrivals' %}</h2>
+                    <p>{% trans 'Shop our new arrivals from established brands' %}</p>
+                </div>
+                <div class="productSlider grid-products">
+                    <div class="col-12 item">
+                        <!-- start product image -->
+                        <div class="product-image">
+                            <!-- start product image -->
+                            <a href="#" class="product-img">
+                                <!-- image -->
+                                <img class="primary blur-up lazyload" data-src="{% static 'images/product-images/demo01.jpg' %}" src="{% static 'images/product-images/demo01.jpg' %}">
+                                <!-- End image -->
+                                <!-- Hover image -->
+                                <img class="hover blur-up lazyload" data-src="{% static 'images/product-images/demo01.jpg' %}" src="{% static 'images/product-images/demo01.jpg' %}">
+                                <!-- End hover image -->
+                                <!-- product label -->
+                                <div class="product-labels"><span class="lbl on-sale">{% trans 'New Arrival' %}</span></div>
+                                <!-- End product label -->
+                            </a>
+                            <!-- end product image -->
+
+                        </div>
+                        <!-- end product image -->
+                        <!--start product details -->
+                        <div class="product-details text-center">
+                            <!-- product name -->
+                            <div class="product-name">
+                                <a href="{{ product.get_url }}">Topman lips print viscose shirt in black</a>
+                            </div>
+                            <!-- End product name -->
+                            <!-- product price -->
+                            <div class="product-price">
+                                <span class="price">$29</span>
+                            </div>
+                            <!-- End product price -->
+                            <!--Product Review-->
+                            <div class="product-review">
+                              <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                              <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                              <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                              <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                              <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                            </div>
+                            <!--End Product Review-->
+
+                        </div>
+                        <!-- End product details -->
+                    </div>
+
+                    <div class="col-12 item">
+                      <!-- start product image -->
+                      <div class="product-image">
+                          <!-- start product image -->
+                          <a href="#" class="product-img">
+                              <!-- image -->
+                              <img class="primary blur-up lazyload" data-src="{% static 'images/product-images/demo02.jpg' %}" src="{% static 'images/product-images/demo02.jpg' %}">
+                              <!-- End image -->
+                              <!-- Hover image -->
+                              <img class="hover blur-up lazyload" data-src="{% static 'images/product-images/demo02.jpg' %}" src="{% static 'images/product-images/demo02.jpg' %}">
+                              <!-- End hover image -->
+                              <!-- product label -->
+                              <div class="product-labels"><span class="lbl on-sale">{% trans 'New Arrival' %}</span></div>
+                              <!-- End product label -->
+                          </a>
+                          <!-- end product image -->
+
+                      </div>
+                      <!-- end product image -->
+                      <!--start product details -->
+                      <div class="product-details text-center">
+                          <!-- product name -->
+                          <div class="product-name">
+                              <a href="{{ product.get_url }}">Short sleeve shirt with contrast pockets</a>
+                          </div>
+                          <!-- End product name -->
+                          <!-- product price -->
+                          <div class="product-price">
+                              <span class="price">$35</span>
+                          </div>
+                          <!-- End product price -->
+                          <!--Product Review-->
+                          <div class="product-review">
+                            <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                            <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                            <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                            <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                            <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                          </div>
+                          <!--End Product Review-->
+
+                      </div>
+                      <!-- End product details -->
+                  </div>
+                  <div class="col-12 item">
+                    <!-- start product image -->
+                    <div class="product-image">
+                        <!-- start product image -->
+                        <a href="#" class="product-img">
+                            <!-- image -->
+                            <img class="primary blur-up lazyload" data-src="{% static 'images/product-images/demo03.jpg' %}" src="{% static 'images/product-images/demo03.jpg' %}">
+                            <!-- End image -->
+                            <!-- Hover image -->
+                            <img class="hover blur-up lazyload" data-src="{% static 'images/product-images/demo03.jpg' %}" src="{% static 'images/product-images/demo03.jpg' %}">
+                            <!-- End hover image -->
+                            <!-- product label -->
+                            <div class="product-labels"><span class="lbl on-sale">{% trans 'New Arrival' %}</span></div>
+                            <!-- End product label -->
+                        </a>
+                        <!-- end product image -->
+
+                    </div>
+                    <!-- end product image -->
+                    <!--start product details -->
+                    <div class="product-details text-center">
+                        <!-- product name -->
+                        <div class="product-name">
+                            <a href="{{ product.get_url }}">Boxy floral shirt in multi</a>
+                        </div>
+                        <!-- End product name -->
+                        <!-- product price -->
+                        <div class="product-price">
+                            <span class="price">$40</span>
+                        </div>
+                        <!-- End product price -->
+                        <!--Product Review-->
+                        <div class="product-review">
+                          <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                          <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                          <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                          <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                          <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                        </div>
+                        <!--End Product Review-->
+
+                    </div>
+                    <!-- End product details -->
+                </div>
+                <div class="col-12 item">
+                  <!-- start product image -->
+                  <div class="product-image">
+                      <!-- start product image -->
+                      <a href="#" class="product-img">
+                          <!-- image -->
+                          <img class="primary blur-up lazyload" data-src="{% static 'images/product-images/demo04.jpg' %}" src="{% static 'images/product-images/demo04.jpg' %}">
+                          <!-- End image -->
+                          <!-- Hover image -->
+                          <img class="hover blur-up lazyload" data-src="{% static 'images/product-images/demo04.jpg' %}" src="{% static 'images/product-images/demo04.jpg' %}">
+                          <!-- End hover image -->
+                          <!-- product label -->
+                          <div class="product-labels"><span class="lbl on-sale">{% trans 'New Arrival' %}</span></div>
+                          <!-- End product label -->
+                      </a>
+                      <!-- end product image -->
+
+                  </div>
+                  <!-- end product image -->
+                  <!--start product details -->
+                  <div class="product-details text-center">
+                      <!-- product name -->
+                      <div class="product-name">
+                          <a href="{{ product.get_url }}">Oversized shirt in black</a>
+                      </div>
+                      <!-- End product name -->
+                      <!-- product price -->
+                      <div class="product-price">
+                          <span class="price">$59</span>
+                      </div>
+                      <!-- End product price -->
+                      <!--Product Review-->
+                      <div class="product-review">
+                        <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                      </div>
+                      <!--End Product Review-->
+
+                  </div>
+                  <!-- End product details -->
+              </div>
+              <div class="col-12 item">
+                <!-- start product image -->
+                <div class="product-image">
+                    <!-- start product image -->
+                    <a href="#" class="product-img">
+                        <!-- image -->
+                        <img class="primary blur-up lazyload" data-src="{% static 'images/product-images/demo05.jpg' %}" src="{% static 'images/product-images/demo05.jpg' %}">
+                        <!-- End image -->
+                        <!-- Hover image -->
+                        <img class="hover blur-up lazyload" data-src="{% static 'images/product-images/demo05.jpg' %}" src="{% static 'images/product-images/demo05.jpg' %}">
+                        <!-- End hover image -->
+                        <!-- product label -->
+                        <div class="product-labels"><span class="lbl on-sale">{% trans 'New Arrival' %}</span></div>
+                        <!-- End product label -->
+                    </a>
+                    <!-- end product image -->
+
+                </div>
+                <!-- end product image -->
+                <!--start product details -->
+                <div class="product-details text-center">
+                    <!-- product name -->
+                    <div class="product-name">
+                        <a href="{{ product.get_url }}">Stripe shirt in white and navy</a>
+                    </div>
+                    <!-- End product name -->
+                    <!-- product price -->
+                    <div class="product-price">
+                        <span class="price">$44</span>
+                    </div>
+                    <!-- End product price -->
+                    <!--Product Review-->
+                    <div class="product-review">
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                    </div>
+                    <!--End Product Review-->
+
+                </div>
+                <!-- End product details -->
+            </div>
+                   
+                </div>
+            </div>
+            <!--End New Arrivals-->
+
+
+
+
+            <!--Collection Box slider-->
+            <div class="collection-banners style1 section no-pt-section">
+            	<div class="row">
+                	<div class="col-12 col-sm-12 col-md-4 col-lg-4 banner-item">
+		                <div class="imgBanner-grid-item">
+                            <div class="img">
+                                <a href="#" class="collection-grid-item__link">
+                                    <img data-src="{% static 'images/product-images/demo05.jpg' %}" src="{% static 'images/product-images/demo05.jpg' %}" class="blur-up lazyload"/>
+                                </a>
+                            </div>
+                            <div class="details center w-50">
+                                <div class="inner">
+                                    <h3 class="title">MEN</h3>
+                                    <a href="#" class="btn">{% trans 'Shop Now' %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 banner-item">
+                      <div class="imgBanner-grid-item">
+                              <div class="img">
+                                  <a href="#" class="collection-grid-item__link">
+                                      <img data-src="{% static 'images/product-images/democat-women.jpg' %}" src="{% static 'images/product-images/democat-women.jpg.jpg' %}" class="blur-up lazyload"/>
+                                  </a>
+                              </div>
+                              <div class="details center w-50">
+                                  <div class="inner">
+                                      <h3 class="title">WOMEN</h3>
+                                      <a href="#" class="btn">{% trans 'Shop Now' %}</a>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-12 col-sm-12 col-md-4 col-lg-4 banner-item">
+                        <div class="imgBanner-grid-item">
+                                <div class="img">
+                                    <a href="#" class="collection-grid-item__link">
+                                        <img data-src="{% static 'images/product-images/democat-footwear.jpg' %}" src="{% static 'images/product-images/democat-footwear.jpg.jpg' %}" class="blur-up lazyload"/>
+                                    </a>
+                                </div>
+                                <div class="details center w-50">
+                                    <div class="inner">
+                                        <h3 class="title">FOOTWEAR</h3>
+                                        <a href="#" class="btn">{% trans 'Shop Now' %}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        	</div>
+        	<!--End Collection Box slider-->
+         
+
+          <!--Parallax Banner-->
+        <div class="section parallax-banner-style1" style="padding-bottom:0px;">
+            <div class="hero hero--exlarge hero__overlay bg-size">
+                <img class="bg-img" src="{% static 'images/default-images/demo-parallax-banner.jpg' %}" alt="Background Image">
+                <div class="hero__inner">
+                    <div class="container">
+                        <div class="wrap-text center text-small font-bold">
+                            <h2 class="h2 mega-title">BIG Fashion Festival</h2>
+                            <div class="rte-setting mega-subtitle">Start Wishlisting Top Brands On Our Store. Get The Best Discounts On All Categories. Cash On Pickup available. 100% Original Brands. Latest Trends.</div>
+                            <a href="#" class="btn">{% trans 'SHOP NOW' %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <!--End Parallax Banner-->
+
+        <!--Testimonial Slider-->
+        <div class="section testimonial-slider">
+        	<div class="container">
+                <div class="quote-wraper">
+                    <!--Testimonial Slider Title-->
+                    <div class="section-header text-center">
+                        <h2 class="h2">Testimonial</h2>          
+                    </div>
+                    <!--End Testimonial Slider Title-->
+                    <!--Testimonial Slider Items-->
+                    <div class="quotes-slider">
+                      
+                    	<div class="quotes-slide">
+                        <span class="author-pic"><img class="blur-up lazyloaded" src="{% static 'images/default-images/testimonial01.jpg' %}" data-src="{% static 'images/default-images/testimonial01.jpg' %}" style="border-radius: 50%;margin: 0 auto;width: 100px;margin-bottom: 10px;"> </span>
+                            <blockquote class="quotes-slider__text text-center">             
+                              <div class="rte-setting"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis</p></div>
+                              <p class="authour">John Doe</p>
+                            </blockquote>
+                        </div>
+                        <div class="quotes-slide">
+                          <span class="author-pic"><img class="blur-up lazyloaded" src="{% static 'images/default-images/testimonial02.jpg' %}" data-src="{% static 'images/default-images/testimonial02.jpg' %}" style="border-radius: 50%;margin: 0 auto;width: 100px;margin-bottom: 10px;"> </span>
+                              <blockquote class="quotes-slider__text text-center">             
+                                <div class="rte-setting"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis</p></div>
+                                <p class="authour">Savannah Nate</p>
+                              </blockquote>
+                          </div>
+                          <div class="quotes-slide">
+                            <span class="author-pic"><img class="blur-up lazyloaded" src="{% static 'images/default-images/testimonial03.jpg' %}" data-src="{% static 'images/default-images/testimonial03.jpg' %}" style="border-radius: 50%;margin: 0 auto;width: 100px;margin-bottom: 10px;"> </span>
+                                <blockquote class="quotes-slider__text text-center">             
+                                  <div class="rte-setting"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis</p></div>
+                                  <p class="authour">Steve Jobs</p>
+                                </blockquote>
+                            </div>
+                    </div>
+                    <!--Testimonial Slider Items-->
+                </div>
+            </div>
+        </div>
+        <!--End Testimonial Slider-->
+
+     </div><!--End Body Container-->
+    {% elif preview == 'Premium' %}
+
+    <div id="page-content">
+    	<!--Video Banner-->
+    	<div class="video-sec style2">   
+        <video autoplay="" loop="" muted="" playsinline="">
+            <source src="{% static 'images/default-images/bag-video.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>    
+          
+        <div class="video-text bottomcenter text-align-center">
+           <span class="ttl small--hide"><b>Big Fashion Festival</b></span>
+           <span><p style="font-size: 16px;color: #fff;">Start Wishlisting Top Brands On Our Store. Get The Best Discounts On All Categories. Cash On Pickup available. 100% Original Brands. Latest Trends. Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi.</p>      
+            <a href="#" class="btn" style="background-color: #000000;">SHOP NOW</a></span>
+        </div>
+      </div>
+      <!-- Our Services -->
+      <div id="our-services-wrapper" class="our-services hidden-on-load" style="padding-top: 80px;">
+          <div class="section-header">
+            <h2>{% trans 'Our Services' %}</h2>
+            <p>{% trans 'We provide a wide range of services' %}</p>
+          </div>
+        
+          <div class="section featuredContent featuredContentStyle3" style="padding: 0 !important;">
+            <div class="container">
+                <div class="row-fluid d-flex justify-content-between align-items-center">
+                  
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 pl-0 px-0">
+                        <img data-src="{% static 'images/default-images/demo-service01.jpg' %}" src="{% static 'images/default-images/demo-service01.jpg' %}">
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="row-text text-left">
+                            <h3>AppleSolution & Apple Repair Services</h3>
+                            <div class="rte rte-setting featured-row__subtext">
+                                <p>Apple Solution is an Independent Apple Repair Center & NOT AN APPLE AUTHORIZED SERVICE CENTER. We provide a repair service for warranty void or out of warranty Apple products. We have listed the possible reasons on which Apple Authorized Service Center would not claim the warranty</p>
+                            </div>
+                            <a href="#" class="btn btn-large" style="background-color: #000000;">KNOW MORE</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid d-flex justify-content-between align-items-center">
+                  <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                      <div class="row-text text-left">
+                          <h3>AppleSolution & Apple Repair Services</h3>
+                          <div class="rte rte-setting featured-row__subtext">
+                              <p>Apple Solution is an Independent Apple Repair Center & NOT AN APPLE AUTHORIZED SERVICE CENTER. We provide a repair service for warranty void or out of warranty Apple products. We have listed the possible reasons on which Apple Authorized Service Center would not claim the warranty</p>
+                          </div>
+                          <a href="#" class="btn btn-large" style="background-color: #000000;">KNOW MORE</a>
+                      </div>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-6 col-lg-6 pl-0 px-0">
+                    <img data-src="{% static 'images/default-images/demo-service02.jpg' %}" src="{% static 'images/default-images/demo-service02.jpg' %}">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      
+
+      <!-- Categories -->
+     
+      <div class="container">
+        <!-- Banner Masonary-->
+        <div class="section collection-banners style1">
+            <div class="grid-masonary banner-grid" style="position: relative; height: 439.109px;">
+                <div class="grid-sizer col-md-6 col-lg-4"></div>
+                <div class="row">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-4 banner-item p-0 m-0" style="position: absolute; left: 0%; top: 0px;">
+                            <div class="collection-grid-item">
+                                <a href="#">
+                                    <div class="img">
+                                        <img class="blur-up lazyloaded" data-src="{% static 'images/product-images/demo05.jpg' %}" src="{% static 'images/product-images/demo05.jpg' %}">
+                                    </div>
+                                    <div class="details wd-90 center">
+                                        <div class="inner">
+                                            <h3 class="title">MEN</h3>
+                                            <p><u>SHOP NOW</u></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-4 banner-item p-0 m-0" style="position: absolute; left: 0%; top: 0px;">
+                          <div class="collection-grid-item">
+                              <a href="#">
+                                  <div class="img">
+                                      <img class="blur-up lazyloaded" data-src="{% static 'images/product-images/democat-women.jpg' %}" src="{% static 'images/product-images/democat-women.jpg' %}">
+                                  </div>
+                                  <div class="details wd-90 center">
+                                      <div class="inner">
+                                          <h3 class="title">WOMEN</h3>
+                                          <p><u>SHOP NOW</u></p>
+                                      </div>
+                                  </div>
+                              </a>
+                          </div>
+                      </div>
+                      <div class="col-12 col-sm-6 col-md-6 col-lg-4 banner-item p-0 m-0" style="position: absolute; left: 0%; top: 0px;">
+                        <div class="collection-grid-item">
+                            <a href="#">
+                                <div class="img">
+                                    <img class="blur-up lazyloaded" data-src="{% static 'images/product-images/democat-footwear.jpg' %}" src="{% static 'images/product-images/democat-footwear.jpg' %}">
+                                </div>
+                                <div class="details wd-90 center">
+                                    <div class="inner">
+                                        <h3 class="title">FOOTWEAR</h3>
+                                        <p><u>SHOP NOW</u></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                     
+                    </div>
+            </div>
+            
+        </div>
+        <!-- End Banner Masonary-->
+    </div>
+
+
+        
+        <!--Body Container-->
+        <div class="container">
+<!--New Arrivals-->
+        <div class="section product-slider">
+          <div class="section-header">
+              <h2>{% trans 'New Arrivals' %}</h2>
+              <p>{% trans 'Shop our new arrivals from established brands' %}</p>
+          </div>
+          <div class="productSlider grid-products">
+              <div class="col-12 item">
+                  <!-- start product image -->
+                  <div class="product-image">
+                      <!-- start product image -->
+                      <a href="#" class="product-img">
+                          <!-- image -->
+                          <img class="primary blur-up lazyload" data-src="{% static 'images/product-images/demo01.jpg' %}" src="{% static 'images/product-images/demo01.jpg' %}">
+                          <!-- End image -->
+                          <!-- Hover image -->
+                          <img class="hover blur-up lazyload" data-src="{% static 'images/product-images/demo01.jpg' %}" src="{% static 'images/product-images/demo01.jpg' %}">
+                          <!-- End hover image -->
+                          <!-- product label -->
+                          <div class="product-labels"><span class="lbl on-sale">{% trans 'New Arrival' %}</span></div>
+                          <!-- End product label -->
+                      </a>
+                      <!-- end product image -->
+
+                  </div>
+                  <!-- end product image -->
+                  <!--start product details -->
+                  <div class="product-details text-center">
+                      <!-- product name -->
+                      <div class="product-name">
+                          <a href="{{ product.get_url }}">Topman lips print viscose shirt in black</a>
+                      </div>
+                      <!-- End product name -->
+                      <!-- product price -->
+                      <div class="product-price">
+                          <span class="price">$29</span>
+                      </div>
+                      <!-- End product price -->
+                      <!--Product Review-->
+                      <div class="product-review">
+                        <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                      </div>
+                      <!--End Product Review-->
+
+                  </div>
+                  <!-- End product details -->
+              </div>
+
+              <div class="col-12 item">
+                <!-- start product image -->
+                <div class="product-image">
+                    <!-- start product image -->
+                    <a href="#" class="product-img">
+                        <!-- image -->
+                        <img class="primary blur-up lazyload" data-src="{% static 'images/product-images/demo02.jpg' %}" src="{% static 'images/product-images/demo02.jpg' %}">
+                        <!-- End image -->
+                        <!-- Hover image -->
+                        <img class="hover blur-up lazyload" data-src="{% static 'images/product-images/demo02.jpg' %}" src="{% static 'images/product-images/demo02.jpg' %}">
+                        <!-- End hover image -->
+                        <!-- product label -->
+                        <div class="product-labels"><span class="lbl on-sale">{% trans 'New Arrival' %}</span></div>
+                        <!-- End product label -->
+                    </a>
+                    <!-- end product image -->
+
+                </div>
+                <!-- end product image -->
+                <!--start product details -->
+                <div class="product-details text-center">
+                    <!-- product name -->
+                    <div class="product-name">
+                        <a href="{{ product.get_url }}">Short sleeve shirt with contrast pockets</a>
+                    </div>
+                    <!-- End product name -->
+                    <!-- product price -->
+                    <div class="product-price">
+                        <span class="price">$35</span>
+                    </div>
+                    <!-- End product price -->
+                    <!--Product Review-->
+                    <div class="product-review">
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                    </div>
+                    <!--End Product Review-->
+
+                </div>
+                <!-- End product details -->
+            </div>
+            <div class="col-12 item">
+              <!-- start product image -->
+              <div class="product-image">
+                  <!-- start product image -->
+                  <a href="#" class="product-img">
+                      <!-- image -->
+                      <img class="primary blur-up lazyload" data-src="{% static 'images/product-images/demo03.jpg' %}" src="{% static 'images/product-images/demo03.jpg' %}">
+                      <!-- End image -->
+                      <!-- Hover image -->
+                      <img class="hover blur-up lazyload" data-src="{% static 'images/product-images/demo03.jpg' %}" src="{% static 'images/product-images/demo03.jpg' %}">
+                      <!-- End hover image -->
+                      <!-- product label -->
+                      <div class="product-labels"><span class="lbl on-sale">{% trans 'New Arrival' %}</span></div>
+                      <!-- End product label -->
+                  </a>
+                  <!-- end product image -->
+
+              </div>
+              <!-- end product image -->
+              <!--start product details -->
+              <div class="product-details text-center">
+                  <!-- product name -->
+                  <div class="product-name">
+                      <a href="{{ product.get_url }}">Boxy floral shirt in multi</a>
+                  </div>
+                  <!-- End product name -->
+                  <!-- product price -->
+                  <div class="product-price">
+                      <span class="price">$40</span>
+                  </div>
+                  <!-- End product price -->
+                  <!--Product Review-->
+                  <div class="product-review">
+                    <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                    <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                    <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                    <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                    <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                  </div>
+                  <!--End Product Review-->
+
+              </div>
+              <!-- End product details -->
+          </div>
+          <div class="col-12 item">
+            <!-- start product image -->
+            <div class="product-image">
+                <!-- start product image -->
+                <a href="#" class="product-img">
+                    <!-- image -->
+                    <img class="primary blur-up lazyload" data-src="{% static 'images/product-images/demo04.jpg' %}" src="{% static 'images/product-images/demo04.jpg' %}">
+                    <!-- End image -->
+                    <!-- Hover image -->
+                    <img class="hover blur-up lazyload" data-src="{% static 'images/product-images/demo04.jpg' %}" src="{% static 'images/product-images/demo04.jpg' %}">
+                    <!-- End hover image -->
+                    <!-- product label -->
+                    <div class="product-labels"><span class="lbl on-sale">{% trans 'New Arrival' %}</span></div>
+                    <!-- End product label -->
+                </a>
+                <!-- end product image -->
+
+            </div>
+            <!-- end product image -->
+            <!--start product details -->
+            <div class="product-details text-center">
+                <!-- product name -->
+                <div class="product-name">
+                    <a href="{{ product.get_url }}">Oversized shirt in black</a>
+                </div>
+                <!-- End product name -->
+                <!-- product price -->
+                <div class="product-price">
+                    <span class="price">$59</span>
+                </div>
+                <!-- End product price -->
+                <!--Product Review-->
+                <div class="product-review">
+                  <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                  <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                  <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                  <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                  <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                </div>
+                <!--End Product Review-->
+
+            </div>
+            <!-- End product details -->
+        </div>
+        <div class="col-12 item">
+          <!-- start product image -->
+          <div class="product-image">
+              <!-- start product image -->
+              <a href="#" class="product-img">
+                  <!-- image -->
+                  <img class="primary blur-up lazyload" data-src="{% static 'images/product-images/demo05.jpg' %}" src="{% static 'images/product-images/demo05.jpg' %}">
+                  <!-- End image -->
+                  <!-- Hover image -->
+                  <img class="hover blur-up lazyload" data-src="{% static 'images/product-images/demo05.jpg' %}" src="{% static 'images/product-images/demo05.jpg' %}">
+                  <!-- End hover image -->
+                  <!-- product label -->
+                  <div class="product-labels"><span class="lbl on-sale">{% trans 'New Arrival' %}</span></div>
+                  <!-- End product label -->
+              </a>
+              <!-- end product image -->
+
+          </div>
+          <!-- end product image -->
+          <!--start product details -->
+          <div class="product-details text-center">
+              <!-- product name -->
+              <div class="product-name">
+                  <a href="{{ product.get_url }}">Stripe shirt in white and navy</a>
+              </div>
+              <!-- End product name -->
+              <!-- product price -->
+              <div class="product-price">
+                  <span class="price">$44</span>
+              </div>
+              <!-- End product price -->
+              <!--Product Review-->
+              <div class="product-review">
+                <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+              </div>
+              <!--End Product Review-->
+
+          </div>
+          <!-- End product details -->
+        </div>
+            
+          </div>
+        </div>
+<!--End New Arrivals-->
+            
+        	</div>
+        	<!--End Collection Box slider-->
+         
+
+          <!--Parallax Banner-->
+          <div class="section parallax-banner-style1" style="padding-bottom:0px;">
+            <div class="hero hero--exlarge hero__overlay bg-size">
+                <img class="bg-img" src="{% static 'images/default-images/demo-parallax-banner.jpg' %}" alt="Background Image">
+                <div class="hero__inner">
+                    <div class="container">
+                        <div class="wrap-text center text-small font-bold">
+                            <h2 class="h2 mega-title">BIG Fashion Festival</h2>
+                            <div class="rte-setting mega-subtitle">Start Wishlisting Top Brands On Our Store. Get The Best Discounts On All Categories. Cash On Pickup available. 100% Original Brands. Latest Trends.</div>
+                            <a href="#" class="btn">{% trans 'SHOP NOW' %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Parallax Banner-->
+
+        <!-- About Us -->
+        <div class="container" style="padding-top: 80px;">
+          <div class="page-title"><h1>ABOUT OUR COMPANY</h1></div>
+			    <div class="top-text-block">
+                <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum</p>
+            <a href="#" class="btn btn-large" style="background-color:#000000;">READ MORE</a>
+            </div>
+        </div>
+        <!-- About Us -->
+        
+        <!--Testimonial Slider-->
+        <div class="section testimonial-slider">
+        	<div class="container">
+                <div class="quote-wraper">
+                    <!--Testimonial Slider Title-->
+                    <div class="section-header text-center">
+                        <h2 class="h2">Testimonial</h2>          
+                    </div>
+                    <!--End Testimonial Slider Title-->
+                    <!--Testimonial Slider Items-->
+                    <div class="quotes-slider">
+                      
+                    	<div class="quotes-slide">
+                        <span class="author-pic"><img class="blur-up lazyloaded" src="{% static 'images/default-images/testimonial01.jpg' %}" data-src="{% static 'images/default-images/testimonial01.jpg' %}" style="border-radius: 50%;margin: 0 auto;width: 100px;margin-bottom: 10px;"> </span>
+                            <blockquote class="quotes-slider__text text-center">             
+                              <div class="rte-setting"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis</p></div>
+                              <p class="authour">John Doe</p>
+                            </blockquote>
+                        </div>
+                        <div class="quotes-slide">
+                          <span class="author-pic"><img class="blur-up lazyloaded" src="{% static 'images/default-images/testimonial02.jpg' %}" data-src="{% static 'images/default-images/testimonial02.jpg' %}" style="border-radius: 50%;margin: 0 auto;width: 100px;margin-bottom: 10px;"> </span>
+                              <blockquote class="quotes-slider__text text-center">             
+                                <div class="rte-setting"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis</p></div>
+                                <p class="authour">Savannah Nate</p>
+                              </blockquote>
+                          </div>
+                          <div class="quotes-slide">
+                            <span class="author-pic"><img class="blur-up lazyloaded" src="{% static 'images/default-images/testimonial03.jpg' %}" data-src="{% static 'images/default-images/testimonial03.jpg' %}" style="border-radius: 50%;margin: 0 auto;width: 100px;margin-bottom: 10px;"> </span>
+                                <blockquote class="quotes-slider__text text-center">             
+                                  <div class="rte-setting"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis</p></div>
+                                  <p class="authour">Steve Jobs</p>
+                                </blockquote>
+                            </div>
+                    </div>
+                    <!--Testimonial Slider Items-->
+                </div>
+            </div>
+        </div>
+        <!--End Testimonial Slider-->
+         <!-- Store Features -->
+         <div class="store-info style2 store-info-section small-pd d-none d-sm-none d-md-block d-lg-block" style="margin-top:-5px;">
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="display-table store-info style2">
+                      <li class="display-table-cell">
+                        <div style="display:flex;">
+                          <img src="{% static 'images/default-images/feature-phone-alt-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                          <a><h5>{% trans 'Call Us Anytime' %}</h5> <span class="sub-text"> <span>{% trans '+1 (555) 555-5555' %}</span></span></a>
+                        </div>
+
+                      </li>
+                      <li class="display-table-cell">
+                        <div style="display:flex;">
+                          <img src="{% static 'images/default-images/feature-truck-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                          <a><h5>{% trans 'Free Shipping' %}</h5> <span class="sub-text"> <span>{% trans 'When you spend $100+' %}</span></span></a>
+                        </div>
+
+                      </li>
+                      <li class="display-table-cell">
+                        <div style="display:flex;">
+                          <img src="{% static 'images/default-images/feature-check-circle-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                          <a><h5>{% trans 'Genuine Quality' %}</h5> <span class="sub-text"> <span>{% trans 'All our products are Genuine' %}</span></span></a>
+                        </div>
+
+                      </li>
+                      <li class="display-table-cell">
+                        <div style="display:flex;">
+                          <img src="{% static 'images/default-images/feature-lock-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                          <a><h5>{% trans 'Secure Payments' %}</h5> <span class="sub-text"> <span>{% trans 'We accept all major credit cards.' %}</span></span></a>
+                        </div>
+
+                      </li>
+                  </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+     </div><!--End Body Container-->
+
+    {% elif preview == 'Modern' %}
+
+    <div id="page-content">
+    	<!--Home slider-->
+      <div class="slideshow slideshow-wrapper">
+        <div class="home-slideshow">
+
+              <div class="slide">
+                  <div class="blur-up lazyload">
+                        <img class="blur-up lazyload" data-src="{% static 'images/default-images/home-slider-1-laptop.jpg' %}" src="{% static 'images/default-images/home-slider-1-laptop.jpg' %}" alt="Default Banner Image" title="Default Banner Image" style="max-height:100vh;" />
+                        <div class="slideshow__text-wrap slideshow__overlay left">
+                            <div class="slideshow__text-content">
+                                <div class="wrap-caption anim-tru left style1">
+                                    <h2 class="h1 mega-title slideshow__title">{% trans 'We engineer digital success stories,' %}</h2>
+
+                                    <span class="mega-subtitle slideshow__subtitle">{% trans 'while others create websites and apps.' %}</span>
+
+                                  <a href="#" class="btn">{% trans 'OUR SERVICES' %}</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="blur-up lazyload">
+                          <img class="blur-up lazyload" data-src="{% static 'images/default-images/home-slider-2-laptop.jpg' %}" src="{% static 'images/default-images/home-slider-2-laptop.jpg' %}" alt="Default Banner Image" title="Default Banner Image" style="max-height:100vh;" />
+                          <div class="slideshow__text-wrap slideshow__overlay left">
+                              <div class="slideshow__text-content">
+                                  <div class="wrap-caption anim-tru left style1">
+                                      <h2 class="h1 mega-title slideshow__title">{% trans 'We are young and experts' %}</h2>
+
+                                      <span class="mega-subtitle slideshow__subtitle">{% trans 'Altocan is not just about the technology, it’s more than just a word for us. With a bunch of young & enthusiastic minds working together to fulfill the requirements of our clients in the area of their services.' %}</span>
+
+                                    <a href="#" class="btn">{% trans 'SEE OUR GALLERY' %}</a>
+
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+          </div>
+      </div>
+        <!--End Home slider-->
+
+        <div class="store-info style2 store-info-section small-pd d-none d-sm-none d-md-block d-lg-block" style="margin-top:-5px;">
+          <div class="container">
+              <div class="row">
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                      <ul class="display-table store-info style2">
+                          <li class="display-table-cell">
+                            <div style="display:flex;">
+                              <img src="{% static 'images/default-images/feature-phone-alt-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                              <a><h5>{% trans 'Call Us Anytime' %}</h5> <span class="sub-text"> <span>{% trans '+1 (555) 555-5555' %}</span></span></a>
+                            </div>
+
+                          </li>
+                          <li class="display-table-cell">
+                            <div style="display:flex;">
+                              <img src="{% static 'images/default-images/feature-truck-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                              <a><h5>{% trans 'Free Shipping' %}</h5> <span class="sub-text"> <span>{% trans 'When you spend $100+' %}</span></span></a>
+                            </div>
+
+                          </li>
+                          <li class="display-table-cell">
+                            <div style="display:flex;">
+                              <img src="{% static 'images/default-images/feature-check-circle-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                              <a><h5>{% trans 'Genuine Quality' %}</h5> <span class="sub-text"> <span>{% trans 'All our products are Genuine' %}</span></span></a>
+                            </div>
+
+                          </li>
+                          <li class="display-table-cell">
+                            <div style="display:flex;">
+                              <img src="{% static 'images/default-images/feature-lock-solid.png' %}" alt="Feature Icon" width="35" style="margin-right:10px;">
+                              <a><h5>{% trans 'Secure Payments' %}</h5> <span class="sub-text"> <span>{% trans 'We accept all major credit cards.' %}</span></span></a>
+                            </div>
+
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+        <!-- About Us -->
+        <div class="container" style="padding-top: 80px;">
+          <div class="page-title"><h1>ABOUT OUR COMPANY</h1></div>
+			    <div class="top-text-block">
+                <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum</p>
+            <a href="#" class="btn btn-large" style="background-color:#000000;">READ MORE</a>
+            </div>
+        </div>
+        <!-- About Us -->
+         <!-- Our Services -->
+         <div id="our-services-wrapper" class="our-services hidden-on-load" style="padding-top: 80px;">
+          <div class="section-header">
+            <h2>{% trans 'Our Services' %}</h2>
+            <p>{% trans 'We provide a wide range of services' %}</p>
+          </div>
+        
+          <div class="section featuredContent featuredContentStyle3" style="padding: 0 !important;">
+            <div class="container">
+                <div class="row-fluid d-flex justify-content-between align-items-center">
+                  
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 pl-0 px-0">
+                        <img data-src="{% static 'images/default-images/demo-service01.jpg' %}" src="{% static 'images/default-images/demo-service01.jpg' %}">
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="row-text text-left">
+                            <h3>AppleSolution & Apple Repair Services</h3>
+                            <div class="rte rte-setting featured-row__subtext">
+                                <p>Apple Solution is an Independent Apple Repair Center & NOT AN APPLE AUTHORIZED SERVICE CENTER. We provide a repair service for warranty void or out of warranty Apple products. We have listed the possible reasons on which Apple Authorized Service Center would not claim the warranty</p>
+                            </div>
+                            <a href="#" class="btn btn-large" style="background-color: #000000;">KNOW MORE</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid d-flex justify-content-between align-items-center">
+                  <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                      <div class="row-text text-left">
+                          <h3>AppleSolution & Apple Repair Services</h3>
+                          <div class="rte rte-setting featured-row__subtext">
+                              <p>Apple Solution is an Independent Apple Repair Center & NOT AN APPLE AUTHORIZED SERVICE CENTER. We provide a repair service for warranty void or out of warranty Apple products. We have listed the possible reasons on which Apple Authorized Service Center would not claim the warranty</p>
+                          </div>
+                          <a href="#" class="btn btn-large" style="background-color: #000000;">KNOW MORE</a>
+                      </div>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-6 col-lg-6 pl-0 px-0">
+                    <img data-src="{% static 'images/default-images/demo-service02.jpg' %}" src="{% static 'images/default-images/demo-service02.jpg' %}">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!--Body Container-->
+        <div class="container" style="padding-top: 30px;">
+            <!--New Arrivals-->
+            <div class="section product-slider">
+              <div class="section-header">
+                  <h2>{% trans 'New Arrivals' %}</h2>
+                  <p>{% trans 'Shop our new arrivals from established brands' %}</p>
+              </div>
+              <div class="productSlider grid-products">
+                  <div class="col-12 item">
+                      <!-- start product image -->
+                      <div class="product-image">
+                          <!-- start product image -->
+                          <a href="#" class="product-img">
+                              <!-- image -->
+                              <img class="primary blur-up lazyload" data-src="{% static 'images/product-images/demo01.jpg' %}" src="{% static 'images/product-images/demo01.jpg' %}">
+                              <!-- End image -->
+                              <!-- Hover image -->
+                              <img class="hover blur-up lazyload" data-src="{% static 'images/product-images/demo01.jpg' %}" src="{% static 'images/product-images/demo01.jpg' %}">
+                              <!-- End hover image -->
+                              <!-- product label -->
+                              <div class="product-labels"><span class="lbl on-sale">{% trans 'New Arrival' %}</span></div>
+                              <!-- End product label -->
+                          </a>
+                          <!-- end product image -->
+            
+                      </div>
+                      <!-- end product image -->
+                      <!--start product details -->
+                      <div class="product-details text-center">
+                          <!-- product name -->
+                          <div class="product-name">
+                              <a href="{{ product.get_url }}">Topman lips print viscose shirt in black</a>
+                          </div>
+                          <!-- End product name -->
+                          <!-- product price -->
+                          <div class="product-price">
+                              <span class="price">$29</span>
+                          </div>
+                          <!-- End product price -->
+                          <!--Product Review-->
+                          <div class="product-review">
+                            <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                            <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                            <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                            <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                            <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                          </div>
+                          <!--End Product Review-->
+            
+                      </div>
+                      <!-- End product details -->
+                  </div>
+            
+                  <div class="col-12 item">
+                    <!-- start product image -->
+                    <div class="product-image">
+                        <!-- start product image -->
+                        <a href="#" class="product-img">
+                            <!-- image -->
+                            <img class="primary blur-up lazyload" data-src="{% static 'images/product-images/demo02.jpg' %}" src="{% static 'images/product-images/demo02.jpg' %}">
+                            <!-- End image -->
+                            <!-- Hover image -->
+                            <img class="hover blur-up lazyload" data-src="{% static 'images/product-images/demo02.jpg' %}" src="{% static 'images/product-images/demo02.jpg' %}">
+                            <!-- End hover image -->
+                            <!-- product label -->
+                            <div class="product-labels"><span class="lbl on-sale">{% trans 'New Arrival' %}</span></div>
+                            <!-- End product label -->
+                        </a>
+                        <!-- end product image -->
+            
+                    </div>
+                    <!-- end product image -->
+                    <!--start product details -->
+                    <div class="product-details text-center">
+                        <!-- product name -->
+                        <div class="product-name">
+                            <a href="{{ product.get_url }}">Short sleeve shirt with contrast pockets</a>
+                        </div>
+                        <!-- End product name -->
+                        <!-- product price -->
+                        <div class="product-price">
+                            <span class="price">$35</span>
+                        </div>
+                        <!-- End product price -->
+                        <!--Product Review-->
+                        <div class="product-review">
+                          <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                          <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                          <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                          <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                          <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                        </div>
+                        <!--End Product Review-->
+            
+                    </div>
+                    <!-- End product details -->
+                </div>
+                <div class="col-12 item">
+                  <!-- start product image -->
+                  <div class="product-image">
+                      <!-- start product image -->
+                      <a href="#" class="product-img">
+                          <!-- image -->
+                          <img class="primary blur-up lazyload" data-src="{% static 'images/product-images/demo03.jpg' %}" src="{% static 'images/product-images/demo03.jpg' %}">
+                          <!-- End image -->
+                          <!-- Hover image -->
+                          <img class="hover blur-up lazyload" data-src="{% static 'images/product-images/demo03.jpg' %}" src="{% static 'images/product-images/demo03.jpg' %}">
+                          <!-- End hover image -->
+                          <!-- product label -->
+                          <div class="product-labels"><span class="lbl on-sale">{% trans 'New Arrival' %}</span></div>
+                          <!-- End product label -->
+                      </a>
+                      <!-- end product image -->
+            
+                  </div>
+                  <!-- end product image -->
+                  <!--start product details -->
+                  <div class="product-details text-center">
+                      <!-- product name -->
+                      <div class="product-name">
+                          <a href="{{ product.get_url }}">Boxy floral shirt in multi</a>
+                      </div>
+                      <!-- End product name -->
+                      <!-- product price -->
+                      <div class="product-price">
+                          <span class="price">$40</span>
+                      </div>
+                      <!-- End product price -->
+                      <!--Product Review-->
+                      <div class="product-review">
+                        <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                        <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                      </div>
+                      <!--End Product Review-->
+            
+                  </div>
+                  <!-- End product details -->
+              </div>
+              <div class="col-12 item">
+                <!-- start product image -->
+                <div class="product-image">
+                    <!-- start product image -->
+                    <a href="#" class="product-img">
+                        <!-- image -->
+                        <img class="primary blur-up lazyload" data-src="{% static 'images/product-images/demo04.jpg' %}" src="{% static 'images/product-images/demo04.jpg' %}">
+                        <!-- End image -->
+                        <!-- Hover image -->
+                        <img class="hover blur-up lazyload" data-src="{% static 'images/product-images/demo04.jpg' %}" src="{% static 'images/product-images/demo04.jpg' %}">
+                        <!-- End hover image -->
+                        <!-- product label -->
+                        <div class="product-labels"><span class="lbl on-sale">{% trans 'New Arrival' %}</span></div>
+                        <!-- End product label -->
+                    </a>
+                    <!-- end product image -->
+            
+                </div>
+                <!-- end product image -->
+                <!--start product details -->
+                <div class="product-details text-center">
+                    <!-- product name -->
+                    <div class="product-name">
+                        <a href="{{ product.get_url }}">Oversized shirt in black</a>
+                    </div>
+                    <!-- End product name -->
+                    <!-- product price -->
+                    <div class="product-price">
+                        <span class="price">$59</span>
+                    </div>
+                    <!-- End product price -->
+                    <!--Product Review-->
+                    <div class="product-review">
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                      <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                    </div>
+                    <!--End Product Review-->
+            
+                </div>
+                <!-- End product details -->
+            </div>
+            <div class="col-12 item">
+              <!-- start product image -->
+              <div class="product-image">
+                  <!-- start product image -->
+                  <a href="#" class="product-img">
+                      <!-- image -->
+                      <img class="primary blur-up lazyload" data-src="{% static 'images/product-images/demo05.jpg' %}" src="{% static 'images/product-images/demo05.jpg' %}">
+                      <!-- End image -->
+                      <!-- Hover image -->
+                      <img class="hover blur-up lazyload" data-src="{% static 'images/product-images/demo05.jpg' %}" src="{% static 'images/product-images/demo05.jpg' %}">
+                      <!-- End hover image -->
+                      <!-- product label -->
+                      <div class="product-labels"><span class="lbl on-sale">{% trans 'New Arrival' %}</span></div>
+                      <!-- End product label -->
+                  </a>
+                  <!-- end product image -->
+            
+              </div>
+              <!-- end product image -->
+              <!--start product details -->
+              <div class="product-details text-center">
+                  <!-- product name -->
+                  <div class="product-name">
+                      <a href="{{ product.get_url }}">Stripe shirt in white and navy</a>
+                  </div>
+                  <!-- End product name -->
+                  <!-- product price -->
+                  <div class="product-price">
+                      <span class="price">$44</span>
+                  </div>
+                  <!-- End product price -->
+                  <!--Product Review-->
+                  <div class="product-review">
+                    <i class="font-13 fa fa-star{% if product.avaregereview < 0.5 %}-o{% elif product.avaregereview >= 0.5 and product.avaregereview < 1 %}-half-o {% else %} {% endif %}"></i>
+                    <i class="font-13 fa fa-star{% if product.avaregereview < 1.5 %}-o{% elif product.avaregereview >= 1.5 and product.avaregereview < 2 %}-half-o {% else %} {% endif %}"></i>
+                    <i class="font-13 fa fa-star{% if product.avaregereview < 2.5 %}-o{% elif product.avaregereview >= 2.5 and product.avaregereview < 3 %}-half-o {% else %} {% endif %}"></i>
+                    <i class="font-13 fa fa-star{% if product.avaregereview < 3.5 %}-o{% elif product.avaregereview >= 3.5 and product.avaregereview < 4 %}-half-o {% else %} {% endif %}"></i>
+                    <i class="font-13 fa fa-star{% if product.avaregereview < 4.5 %}-o{% elif product.avaregereview >= 4.5 and product.avaregereview < 5 %}-half-o {% else %} {% endif %}"></i>
+                  </div>
+                  <!--End Product Review-->
+            
+              </div>
+              <!-- End product details -->
+            </div>
+                 
+              </div>
+            </div>
+            <!--End New Arrivals-->
+        	</div>
+        	<!--End Collection Box slider-->
+         
+
+
+           <!-- Categories -->
+           <div class="container">
+            <!-- Banner Masonary-->
+            <div class="section collection-banners style1">
+                <div class="grid-masonary banner-grid" style="position: relative; height: 439.109px;">
+                    <div class="grid-sizer col-md-6 col-lg-4"></div>
+                    <div class="row">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 banner-item p-0 m-0" style="position: absolute; left: 0%; top: 0px;">
+                                <div class="collection-grid-item">
+                                    <a href="#">
+                                        <div class="img">
+                                            <img class="blur-up lazyloaded" data-src="{% static 'images/product-images/demo05.jpg' %}" src="{% static 'images/product-images/demo05.jpg' %}">
+                                        </div>
+                                        <div class="details wd-90 center">
+                                            <div class="inner">
+                                                <h3 class="title">MEN</h3>
+                                                <p><u>SHOP NOW</u></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 banner-item p-0 m-0" style="position: absolute; left: 0%; top: 0px;">
+                              <div class="collection-grid-item">
+                                  <a href="#">
+                                      <div class="img">
+                                          <img class="blur-up lazyloaded" data-src="{% static 'images/product-images/democat-women.jpg' %}" src="{% static 'images/product-images/democat-women.jpg' %}">
+                                      </div>
+                                      <div class="details wd-90 center">
+                                          <div class="inner">
+                                              <h3 class="title">WOMEN</h3>
+                                              <p><u>SHOP NOW</u></p>
+                                          </div>
+                                      </div>
+                                  </a>
+                              </div>
+                          </div>
+                          <div class="col-12 col-sm-6 col-md-6 col-lg-4 banner-item p-0 m-0" style="position: absolute; left: 0%; top: 0px;">
+                            <div class="collection-grid-item">
+                                <a href="#">
+                                    <div class="img">
+                                        <img class="blur-up lazyloaded" data-src="{% static 'images/product-images/democat-footwear.jpg' %}" src="{% static 'images/product-images/democat-footwear.jpg' %}">
+                                    </div>
+                                    <div class="details wd-90 center">
+                                        <div class="inner">
+                                            <h3 class="title">FOOTWEAR</h3>
+                                            <p><u>SHOP NOW</u></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                         
+                        </div>
+                </div>
+                
+            </div>
+            <!-- End Banner Masonary-->
+        </div>
+
+          <!--Parallax Banner-->
+          <div class="section parallax-banner-style1" style="padding-bottom:0px;">
+            <div class="hero hero--exlarge hero__overlay bg-size">
+                <img class="bg-img" src="{% static 'images/default-images/demo-parallax-banner.jpg' %}" alt="Background Image">
+                <div class="hero__inner">
+                    <div class="container">
+                        <div class="wrap-text center text-small font-bold">
+                            <h2 class="h2 mega-title">BIG Fashion Festival</h2>
+                            <div class="rte-setting mega-subtitle">Start Wishlisting Top Brands On Our Store. Get The Best Discounts On All Categories. Cash On Pickup available. 100% Original Brands. Latest Trends.</div>
+                            <a href="#" class="btn">{% trans 'SHOP NOW' %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Parallax Banner-->
+
+        <!--Testimonial Slider-->
+        <div class="section testimonial-slider">
+        	<div class="container">
+                <div class="quote-wraper">
+                    <!--Testimonial Slider Title-->
+                    <div class="section-header text-center">
+                        <h2 class="h2">Testimonial</h2>          
+                    </div>
+                    <!--End Testimonial Slider Title-->
+                    <!--Testimonial Slider Items-->
+                    <div class="quotes-slider">
+                      
+                    	<div class="quotes-slide">
+                        <span class="author-pic"><img class="blur-up lazyloaded" src="{% static 'images/default-images/testimonial01.jpg' %}" data-src="{% static 'images/default-images/testimonial01.jpg' %}" style="border-radius: 50%;margin: 0 auto;width: 100px;margin-bottom: 10px;"> </span>
+                            <blockquote class="quotes-slider__text text-center">             
+                              <div class="rte-setting"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis</p></div>
+                              <p class="authour">John Doe</p>
+                            </blockquote>
+                        </div>
+                        <div class="quotes-slide">
+                          <span class="author-pic"><img class="blur-up lazyloaded" src="{% static 'images/default-images/testimonial02.jpg' %}" data-src="{% static 'images/default-images/testimonial02.jpg' %}" style="border-radius: 50%;margin: 0 auto;width: 100px;margin-bottom: 10px;"> </span>
+                              <blockquote class="quotes-slider__text text-center">             
+                                <div class="rte-setting"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis</p></div>
+                                <p class="authour">Savannah Nate</p>
+                              </blockquote>
+                          </div>
+                          <div class="quotes-slide">
+                            <span class="author-pic"><img class="blur-up lazyloaded" src="{% static 'images/default-images/testimonial03.jpg' %}" data-src="{% static 'images/default-images/testimonial03.jpg' %}" style="border-radius: 50%;margin: 0 auto;width: 100px;margin-bottom: 10px;"> </span>
+                                <blockquote class="quotes-slider__text text-center">             
+                                  <div class="rte-setting"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis</p></div>
+                                  <p class="authour">Steve Jobs</p>
+                                </blockquote>
+                            </div>
+                    </div>
+                    <!--Testimonial Slider Items-->
+                </div>
+            </div>
+        </div>
+        <!--End Testimonial Slider-->
+
+     </div><!--End Body Container-->
+
+    {% else %}
+    <h2 class="text-center p-5">Invalid request</h2>
+    {% endif %}
+
+    </div><!--End Page Wrapper-->
+
+
+    <script>
+      $(document).ready(function() {
+        $("#our-services-wrapper").removeClass("hidden-on-load");
+      });
+      
+    </script>
+{% endblock %}
