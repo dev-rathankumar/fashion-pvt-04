@@ -15,6 +15,11 @@ class HeaderForm(forms.ModelForm):
         # "data-browse-on-zone-click": "true",
         "data-show-preview": "false"
     }))
+    site_logo_light = forms.ImageField(label=('Logo (Light Version)'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+        "type": "file",
+        # "data-browse-on-zone-click": "true",
+        "data-show-preview": "false"
+    }))
     favicon = forms.ImageField(label=('Favicon'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
         "type": "file",
         # "data-browse-on-zone-click": "true",
@@ -22,7 +27,7 @@ class HeaderForm(forms.ModelForm):
     }))
     class Meta:
         model = Header
-        fields = ['site_title', 'site_logo', 'favicon']
+        fields = ['site_title', 'site_logo', 'site_logo_light', 'favicon']
 
     # Give same CSS class to all the fields
     def __init__(self, *args, **kwargs):

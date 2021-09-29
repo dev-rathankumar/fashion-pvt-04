@@ -1171,7 +1171,7 @@ def editColor(request, pk=None):
         if form.is_valid():
             form.save()
             messages.success(request, 'Color Added Successfully')
-            return redirect('allColors')
+            return redirect('customVariants')
         else:
             print(form.errors)
 
@@ -1193,7 +1193,7 @@ def editSize(request, pk=None):
         if form.is_valid():
             form.save()
             messages.success(request, 'Size Added Successfully')
-            return redirect('allSizes')
+            return redirect('customVariants')
         else:
             print(form.errors)
 
@@ -1212,7 +1212,7 @@ def deleteColor(request, pk=None):
     color = get_object_or_404(Color, pk=pk)
     color.delete()
     messages.success(request, 'Color has been deleted.')
-    return redirect('allColors')
+    return redirect('customVariants')
 
 
 @login_required(login_url = 'userLogin')
@@ -1222,7 +1222,7 @@ def deleteSize(request, pk=None):
     size = get_object_or_404(Size, pk=pk)
     size.delete()
     messages.success(request, 'Size has been deleted.')
-    return redirect('allSizes')
+    return redirect('customVariants')
 
 
 #blogs
@@ -1753,6 +1753,7 @@ def editVariant(request, pk=None):
     form = ProductAttributeForm(instance=pro_attribute)
     context = {
         'form': form,
+        'pro_attribute': pro_attribute,
     }
     return render(request, 'business/editVariant.html', context)
 
@@ -1795,6 +1796,7 @@ def editVariantValue(request, pk=None):
     form = AttributeValueForm(instance=attribute_value)
     context = {
         'form': form,
+        'attribute_value': attribute_value,
     }
     return render(request, 'business/editVariantValue.html', context)
 

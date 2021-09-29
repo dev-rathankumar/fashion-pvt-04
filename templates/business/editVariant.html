@@ -33,7 +33,7 @@
               </div>
               {% include 'includes/_alerts.html' %}
 
-              <form method="POST" action="{% url 'addVariant' %}" enctype="multipart/form-data">
+              <form method="POST" action="{% url 'editVariant' pro_attribute.id %}" enctype="multipart/form-data">
 
                 {% csrf_token %}
 

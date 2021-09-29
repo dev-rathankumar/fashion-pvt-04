@@ -69,4 +69,6 @@ urlpatterns = [
 
     # Homepage Preview
     path('homepagePreview/', views.homepagePreview, name='homepagePreview'),
+
+    path('removeLightLogo/', views.removeLightLogo, name='removeLightLogo'),
 ]

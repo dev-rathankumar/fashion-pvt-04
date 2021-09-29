@@ -19,12 +19,16 @@
             {% if header.site_logo %}
             <img src="{{header.site_logo.url}}" height="40">
             {% else %}
-            <img src="{% static 'business/images/default-images/logo.png' %}" alt="" height="60">
+            <img src="{% static 'business/images/default-images/logo.png' %}" height="60">
             {% endif %}
           </span>
           <span class="logo-lg">
             {% if header.site_logo %}
-            <img src="{{header.site_logo.url}}" height="40">
+              {% if header.site_logo_light %}
+              <img src="{{header.site_logo_light.url}}" style="max-width:80%;padding: 15px;">
+              {% else %}
+              <img src="{{header.site_logo.url}}" style="max-width:80%;padding: 15px;">
+              {% endif %}
             {% else %}
             <img src="{% static 'business/images/default-images/logo.png' %}" alt="" style="width:100%;">
             {% endif %}

@@ -25,6 +25,7 @@ class Header(models.Model):
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
     site_title = models.CharField(max_length=500)
     site_logo = models.ImageField(upload_to='logos', blank=True)
+    site_logo_light = models.ImageField(upload_to='logos', blank=True)
     favicon = models.ImageField(upload_to='logos', blank=True)
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now=True)

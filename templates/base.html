@@ -93,7 +93,20 @@
 		min-width: 400px;
         box-shadow: 1px 1px 10px 1px #8e8d8d;
 	}
+    
 </style>
+
+{% if frontpage.front_page_name == 'Premium' and '/en/' == request.path or '/ar/' == request.path or '/fr/' == request.path or request.GET.p == 'Premium' %}
+    <style>
+        
+     {% if header.site_logo_light %}
+        .header-2.stickyNav .logo img{
+            content: url("{{header.site_logo_light.url}}");
+        }
+    {% endif %}
+        
+    </style>
+    {% endif %}
 </head>
 <body class="template-index index-demo1" onload="DrawCaptcha(), DrawCaptchaRating();">
     {% if frontpage.front_page_name == 'Premium' and '/en/' == request.path or '/ar/' == request.path or '/fr/' == request.path or request.GET.p == 'Premium' %}

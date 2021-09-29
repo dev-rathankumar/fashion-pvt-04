@@ -882,3 +882,17 @@ def homepagePreview(request):
         return render(request, 'pages/homepagePreview.html', context)
     else:
         return HttpResponse('No direct access allowed!')
+
+
+def removeLightLogo(request):
+    try:
+        business = Business.objects.get(user=request.user)
+        header = Header.objects.get(business=business)
+        if header.site_logo_light:
+            header.site_logo_light.delete()
+            messages.success(request, 'Logo (Light Version) has been removed.')
+            return redirect('headerEdit', header.id)
+        else:
+            return redirect('headerEdit', header.id)
+    except:
+        return redirect('biz_dashboard')
