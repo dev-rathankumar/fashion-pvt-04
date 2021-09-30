@@ -410,3 +410,8 @@ input[type="radio"]{
  button.btn.btn-default.btn-secondary.fileinput-upload.fileinput-upload-button{
    display: none !important;
  }
+ .mask-overlay{
+  content: unset !important;
+  position: unset !important;
+  background-color: unset !important;
+ }
