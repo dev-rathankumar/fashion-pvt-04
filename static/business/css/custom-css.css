@@ -325,3 +325,6 @@ background-color:red !important;
 td.varField-Delete input[type="checkbox"]{
   margin: auto !important;
 }
+.table td{
+  padding: 0 .75rem 0.5rem 0;
+}

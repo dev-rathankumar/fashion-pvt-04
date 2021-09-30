@@ -23,14 +23,14 @@
           </div>
         </div>
       </div>
-      <!-- end page title -->
 
+      <!-- end page title -->
       <div class="row">
         <div class="col-12">
           <div class="card container">
             <div class="card-body" style="padding: 3.25rem 1.25rem;">
 
-              <form method="POST" action="{% url 'choosehomepage' %}" enctype="multipart/form-data" id="topbarForm" style="display: {% if topbar.is_enabled %} block {% else %} none {% endif %};">
+              <form method="POST" action="{% url 'choosehomepage' %}" enctype="multipart/form-data" id="topbarForm">
                 {% csrf_token %}
 
                 <div class="row choosehomepage">

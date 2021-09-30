@@ -21,7 +21,7 @@ from .forms import UserForm
 
 from django.http import HttpResponse
 from urllib.parse import urlparse
-from sitesettings.models import CashOnDelivery, DirectDepositEmail, FrontPage, Homepage, ParallaxBackground, Header, ContactPage, Footer, AboutPage, PaypalConfig, Policy, ServiceActivation, TermsAndCondition, Topbar
+from sitesettings.models import CashOnDelivery, DirectDepositEmail, FrontPage, Homepage, ParallaxBackground, Header, ContactPage, Footer, AboutPage, PaypalConfig, Policy, ServiceActivation, TermsAndCondition, Topbar, VideoBanner
 from emails.models import BusinessEmailSetting
 from datetime import date, datetime
 import time
@@ -514,14 +514,44 @@ def biz_password_reset(request):
             popup_activation.business = business
             popup_activation.save()
 
+            # Automatically create Testimonial
+            testimonial = Testimonial()
+            testimonial.business = business
+            testimonial.user = user
+            testimonial.save()
+
+            # Automatically create Testimonial for regional manager
+            rm = User.objects.get(is_regional_manager=True)
+            testimonial = Testimonial()
+            testimonial.business = business
+            testimonial.user = rm
+            testimonial.save()
+
             frontpage_names = ['Classic', 'Premium', 'Modern']
             for i in frontpage_names:
-                frontpage = FrontPage.objects.create(
-                    business = business,
-                    front_page_name = i,
-                    preview_link = 'https://google.com/'
-                )
-                frontpage.save()
+                if i == 'Classic':
+                    frontpage = FrontPage.objects.create(
+                        business = business,
+                        front_page_name = i,
+                        preview_link = '../homepagePreview?p='+i,
+                        is_active = True
+                        )
+                    frontpage.save()
+                else:
+                    frontpage = FrontPage.objects.create(
+                        business = business,
+                        front_page_name = i,
+                        preview_link = '../homepagePreview?p='+i,
+                        is_active = False
+                        )
+                    frontpage.save()
+            
+            # Automatically Creating a Video Banner
+            v_banner = VideoBanner()
+            v_banner.homepage = homepage
+            v_banner.title = 'A Video Banner'
+            v_banner.save()
+                
 
             mail_subject = 'Your Business Account is Activated'
             # message = 'Congratulations! Your business account has been activated.'

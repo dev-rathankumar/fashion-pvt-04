@@ -255,10 +255,9 @@
                     <div class="container">
                         <div class="wrap-text center text-small font-bold">
                             <h2 class="h2 mega-title">{% trans 'About your business' %}</h2>
-                            <div class="rte-setting mega-subtitle">{% trans 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+                            <div class="rte-setting mega-subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
                               molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-                              numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium' %}
-optio, eaque rerum! Provident similique accusantium nemo autem.</div>
+                              numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium</div>
                             <a href="#" class="btn">{% trans 'About Us' %}</a>
                         </div>
                     </div>
@@ -305,14 +304,18 @@ optio, eaque rerum! Provident similique accusantium nemo autem.</div>
     	<!--Video Banner-->
     	<div class="video-sec style2">   
         <video autoplay="" loop="" muted="" playsinline="">
+          {% if video.video %}
             <source src="{{ video.video.url }}" type="video/mp4">
+          {% else %}
+            <source src="{% static 'images/default-images/sample-video.mp4' %}" type="video/mp4">
+          {% endif %}
             Your browser does not support the video tag.
         </video>    
           
         <div class="video-text bottomcenter text-align-{{video.content_align}}">
            <span class="ttl small--hide"><b>{{video.title}}</b></span>
-           <span><p style="font-size: 16px;color: #fff;">{{video.sub_title}}</p>      
-            <a href="{{ video.button_link }}" class="btn" style="background-color: {{video.button_color}};">{{ video.button_name }}</a></span>
+           <span><p style="font-size: 16px;color: #fff;">{% if video.sub_title %}{{video.sub_title}}{% endif %}</p>      
+            <a href="{% if video.button_link %}{{ video.button_link }}{% else %}#{% endif %}" class="btn" style="background-color: {{video.button_color}};">{% if video.button_name %}{{ video.button_name }}{% else %}BUTTON{% endif %}</a></span>
         </div>
       </div>
       <!-- Our Services -->
@@ -493,10 +496,9 @@ optio, eaque rerum! Provident similique accusantium nemo autem.</div>
                     <div class="container">
                         <div class="wrap-text center text-small font-bold">
                             <h2 class="h2 mega-title">{% trans 'About your business' %}</h2>
-                            <div class="rte-setting mega-subtitle">{% trans 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+                            <div class="rte-setting mega-subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
                               molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-                              numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium' %}
-optio, eaque rerum! Provident similique accusantium nemo autem.</div>
+                              numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium</div>
                             <a href="#" class="btn">{% trans 'About Us' %}</a>
                         </div>
                     </div>
@@ -515,6 +517,7 @@ optio, eaque rerum! Provident similique accusantium nemo autem.</div>
               {% else %}
               {% trans 'Your sub heading content goes here' %}
             {% endif %}
+            <br>
             <a href="/about/" class="btn btn-large" style="background-color: {{background.button_color}};">READ MORE</a>
             </div>
         </div>
@@ -550,7 +553,7 @@ optio, eaque rerum! Provident similique accusantium nemo autem.</div>
         {% endif %}
         <!--End Testimonial Slider-->
          <!-- Store Features -->
-         <div class="store-info style2 store-info-section small-pd d-none d-sm-none d-md-block d-lg-block" style="margin-top:-5px;">
+         <div class="store-info style2 store-info-section small-pd d-none d-sm-none d-md-block d-lg-block" style="margin-top:-5px;margin-top: 80px;">
           <div class="container-fluid">
               <div class="row">
                   <div class="col-12 col-sm-12 col-md-12 col-lg-12">
@@ -929,10 +932,9 @@ optio, eaque rerum! Provident similique accusantium nemo autem.</div>
                     <div class="container">
                         <div class="wrap-text center text-small font-bold">
                             <h2 class="h2 mega-title">{% trans 'About your business' %}</h2>
-                            <div class="rte-setting mega-subtitle">{% trans 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+                            <div class="rte-setting mega-subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
                               molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-                              numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium' %}
-optio, eaque rerum! Provident similique accusantium nemo autem.</div>
+                              numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium</div>
                             <a href="#" class="btn">{% trans 'About Us' %}</a>
                         </div>
                     </div>
