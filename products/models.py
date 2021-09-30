@@ -146,8 +146,8 @@ class Variants(models.Model):
     size = models.ForeignKey(Size, on_delete=models.CASCADE,blank=True,null=True)
     variant_data = models.JSONField(default=variant_data_default, blank=True, help_text = 'Data should be in JSON format: {"attribute_name": "attribute_value", "attribute_name": "attribute_value"}')
     image_id = models.IntegerField(blank=True,null=True)
-    quantity = models.IntegerField()
-    price = models.DecimalField(max_digits=12, decimal_places=2)
+    quantity = models.IntegerField(blank=True,null=True)
+    price = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
 
     def __unicode__(self):
         return self.id

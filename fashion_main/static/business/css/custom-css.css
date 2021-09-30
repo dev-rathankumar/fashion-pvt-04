@@ -306,3 +306,22 @@ ul.errorlist{
 button.btn.btn-default.btn-secondary.fileinput-upload.fileinput-upload-button{
   display: none !important;
 }
+td.varField-Variantdata{
+  visibility: hidden;
+  position: absolute;
+}
+.varField-Attributevalue{
+  width: 182px !important;
+}
+td.varField-Delete{
+  color: #FF0000 !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+}
+input[type="checkbox"].varField-Delete:checked {
+  border-color: red !important;
+background-color:red !important;
+}
+td.varField-Delete input[type="checkbox"]{
+  margin: auto !important;
+}

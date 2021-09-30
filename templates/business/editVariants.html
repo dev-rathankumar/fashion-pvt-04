@@ -62,7 +62,6 @@
                   {{ formset.management_form }}
 
                   {% for form in formset.forms %}
-                  <!-- {% with nvserial="{{ forloop.counter }}" %} -->
                   <tr class="{% cycle row1 row2 %} formset_row nvformset_row" id="nv{{ forloop.counter }}"  data-rid="{{ forloop.counter }}" data-id="nv{{ forloop.counter }}">
 
                     {% for field in form.visible_fields %}
@@ -76,31 +75,35 @@
                       {% endif %}
                       {{ field.errors.as_ul }}
                       {{ field.label|capfirst }}
-                      {% if field.name == 'attribute_value' %}
-                        <input data-tdid="varField-{{field.label|cut:' '}}" data-id="nv{{ forloop.parentloop.counter }}" data-idnum="{{ forloop.parentloop.counter }}" type="button" value="&plus;" id="btn-add" class="btn btn-primary nvclass" style="padding: 2px 8px 2px 8px;margin-top: -12px;">
-                        {% endif %}
+
                       {% if field.name == 'product_attribute' %}
                         <!-- This is for test. I may make this field hidden later -->
-                        <input type="text" name="product_attribute_count" value="{{product_attribute_count}}">
+                        <input type="hidden" name="product_attribute_count" value="{{product_attribute_count}}" class="product_attribute_count" id="product_attribute_count" data-nvid="nv{{forloop.parentloop.counter}}">
                       {% endif %}
+                      
+                      {% if field.name == 'attribute_value' %}<input data-tdid="varField-{{field.label|cut:' '}}" data-id="nv{{ forloop.parentloop.counter }}" data-idnum="{{ forloop.parentloop.counter }}" type="button" value="&plus;" id="btn-add" class="btn btn-primary nvclass" style="padding: 2px 8px 2px 8px;margin-top: -12px;">{% endif %}
                       {% if field.name == 'attribute_value' %}<input data-tdid="varField-{{field.label|cut:' '}}" data-id="nv{{ forloop.parentloop.counter }}" data-idnum="{{ forloop.parentloop.counter }}" type="button" value="&minus;" id="btn-delete1" class="btn btn-danger removeAttr" style="padding: 2px 8px 2px 8px;margin-top: -12px;">{% endif %}
                       
                       {% if field.name == 'variant_data' %}
                         {{ field|add_loop_counter:forloop.parentloop.counter }}
                       {% elif field.name == 'product_attribute' %}
+                      <table><tr class="first"><td>
                         {{ field|add_on_change:forloop.parentloop.counter }}
+                      </td></tr></table>
                       {% elif field.name == 'attribute_value' %}
+                      <table><tr class="first"><td>
                         {{ field|add_on_change:forloop.parentloop.counter }}
+                      </td></tr></table>
                       {% else %}
                         {{ field }}
                       {% endif %}
-                      <!-- {% if field.name == 'attribute_value' %}<table id="item_table"></table>{% endif %}
-                      {% if field.name == 'attribute_value' %}<a name="add_more_attr" class="btn btn-primary add_more_attr" style="padding: 5px 15px 5px 15px;">Add</a>{% endif %} -->
                       
+
+
                     </td>
                     {% endfor %}
                   </tr>
-                  <!-- {% endwith %} -->
+                  
                   {% endfor %}
                   <tr>
                     <td></td>
@@ -110,9 +113,13 @@
                 </table>
                 <a onclick="goBack()" class="btn margin-15px-top btn-secondary" style="letter-spacing: 2px;"><i class="fa fa-arrow-left" aria-hidden="true"></i> BACK</a>
                 <button type="submit" name="add_another" value="true" class="btn btn-success mr-1 waves-effect waves-light" style="letter-spacing: 2px;" formaction="{% url 'editVariants' product.id %}"><i class='fas fa-plus'></i>
-                  SAVE & ADD ANOTHER</button>
+                  ADD ANOTHER</button>
+                  
                 <button type="submit" name="add_another" value="false" class="btn btn-primary mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;" formaction="{% url 'editVariants' product.id %}"><i class="fas fa-check"></i>
                   FINISH
+                </button>
+                <button type="submit" name="add_another" value="save" class="btn btn-success mr-1 waves-effect waves-light" style="float: right;letter-spacing: 2px;" formaction="{% url 'editVariants' product.id %}"><i class="fas fa-save"></i>
+                  SAVE
                 </button>
               </form>
             </div>
@@ -142,7 +149,6 @@
 
 
          console.log(trid);
-         
          $('#'+trid).find("td[id='varField-Productattribute'] select").each(function() {
             var a = $(this).find(":selected").text();
             attribute.push(a);
@@ -175,7 +181,9 @@
 
 
     $(document).ready(function() {
-
+      jQuery(".first").each( function() {
+          //$(this).hide();
+      });
       var command = "{{command}}";
       if(command == 'delete_size'){
         $(".varField-Size").css("display","none");
@@ -188,16 +196,7 @@
         $(".varField-Size").css("display","none");
       }
    
-      // console.log($('# select option').size());
-      // console.log('==>'+$('.varField-Productattribute select option').length);
 
-
-      // var r = $('.varField-Productattribute select').first()
-      // console.log(r)
-      // console.log(r +'option').length;
-      // console.log('==>'+r.option).length;
-
-      
 
       
 
@@ -206,12 +205,7 @@
         var mrid = $(this).data('rid');
         var rid  = mrid-1;
         console.log(rid);
-        if(rid >= 1){
-          console.log('yes');
-        }
-        
         var nvid = $(this).data('id');
-        
         var vdata    = 'id_variants_set-'+rid+'-variant_data';
         var vdataval = jQuery('#'+vdata).val();
         var vFA = $(this).find("td[id='varField-Productattribute']");
@@ -234,7 +228,7 @@
             x.className = i;
             
                         
-            y.innerHTML = '<select onchange="nvpopulatejson(\''+mrid+'\')" data-nvid="'+nvid+'" data-cid="'+i+'" id="id_variants_set-0-product_attribute'+i+ '" class="form-control" name="variants_set-0-product_attribute"></select>';
+            y.innerHTML = '<td><select onchange="nvpopulatejson(\''+mrid+'\')" data-nvid="'+nvid+'" data-snvid="'+nvid+'" data-cid="'+i+'" id="id_variants_set-0-product_attribute'+i+ '" class="form-control" name="variants_set-0-product_attribute"></select></td>';
             $(vFA).append(y);
 
             var $options = $('#id_variants_set-0-product_attribute > option').clone();
@@ -243,7 +237,7 @@
               return $(this).text() == n; 
             }).attr('selected', true);
 
-            x.innerHTML = '<select onchange="nvpopulatejson(\''+mrid+'\')" data-nvid="'+nvid+'" data-cid="'+i+'" id="id_variants_set-0-attribute_value'+i+ '" class="form-control" name="variants_set-0-attribute_value"></select>';
+            x.innerHTML = '<td><select onchange="nvpopulatejson(\''+mrid+'\')" data-nvid="'+nvid+'" data-snvidv="'+nvid+'" data-cid="'+i+'" id="id_variants_set-0-attribute_value'+i+ '" class="form-control" name="variants_set-0-attribute_value"></select></td>';
             $(vFV).append(x);
 
             var $options = $('#id_variants_set-0-attribute_value > option').clone();
@@ -302,46 +296,55 @@
         });
         */
 
-      // $(document).on('click', '.add_more_attr', function(){
-      //   var html = '';
-      //   html += '<tr>';
-      //   html += '<td><select name="pr_attribute[]" class="form-control pr_attribute"><option value="">Select Attribute</option><option value="Material">Material</option></select></td>';
-      //   html += '<td><select name="attr_value[]" class="form-control attr_value"><option value="">Select Value</option><option value="Cotton">Cotton</option></select></td>';
-      //   html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><i class="far fa-trash-alt"></i></button></td></tr>';
-      //   $('#item_table').append(html);
-      // });
+      $(document).on('click', '.add_more_attr', function(){
+        var html = '';
+        html += '<tr>';
+        html += '<td><select name="pr_attribute[]" class="form-control pr_attribute"><option value="">Select Attribute</option><option value="Material">Material</option></select></td>';
+        html += '<td><select name="attr_value[]" class="form-control attr_value nvattributevalue"><option value="">Select Value</option><option value="Cotton">Cotton</option></select></td>';
+        html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><i class="far fa-trash-alt"></i></button></td></tr>';
+        $('#item_table').append(html);
+      });
 
       $(document).on('click', '.remove', function(){
         $(this).closest('tr').remove();
       });
 
       $(document).on('click', '.nvclass', function(){
+
         var i = 1 + Math.floor(Math.random() * 6000);
         var j = 1 + Math.floor(Math.random() * 6000);
         var nvid = $(this).data('id');
+
         var tdid = $(this).data('tdid');
         var idnum = $(this).data('idnum');
         var vFA = $('#'+nvid).find("td[id='varField-Productattribute']");
         var vFV = $('#'+nvid).find("td[id='varField-Attributevalue']");
-        
-        
-        var y = document.createElement('tr');
-        y.className = i;
-        var x = document.createElement('tr');
-        x.className = i;
-        
-        y.innerHTML = '<select onchange="nvpopulatejson(\''+idnum+'\')" data-nvid="'+nvid+'" data-cid="'+i+'" id="id_variants_set-0-product_attribute'+i+ '" class="form-control nvremove'+nvid+'" name="variants_set-0-product_attribute"></select>';
-        $(vFA).append(y);
+        var total = $('#'+nvid+ ' .product_attribute_count').val();   
+        total = total - 1; 
+        var totalselect = $('#'+nvid).find("select[data-snvid='" + nvid + "']").length;         
+        console.log(totalselect + '-' + total);
+        if(totalselect < total)
+        {
+          var y = document.createElement('tr');
+          y.className = i;
+          var x = document.createElement('tr');
+          x.className = i;
+          
+          y.innerHTML = '<td><select onchange="nvpopulatejson(\''+idnum+'\')" data-snvid="'+nvid+'" data-nvid="'+nvid+'" data-cid="'+i+'" id="id_variants_set-0-product_attribute'+i+ '" class="form-control nvremove'+nvid+'" name="variants_set-0-product_attribute"></select></td>';
+          $(vFA).append(y);
 
-        var $options = $('#id_variants_set-0-product_attribute > option').clone();
-        $('#id_variants_set-0-product_attribute' + i).append($options);
-        
-        x.innerHTML = '<select onchange="nvpopulatejson(\''+idnum+'\')" data-nvid="'+nvid+'" data-cid="'+i+'" id="id_variants_set-0-attribute_value'+i+ '" class="form-control" name="variants_set-0-attribute_value"></select>';
-        $(vFV).append(x);
+          var $options = $('#id_variants_set-0-product_attribute > option').clone();
+          $('#id_variants_set-0-product_attribute' + i).append($options);
+          
+          x.innerHTML = '<td><select onchange="nvpopulatejson(\''+idnum+'\')" data-snvidv="'+nvid+'" data-nvid="'+nvid+'" data-cid="'+i+'" id="id_variants_set-0-attribute_value'+i+ '" class="form-control" name="variants_set-0-attribute_value"></select></td>';
+          $(vFV).append(x);
 
-        var $options = $('#id_variants_set-0-attribute_value > option').clone();
-        $('#id_variants_set-0-attribute_value' + i).append($options);
-        
+          var $options = $('#id_variants_set-0-attribute_value > option').clone();
+          $('#id_variants_set-0-attribute_value' + i).append($options);
+        }
+        else{
+          console.log('here')
+        }
         
       });
 
@@ -351,14 +354,26 @@
         var tdid = $(this).data('tdid');
         var idnum = $(this).data('idnum');
         var vFA = $('#'+nvid+' tr:last').attr('class');
-            
+        var nvclass = $(this).prop('class');
+        console.log(vFA);
         // $(".varField-Attributevalue select:last-child").remove();
-        $('tr.' + vFA).remove();
+        if(vFA != 'first')
+          $('tr.' + vFA).remove();
       });
 
     });
+    // Custom product attribute selection
+    // $('#id_variants_set-0-product_attribute').on('change', function(e) {
+    //   e.preventDefault();
+    //   key = $( "#id_variants_set-0-product_attribute option:selected" ).val();
+      
+      
+    //   val = 'Cotton'
+    //   var varData = '{"'+key+'": "'+val+'"}';
+    //   document.getElementById('my_textarea_id').textContent = 'foo'
+      
+    // });
   </script>
-
   <script type="text/javascript">
     $('.formset_row').formset({
       addText: 'Gallery Image',
@@ -372,7 +387,7 @@
   function proAttribute(x){
       
       var y = document.createElement('tr');
-      y.innerHTML = '<select id="id_variants_set-0-product_attribute'+i+ '" class="form-control" name="variants_set-0-product_attribute"></select>';
+      y.innerHTML = '<td><select id="id_variants_set-0-product_attribute'+i+ '" class="form-control" name="variants_set-0-product_attribute"></select></td>';
       document.getElementById(x).appendChild(y);
       $('#id_variants_set-0-product_attribute' + i).html($('#id_variants_set-0-product_attribute').html());
       i++;
@@ -383,7 +398,7 @@
   function attrValue(x){
       
       var y = document.createElement('tr');
-      y.innerHTML = '<select id="id_variants_set-0-attribute_value'+j+ '" class="form-control" name="variants_set-0-attribute_value"></select>';
+      y.innerHTML = '<td><select id="id_variants_set-0-attribute_value'+j+ '" class="form-control" name="variants_set-0-attribute_value"></select></td>';
       document.getElementById(x).appendChild(y);
       
       $('#id_variants_set-0-attribute_value' + j).html($('#id_variants_set-0-attribute_value').html());

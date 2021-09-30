@@ -391,6 +391,7 @@ def editGallery(request, pk=None):
                 messages.success(request, 'Product has been uploaded successfully.')
                 return redirect('allProducts')
             else:
+                request.session['extra'] = 1
                 return redirect('/business/products/editProduct/'+str(pk)+'/editVariants/')
         else:
             return HttpResponse(formset.errors)
@@ -409,7 +410,12 @@ def editGallery(request, pk=None):
 @is_account_expired
 def editVariants(request, pk=None):
     product = get_object_or_404(Product, pk=pk)
-    ProductVariantFormSet = inlineformset_factory(Product, Variants, form=ProductVariantForm, extra=1)
+    
+    if 'extra' in request.session:
+        extra = request.session['extra']
+    else:
+        extra = 0
+    ProductVariantFormSet = inlineformset_factory(Product, Variants, form=ProductVariantForm, extra=extra)
 
     # Check if gellery image is 0, return back to edit gallery
     chkGallery = ProductGallery.objects.filter(product=product)
@@ -422,16 +428,17 @@ def editVariants(request, pk=None):
         add_another = request.POST['add_another']
         formset = ProductVariantFormSet(request.POST, instance=product)
         if formset.is_valid():
-            print('formset valid')
             formset.save()
-            print('formset saved')
             product.is_active = True
             product.save()
             if add_another == 'true':
-                print('add_another true')
+                request.session['extra'] = 1
+                return redirect('/business/products/editProduct/'+str(pk)+'/editVariants/')
+            if add_another == 'save':
+                request.session['extra'] = 0
                 return redirect('/business/products/editProduct/'+str(pk)+'/editVariants/')
             else:
-                print('finish true')
+                request.session['extra'] = 0
                 variants = Variants.objects.filter(product=product)
                 total_quantity = variants.aggregate(Sum('quantity'))['quantity__sum'] or 0
                 min_price = variants.aggregate(Min('price'))['price__min'] or 0.00
