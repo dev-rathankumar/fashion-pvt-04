@@ -133,3 +133,87 @@ gunicorn --bind 0.0.0.0:8000 fashion_main.wsgi
 ```bash
 exit
 ```
+## Configuring gunicorn
+
+```python
+sudo nano /etc/systemd/system/gunicorn.socket
+
+[Unit]
+Description=gunicorn socket
+
+[Socket]
+ListenStream=/run/gunicorn.sock
+
+[Install]
+WantedBy=sockets.target
+```
+
+```python
+sudo nano /etc/systemd/system/gunicorn.service
+
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=altocan
+Group=www-data
+WorkingDirectory=/home/altocan/fashiondir
+ExecStart=/home/altocan/fashiondir/env/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock \
+          fashion_main.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+```
+```bash
+sudo systemctl start gunicorn.socket
+sudo systemctl enable gunicorn.socket
+```
+
+## Configuring Nginx as a reverse proxy
+```python
+sudo nano /etc/nginx/sites-available/fashion_main
+
+server {
+    listen 80;
+    server_name altocanp1.website;
+
+    location ~ ^/\.well-known {
+        root /home/altocan/fashiondir;
+        allow all;
+    }
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/altocan/fashiondir;
+    }
+    location /media/ {
+        root /home/altocan/fashiondir;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/run/gunicorn.sock;
+    }
+}
+```
+```bash
+sudo ln -s /etc/nginx/sites-available/fashion_main /etc/nginx/sites-enabled/
+```
+```bash
+cd /etc/nginx/sites-enabled/
+sudo rm default
+sudo systemctl restart nginx
+sudo systemctl restart gunicorn
+```
+
+```bash
+sudo ufw allow 80
+sudo ufw allow 'Nginx Full'
+sudo ufw allow 586
+sudo ufw deny 8000
+```
