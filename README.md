@@ -6,7 +6,7 @@ sudo apt update && apt upgrade -y
 ```bash
 sudo apt install python3-pip python3-dev ufw nginx
 ```
-## create a user and give him sudo permissio
+## create a user and give him sudo permission
 ```bash
 adduser altocan
 ```
