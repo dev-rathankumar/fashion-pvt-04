@@ -207,8 +207,6 @@ sudo ln -s /etc/nginx/sites-available/fashion_main /etc/nginx/sites-enabled/
 ```bash
 cd /etc/nginx/sites-enabled/
 sudo rm default
-sudo systemctl restart nginx
-sudo systemctl restart gunicorn
 ```
 
 ```bash
@@ -216,4 +214,10 @@ sudo ufw allow 80
 sudo ufw allow 'Nginx Full'
 sudo ufw allow 586
 sudo ufw deny 8000
+```
+```python
+sudo nano fashiondir/fashion_main/settings.py
+# Add the domain name into allowed host
+sudo systemctl restart nginx
+sudo systemctl restart gunicorn
 ```
