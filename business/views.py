@@ -457,11 +457,11 @@ def editVariants(request, pk=None):
         message2 = ''
         
         if product.variant == 'Color':
-            command = 'delete_size'
+            command = 'delete_size_custom'
             message1 = 'Product with only Color variant.'
             message2 = 'Add Size too.'
         elif product.variant == 'Size':
-            command = 'delete_color'
+            command = 'delete_color_custom'
             message1 = 'Product with only Size variant.'
             message2 = 'Add Color too.'
         elif product.variant == 'Size-Color':

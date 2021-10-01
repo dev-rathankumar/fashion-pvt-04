@@ -185,11 +185,15 @@
           //$(this).hide();
       });
       var command = "{{command}}";
-      if(command == 'delete_size'){
+      if(command == 'delete_size_custom'){
         $(".varField-Size").css("display","none");
+        $(".varField-Productattribute").css("display","none");
+        $(".varField-Attributevalue").css("display","none");
       }
-      else if(command == 'delete_color'){
+      else if(command == 'delete_color_custom'){
         $(".varField-Color").css("display","none");
+        $(".varField-Productattribute").css("display","none");
+        $(".varField-Attributevalue").css("display","none");
       }
       else if(command == 'delete_size_color'){
         $(".varField-Color").css("display","none");

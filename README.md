@@ -208,6 +208,13 @@ sudo ln -s /etc/nginx/sites-available/fashion_main /etc/nginx/sites-enabled/
 cd /etc/nginx/sites-enabled/
 sudo rm default
 ```
+## increase file upload size to avoid 413 errors
+## go to http block
+```bash
+sudo nano /etc/nginx/nginx.conf
+# add this line
+client_max_body_size 100M;
+```
 
 ```bash
 sudo ufw allow 80
