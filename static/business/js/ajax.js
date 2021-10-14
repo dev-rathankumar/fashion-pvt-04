@@ -630,3 +630,44 @@ function testimonialApproval(event, testi_id){
     }
   });
 }
+
+// Language enable Switch
+function langSwitch() {
+  var langSwitch = document.getElementById('langSwitch');
+  var url = $('#langToggleUrl').val();
+  if (langSwitch.checked == true){
+    var event = Boolean(true);
+    langToggleEnable(event, url);
+  } else {
+    var event = Boolean(false);
+    langToggleEnable(event, url);
+  }
+}
+
+function langToggleEnable(event, url){
+  $.ajax({
+    type: 'GET',
+    url: url,
+    data: {
+      event:event,
+    },
+
+    success: function(data) {
+      if (data == 'enabled') {
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-danger");
+        element.classList.add("alert-success");
+        document.getElementById("enabledisable").innerHTML = "enabled";
+      }
+      else{
+        var element = document.getElementById("feature");
+        element.classList.remove("alert-success");
+        element.classList.add("alert-danger");
+        document.getElementById("enabledisable").innerHTML = "disabled";
+      }
+    },
+    error: function(data) {
+      alert(data)
+    }
+  });
+}
