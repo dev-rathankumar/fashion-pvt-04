@@ -1,0 +1,51 @@
+{% extends 'business/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %} {% trans 'Language Toggle' %} {% endblock %}
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+  <div class="page-content">
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">{% trans 'Toggle Language' %}</h4>
+            <div class="page-title-right">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+      {% include 'includes/_alerts.html' %}
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- Enable/disable languages -->
+            <div class="row" style="margin-right: 0px;margin-left: 0px;">
+              <div id="feature" class="mb-0 col-md-12 col-lg-12 col-sm-12 alert {% if lang_activation.is_enabled %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+                {% if lang_activation.is_enabled %}Language feature has been <span id="enabledisable">enabled</span> in your website. {% else %}Language feature has been <span id="enabledisable">disabled</span> in your website. {% endif %} &emsp;
+                <span>
+                  <label class="switch" style="margin-bottom: -0.5rem;">
+                    <input type="hidden" name="langToggleUrl" id="langToggleUrl" value="{% url 'langEnableToggle' %}">
+                    <input type="checkbox" id="langSwitch" {% if lang_activation.is_enabled %} checked {% else %} {% endif %} onclick="langSwitch()">
+                    <span class="slider round"></span>
+                  </label>
+                </span>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <!-- end row -->
+    </div> <!-- container-fluid -->
+  </div>
+
+  {% endblock %}

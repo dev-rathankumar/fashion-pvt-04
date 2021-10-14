@@ -71,4 +71,8 @@ urlpatterns = [
     path('homepagePreview/', views.homepagePreview, name='homepagePreview'),
 
     path('removeLightLogo/', views.removeLightLogo, name='removeLightLogo'),
+
+    # Language activation
+    path('langSettings/', views.langSettings, name='langSettings'),
+    path('langEnableToggle/', views.langEnableToggle, name='langEnableToggle'),
 ]

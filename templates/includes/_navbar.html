@@ -181,6 +181,9 @@
                 </div>
                 {% endif %}
                 <!--End Minicart Dropdown-->
+
+                <!-- Languages -->
+                {% if lang_activation.is_enabled %}
                 <div class="language hideonPhone iconset">
                   <!-- Language selection -->
                   {% get_current_language as LANGUAGE_CODE  %}
@@ -199,6 +202,7 @@
                    
                   </form>
                 </div>
+              {% endif %}
                 
             </div>
         </div>

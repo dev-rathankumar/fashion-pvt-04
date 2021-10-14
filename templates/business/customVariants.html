@@ -37,7 +37,7 @@
             </div>
             {% else %}
             <div class="card-body">
-              <h4 class="text-center">Sizes</h4>
+              <h4 class="text-center">{% trans 'Sizes' %}</h4>
               <div class="row mb-2">
                 <div class="col-sm-4">
                   
@@ -88,7 +88,7 @@
             </div>
             {% else %}
             <div class="card-body">
-              <h4 class="text-center">Colors</h4>
+              <h4 class="text-center">{% trans 'Colors' %}</h4>
               <div class="row mb-2">
                 <div class="col-sm-4">
                   
@@ -166,7 +166,7 @@
             </div>
             {% else %}
             <div class="card-body">
-              <h4 class="text-center">Add product variants</h4>
+              <h4 class="text-center">{% trans 'Add product variants' %}</h4>
               <div class="row mb-2">
                 <div class="col-sm-4">
                   
@@ -217,13 +217,13 @@
             </div>
             {% else %}
             <div class="card-body">
-              <h4 class="text-center">Assign a value to product variants</h4>
+              <h4 class="text-center">{% trans 'Assign a value to product variants' %}</h4>
               <div class="row mb-2">
                 <div class="col-sm-3">
                   <div class="search-box mr-2 mb-2 d-inline-block">
                     <div class="position-relative">
                       <select id="varlist" onchange="searchFilter()" class='form-control'>
-                        <option value="">All Variants</option>
+                        <option value="">{% trans 'All Variants' %}</option>
                         {% for attr in product_attr %}
                           <option value="{{attr.attribute_name}}">{{attr.attribute_name}}</option>
                         {% endfor %}

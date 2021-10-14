@@ -34,7 +34,7 @@ class SiteContact(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     phone = models.CharField(max_length=100, blank=True)
-    subject = models.CharField(max_length=250)
+    subject = models.CharField(max_length=50)
     contact_message = models.TextField(blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
 

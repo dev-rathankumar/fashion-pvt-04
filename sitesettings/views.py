@@ -4,7 +4,7 @@ from pages.views import about, services
 from django.core.mail import message
 from products.models import ReviewRating, SalesPopup, SalesPopupActivation, SalesPopupSetting, Testimonial
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import AboutContent, CashOnDelivery, DirectDepositEmail, FrontPage, Header, Homepage, BannerImage, PaypalConfig, Service, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, VideoBanner
+from .models import AboutContent, CashOnDelivery, DirectDepositEmail, FrontPage, Header, Homepage, BannerImage, LanguageActivation, PaypalConfig, Service, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, VideoBanner
 from .forms import AboutContentForm, DirectDepositEmailForm, HeaderForm, BannerImageForm, PaypalConfigForm, SalesPopupForm, SalesPopupSettingForm, StoreFeatureForm, ParallaxBackgroundForm, ContactPageForm, FooterForm, SocialMediaLinkForm, AboutPageForm, PolicyForm, StoreLocationForm, TermsAndConditionForm, TopbarForm, VideoBannerForm
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
@@ -896,3 +896,26 @@ def removeLightLogo(request):
             return redirect('headerEdit', header.id)
     except:
         return redirect('biz_dashboard')
+
+
+def langSettings(request):
+    lang_activation = LanguageActivation.objects.get(business=request.user.id)
+    context = {
+        'lang_activation': lang_activation,
+    }
+    return render(request, 'business/sitesettings/langSettings.html', context)
+
+
+def langEnableToggle(request):
+    event = request.GET.get('event')
+    business = Business.objects.get(user=request.user)
+    lang_activation = get_object_or_404(LanguageActivation, business=business)
+    if event == 'true':
+        lang_activation.is_enabled = True
+        lang_activation.save()
+        result = 'enabled'
+    else:
+        lang_activation.is_enabled = False
+        lang_activation.save()
+        result = 'disabled'
+    return HttpResponse(result)

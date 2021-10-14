@@ -1,3 +1,4 @@
+from django.contrib.sites.shortcuts import get_current_site
 from emails.models import BusinessEmailSetting
 from django.contrib import messages
 from django.shortcuts import redirect, render
@@ -85,17 +86,35 @@ def contact(request):
         contact = SiteContact(business=business, user_id=user_id, name=name, email=email,
         phone=phone, subject=subject, contact_message=contact_message)
         contact.save()
+
+        current_site = get_current_site(request)
         mail_subject = 'You have a new message from the website contact form'
         message = render_to_string('pages/contact_form_email.html', {
-            'contact': contact,
-        })
+                        'contact': contact,
+                        'user': business.user,
+                        'domain': current_site.domain,
+                    })
         to_email = business.user.email
-        email_send = EmailMessage(
-            mail_subject, message, to=[to_email]
-        )
-        email_send.send()
-        messages.success(request, 'Your message has been submitted. We will get back to you soon.')
-        return redirect('contact_page')
+        # Get Email Connection
+        email_settings = BusinessEmailSetting.objects.get(business=business)
+        from_email = email_settings.email_host_user
+        try:
+            with get_connection(
+                host=email_settings.email_host,
+                port=email_settings.port,
+                username=email_settings.email_host_user,
+                password=email_settings.email_host_password,
+                use_tls=email_settings.email_use_tls
+            ) as connection:
+                email_send = EmailMessage(mail_subject, message, from_email, to=[to_email],
+                                connection=connection)
+            email_send.content_subtype = "html"
+            email_send.send()
+            messages.success(request, 'Your message has been submitted. We will get back to you soon.')
+            return redirect('contact_page')
+        except:
+            messages.success(request, 'Your message has been submitted. We will get back to you soon.')
+            return redirect('contact_page')
     else:
         messages.error(request, 'Something went wrong. Please try again.')
         return redirect('contact_page')

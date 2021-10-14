@@ -211,6 +211,9 @@ def orderproduct(request):
                 location_count = store_locations.count()
             else:
                 ddEmail = ''
+                codStatus = False
+                store_locations = None
+                location_count = 0
             context = {
                 'order' : order,
                 'payment_method': payment_method,

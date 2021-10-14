@@ -53,6 +53,7 @@
 
    
     <div class="d-flex">
+      {% if lang_activation.is_enabled %}
       {% get_current_language as LANGUAGE_CODE  %}
       <form action="{% url 'set_language' %}" id="lang_form" method="POST" class="lang_form" style="position: relative;top:25px;right:{% if LANGUAGE_CODE == 'ar' %}-10px{% else %}10px;{% endif %};">
         {% csrf_token %}
@@ -66,8 +67,8 @@
               </option>
           {% endfor %}
         </select>
-       
       </form>
+      {% endif %}
      
       <div class="dropdown d-inline-block">
         <a href="http://{{domain}}/" target="_blank" style="color:black;">{% trans 'VIEW SITE' %}</a>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CashOnDelivery, FrontPage, Header, Footer, ContactPage, Homepage, BannerImage, Service, ServiceActivation, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent, DirectDepositEmail, PaypalConfig, VideoBanner
+from .models import CashOnDelivery, FrontPage, Header, Footer, ContactPage, Homepage, BannerImage, LanguageActivation, Service, ServiceActivation, StoreFeature, ParallaxBackground, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent, DirectDepositEmail, PaypalConfig, VideoBanner
 
 
 class BannerImageInline(admin.TabularInline):
@@ -145,6 +145,17 @@ class FrontPageAdmin(admin.ModelAdmin):
         return True
 
 
+class LanguageActivationAdmin(admin.ModelAdmin):
+    list_display = ('business','is_enabled', 'updated_on')
+
+    # if there's already an entry, do not allow adding
+    def has_add_permission(self, request):
+        count = LanguageActivation.objects.all().count()
+        if count == 0:
+          return True
+        return False
+
+
 admin.site.register(Header, HeaderAdmin)
 admin.site.register(Footer)
 admin.site.register(ContactPage, ContactPageAdmin)
@@ -165,3 +176,4 @@ admin.site.register(ServiceActivation, ServiceActivationAdmin)
 admin.site.register(CashOnDelivery, CashOnDeliveryAdmin)
 admin.site.register(FrontPage, FrontPageAdmin)
 admin.site.register(VideoBanner)
+admin.site.register(LanguageActivation, LanguageActivationAdmin)
