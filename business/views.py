@@ -6,10 +6,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, user_passes_test
-from accounts.models import User, Customer, RegionalManager
+from accounts.models import DashboardImage, User, Customer, RegionalManager
 from accounts.models import Business, TaxOnPlan
 from django.http import HttpResponse, JsonResponse
-from .forms import AttributeValueForm, PaymentSettingForm, PortfolioForm, PortfolioGalleryForm, ProductAttributeForm, ServiceForm
+from .forms import AttributeValueForm, BizDashboardImgForm, PaymentSettingForm, PortfolioForm, PortfolioGalleryForm, ProductAttributeForm, ServiceForm
 from .models import PaymentSetting
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import default_token_generator
@@ -1841,3 +1841,22 @@ def testimonialApproval(request, pk=None):
         return HttpResponse('true')
     else:
         return HttpResponse('false')
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+def editBizDashboardImage(request):
+    business = Business.objects.get(user__is_business=True, is_account_verified=True)
+    image = get_object_or_404(DashboardImage, business=business)
+    if request.method == 'POST':
+        form = BizDashboardImgForm(request.POST, request.FILES, instance=image)
+        if form.is_valid:
+            form.save()
+            messages.success(request, 'Dashboard Image saved successfully.')
+            return redirect('editBizDashboardImage')
+    else:
+        form = BizDashboardImgForm(instance=image)
+    context = {
+        'form': form,
+        'image': image,
+    }
+    return render(request, 'business/editBizDashboardImage.html', context)

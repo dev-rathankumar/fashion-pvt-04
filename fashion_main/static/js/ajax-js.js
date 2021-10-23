@@ -519,3 +519,40 @@ function ValidCaptchaContact(){
      return false;
    }
 }
+
+
+//Created / Generates the captcha function
+function cmtDrawCaptcha()
+{
+   var a = Math.ceil(Math.random() * 9)+ '';
+   var b = Math.ceil(Math.random() * 9)+ '';
+   var c = Math.ceil(Math.random() * 9)+ '';
+   var d = Math.ceil(Math.random() * 9)+ '';
+   var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d;
+   document.getElementById("cmttxtCaptcha").value = code
+}
+
+// Validate the Entered input aganist the generated security code function
+function cmtValidCaptcha(){
+   var str1 = removeSpaces(document.getElementById('cmttxtCaptcha').value);
+   var str2 = removeSpaces(document.getElementById('cmttxtInput').value);
+
+   if (str1 == str2)
+   {
+    $("#cmtinvalidCode").html('');
+    $("#cmtblankCaptchaError").html('');
+     // pass
+   }
+   else if(str2 == ''){
+    $("#cmtinvalidCode").html('');
+    $("#cmtblankCaptchaError").html('Please enter Captcha!');
+    return false;
+   }
+   else{
+     $("#cmtblankCaptchaError").html('');
+     $("#cmtinvalidCode").html('Invalid verification code. Please enter the correct code to be able to submit.');
+    
+     cmtDrawCaptcha();
+     return false;
+   }
+}

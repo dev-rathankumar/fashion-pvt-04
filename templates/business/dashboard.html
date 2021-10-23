@@ -54,12 +54,18 @@
                                 <div class="card overflow-hidden">
                                     <div class="bg-soft-primary" style="background-image: url('{{dashboardimage.business_landing_image.url}}');background-size: cover;height: 300px;">
                                         <div class="row">
-                                            <div class="col-12">
+                                            <div class="col-11">
                                                 <div class="text-primary p-3">
                                                     <h5 class="text-primary text-light">{% trans 'Hi' %}, {{ user.name }}</h5>
                                                     <p class="text-light">{% trans 'Welcome back!' %}</p>
                                                 </div>
                                             </div>
+                                            <div class="col-1">
+                                                <div class="float-right">
+                                                    <a href="{% url 'editBizDashboardImage' %}" class="text-light"><i class="fas fa-edit"></i> Edit</a>
+                                                </div>
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                     <div class="card-body pt-0">

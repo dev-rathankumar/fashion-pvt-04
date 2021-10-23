@@ -131,4 +131,7 @@ urlpatterns = [
     path('testimonials/', views.allTestimonials, name='allTestimonials'),
     path('testimonials/testimonialApproval/<int:pk>/', views.testimonialApproval, name='testimonialApproval'),
 
+    # Edit Business Dashboard Image
+    path('editBizDashboardImage/', views.editBizDashboardImage, name='editBizDashboardImage'),
+
 ]

@@ -1,7 +1,7 @@
 from portfolio.models import Portfolio, PortfolioGallery
 from sitesettings.models import Service
 from django import forms
-from accounts.models import User, Business
+from accounts.models import DashboardImage, User, Business
 from .models import PaymentSetting
 from products.models import AttributeValue, Product, ProductAttribute, ProductGallery, Variants, Color, Size
 from category.models import Category
@@ -317,3 +317,16 @@ class AttributeValueForm(forms.ModelForm):
         for myField in self.fields:
             self.fields[myField].widget.attrs['class'] = 'form-control'
             self.fields[myField].widget.attrs['required'] = 'required'
+
+
+class BizDashboardImgForm(forms.ModelForm):
+    business_landing_image = forms.ImageField(label=('Dashboard Image'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
+        "type": "file",
+        "class": "file",
+        "data-show-preview": "false",
+    }))
+    class Meta:
+        model = DashboardImage
+        fields = ('business_landing_image',)
+
+    # def __init__(self, *args, **kwargs):

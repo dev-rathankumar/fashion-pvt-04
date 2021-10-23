@@ -78,7 +78,7 @@
                       </td>
                       <td style="max-width:300px;white-space: unset;">{{port.title}}</td>
                       <td style="max-width:300px;white-space: unset;">
-                        {{port.description | safe }}
+                        {{port.description | safe |truncatewords:30 }}
                       </td>
                       <td>
                         <a href="{% url 'editPortfolio' port.id %}" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>

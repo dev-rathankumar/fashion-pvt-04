@@ -18,36 +18,18 @@
                 <p class="mb-5 text-center" style="width: 70%;margin: auto;">{{portfolio_header.sub_heading}}</p>
             </div>
            
-              
-            
             <div class="row">
                 {% for port in portfolio %}
-                <div class="col-12 col-sm-12 col-md-4 col-lg-4 img-banner-item pb-5">
-                    <div class="imgBanner-grid-item">
-                        <div class="inner">
-                            <div class="img">
-                                <a href="{{ port.get_url }}"><img class="blur-up lazyload" src="{{ port.featured_image.url }}" alt="Featured Image" /></a>
-                            </div>
-                            <div class="details">
-                                <a href="{{ port.get_url }}"><h3 class="title text-center mt-3 text-uppercase">{{port.title}}</h3></a>
-                                <p class="text-center">{{ port.description | safe }}</p>
-                            </div>
-                        </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 card" style="width: 18rem;">
+                    <a href="{{ port.get_url }}"><img class="card-img-top" src="{{ port.featured_image.url }}" alt="Featured Image"></a>
+                    <div class="card-body">
+                        <a href="{{ port.get_url }}"><h3 class="title text-center mt-3 text-uppercase">{{port.title}}</h3></a>
+                    <p class="card-text">{{ port.description | safe | truncatewords:20 }}</p>
                     </div>
                 </div>
                 {% endfor %}
             </div>
-
-            {% if portfolio.has_other_pages %}
-            <div class="row mb-5">
-                <div class="col-md-12 col-sm-12 col-lg-12">
-                    <h1 class="text-uppercase text-center" style="text-shadow: 2px 3px 4px #a5a3a3;">Explore our gallery</h1>
-                </div>
-                <div class="col-md-12 col-sm-12 col-lg-12 text-center">
-                    <a href="{% url 'portfolio' %}?show=all" class="btn btn-primary">VIEW ALL</a>
-                </div>
-            </div>
-            {% endif %}
+                        
         </div>
     </div>
     <!--End Services-->

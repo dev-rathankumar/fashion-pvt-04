@@ -1,0 +1,74 @@
+{% extends 'business/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %} {% trans 'Edit Dashboard Image' %} {% endblock %}
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+
+
+  <div class="page-content">
+    <div class="container-fluid">
+
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">{% trans 'Dashboard Image' %}</h4>
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card container">
+            <div class="card-body">
+             
+              <form method="POST" action="{% url 'editBizDashboardImage' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row">
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group">
+                      {{ form.as_p }}
+                    </div>
+                  </div>
+                </div>
+              <br>
+              <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                  <div class="form-group">
+                    <img src="{{image.business_landing_image.url}}" alt="Business Dashboard Image" style="width: 300px;">
+                  </div>
+                </div>
+              </div>
+              <br>
+                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i> {% trans 'SAVE' %}</button>
+                <a href="{% url 'biz_dashboard' %}" class="btn btn-secondary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="mdi mdi-speedometer"></i> {% trans 'BACK TO DASHBOARD' %}</a>
+              </form>
+              <br>
+              <div>
+                {% include 'includes/_alerts.html' %}
+              </div>
+
+            </div>
+          </div>
+
+
+
+
+        </div>
+      </div>
+      <!-- end row -->
+
+    </div> <!-- container-fluid -->
+  </div>
+  <!-- End Page-content -->
+
+  {% endblock %}
