@@ -13,7 +13,7 @@
   <div class="page-content">
     <div class="container-fluid mb-5">
       <h2 class="text-center">Homepage Setup Area</h2> <br>
-      <p>You have selected the <b style="font-size: 20px;">{{frontpage.front_page_name}}</b> homepage layout. Please add the necessary content in this page. <span><a href="{% url 'choosehomepage' %}"><i class="fas fa-edit"></i> Change layout</a></span></p>
+      <p>You have selected the <b style="font-size: 20px;">{% if frontpage.front_page_name == 'Classic' %}Classic{% elif frontpage.front_page_name == 'Premium' %}Video Premium{% elif frontpage.front_page_name == 'Modern' %}Simple Modern{% endif %}</b> homepage layout. Please add the necessary content in this page. <span><a href="{% url 'choosehomepage' %}"><i class="fas fa-edit"></i> Change layout</a></span></p>
       <!-- start page title -->
       <div class="row">
         <div class="col-12">
@@ -341,7 +341,7 @@
   <div class="page-content">
     <div class="container-fluid mb-5">
       <h2 class="text-center">Homepage Setup Area</h2> <br>
-      <p>You have selected the <b style="font-size: 20px;">{{frontpage.front_page_name}}</b> homepage layout. Please add the necessary content in this page. <span><a href="{% url 'choosehomepage' %}"><i class="fas fa-edit"></i> Change layout</a></span></p>
+      <p>You have selected the <b style="font-size: 20px;">{% if frontpage.front_page_name == 'Classic' %}Classic{% elif frontpage.front_page_name == 'Premium' %}Video Premium{% elif frontpage.front_page_name == 'Modern' %}Simple Modern{% endif %}</b> homepage layout. Please add the necessary content in this page. <span><a href="{% url 'choosehomepage' %}"><i class="fas fa-edit"></i> Change layout</a></span></p>
       <!-- start page title -->
       <div class="row">
         <div class="col-12">
@@ -800,7 +800,7 @@
   <div class="page-content">
     <div class="container-fluid mb-5">
       <h2 class="text-center">Homepage Setup Area</h2> <br>
-      <p>You have selected the <b style="font-size: 20px;">{{frontpage.front_page_name}}</b> homepage layout. Please add the necessary content in this page. <span><a href="{% url 'choosehomepage' %}"><i class="fas fa-edit"></i> Change layout</a></span></p>
+      <p>You have selected the <b style="font-size: 20px;">{% if frontpage.front_page_name == 'Classic' %}Classic{% elif frontpage.front_page_name == 'Premium' %}Video Premium{% elif frontpage.front_page_name == 'Modern' %}Simple Modern{% endif %}</b> homepage layout. Please add the necessary content in this page. <span><a href="{% url 'choosehomepage' %}"><i class="fas fa-edit"></i> Change layout</a></span></p>
       <!-- start page title -->
       <div class="row">
         <div class="col-12">

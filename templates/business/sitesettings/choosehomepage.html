@@ -44,7 +44,7 @@
                           <label>
                             <input type="radio" name="frontpage" value="{{front.id}}" {% if front.is_active %}checked{% endif %}>
                             <img src="{% if front.preview_image %}{{front.preview_image.url}}{% else %}{% if forloop.counter == 1 %}{% static 'images/default-images/classic-layout.jpg' %}{% elif forloop.counter == 2 %}{% static 'images/default-images/premium-layout.jpg' %}{% elif forloop.counter == 3 %}{% static 'images/default-images/modern-layout.jpg' %}{% endif %} {% endif %}" width="250" style="border: 1px solid #d2d2d2;">
-                            <p style="text-align: center;">{{front.front_page_name}} {% if forloop.counter == 1 %}(Default){% endif %}</p>
+                            <p style="text-align: center;">{% if front.front_page_name == 'Classic' %}Classic{% elif front.front_page_name == 'Premium' %}Video Premium{% elif front.front_page_name == 'Modern' %}Simple Modern{% endif %} {% if forloop.counter == 1 %}(Default){% endif %}</p>
                             <a href="{{front.preview_link}}" target="_blank" class="btn btn-primary" style="margin:auto;display:block;letter-spacing: 2px;">PREVIEW</a>
                           </label>
                           

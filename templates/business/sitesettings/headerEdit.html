@@ -65,7 +65,8 @@
                     </div>
                     {% if form.site_logo_light.value %}
                     <img src="{{form.site_logo_light.value.url}}" alt="Site Logo Light" style="max-width: 75%;background-color: #000;">
-                    <p><a href="{% url 'removeLightLogo' %}" class="text-danger">Remove</a></p>
+                    <p class="mb-0"><a href="{% url 'removeLightLogo' %}" class="text-danger">Remove</a></p>
+                    <p>Light version of the logo will be visible only on <b>"Video Premium"</b> homepage. <span><a href="{% url 'choosehomepage' %}"><u>Check out homepages.</u></a></span></p>
                     {% else %}
                     <label class="text-warning">{% trans 'You have not set the light version of your logo. This is helpful on the dark backgrounds.' %}</label>
                     {% endif %}
