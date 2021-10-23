@@ -20,10 +20,10 @@
                             <div class="slideshow__text-content">
                                 <div class="wrap-caption anim-tru left style1">
                                   {% if banner.title %}
-                                    <h2 class="h1 mega-title slideshow__title">{{banner.title}}</h2>
+                                    <h2 class="h1 mega-title slideshow__title">{{banner.title | safe}}</h2>
                                   {% endif %}
                                   {% if banner.sub_title %}
-                                    <span class="mega-subtitle slideshow__subtitle">{{banner.sub_title}}</span>
+                                    <span class="mega-subtitle slideshow__subtitle">{{banner.sub_title | safe}}</span>
                                   {% endif %}
                                   {% if banner.button_name %}
                                   <a href="{% if banner.button_link == None %}#{% else %}{{banner.button_link}}{% endif %}" class="btn" style="background-color:{{banner.button_color}};">{{banner.button_name}}</a>
@@ -625,10 +625,10 @@
                             <div class="slideshow__text-content">
                                 <div class="wrap-caption anim-tru left style1">
                                   {% if banner.title %}
-                                    <h2 class="h1 mega-title slideshow__title">{{banner.title}}</h2>
+                                    <h2 class="h1 mega-title slideshow__title">{{banner.title | safe}}</h2>
                                   {% endif %}
                                   {% if banner.sub_title %}
-                                    <span class="mega-subtitle slideshow__subtitle">{{banner.sub_title}}</span>
+                                    <span class="mega-subtitle slideshow__subtitle">{{banner.sub_title | safe}}</span>
                                   {% endif %}
                                   {% if banner.button_name %}
                                   <a href="{% if banner.button_link == None %}#{% else %}{{banner.button_link}}{% endif %}" class="btn" style="background-color:{{banner.button_color}};">{{banner.button_name}}</a>

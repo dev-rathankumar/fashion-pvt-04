@@ -415,3 +415,32 @@ input[type="radio"]{
   position: unset !important;
   background-color: unset !important;
  }
+ .notification-bar__message{
+  overflow-wrap: break-word !important;
+ }
+ .collection-banners .banner-item img{
+  width: 100%;
+ }
+ @media only screen and (max-width: 767px){
+  .slideshow .slideshow__subtitle{
+    display: block !important;
+    font-size: 12px !important;
+  }
+ }
+
+ .btn--share .fa{
+  font-size: 18px !important;
+ }
+
+ i.fab.fa-facebook{
+  color: #1877F2 !important;
+}
+i.fab.fa-instagram{
+  color: #bc2a8d !important;
+}
+i.fab.fa-youtube, i.fab.fa-youtube-square{
+  color: #ff0000 !important;
+}
+i.fas.fa-envelope{
+  color: #1177CF !important;
+}

@@ -116,6 +116,7 @@ class ProductGalleryForm(forms.ModelForm):
 
 
 class ProductVariantForm(forms.ModelForm):
+    title = forms.CharField(label='Variant Name')
     product_attribute = forms.ModelChoiceField(required=False, queryset=ProductAttribute.objects.all())
     attribute_value = forms.ModelChoiceField(required=False, queryset=AttributeValue.objects.all())
     class Meta:

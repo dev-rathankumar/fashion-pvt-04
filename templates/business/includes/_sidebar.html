@@ -45,7 +45,8 @@
             <li><a href="{% url 'socialIcons' %}" key="t-products" {% if '/site_settings/socialIcons/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Social Icons' %}</a></li>
             <li><a href="{% url 'paymentGateways' %}" key="t-products" {% if '/site_settings/paymentGateways/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Payment Gateways' %}</a></li>
             <li><a href="{% url 'salesPopup' %}" key="t-products" {% if '/site_settings/salesPopup/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Sales Popup' %}</a></li>
-
+            <li><a href="{% url 'langSettings' %}" key="t-products" {% if '/site_settings/langSettings/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Language' %}</a></li>
+            
 
           </ul>
         </li>

@@ -41,6 +41,10 @@ class BannerImageForm(forms.ModelForm):
         "type": "file",
         "data-show-preview": "false"
     }))
+    # title = forms.CharField(label=(''), widget=forms.TextInput(attrs={
+    #     'required':'required',
+    # }))
+
     class Meta:
         model = BannerImage
         fields = ['banner_image', 'title', 'sub_title', 'button_name', 'button_link', 'button_color', 'content_align']

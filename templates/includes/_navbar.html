@@ -38,7 +38,11 @@
                 <nav class="grid__item" id="AccessibleNav">
                     <ul id="siteNav" class="site-nav medium center hidearrow">
                         <li class="lvl1 parent megamenu mdropdown"><a href="{% url 'home' %}">{% trans 'Home' %} <i class="anm anm-angle-down-l"></i></a></li>
-                        {% if product_activation.is_enabled %}
+                        <li class="lvl1 parent megamenu"><a href="{% url 'about' %}">{% trans 'About Us' %} <i class="anm anm-angle-down-l"></i></a></li>
+                        {% if service_activation.is_enabled %}
+                        <li class="lvl1 parent megamenu"><a href="{% url 'services' %}">{% trans 'Services' %} <i class="anm anm-angle-down-l"></i></a></li>
+                        {% endif %}
+                        <!-- {% if product_activation.is_enabled %}
                         <li class="lvl1 parent dropdown"><a href="#">{% trans 'Categories' %} <i class="anm anm-angle-down-l"></i></a>
                           <ul class="dropdown">
                             <li class="site-nav"><a href="{% url 'shop' %}">{% trans 'All Products' %}</a></li>
@@ -53,14 +57,13 @@
                             {% endrecursetree %}
                           </ul>
                         </li>
-                        {% endif %}
+                        {% endif %} -->
+                    
                     {% if product_activation.is_enabled %}
                     <li class="lvl1 parent megamenu"><a href="{% url 'shop' %}" class="{% if '/shop/' in request.path %}active{% endif %}">{% trans 'Product' %} <i class="anm anm-angle-down-l"></i></a></li>
                     {% endif %}
-                    <li class="lvl1 parent megamenu"><a href="{% url 'about' %}">{% trans 'About Us' %} <i class="anm anm-angle-down-l"></i></a></li>
-                    {% if service_activation.is_enabled %}
-                    <li class="lvl1 parent megamenu"><a href="{% url 'services' %}">{% trans 'Services' %} <i class="anm anm-angle-down-l"></i></a></li>
-                    {% endif %}
+                    
+                    
                     {% if portfolio_activation.is_enabled %}
                     <li class="lvl1 parent megamenu"><a href="{% url 'portfolio' %}" class="{% if '/portfolio/' in request.path %}active{% endif %}">{% trans 'Gallery' %} <i class="anm anm-angle-down-l"></i></a></li>
                     {% endif %}
@@ -194,8 +197,8 @@
                       {% get_available_languages as LANGUAGES %}
                       {% get_language_info_list for LANGUAGES as languages %}
                       {% for language in languages %}
-                          <option class="black" value="{{language.code}}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
-                            {{language.name_local}} ({{language.code}})
+                          <option class="black" value="{{language.code}}" {% if language.code == LANGUAGE_CODE %} selected {% endif %} >
+                            {{language.name_local}}
                           </option>
                       {% endfor %}
                     </select>
@@ -253,7 +256,15 @@
             <li class="lvl1 parent megamenu">
               <a href="{% url 'home' %}" class="{% if '/en/' == request.path or '/ar/' == request.path or '/fr/' == request.path %}active{% endif %}">{% trans 'Home'%}</a>
             </li>
-            {% if product_activation.is_enabled %}
+            <li class="lvl1 parent megamenu">
+              <a href="{% url 'about' %}" class="{% if '/about/' in request.path %}active{% endif %}">{% trans 'About Us'%}</a>
+          </li>
+          {% if service_activation.is_enabled %}
+        <li class="lvl1 parent megamenu">
+          <a href="{% url 'services' %}" class="{% if '/services/' in request.path %}active{% endif %}">{% trans 'Services' %}</a>
+        </li>
+        {% endif %}
+            <!-- {% if product_activation.is_enabled %}
             <li class="lvl1 parent megamenu"><a href="#" class="{% if '/category/' in request.path %}active{% endif %}"> {% trans 'Categories'%} <i class="anm anm-plus-l"></i></a>
            
               <ul>
@@ -272,20 +283,12 @@
               
             </ul>
           </li>
-          {% endif %}
+          {% endif %} -->
           {% if product_activation.is_enabled %}
             <li class="lvl1 parent megamenu">
               <a href="{% url 'shop' %}" class="{% if '/shop/' in request.path %}active{% endif %}">{% trans 'Product'%}</a>
           </li>
           {% endif %}
-          <li class="lvl1 parent megamenu">
-            <a href="{% url 'about' %}" class="{% if '/about/' in request.path %}active{% endif %}">{% trans 'About Us'%}</a>
-        </li>
-        {% if service_activation.is_enabled %}
-        <li class="lvl1 parent megamenu">
-          <a href="{% url 'services' %}" class="{% if '/services/' in request.path %}active{% endif %}">{% trans 'Services' %}</a>
-        </li>
-        {% endif %}
         {% if portfolio_activation.is_enabled %}
         <li class="lvl1 parent megamenu">
           <a href="{% url 'portfolio' %}" class="{% if '/portfolio/' in request.path %}active{% endif %}">{% trans 'Gallery' %}</a>

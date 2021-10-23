@@ -919,3 +919,7 @@ def langEnableToggle(request):
         lang_activation.save()
         result = 'disabled'
     return HttpResponse(result)
+
+
+def socialShare(request):
+    return

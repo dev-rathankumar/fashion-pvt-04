@@ -75,4 +75,8 @@ urlpatterns = [
     # Language activation
     path('langSettings/', views.langSettings, name='langSettings'),
     path('langEnableToggle/', views.langEnableToggle, name='langEnableToggle'),
+
+    # Social Share
+    path('socialShare/', views.socialShare, name='socialShare'),
+    # path('langEnableToggle/', views.langEnableToggle, name='langEnableToggle'),
 ]

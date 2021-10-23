@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% block title %} 403 Forbidden Error {% endblock %}
+{% block content %}
+{% load static %}
+<div id="page-content" class="mb-5">        
+    <!--Body Container-->
+    <!--Breadcrumbs-->
+    <div class="breadcrumbs-wrapper">
+        <div class="container">
+            <div class="breadcrumbs"><a href="index.html" title="Back to the home page">Home</a> <span aria-hidden="true">|</span> <span>403 Forbidden Error</span></div>
+        </div>
+    </div>
+    <!--End Breadcrumbs-->
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="error-content">
+                    <img src="{% static '/images/errorpages/403-error.png' %}" alt=""/>
+                    <div><h1>Access Denied</h1></div>
+                    <p class="mb-0">403 Forbidden Error</p>
+                    <p>We're sorry, you don't have access to this page.</p>
+                    <p><a href="{% url 'home' %}" class="btn btn--has-icon-after">{% trans 'Back To Home' %}</a></p>
+                </div>
+            </div>
+        </div>
+    </div><!--End Body Container-->
+</div><!--End Page Wrapper-->
+
+{% endblock %}

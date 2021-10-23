@@ -6,6 +6,13 @@ from django.template.loader import render_to_string
 from django.shortcuts import render
 
 
+def custom_error_500(request):
+    return render(request, '500.html', {})
+
+def custom_error_403(request, exception):
+    return render(request, '403.html', {})
+
+
 def ajaxcolor(request):
     data = {}
     if request.POST.get('action') == 'post':

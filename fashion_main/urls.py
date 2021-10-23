@@ -10,6 +10,7 @@ from newsletters import views as NewsletterViews
 from products import views as ProductViews
 from contacts import views as ContactViews
 from django.conf.urls.i18n import i18n_patterns
+from django.conf.urls import handler404, handler500
 
 
 urlpatterns = [
@@ -108,5 +109,7 @@ urlpatterns += i18n_patterns (
 
     path('testimonial/', ProductViews.editTestimonial, name='editTestimonial'),
 
-
  ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler500 = 'fashion_main.views.custom_error_500'
+handler403 = 'fashion_main.views.custom_error_403'

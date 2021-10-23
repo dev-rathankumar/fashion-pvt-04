@@ -51,8 +51,8 @@ class BannerImage(models.Model):
     )
     homepage = models.ForeignKey(Homepage, on_delete=models.CASCADE)
     banner_image = models.ImageField(upload_to='banner_images', blank=True)
-    title = models.CharField(max_length=500, null=True, blank=True)
-    sub_title = models.TextField(max_length=500, null=True, blank=True)
+    title = RichTextField(null=True, blank=True)
+    sub_title = RichTextField(null=True, blank=True)
     button_name = models.CharField(max_length=20, null=True, blank=True)
     button_link = models.CharField(max_length=255, null=True, blank=True)
     button_color = ColorField(default='#000000')
@@ -65,8 +65,8 @@ class BannerImage(models.Model):
 class StoreFeature(models.Model):
     homepage = models.ForeignKey(Homepage, on_delete=models.CASCADE)
     icon = models.ImageField(upload_to='store_feature_icons', blank=True)
-    title = models.CharField(max_length=30, null=True, blank=True)
-    sub_title = models.CharField(max_length=30, null=True, blank=True)
+    title = models.CharField(max_length=35, null=True, blank=True)
+    sub_title = models.CharField(max_length=35, null=True, blank=True)
     feature_url = models.URLField(max_length=200, blank = True)
 
     # def save(self, *args, **kwargs):

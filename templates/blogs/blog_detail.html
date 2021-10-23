@@ -33,23 +33,27 @@
         <p>{{single_blog.blog_body|safe}}</p>
       </div>
       <hr>
+
       <div class="social-sharing">
-        <a target="_blank" href="#" class="btn-link btn--share share-facebook" title="Share on Facebook">
-          <i class="fa fa-facebook-square" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Share' %}</span>
+        <span class="label">{% trans 'Share' %}:</span>
+        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" class="btn btn--small btn--secondary btn--share share-facebook" title="Share on Facebook">
+          <i class="anm anm-facebook-f" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Facebook' %}</span>
         </a>
-        <a target="_blank" href="#" class="btn-link btn--share share-twitter" title="Tweet on Twitter">
-          <i class="fa fa-twitter" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Tweet' %}</span>
+        <a target="_blank" href="https://twitter.com/share?text={{single_blog.title}}&url={{ request.build_absolute_uri }}" class="btn btn--small btn--secondary btn--share share-twitter" title="Tweet on Twitter">
+          <i class="fa fa-twitter" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Twitter' %}</span>
         </a>
-        <a href="#" title="Share on google+" class="btn-link btn--share">
-          <i class="fa fa-google-plus" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Google' %}+</span>
+        <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}" class="btn btn--small btn--secondary btn--share share-linkedin" title="Share on LinkedIn">
+          <i class="fa fa-linkedin" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'LinkedIn' %}</span>
         </a>
-        <a target="_blank" href="#" class="btn-link btn--share share-pinterest" title="Pin on Pinterest">
+        <a target="_blank" href="https://pinterest.com/pin/create/button/?url={{ request.build_absolute_uri }}&media=https://{{ domain }}{{ single_blog.featured_image.url }}" class="btn btn--small btn--secondary btn--share share-pinterest" title="Pin on Pinterest">
           <i class="fa fa-pinterest" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Pin it' %}</span>
         </a>
-        <a href="#" class="btn-link btn--share share-pinterest" title="Share by Email" target="_blank">
+        <a href="mailto:?subject={{single_blog.title}}&body=Check out our gallery {{ request.build_absolute_uri }}" class="btn btn--small btn--secondary btn--share share-pinterest" title="Share by Email" target="_blank">
           <i class="fa fa-envelope" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">{% trans 'Email' %}</span>
         </a>
       </div>
+
+      
 
       <hr>
       <div class="blog-comment">
