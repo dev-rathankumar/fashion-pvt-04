@@ -1,0 +1,111 @@
+{% extends 'business/base.html' %}
+{% load static %}
+{% block title %} Call To Action {% endblock %}
+{% load i18n %}
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+  <div class="page-content">
+    <div class="container-fluid">
+
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">Call To Action</h4>
+
+
+
+          </div>
+        </div>
+
+      </div>
+      <!-- end page title -->
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card container">
+            <div class="card-body">
+              <div class="row mb-2">
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-8">
+                  <div class="text-sm-right">
+                    <a href="{% url 'homepageSetupArea' %}" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 mr-2"><i class="fas fa-home" style="font-size: 18px;"></i> {% trans 'Homepage Setup Area' %} </a>
+                  </div>
+                </div><!-- end col-->
+              </div>
+              {% include 'includes/_alerts.html' %}
+              <form method="POST" action="{% url 'serviceCallToAction' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="form-group">
+                      <label for="sitetitle">Title</label>
+                      {{ form.title }}
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="form-group">
+                      <label for="favicon">Sub Title</label>
+                      {{ form.sub_title }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="form-group">
+                      <label for="sitetitle">Button Name</label>
+                      {{ form.button_name }}
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="form-group">
+                      <label for="favicon">Button Link <small>(Eg: https://example.com/your-link/)</small></label>
+                      {{ form.button_link }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 col-lg-4 col-sm-12">
+                    <div class="form-group">
+                      <label for="favicon">Button Background Color</label>
+                      {{ form.button_color }}
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-lg-4 col-sm-12">
+                    <div class="form-group">
+                      <label for="favicon">Button Text Color</label>
+                      {{ form.button_text_color }}
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-lg-4 col-sm-12">
+                    <div class="form-group">
+                      <label for="favicon">Button Alignment</label>
+                      {{ form.content_align | capfirst }}
+                    </div>
+                  </div>
+                </div><br>
+                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i> SAVE</button>
+              </form>
+              <br>
+
+            </div>
+          </div>
+
+
+
+
+        </div>
+      </div>
+      <!-- end row -->
+
+    </div> <!-- container-fluid -->
+  </div>
+  <!-- End Page-content -->
+
+  {% endblock %}

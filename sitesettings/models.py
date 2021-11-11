@@ -268,6 +268,24 @@ class ServiceActivation(models.Model):
         return self.business.company_name
 
 
+class ServicePageCTA(models.Model):
+    align_choice = (
+        ('left', 'Left'),
+        ('center', 'Center'),
+        ('right', 'Right'),
+    )
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50, null=True, blank=True)
+    sub_title = models.TextField(max_length=255, null=True, blank=True)
+    button_name = models.CharField(max_length=20, null=True, blank=True)
+    button_link = models.CharField(max_length=255, null=True, blank=True)
+    button_text_color = ColorField(default='#FFFFFF')
+    button_color = ColorField(default='#000000')
+    content_align = models.CharField(max_length=10, choices=align_choice, default='center')
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now= True)
+
+
 class CashOnDelivery(models.Model):
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
     is_enabled = models.BooleanField(default=False)

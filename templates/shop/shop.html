@@ -26,6 +26,16 @@
       <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar filterbar">
         <div class="closeFilter d-block d-md-none d-lg-none"><i class="icon icon anm anm-times-l"></i></div>
         <div class="sidebar_tags">
+
+          {% if product_activation.is_enabled %}
+          <h2 style="margin-bottom: 10px;">{% trans 'Category' %}</h2>
+          <ul class="filtercats" style="list-style-type: none;">
+            {% for i in filterCats %}
+            <li><a href="{% url 'shop' %}category/{{ i.slug }}" class="{% if i.slug in request.path %}active{% endif %}">{{i}}</a></li>
+            {% endfor %}
+          </ul>
+        
+        {% endif %}
           <!--Price Filter-->
           <form action="{% url 'search' %}" method="GET">
             {% csrf_token %}
@@ -88,6 +98,22 @@
               <label class="var_color">
                 <input type="checkbox" name="color" value="{{ color }}" class="filter_color_input">
                 <div class="filter_color" style="height: 30px; width:30px; background-color:{{ color.code }}; border:1px solid #ccc;border-radius: 50px !important;"></div>
+              </label>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+
+
+            {% if attr_values %}
+            <div class="sidebar_widget filterBox filter-widget">
+              <div class="widget-title">
+                <h2>{% trans 'Custom Variants' %}</h2>
+              </div>
+              {% for i in attr_values %}
+              <label class="var_color">
+                <input type="checkbox" name="customvariants" value="{{ i }}" class="filter_color_input">
+                <div class="filter_size" style="height: 30px; width:100%;padding:0 5px 0 5px; border:1px solid #ccc;line-height: 28px;display: block;text-align: center;">{{ i }}</div>
               </label>
               {% endfor %}
             </div>

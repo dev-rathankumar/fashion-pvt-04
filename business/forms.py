@@ -1,5 +1,5 @@
 from portfolio.models import Portfolio, PortfolioGallery
-from sitesettings.models import Service
+from sitesettings.models import Service, ServicePageCTA
 from django import forms
 from accounts.models import DashboardImage, User, Business
 from .models import PaymentSetting
@@ -329,4 +329,13 @@ class BizDashboardImgForm(forms.ModelForm):
         model = DashboardImage
         fields = ('business_landing_image',)
 
-    # def __init__(self, *args, **kwargs):
+
+class ServiceCTAForm(forms.ModelForm):
+    class Meta:
+        model = ServicePageCTA
+        fields = ['title', 'sub_title', 'button_name', 'button_link', 'button_text_color', 'button_color', 'content_align']
+
+    def __init__(self, *args, **kwargs):
+        super(ServiceCTAForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'

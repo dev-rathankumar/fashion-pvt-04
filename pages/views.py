@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from category.models import Category
 from products.models import Product, ProductGallery, Testimonial
 from accounts.models import Business
-from sitesettings.models import AboutContent, BannerImage, FrontPage, Service, ServiceActivation, StoreFeature, ParallaxBackground, Homepage, ContactPage, SocialMediaLink, AboutPage, Policy, TermsAndCondition, VideoBanner
+from sitesettings.models import AboutContent, BannerImage, FrontPage, Service, ServiceActivation, ServicePageCTA, StoreFeature, ParallaxBackground, Homepage, ContactPage, SocialMediaLink, AboutPage, Policy, TermsAndCondition, VideoBanner
 from urllib.parse import urlparse
 
 from django.http import HttpResponse
@@ -158,15 +158,17 @@ def terms_and_conditions(request):
 @is_service_activated
 def services(request):
     services = Service.objects.filter(is_active=True).order_by('created_date')
+    business = Business.objects.get(user__is_business=True, is_account_verified=True)
+    cta = ServicePageCTA.objects.get(business=business)
     context = {
         'services': services,
+        'cta': cta,
     }
     return render(request, 'pages/services.html', context)
 
 
 @is_portfolio_activated
 def portfolio(request):
-    
     portfolio = None
     if request.GET:
         show = request.GET['show']

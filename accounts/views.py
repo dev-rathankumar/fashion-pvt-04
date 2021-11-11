@@ -21,7 +21,7 @@ from .forms import UserForm
 
 from django.http import HttpResponse
 from urllib.parse import urlparse
-from sitesettings.models import CashOnDelivery, DirectDepositEmail, FrontPage, Homepage, ParallaxBackground, Header, ContactPage, Footer, AboutPage, PaypalConfig, Policy, ServiceActivation, TermsAndCondition, Topbar, VideoBanner
+from sitesettings.models import CashOnDelivery, DirectDepositEmail, FrontPage, Homepage, LanguageActivation, ParallaxBackground, Header, ContactPage, Footer, AboutPage, PaypalConfig, Policy, ServiceActivation, ServicePageCTA, TermsAndCondition, Topbar, VideoBanner
 from emails.models import BusinessEmailSetting
 from datetime import date, datetime
 import time
@@ -519,6 +519,20 @@ def biz_password_reset(request):
             testimonial.business = business
             testimonial.user = user
             testimonial.save()
+            
+            # Automatically create Language Activation entry
+            lang = LanguageActivation()
+            lang.business = business
+            lang.save()
+
+            # Automatically create Service Page Call To Action entry
+            cta = ServicePageCTA()
+            cta.business = business
+            cta.title = 'Contact us to discuss!'
+            cta.sub_title = 'We have a responsive team with dedication and trust.'
+            cta.button_name = 'Contact Us'
+            cta.button_link = '/contact_page/'
+            cta.save()
 
             # Automatically create Testimonial for regional manager
             rm = User.objects.get(is_regional_manager=True)

@@ -109,6 +109,7 @@ urlpatterns = [
     path('editService/<int:pk>/', views.editService, name='editService'),
     path('deleteService/<int:pk>/', views.deleteService, name='deleteService'),
     path('serviceEnableToggle/', views.serviceEnableToggle, name='serviceEnableToggle'),
+    path('serviceCallToAction/', views.serviceCallToAction, name='serviceCallToAction'),
 
     # Portfolio
     path('allPortfolio/', views.allPortfolio, name='allPortfolio'),

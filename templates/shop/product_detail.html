@@ -547,7 +547,7 @@
                             <input type="email" name="email" id="email" class="form-control" placeholder="{% trans 'Email Address' %}" {% if user.is_authenticated %} value="{{user.email}}" {% endif %} required>
                           </div>
                           <div class="col">
-                            <input type="number" name="phone" id="phone" class="inputNumber"  maxlength="12"oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" placeholder="{% trans 'Phone Number (optional)' %}" class="form-control">
+                            <input type="number" name="phone" id="phone" class="inputNumber"  maxlength="12"oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" placeholder="{% trans 'Phone Number' %}" class="form-control" required>
                           </div>
                         </div>
                       </div>

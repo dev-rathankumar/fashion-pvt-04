@@ -75,6 +75,7 @@
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="{% url 'allServices' %}" key="t-products" {% if '/allServices/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'All Services' %}</a></li>
             <li><a href="{% url 'addService' %}" key="t-products" {% if '/addService/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Add Service' %}</a></li>
+            <li><a href="{% url 'serviceCallToAction' %}" key="t-products" {% if '/serviceCallToAction/' in request.path %} class="waves-effect active" {% else %} class="waves-effect" {% endif %}>{% trans 'Call-To-Action' %}</a></li>
             
             </ul>
         </li>

@@ -231,6 +231,7 @@ $(document).on('submit', '#comment_form', function(e) {
         document.getElementById("commentMessage").className = "text-success";
         document.getElementById("commentMessage").innerHTML = "Thank you! Your comment will appear after it is approved by our system.";
         document.getElementById("comment_form").reset();
+		cmtDrawCaptcha();
       }
     },
     error: function(data) {

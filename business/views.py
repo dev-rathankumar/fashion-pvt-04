@@ -1,5 +1,5 @@
 from portfolio.models import Portfolio, PortfolioActivation, PortfolioGallery
-from sitesettings.models import Footer, Service, ServiceActivation
+from sitesettings.models import Footer, Service, ServiceActivation, ServicePageCTA
 from orders.views import orderproduct
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from accounts.models import DashboardImage, User, Customer, RegionalManager
 from accounts.models import Business, TaxOnPlan
 from django.http import HttpResponse, JsonResponse
-from .forms import AttributeValueForm, BizDashboardImgForm, PaymentSettingForm, PortfolioForm, PortfolioGalleryForm, ProductAttributeForm, ServiceForm
+from .forms import AttributeValueForm, BizDashboardImgForm, PaymentSettingForm, PortfolioForm, PortfolioGalleryForm, ProductAttributeForm, ServiceCTAForm, ServiceForm
 from .models import PaymentSetting
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import default_token_generator
@@ -1860,3 +1860,22 @@ def editBizDashboardImage(request):
         'image': image,
     }
     return render(request, 'business/editBizDashboardImage.html', context)
+
+
+@login_required(login_url = 'userLogin')
+@business_required(login_url="userLogin")
+@is_account_expired
+def serviceCallToAction(request):
+    business = Business.objects.get(user=request.user)
+    cta = ServicePageCTA.objects.get(business=business)
+    if request.method == 'POST':
+        form = ServiceCTAForm(request.POST, instance=cta)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully saved.')
+            return redirect('serviceCallToAction')
+    form = ServiceCTAForm(instance=cta)
+    context = {
+        'form': form,
+    }
+    return render(request, 'business/serviceCallToAction.html', context)

@@ -264,8 +264,8 @@
           <a href="{% url 'services' %}" class="{% if '/services/' in request.path %}active{% endif %}">{% trans 'Services' %}</a>
         </li>
         {% endif %}
-            <!-- {% if product_activation.is_enabled %}
-            <li class="lvl1 parent megamenu"><a href="#" class="{% if '/category/' in request.path %}active{% endif %}"> {% trans 'Categories'%} <i class="anm anm-plus-l"></i></a>
+            {% if product_activation.is_enabled %}
+            <!-- <li class="lvl1 parent megamenu"><a href="#" class="{% if '/category/' in request.path %}active{% endif %}"> {% trans 'Categories'%} <i class="anm anm-plus-l"></i></a>
            
               <ul>
               <li>
@@ -282,8 +282,8 @@
             {% endrecursetree %}
               
             </ul>
-          </li>
-          {% endif %} -->
+          </li> -->
+          {% endif %}
           {% if product_activation.is_enabled %}
             <li class="lvl1 parent megamenu">
               <a href="{% url 'shop' %}" class="{% if '/shop/' in request.path %}active{% endif %}">{% trans 'Product'%}</a>

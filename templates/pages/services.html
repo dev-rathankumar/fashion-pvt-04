@@ -38,11 +38,11 @@
 
     <div class="jumbotron mb-0">
         <div class="container">
-        <h1 class="text-center">{% trans 'Contact us to discuss!' %}</h1>
-        <p class="lead text-center">{% trans 'We have a responsive team with the dedication and trust.' %}</p>
+        <h1 class="text-center">{{cta.title}}</h1>
+        <p class="lead text-center">{{cta.sub_title}}</p>
         <hr class="my-4">
-        <p class="lead text-center">
-          <a class="btn btn-primary btn-lg" href="{% url 'contact_page' %}" role="button">{% trans 'Contact Us' %}</a>
+        <p class="lead text-{{cta.content_align}}">
+          <a class="btn btn-primary btn-lg" style="color: {{cta.button_text_color}};background-color:{{cta.button_color}}" href="{{cta.button_link}}" role="button">{{cta.button_name}}</a>
         </p>
         </div>
       </div>

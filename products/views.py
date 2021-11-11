@@ -3,7 +3,7 @@ from django.template.loader import render_to_string
 from products.forms import TestimonialForm
 from blogs.models import BlogActivation
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product, ProductActivation, ProductGallery, Testimonial, Wishlist, WishlistForm, Size
+from .models import AttributeValue, Product, ProductActivation, ProductAttribute, ProductGallery, Testimonial, Wishlist, WishlistForm, Size
 from .models import Category, Variants, Color, Compare, CompareItem
 from .models import ReviewRating, ReviewForm
 from accounts.models import Business
@@ -42,9 +42,14 @@ def shop(request, slug=None):
     categories = None
     products = None
     popular_products = None
+    product_attr = None
+    attr_values = None
 
     sizes = Size.objects.values_list('name', flat=True).distinct()
     colors = Color.objects.all()
+    product_attr = ProductAttribute.objects.all()
+    attr_values = AttributeValue.objects.all()
+
     if 'keyword' in request.GET:
         keyword = request.GET['keyword']
         if keyword:
@@ -63,13 +68,11 @@ def shop(request, slug=None):
         products = Product.objects.filter(id__in=product)
 
     if slug != None:
-
         categories = get_object_or_404(Category, slug=slug).get_descendants(include_self=True)
         prods = Product.objects.filter(category__in=categories)
         paginator = Paginator(prods, 16)
         page = request.GET.get('page')
         paged_products = paginator.get_page(page)
-        # print(type(paged_products))
         product_count = prods.count()
         popular_products = Product.objects.all().filter(is_available=True, is_active=True, is_popular=True).order_by('id')
 
@@ -89,9 +92,8 @@ def shop(request, slug=None):
         'popular_products': popular_products,
         'sizes': sizes,
         'colors': colors,
-        ##
-        #'products_by_category':products_by_category,
-        #'instance': instance,
+        'product_attr': product_attr,
+        'attr_values': attr_values,
     }
     return render(request, 'shop/shop.html', context)
 
@@ -172,6 +174,7 @@ def product_detail(request, category_slug, product_slug):
                 for k, v in d.items():
                     # result.setdefault(k, []).append(v) # this will create dupplicate values
                     varDict.setdefault(k, set()).add(v)
+            
             
             variant =Variants.objects.get(id=variants[0].id)
         context.update({'sizes': sizes, 'colors': colors,
@@ -324,6 +327,8 @@ def search(request):
 
     sizes = Size.objects.values_list('name', flat=True).distinct()
     colors = Color.objects.all()
+    product_attr = ProductAttribute.objects.all()
+    attr_values = AttributeValue.objects.all()
     if 'keyword' in request.GET:
         keyword = request.GET['keyword']
         if keyword:
@@ -366,7 +371,7 @@ def search(request):
             max_custom_price = max_price
             products = products.filter(price__gte=min_custom_price, price__lte=max_custom_price)
             product_count = products.count()
-            print(products)
+          
 
         if 'size' in request.GET:
             size = request.GET.getlist('size') # ['M', 'XL']
@@ -380,7 +385,27 @@ def search(request):
             product = Variants.objects.filter(color__in=color_id).values_list('product', flat=True)  # [ 1, 2 ]
             products = products.filter(id__in=product) #3
 
-    
+        if 'customvariants' in request.GET:
+            customvariants = request.GET.getlist('customvariants')
+            allValues_qs = Variants.objects.all()
+            alist = []
+            index = []
+            for v in allValues_qs:
+                alist.append(v.variant_data)
+                index.append(v.id)
+            
+            productid_list = []
+            for i, j in zip(alist,index):
+                a_values = list(i.values())
+                for k in a_values:
+                    if k in customvariants:
+                        variant_pr = Variants.objects.get(id=j)
+                        productid = variant_pr.product.id
+                        productid_list.append(productid)
+            prids = set(productid_list)
+            prlist = list(prids)
+            products = products.filter(id__in=prlist) #3
+              
     product_count = products.count()
     context = {
         'products': products,
@@ -388,6 +413,8 @@ def search(request):
         'sizes': sizes,
         'colors': colors,
         'values' : request.GET,
+        'product_attr': product_attr,
+        'attr_values': attr_values,
     }
 
     return render(request, 'shop/shop.html', context)
