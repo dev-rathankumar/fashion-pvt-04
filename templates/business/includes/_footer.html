@@ -134,6 +134,18 @@
       "pagingType": "full_numbers",
       "ordering": false
   } );
+
+  // Add translation show/hide button
+  $(".add-translation").click(function(){
+    $(".translations").slideDown();
+    $(".add-translation").css("display", "none");
+  });
+
+  $(".hide-translation").click(function(){
+    $(".translations").slideUp();
+    $(".add-translation").css("display", "block");
+  });
+
 } );
 </script>
 

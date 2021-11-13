@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'faicon',
     'blogs',
     'portfolio',
+    'modeltranslation',
 ]
 
 SITE_ID = 1
@@ -169,11 +170,18 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
 ]
 
-LANGUAGES = [
-    ('en', 'English'),
-    ('ar', 'Arabic'),
-    ('fr', 'French'),
-]
+# LANGUAGES = [
+#     ('en', 'English'),
+#     ('ar', 'Arabic'),
+#     ('fr', 'French'),
+# ]
+
+gettext = lambda s: s
+LANGUAGES = (
+    ('en', gettext('English')),
+    ('ar', gettext('Arabic')),
+    ('fr', gettext('French')),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

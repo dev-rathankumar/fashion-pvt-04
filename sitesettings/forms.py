@@ -6,9 +6,10 @@ from django.forms import inlineformset_factory
 from .models import CashOnDelivery, DirectDepositEmail, Header, BannerImage, PaypalConfig, StoreFeature, ParallaxBackground, ContactPage, Footer, SocialMediaLink, AboutPage, Policy, TermsAndCondition, Topbar, AboutContent, VideoBanner
 import os
 from django.core.exceptions import ValidationError
+from modeltranslation.forms import TranslationModelForm
 
 
-class HeaderForm(forms.ModelForm):
+class HeaderForm(TranslationModelForm):
     # site_logo = forms.ImageField(label=('Logo'),required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput)
     site_logo = forms.ImageField(label=('Logo'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
         "type": "file",
@@ -36,7 +37,7 @@ class HeaderForm(forms.ModelForm):
           self.fields[myField].widget.attrs['class'] = 'form-control file'
 
 
-class BannerImageForm(forms.ModelForm):
+class BannerImageForm(TranslationModelForm):
     banner_image = forms.ImageField(label=('Banner Image'), required=True, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
         "type": "file",
         "data-show-preview": "false"
@@ -59,7 +60,7 @@ class BannerImageForm(forms.ModelForm):
                 self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class StoreFeatureForm(forms.ModelForm):
+class StoreFeatureForm(TranslationModelForm):
     icon = forms.ImageField(label=('Feature Icon'), required=True, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
         "type": "file",
         "data-show-preview": "false"
@@ -78,7 +79,7 @@ class StoreFeatureForm(forms.ModelForm):
                 self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class ParallaxBackgroundForm(forms.ModelForm):
+class ParallaxBackgroundForm(TranslationModelForm):
     parallax_image = forms.ImageField(label=('Background Image'), required=True, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
         "type": "file",
         "data-show-preview": "false"
@@ -119,7 +120,7 @@ class ContactPageForm(forms.ModelForm):
             self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class AboutPageForm(forms.ModelForm):
+class AboutPageForm(TranslationModelForm):
     class Meta:
         model = AboutPage
         fields = ['heading', 'sub_heading']
@@ -131,7 +132,7 @@ class AboutPageForm(forms.ModelForm):
             self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class AboutContentForm(forms.ModelForm):
+class AboutContentForm(TranslationModelForm):
     image = forms.ImageField(label=('Image'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
         "type": "file",
         "data-show-preview": "false",
@@ -158,7 +159,7 @@ class AboutContentForm(forms.ModelForm):
                 self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class FooterForm(forms.ModelForm):
+class FooterForm(TranslationModelForm):
     class Meta:
         model = Footer
         fields = ['footer_text','footer_align']
@@ -205,7 +206,7 @@ class TermsAndConditionForm(forms.ModelForm):
             self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class TopbarForm(forms.ModelForm):
+class TopbarForm(TranslationModelForm):
     class Meta:
         model = Topbar
         fields = ['topbar_text']
@@ -253,7 +254,7 @@ class CashOnDeliveryForm(forms.ModelForm):
             self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class StoreLocationForm(forms.ModelForm):
+class StoreLocationForm(TranslationModelForm):
     class Meta:
         model = StoreLocation
         fields = ['store_name', 'phone_number', 'email', 'address_line_1', 'address_line_2', 'city', 'pin_code', 'country', 'state', 'geolocation']
@@ -265,7 +266,7 @@ class StoreLocationForm(forms.ModelForm):
             self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class SalesPopupForm(forms.ModelForm):
+class SalesPopupForm(TranslationModelForm):
     product = forms.ModelChoiceField(queryset=Product.objects.filter(is_active=True), empty_label='Select the product')
     class Meta:
         model = SalesPopup
@@ -292,7 +293,7 @@ class SalesPopupSettingForm(forms.ModelForm):
             self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class VideoBannerForm(forms.ModelForm):
+class VideoBannerForm(TranslationModelForm):
     video = forms.FileField(label=('Video Background'), required=True, error_messages = {'invalid':("Video files only")}, widget=forms.FileInput(attrs={
         "type": "file",
         "data-show-preview": "false"

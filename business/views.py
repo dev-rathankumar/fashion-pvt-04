@@ -1,3 +1,5 @@
+from django.conf import settings
+from fashion_main.settings import LANGUAGE_CODE
 from portfolio.models import Portfolio, PortfolioActivation, PortfolioGallery
 from sitesettings.models import Footer, Service, ServiceActivation, ServicePageCTA
 from orders.views import orderproduct
@@ -42,6 +44,11 @@ from urllib.parse import urlparse
 from blogs.models import Blog, BlogActivation, Comment
 from blogs.models import Category as BlogCategory
 from django.db.models import Sum, Min, Count, Q
+
+from googletrans import Translator, constants
+from pprint import pprint
+
+from blogs.translation import BlogTranslationOptions
 
 
 # Custom decorator to check if the business account expired or not
@@ -1264,7 +1271,46 @@ def addBlog(request):
             blog  = blogInfo_form.save(commit=False)
             blog.business = business_name
             blog.author = current_user.name
-            blogInfo_form.save()
+            blog.save()
+
+            # short_description  = blogInfo_form.cleaned_data['short_description']
+            # blog_body  = blogInfo_form.cleaned_data['blog_body']
+            # author = current_user.name
+            
+
+            # # Translate
+
+            # for field in BlogTranslationOptions.fields:
+            #     field = locals()[field]
+            #     print("field=============>>>", field)
+            #     translator = Translator()
+            #     for code in settings.LANGUAGES:
+            #         lang_code = code[0]
+            #         print(lang_code)
+            #         translated = 'translated_'+lang_code
+            #         translated = translator.translate(field, dest=lang_code)
+            #         modelField = field+'_'+lang_code
+            #         blog.modelField = translated.text
+            #         blogInfo_form.save()
+
+            # title_fr = translator.translate(title, dest="fr")
+            # title_ar = translator.translate(title, dest="ar")
+            # blog.title_fr = title_fr.text
+            # blog.title_ar = title_ar.text
+            
+            # short_description_fr = translator.translate(short_description, dest="fr")
+            # short_description_ar = translator.translate(short_description, dest="ar")
+            # blog.short_description_fr = short_description_fr.text
+            # blog.short_description_ar = short_description_ar.text
+
+            # blog_body_fr = translator.translate(blog_body, dest="fr")
+            # blog_body_ar = translator.translate(blog_body, dest="ar")
+            # blog.blog_body_fr = blog_body_fr.text
+            # blog.blog_body_ar = blog_body_ar.text
+
+            
+
+                    
             pk = blog.id
             makeSlug = title + '-'+str(pk)
             blog.slug = slugify(makeSlug)

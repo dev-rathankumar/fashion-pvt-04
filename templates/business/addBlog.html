@@ -84,6 +84,68 @@
                     </div>
                   </div>
                   </div>
+
+
+                  <a class="btn btn-danger float-right add-translation">Add Translation <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                  <br><br>
+                  
+                  <div class="translations" style="display: none;">
+                    <h4 class="card-title">{% trans 'Translation Fields' %}</h4>
+                    <div class="row">
+                      <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="form-group">
+                          <label for="productname">{% trans 'Title (French)' %}</label>
+                          {{ blogInfo_form.title_fr }}
+                        </div>
+                      </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                          <div class="form-group">
+                            <label for="productname">{% trans 'Title (Arabic)' %}</label>
+                            {{ blogInfo_form.title_ar }}
+                          </div>
+                      </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                          <div class="form-group">
+                            <label for="productname">{% trans 'Short Description (French)' %}</label>
+                            {{ blogInfo_form.short_description_fr }}
+                          </div>
+                      </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                          <div class="form-group">
+                            <label for="productname">{% trans 'Short Description (Arabic)' %}</label>
+                            {{ blogInfo_form.short_description_ar }}
+                          </div>
+                      </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                          <div class="form-group">
+                            <label for="productname">{% trans 'Description (French)' %}</label>
+                            {{ blogInfo_form.blog_body_fr }}
+                          </div>
+                      </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                          <div class="form-group">
+                            <label for="productname">{% trans 'Description (Arabic)' %}</label>
+                            {{ blogInfo_form.blog_body_ar }}
+                          </div>
+                      </div>
+                      </div>
+
+                      <a class="btn btn-danger float-right hide-translation">Hide Translation <i class="fa fa-angle-up" aria-hidden="true"></i></a>
+                  <br><br>
+                  </div>
+                  
+
                   <p class="text-danger" id="descError"></p>
                   <button onclick="goBack();" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>&nbsp; {% trans 'Go back' %}</button>
               <button type="submit" onclick="return checkforFields();" class="btn btn-primary mr-1 waves-effect waves-light" style="letter-spacing: 2px;"><i class="fas fa-save"></i>{% trans 'SAVE' %} </button>

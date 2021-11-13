@@ -248,8 +248,6 @@ class Service(models.Model):
     image = models.ImageField(upload_to='services/')
     title = models.CharField(max_length=255)
     description = models.TextField()
-    brief = models.BooleanField(default=False, blank=True)
-    service_details = RichTextField(blank=True)
     is_active = models.BooleanField(default=True)
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now=True)

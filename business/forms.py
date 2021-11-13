@@ -12,9 +12,10 @@ from orders.models import Order
 from carts.models import TaxSetting
 from blogs.models import Blog
 from blogs.models import Category as BlogCategory
+from modeltranslation.forms import TranslationModelForm
 
 
-class UserForm(forms.ModelForm):
+class UserForm(TranslationModelForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={
     }), label="Email")
     profile_picture = forms.ImageField(required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
@@ -40,7 +41,7 @@ class UserForm(forms.ModelForm):
           self.fields[myField].widget.attrs['class'] = 'form-control file'
 
 
-class BusinessForm(forms.ModelForm):
+class BusinessForm(TranslationModelForm):
     is_editing = forms.BooleanField(widget=forms.HiddenInput(attrs={
         "type": "hidden",
         'value': 'True',
@@ -206,7 +207,7 @@ class SizeForm(forms.ModelForm):
 
 
 #addBlogForm
-class BlogForm(forms.ModelForm):
+class BlogForm(TranslationModelForm):
     featured_image = forms.ImageField(label=('Blog Image'), required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
         "type": "file",
         "data-show-preview": "false"
@@ -214,7 +215,7 @@ class BlogForm(forms.ModelForm):
 
     class Meta:
         model = Blog
-        fields = ['title', 'short_description', 'blog_body', 'featured_image',  'category', 'status' ]
+        fields = ['title', 'short_description', 'blog_body', 'featured_image',  'category', 'status']
 
     # Give same CSS class to all the fields
     def __init__(self, *args, **kwargs):
@@ -247,7 +248,7 @@ class BlogCategoryForm(forms.ModelForm):
                 self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class ServiceForm(forms.ModelForm):
+class ServiceForm(TranslationModelForm):
     image = forms.ImageField(label=('Image'), required=True, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
         "type": "file",
         "data-show-preview": "false"
