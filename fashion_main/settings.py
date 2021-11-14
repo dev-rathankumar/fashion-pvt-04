@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 # DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -182,6 +182,9 @@ LANGUAGES = (
     ('ar', gettext('Arabic')),
     ('fr', gettext('French')),
 )
+
+# Fallback to available language if the default translation is empty
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('en', 'ar', 'fr')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

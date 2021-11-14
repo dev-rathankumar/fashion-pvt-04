@@ -1,9 +1,10 @@
 from orders.models import Payment
 from django import forms
 from accounts.models import User, Customer
+from modeltranslation.forms import TranslationModelForm
 
 
-class BillingUserInfoForm(forms.ModelForm):
+class BillingUserInfoForm(TranslationModelForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={
     }), label="Email")
     phone_number = forms.CharField(widget=forms.TextInput(attrs={'type': 'number',
@@ -18,7 +19,7 @@ class BillingUserInfoForm(forms.ModelForm):
 
 
 
-class BillingCustomerInfoForm(forms.ModelForm):
+class BillingCustomerInfoForm(TranslationModelForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={
     }), label="Email")
     address_line_1 = forms.CharField(required=True,)

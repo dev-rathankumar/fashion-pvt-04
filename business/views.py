@@ -1,6 +1,7 @@
 from django.conf import settings
+import business
 from fashion_main.settings import LANGUAGE_CODE
-from portfolio.models import Portfolio, PortfolioActivation, PortfolioGallery
+from portfolio.models import Portfolio, PortfolioActivation, PortfolioGallery, PortfolioHeader
 from sitesettings.models import Footer, Service, ServiceActivation, ServicePageCTA
 from orders.views import orderproduct
 from django.http.response import HttpResponseRedirect
@@ -11,7 +12,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from accounts.models import DashboardImage, User, Customer, RegionalManager
 from accounts.models import Business, TaxOnPlan
 from django.http import HttpResponse, JsonResponse
-from .forms import AttributeValueForm, BizDashboardImgForm, PaymentSettingForm, PortfolioForm, PortfolioGalleryForm, ProductAttributeForm, ServiceCTAForm, ServiceForm
+from .forms import AttributeValueForm, BizDashboardImgForm, PaymentSettingForm, PortfolioForm, PortfolioGalleryForm, PortfolioHeaderForm, ProductAttributeForm, ServiceCTAForm, ServiceForm
 from .models import PaymentSetting
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import default_token_generator
@@ -1637,13 +1638,25 @@ def serviceEnableToggle(request):
 @business_required(login_url="userLogin")
 @is_account_expired
 def allPortfolio(request):
-    portfolio = Portfolio.objects.filter(business=request.user.id).order_by('-created_date')
+    portHeader = get_object_or_404(PortfolioHeader, business=request.user.id)
+    if request.method == 'POST':
+        form = PortfolioHeaderForm(request.POST, instance=portHeader)
+        if form.is_valid:
+            form.save()
+            messages.success(request, 'Portfolio Header Updated!')
+            return redirect('allPortfolio')
+    else:
+        portfolio = Portfolio.objects.filter(business=request.user.id).order_by('-created_date')
 
-    # get service activation status
-    portfolio_activation = PortfolioActivation.objects.get(business=request.user.id)
+        # get service activation status
+        portfolio_activation = PortfolioActivation.objects.get(business=request.user.id)
+        
+        form = PortfolioHeaderForm(instance=portHeader)
+
     context = {
         'portfolio': portfolio,
         'portfolio_activation': portfolio_activation,
+        'form': form
     }
     return render(request, 'business/allPortfolio.html', context)
 

@@ -42,6 +42,49 @@
                 </span>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-12">
+                <div class="card container">
+                  <div class="card-body">
+                  <form
+                      method="POST"
+                      action="{% url 'allPortfolio' %}">
+                      {% csrf_token %}
+                      <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                          <div class="form-group">
+                            <label for="logo">{% trans 'Heading' %}</label>
+                            {{ form.heading }}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                          <div class="form-group">
+                            <label>{% trans 'Sub Heading' %}</label>
+                            {{ form.sub_heading }}
+                          </div>
+                        </div>
+                      </div>
+                      <br />
+
+                      <!-- <a onclick="goBack()" class="btn margin-15px-top btn-secondary"
+                        ><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a
+                      > -->
+                      <button
+                        type="submit"
+                        class="btn btn-primary mr-1 waves-effect waves-light"
+                        style="letter-spacing: 2px"
+                      >
+                        <i class="fas fa-save"></i> {% trans 'SAVE' %}
+                      </button>
+                    </form>
+                </div>
+              </div>
+            </div>
+          </div>
             {% if not portfolio %}
             <h2 class="text-center" style="padding:25px;">{% trans 'No portfolio items found.' %}</h2>
             <div class="text-sm-center" style="padding-bottom:25px;">

@@ -16,6 +16,7 @@ from PIL import Image
 from django.core.files import File
 
 from django.utils.safestring import mark_safe
+from modeltranslation.forms import TranslationModelForm
 
 
 # Image compression method
@@ -224,7 +225,7 @@ class ReviewRating(models.Model):
         return self.product.business
 
 
-class ReviewForm(ModelForm):
+class ReviewForm(TranslationModelForm):
     class Meta:
         model = ReviewRating
         fields = ['subject', 'review', 'rating']

@@ -3,9 +3,10 @@ from ckeditor.widgets import CKEditorWidget
 from django.forms import inlineformset_factory
 from .models import Email, BusinessEmailSetting
 from accounts.models import User
+from modeltranslation.forms import TranslationModelForm
 
 
-class EmailForm(forms.ModelForm):
+class EmailForm(TranslationModelForm):
     class Meta:
         model = Email
         fields = ['subject', 'email_body', 'is_sent']

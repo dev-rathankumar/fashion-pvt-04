@@ -1,4 +1,4 @@
-from portfolio.models import Portfolio, PortfolioGallery
+from portfolio.models import Portfolio, PortfolioGallery, PortfolioHeader
 from sitesettings.models import Service, ServicePageCTA
 from django import forms
 from accounts.models import DashboardImage, User, Business
@@ -6,7 +6,7 @@ from .models import PaymentSetting
 from products.models import AttributeValue, Product, ProductAttribute, ProductGallery, Variants, Color, Size
 from category.models import Category
 from ckeditor.widgets import CKEditorWidget
-from django.forms import inlineformset_factory
+from django.forms import fields, inlineformset_factory
 from mptt.forms import TreeNodeChoiceField
 from orders.models import Order
 from carts.models import TaxSetting
@@ -76,7 +76,7 @@ class PaymentSettingForm(forms.ModelForm):
           self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class ProductForm(forms.ModelForm):
+class ProductForm(TranslationModelForm):
     description = forms.CharField(widget=CKEditorWidget())
     image = forms.ImageField(label=('Product Image 01'), required=True, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
         "type": "file",
@@ -116,7 +116,7 @@ class ProductGalleryForm(forms.ModelForm):
         exclude = ()
 
 
-class ProductVariantForm(forms.ModelForm):
+class ProductVariantForm(TranslationModelForm):
     title = forms.CharField(label='Variant Name')
     product_attribute = forms.ModelChoiceField(required=False, queryset=ProductAttribute.objects.all())
     attribute_value = forms.ModelChoiceField(required=False, queryset=AttributeValue.objects.all())
@@ -137,7 +137,7 @@ class ProductVariantForm(forms.ModelForm):
                 self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class CategoryForm(forms.ModelForm):
+class CategoryForm(TranslationModelForm):
     parent = TreeNodeChoiceField(queryset=Category.objects.all())
 
     cat_image = forms.ImageField(label=('Category Image'), required=True, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
@@ -182,7 +182,7 @@ class TaxSettingForm(forms.ModelForm):
             self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class ColorForm(forms.ModelForm):
+class ColorForm(TranslationModelForm):
     class Meta:
         model = Color
         fields = ['name', 'code']
@@ -194,7 +194,7 @@ class ColorForm(forms.ModelForm):
             self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class SizeForm(forms.ModelForm):
+class SizeForm(TranslationModelForm):
     class Meta:
         model = Size
         fields = ['name']
@@ -227,7 +227,7 @@ class BlogForm(TranslationModelForm):
                 self.fields[myField].widget.attrs['class'] = 'form-control'
 
 #addBlogCategory
-class BlogCategoryForm(forms.ModelForm):
+class BlogCategoryForm(TranslationModelForm):
     parent = TreeNodeChoiceField(queryset=BlogCategory.objects.all())
 
     class Meta:
@@ -266,6 +266,16 @@ class ServiceForm(TranslationModelForm):
                 self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
+class PortfolioHeaderForm(TranslationModelForm):
+    class Meta:
+        model = PortfolioHeader
+        fields = ['heading', 'sub_heading']
+
+    def __init__(self, *args, **kwargs):
+        super(PortfolioHeaderForm, self).__init__(*args, **kwargs)
+        for myField in self.fields:
+            self.fields[myField].widget.attrs['class'] = 'form-control'
+
 
 class PortfolioForm(forms.ModelForm):
     featured_image = forms.ImageField(label=('Image'), required=True, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
@@ -298,7 +308,7 @@ class PortfolioGalleryForm(forms.ModelForm):
         exclude = ()
 
     
-class ProductAttributeForm(forms.ModelForm):
+class ProductAttributeForm(TranslationModelForm):
     class Meta:
         model = ProductAttribute
         fields = ('attribute_name',)
@@ -309,7 +319,7 @@ class ProductAttributeForm(forms.ModelForm):
             self.fields[myField].widget.attrs['required'] = 'required'
 
 
-class AttributeValueForm(forms.ModelForm):
+class AttributeValueForm(TranslationModelForm):
     class Meta:
         model = AttributeValue
         fields = ('attribute_value', 'product_attribute')
@@ -331,7 +341,7 @@ class BizDashboardImgForm(forms.ModelForm):
         fields = ('business_landing_image',)
 
 
-class ServiceCTAForm(forms.ModelForm):
+class ServiceCTAForm(TranslationModelForm):
     class Meta:
         model = ServicePageCTA
         fields = ['title', 'sub_title', 'button_name', 'button_link', 'button_text_color', 'button_color', 'content_align']

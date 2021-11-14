@@ -1,6 +1,6 @@
 from django.db.models import fields
 from modeltranslation.translator import translator, TranslationOptions
-from .models import AboutContent, AboutPage, Footer, Header, ParallaxBackground, Service, Topbar, BannerImage, StoreFeature, VideoBanner
+from .models import AboutContent, AboutPage, ContactPage, Footer, Header, ParallaxBackground, Policy, Service, ServicePageCTA, TermsAndCondition, Topbar, BannerImage, StoreFeature, VideoBanner
 
 
 class TopbarTranslationOptions(TranslationOptions):
@@ -43,6 +43,21 @@ class FooterTranslationOptions(TranslationOptions):
     fields = ('footer_text',)
 
 
+class ContactPageTranslationOptions(TranslationOptions):
+    fields = ('address_line_1', 'address_line_2', 'city')
+
+
+class PolicyTranslationOptions(TranslationOptions):
+    fields = ('heading', 'content')
+
+
+class TermsAndConditionTranslationOptions(TranslationOptions):
+    fields = ('heading', 'content')
+
+
+class ServicePageCTATranslationOptions(TranslationOptions):
+    fields = ('title', 'sub_title', 'button_name')
+
 
 
 translator.register(Topbar, TopbarTranslationOptions)
@@ -55,4 +70,8 @@ translator.register(AboutPage, AboutPageTranslationOptions)
 translator.register(AboutContent, AboutContentTranslationOptions)
 translator.register(Header, HeaderTranslationOptions)
 translator.register(Footer, FooterTranslationOptions)
+translator.register(ContactPage, ContactPageTranslationOptions)
+translator.register(Policy, PolicyTranslationOptions)
+translator.register(TermsAndCondition, TermsAndConditionTranslationOptions)
+translator.register(ServicePageCTA, ServicePageCTATranslationOptions)
 

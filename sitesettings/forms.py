@@ -98,7 +98,7 @@ class ParallaxBackgroundForm(TranslationModelForm):
                 self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class ContactPageForm(forms.ModelForm):
+class ContactPageForm(TranslationModelForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={
     }), label="Email")
 
@@ -184,7 +184,7 @@ class SocialMediaLinkForm(forms.ModelForm):
             self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class PolicyForm(forms.ModelForm):
+class PolicyForm(TranslationModelForm):
     class Meta:
         model = Policy
         fields = ['heading', 'content']
@@ -195,7 +195,7 @@ class PolicyForm(forms.ModelForm):
             self.fields[myField].widget.attrs['class'] = 'form-control'
 
 
-class TermsAndConditionForm(forms.ModelForm):
+class TermsAndConditionForm(TranslationModelForm):
     class Meta:
         model = TermsAndCondition
         fields = ['heading', 'content']

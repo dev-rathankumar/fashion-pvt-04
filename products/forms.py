@@ -1,8 +1,9 @@
 from products.models import Testimonial
 from django import forms
+from modeltranslation.forms import TranslationModelForm
 
 
-class TestimonialForm(forms.ModelForm):
+class TestimonialForm(TranslationModelForm):
     class Meta:
         model = Testimonial
         fields = ['testimonial',]

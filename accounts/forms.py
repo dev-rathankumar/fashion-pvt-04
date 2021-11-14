@@ -1,7 +1,8 @@
 from django import forms
 from .models import User, GenderChoice
+from modeltranslation.forms import TranslationModelForm
 
-class UserForm(forms.ModelForm):
+class UserForm(TranslationModelForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={
     }), label="Email")
     profile_picture = forms.ImageField(required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput(attrs={
