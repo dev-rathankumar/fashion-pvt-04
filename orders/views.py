@@ -61,7 +61,7 @@ def payments(request):
         orderproduct.ordered = True
         orderproduct.save()
 
-        # Reduce quantity of sold products from the product db
+        # Reduce quantity of sold products from the product db only if the payment is success
         product = Product.objects.get(id=item.product_id)
         product.stock -= item.quantity
         product.save()
@@ -79,6 +79,7 @@ def payments(request):
         else:
             subtotal += i.variant.price * i.quantity
 
+    # Clear the cart only if the payment is success
     ShopCart.objects.filter(user_id=request.user.id).delete() # Clear & Delete shopcart
     request.session['cart_items'] = 0
 
