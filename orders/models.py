@@ -3,6 +3,7 @@ from accounts.models import Business, User, Country, State
 from products.models import Product, Variants
 from django.forms import ModelForm
 from smart_selects.db_fields import ChainedForeignKey
+from modeltranslation.forms import TranslationModelForm
 
 
 
@@ -113,7 +114,7 @@ class Order(models.Model):
         return self.user.first_name
 
 
-class OrderForm(ModelForm):
+class OrderForm(TranslationModelForm):
     class Meta:
         model = Order
         fields = ['first_name', 'last_name', 'phone', 'email', 'address_line_1', 'address_line_2', 'country', 'state', 'city', 'pin_code', 'note']
